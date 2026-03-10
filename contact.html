@@ -8,6 +8,38 @@
   <title>Contact — Sujit Murari | Business Analytics Portfolio</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <style>
+    /* ── Terminal ── */
+    .terminal-window {
+      border: 1px solid rgba(0,255,255,0.15);
+      border-radius: 8px;
+      background: rgba(5,5,16,0.95);
+      overflow: hidden;
+    }
+    .terminal-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: rgba(0,255,255,0.04);
+      border-bottom: 1px solid rgba(0,255,255,0.1);
+    }
+    .terminal-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-body {
+      padding: 20px;
+      min-height: 260px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: rgba(224,247,255,0.75);
+    }
+    .t-prompt { color: #00ffff; font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; line-height: 1.8; display: block; }
+    .t-output  { color: rgba(224,247,255,0.5); font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; line-height: 1.8; display: block; padding-left: 12px; }
+    .t-cmd     { color: #00ff88; font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; line-height: 1.8; display: block; }
+  </style>
 </head>
 <body>
 <div class="grid-bg"></div>
@@ -57,7 +89,7 @@
               <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:rgba(224,247,255,0.4);margin-left:12px;">sujitmurari — contact.sh</span>
             </div>
             <div class="terminal-body" id="terminal-output">
-              <!-- Filled by JS -->
+
             </div>
           </div>
 
@@ -65,11 +97,11 @@
           <div style="margin-top:32px;" data-reveal data-delay="200">
             <div class="data-label mb-16">◈ COMMUNICATION CHANNELS</div>
             <div class="social-links">
-              <a href="/cdn-cgi/l/email-protection#dcafa9b6b5a8b1a9aebdaeb5ecea9cbbb1bdb5b0f2bfb3b1" class="social-link">
+              <a href="mailto:sujitmurari06@gmail.com" class="social-link">
                 <div class="icon">✉️</div>
                 <div class="info">
                   <span class="name">EMAIL</span>
-                  <span class="handle"><span class="__cf_email__" data-cfemail="3546405f5c4158404754475c0503755258545c591b565a58">[email&#160;protected]</span></span>
+                  <span class="handle">sujitmurari06@gmail.com</span>
                 </div>
               </a>
               <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="social-link">
@@ -166,21 +198,27 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/animations.js"></script>
+<script src="js/animations.js"></script>
 <script src="js/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const lines = [
-    { type:'prompt', text:'> connect --analyst sujitmurari', delay:400 },
-    { type:'output', text:'Initializing secure connection...', delay:200 },
-    { type:'output', text:'', delay:100 },
-    { type:'prompt', text:'> status --check', delay:300 },
-    { type:'output', text:'[ ANALYST ] Sujit Murari — ONLINE', delay:150 },
-    { type:'output', text:'[ STATUS  ] Seeking Internship Opportunities', delay:80 },
-    { type:'output', text:'[ FOCUS   ] Business Analytics · Data Visualization', delay:80 },
-    { type:'output', text:'', delay:100 },
-    { type:'prompt', text:'> contact --init communication', delay:500 },
-    { type:'output', text:'Communication channels ready.', delay:200 },
-    { type:'output', text:'Select a channel or use the form →', delay:100 },
-    { type:'output', text:'', delay:100 },
-    { type:'prompt', tex
+  initTerminal('terminal-output', [
+    { type: 'prompt', text: '> connect --analyst sujitmurari',          delay: 400 },
+    { type: 'output', text: 'Initializing secure connection...',         delay: 200 },
+    { type: 'output', text: '',                                           delay: 100 },
+    { type: 'prompt', text: '> status --check',                          delay: 300 },
+    { type: 'output', text: '[ ANALYST ] Sujit Murari — ONLINE',         delay: 150 },
+    { type: 'output', text: '[ STATUS  ] Seeking Internship Opportunities', delay: 80 },
+    { type: 'output', text: '[ FOCUS   ] Business Analytics · Data Visualization', delay: 80 },
+    { type: 'output', text: '',                                           delay: 100 },
+    { type: 'prompt', text: '> contact --init communication',            delay: 500 },
+    { type: 'output', text: 'Communication channels ready.',             delay: 200 },
+    { type: 'output', text: 'Select a channel or use the form →',        delay: 100 },
+    { type: 'output', text: '',                                           delay: 100 },
+    { type: 'prompt', text: '> await --response',                        delay: 400 },
+    { type: 'output', text: 'Ready. Awaiting your message...',           delay: 150 },
+  ]);
+});
+</script>
+</body>
+</html>
