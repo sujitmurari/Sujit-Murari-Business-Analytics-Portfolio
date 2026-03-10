@@ -38,4 +38,4 @@ No part of this code may be copied or reused without explicit written permission
 
 ---
 
-*Built by Sujit Murari — Dev Bhoomi Uttarakhand University, Sem IV, 2025*
+*Built by Sujit Murari — Student of Dev Bhoomi Uttarakhand University, Sem IV, 2025*
