@@ -9,6 +9,110 @@
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── Layout ── */
+    .skills-top-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-chip {
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .stat-chip-val {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #00ffff;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-chip-val.purple { color: #9b5cff; }
+    .stat-chip-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      color: rgba(224,247,255,0.4);
+      text-transform: uppercase;
+    }
+
+    /* ── Main two-column ── */
+    .skills-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .skills-main-grid { grid-template-columns: 1fr; }
+      .skills-top-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Skill bars ── */
+    .skill-bar-block { display: flex; flex-direction: column; gap: 18px; }
+    .skill-row { display: flex; flex-direction: column; gap: 6px; }
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .skill-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(224,247,255,0.9);
+      letter-spacing: 0.05em;
+    }
+    .skill-pct {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      color: #00ffff;
+    }
+    .skill-sub {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(224,247,255,0.35);
+      margin-top: 2px;
+    }
+
+    /* ── Charts column ── */
+    .charts-col { display: flex; flex-direction: column; gap: 24px; }
+    .chart-box { padding: 24px; }
+    .chart-box canvas { width: 100% !important; }
+
+    /* ── Category cards ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .cat-card { padding: 22px; }
+    .cat-tag {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+    .cat-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+    .cat-body {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(224,247,255,0.5);
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
 <div class="grid-bg"></div>
@@ -17,7 +121,10 @@
 
 <nav id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -28,12 +135,17 @@
       <li><a href="resume.html">Resume</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span class="nav-status-text" id="live-clock">00:00:00</span>
+    </div>
     <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <main class="page-content">
+
+  <!-- Page Hero -->
   <section class="page-hero section" style="padding-bottom:0;">
     <div class="container">
       <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; SKILLS</div>
@@ -43,157 +155,164 @@
     </div>
   </section>
 
-  <section class="section" style="padding-top:40px;">
+  <section class="section" style="padding-top:32px;">
     <div class="container">
 
-      <!-- Top Row: Progress Bars + Radar -->
-      <div class="skills-grid">
+      <!-- Top Stats Row -->
+      <div class="skills-top-stats" data-reveal>
+        <div class="stat-chip holo-card cp-corner">
+          <div class="stat-chip-val">8</div>
+          <div class="stat-chip-label">Core Skills</div>
+        </div>
+        <div class="stat-chip holo-card cp-corner-purple">
+          <div class="stat-chip-val purple">90%</div>
+          <div class="stat-chip-label">Top Proficiency</div>
+        </div>
+        <div class="stat-chip holo-card cp-corner">
+          <div class="stat-chip-val">4</div>
+          <div class="stat-chip-label">Skill Domains</div>
+        </div>
+        <div class="stat-chip holo-card cp-corner-purple">
+          <div class="stat-chip-val purple">3+</div>
+          <div class="stat-chip-label">Years Learning</div>
+        </div>
+      </div>
 
-        <!-- Progress Bars -->
-        <div>
-          <div class="cp-panel cp-corner" style="padding:32px;" data-reveal data-delay="100">
-            <div class="data-label mb-24">◈ DATA ANALYTICS PROFICIENCY</div>
+      <!-- Main Grid: Bars + Charts -->
+      <div class="skills-main-grid">
 
-            <div style="display:flex;flex-direction:column;gap:22px;">
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">📊</span>
-                    <span class="skill-name">Tableau</span>
-                  </div>
-                  <span class="skill-pct">88%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="88"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">Dashboard Design · KPI Cards · Dual-Axis Charts · Filters</div>
-              </div>
+        <!-- LEFT: Progress Bars -->
+        <div class="cp-panel cp-corner" style="padding:28px;" data-reveal data-delay="100">
+          <div class="data-label mb-24">◈ PROFICIENCY LEVELS</div>
+          <div class="skill-bar-block">
 
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">📉</span>
-                    <span class="skill-name">Excel</span>
-                  </div>
-                  <span class="skill-pct">90%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="90"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">Pivot Tables · VLOOKUP · Advanced Formulas · Charts</div>
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">📉 &nbsp;Excel</span>
+                <span class="skill-pct">90%</span>
               </div>
-              
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">📉</span>
-                    <span class="skill-name">R Programming</span>
-                  </div>
-                  <span class="skill-pct">66%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="66"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">statistical computing . data analysis . data visualization</div>
-              </div>
-
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">🗄️</span>
-                    <span class="skill-name">SQL</span>
-                  </div>
-                  <span class="skill-pct">78%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="78"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">Queries · Joins · Aggregations · Subqueries</div>
-              </div>
-
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">🐍</span>
-                    <span class="skill-name">Python</span>
-                  </div>
-                  <span class="skill-pct" style="color:#9b5cff;">72%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#9b5cff,#00ffff);box-shadow:0 0 10px #9b5cff;"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">Pandas · NumPy · Matplotlib · Data Wrangling</div>
-              </div>
-
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">📐</span>
-                    <span class="skill-name">Statistics</span>
-                  </div>
-                  <span class="skill-pct">80%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="80"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">Regression · Hypothesis Testing · Distributions · Correlation</div>
-              </div>
-
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">📋</span>
-                    <span class="skill-name">Power BI</span>
-                  </div>
-                  <span class="skill-pct" style="color:#9b5cff;">70%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="70" style="background:linear-gradient(90deg,#9b5cff,#ff2d78);box-shadow:0 0 10px #9b5cff;"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">DAX · Power Query · Report Design</div>
-              </div>
-
-              <div class="skill-row">
-                <div class="skill-header">
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <span style="font-size:1rem;">🎨</span>
-                    <span class="skill-name">Data Visualization</span>
-                  </div>
-                  <span class="skill-pct">85%</span>
-                </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="85"></div></div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">Design Principles · Color Theory · Storytelling with Data</div>
-              </div>
+              <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="90"></div></div>
+              <div class="skill-sub">Pivot Tables · VLOOKUP · Advanced Formulas · Charts</div>
             </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">📊 &nbsp;Tableau</span>
+                <span class="skill-pct">88%</span>
+              </div>
+              <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="88"></div></div>
+              <div class="skill-sub">Dashboard Design · KPI Cards · Dual-Axis Charts · Filters</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">🎨 &nbsp;Data Visualization</span>
+                <span class="skill-pct">85%</span>
+              </div>
+              <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="85"></div></div>
+              <div class="skill-sub">Design Principles · Color Theory · Storytelling with Data</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">📐 &nbsp;Statistics</span>
+                <span class="skill-pct">80%</span>
+              </div>
+              <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="80"></div></div>
+              <div class="skill-sub">Regression · Hypothesis Testing · Distributions · Correlation</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">🗄️ &nbsp;SQL</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="78"></div></div>
+              <div class="skill-sub">Queries · Joins · Aggregations · Subqueries</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">🐍 &nbsp;Python</span>
+                <span class="skill-pct" style="color:#9b5cff;">72%</span>
+              </div>
+              <div class="neon-progress-wrap">
+                <div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#9b5cff,#00ffff);box-shadow:0 0 10px #9b5cff;"></div>
+              </div>
+              <div class="skill-sub">Pandas · NumPy · Matplotlib · Data Wrangling</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">📋 &nbsp;Power BI</span>
+                <span class="skill-pct" style="color:#9b5cff;">70%</span>
+              </div>
+              <div class="neon-progress-wrap">
+                <div class="neon-progress-bar" data-pct="70" style="background:linear-gradient(90deg,#9b5cff,#ff2d78);box-shadow:0 0 10px #9b5cff;"></div>
+              </div>
+              <div class="skill-sub">DAX · Power Query · Report Design</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-header">
+                <span class="skill-name">📉 &nbsp;R Programming</span>
+                <span class="skill-pct">66%</span>
+              </div>
+              <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="66"></div></div>
+              <div class="skill-sub">Statistical Computing · Data Analysis · Data Visualization</div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Radar + Doughnut -->
-        <div style="display:flex;flex-direction:column;gap:24px;">
-          <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:28px;" data-reveal data-delay="200">
-            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">◈ SKILLS RADAR</div>
-            <canvas id="radar-chart" height="220"></canvas>
+        <!-- RIGHT: Radar + Doughnut -->
+        <div class="charts-col">
+
+          <div class="cp-panel cp-panel-purple cp-corner-purple chart-box" data-reveal data-delay="200">
+            <div class="data-label mb-16" style="color:rgba(155,92,255,0.6);">◈ SKILLS RADAR</div>
+            <canvas id="radar-chart"></canvas>
           </div>
 
-          <div class="cp-panel cp-corner" style="padding:28px;" data-reveal data-delay="300">
+          <div class="cp-panel cp-corner chart-box" data-reveal data-delay="300">
             <div class="data-label mb-16">◈ DOMAIN FOCUS DISTRIBUTION</div>
-            <canvas id="doughnut-chart" height="180"></canvas>
+            <canvas id="doughnut-chart"></canvas>
           </div>
+
         </div>
       </div>
 
-      <!-- Second Row: Category Cards -->
-      <div style="margin-top:48px;" data-reveal data-delay="200">
-        <div class="data-label mb-24">◈ SKILL CATEGORIES</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-          <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.5);margin-bottom:12px;">CAT_01</div>
-            <h4 class="text-cyan mb-8">BI Tools</h4>
-            <p style="font-size:0.9rem;">Tableau, Power BI, Excel Dashboards</p>
+      <!-- Category Cards -->
+      <div data-reveal data-delay="200">
+        <div class="data-label mb-16" style="margin-top:40px;">◈ SKILL CATEGORIES</div>
+        <div class="cat-grid">
+
+          <div class="cat-card holo-card cp-corner">
+            <div class="cat-tag" style="color:rgba(0,255,255,0.5);">CAT_01</div>
+            <div class="cat-title text-cyan">BI Tools</div>
+            <div class="cat-body">Tableau, Power BI, Excel Dashboards</div>
           </div>
-          <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(155,92,255,0.5);margin-bottom:12px;">CAT_02</div>
-            <h4 class="text-purple mb-8">Programming</h4>
-            <p style="font-size:0.9rem;">Python,R programming, Pandas, NumPy, SQL</p>
+
+          <div class="cat-card holo-card cp-corner-purple">
+            <div class="cat-tag" style="color:rgba(155,92,255,0.5);">CAT_02</div>
+            <div class="cat-title text-purple">Programming</div>
+            <div class="cat-body">Python, R Programming, Pandas, NumPy, SQL</div>
           </div>
-          <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.5);margin-bottom:12px;">CAT_03</div>
-            <h4 class="text-cyan mb-8">Analytics</h4>
-            <p style="font-size:0.9rem;">Statistics, Regression, Correlation</p>
+
+          <div class="cat-card holo-card cp-corner">
+            <div class="cat-tag" style="color:rgba(0,255,255,0.5);">CAT_03</div>
+            <div class="cat-title text-cyan">Analytics</div>
+            <div class="cat-body">Statistics, Regression, Correlation Analysis</div>
           </div>
-          <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(155,92,255,0.5);margin-bottom:12px;">CAT_04</div>
-            <h4 class="text-purple mb-8">Soft Skills</h4>
-            <p style="font-size:0.9rem;">Storytelling, Business Acumen, Problem Solving</p>
+
+          <div class="cat-card holo-card cp-corner-purple">
+            <div class="cat-tag" style="color:rgba(155,92,255,0.5);">CAT_04</div>
+            <div class="cat-title text-purple">Soft Skills</div>
+            <div class="cat-body">Storytelling, Business Acumen, Problem Solving</div>
           </div>
+
         </div>
       </div>
+
     </div>
   </section>
 </main>
@@ -207,7 +326,81 @@
 </footer>
 
 <script src="js/animations.js"></script>
-<script src="js/charts.js"></script>
 <script src="js/script.js"></script>
+<script>
+  // ── Radar Chart (with R Programming added) ──
+  const radarCtx = document.getElementById('radar-chart').getContext('2d');
+  new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+      labels: ['Tableau', 'Excel', 'SQL', 'Python', 'Statistics', 'Power BI', 'Data Viz', 'R Programming'],
+      datasets: [{
+        label: 'Proficiency',
+        data: [88, 90, 78, 72, 80, 70, 85, 66],
+        backgroundColor: 'rgba(0,255,255,0.08)',
+        borderColor: '#00ffff',
+        borderWidth: 2,
+        pointBackgroundColor: '#00ffff',
+        pointBorderColor: '#00ffff',
+        pointRadius: 4,
+        pointHoverRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: {
+            stepSize: 25,
+            color: 'rgba(224,247,255,0.25)',
+            font: { family: 'Orbitron', size: 8 },
+            backdropColor: 'transparent'
+          },
+          grid: { color: 'rgba(0,255,255,0.1)' },
+          angleLines: { color: 'rgba(0,255,255,0.1)' },
+          pointLabels: {
+            color: 'rgba(224,247,255,0.7)',
+            font: { family: 'Rajdhani', size: 11, weight: '600' }
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  // ── Doughnut Chart ──
+  const doughnutCtx = document.getElementById('doughnut-chart').getContext('2d');
+  new Chart(doughnutCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Data Viz', 'Statistics', 'Business Intel', 'SQL/Databases', 'Python/Pandas', 'R Programming'],
+      datasets: [{
+        data: [22, 18, 20, 15, 14, 11],
+        backgroundColor: ['#00e5ff','#9b5cff','#ff2d78','#00bcd4','#7c4dff','#26c6da'],
+        borderColor: '#0a0e1a',
+        borderWidth: 3,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: {
+            color: 'rgba(224,247,255,0.65)',
+            font: { family: 'Rajdhani', size: 12 },
+            boxWidth: 12,
+            padding: 14
+          }
+        }
+      }
+    }
+  });
+</script>
 </body>
 </html>
