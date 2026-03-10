@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <title>Resume — Sujit Murari | Business Analytics Portfolio</title>
+  <!-- Load base styles first, then resume-specific overrides -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <link rel="stylesheet" href="css/resume.css"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     FIXED BACKGROUND LAYERS
+══════════════════════════════════ -->
+<div class="bg-fixed bg-grid"></div>
+<div class="bg-fixed bg-scanlines"></div>
+<div class="bg-fixed bg-noise"></div>
+<canvas id="resume-canvas" class="bg-fixed" style="opacity:0.35;"></canvas>
+
+<!-- ══════════════════════════════════
+     NAVIGATION
+══════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="resume.html" class="active">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span class="nav-status-text" id="live-clock">00:00:00</span>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     PAGE WRAPPER
+══════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- ── TOP BANNER ── -->
+  <header class="resume-banner anim-in" data-delay="0">
+    <div class="banner-left">
+      <div class="banner-seq">
+        <div class="banner-seq-line"></div>
+        <div class="banner-seq-num">RES·2025</div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <span style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:0.3em;color:rgba(0,255,255,0.4);">SYS:// SUJIT MURARI › ANALYST DOSSIER</span>
+        </div>
+        <div class="banner-label glitch-text">RÉSUMÉ<span> .</span></div>
+        <div class="banner-sub">Business Analytics · Data Intelligence · Visualization · BI</div>
+      </div>
+    </div>
+    <div class="banner-right">
+      <div class="banner-roles">
+        <div class="banner-role-item">Business Analytics</div>
+        <div class="banner-role-item">Data Visualization</div>
+        <div class="banner-role-item">Business Intelligence</div>
+        <div class="banner-role-item">Data-Driven Decision Making</div>
+      </div>
+      <div class="banner-available">
+        <div class="dot"></div>
+        AVAILABLE FOR ANALYTICS ROLES
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════
+       MAIN RESUME GRID
+  ══════════════════════════════════ -->
+  <main class="resume-grid">
+
+    <!-- ─────────────────────────────
+         ROW 1 · PROFILE + CONTACT
+    ───────────────────────────────── -->
+
+    <!-- PROFILE PANEL -->
+    <section class="rp rp-profile anim-in" data-delay="80">
+      <div class="rp-label">ANALYST PROFILE</div>
+      <div class="profile-inner">
+        <div class="profile-text">
+          <div class="profile-intro-big">
+            I'm a <em>Business Analytics</em><br/>Student.
+          </div>
+          <div class="profile-name-line">
+            My name is <strong>SUJIT MURARI</strong> — I transform data into decisions.
+          </div>
+          <p class="profile-desc">
+            Passionate about uncovering patterns in complex datasets and translating them into clear, 
+            actionable business intelligence. I specialize in building executive-grade Tableau dashboards, 
+            applying statistical models to real-world problems, and engineering data stories that drive 
+            strategic decisions across industries.
+          </p>
+          <div class="profile-tags">
+            <span class="profile-tag">Tableau</span>
+            <span class="profile-tag">Excel</span>
+            <span class="profile-tag">SQL</span>
+            <span class="profile-tag">Python</span>
+            <span class="profile-tag">Pandas</span>
+            <span class="profile-tag">Power BI</span>
+            <span class="profile-tag">Statistics</span>
+            <span class="profile-tag">Data Storytelling</span>
+          </div>
+        </div>
+        <div class="profile-avatar">
+          <div class="avatar-box">
+            <img src="assets/images/profile.png" alt="Sujit Murari"
+            style="width:110px;height:110px;object-fit:cover;clip-path:polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px);" />
+          </div>
+          <div class="avatar-label">SUJIT MURARI</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT PANEL -->
+    <section class="rp rp-contact anim-in" data-delay="120">
+      <div class="rp-label rp-label-purple">CONTACT ME</div>
+      <div class="contact-list">
+
+        <a href="/cdn-cgi/l/email-protection#3f4c4a55564b524a4d5e4d560f097f58525e5653115c5052" class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-info">
+            <span class="contact-platform">EMAIL</span>
+            <span class="contact-value"><span class="__cf_email__" data-cfemail="e39096898a978e969182918ad3d5a3848e828a8fcd808c8e">[email&#160;protected]</span></span>
+          </div>
+          <span class="contact-arrow">›</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="contact-item">
+          <div class="contact-icon">💼</div>
+          <div class="contact-info">
+            <span class="contact-platform">LINKEDIN</span>
+            <span class="contact-value">linkedin.com/in/sujitmurari06</span>
+          </div>
+          <span class="contact-arrow">›</span>
+        </a>
+
+        <a href="https://github.com/sujitmurari" target="_blank" class="contact-item">
+          <div class="contact-icon">⚙️</div>
+          <div class="contact-info">
+            <span class="contact-platform">GITHUB</span>
+            <span class="contact-value">github.com/sujitmurari</span>
+          </div>
+          <span class="contact-arrow">›</span>
+        </a>
+
+        <a href="https://public.tableau.com/app/profile/sujit.murari" target="_blank" class="contact-item">
+          <div class="contact-icon">📊</div>
+          <div class="contact-info">
+            <span class="contact-platform">TABLEAU PUBLIC</span>
+            <span class="contact-value">public.tableau.com/app/profile/sujit.murari</span>
+          </div>
+          <span class="contact-arrow">›</span>
+        </a>
+
+        <a href="https://sujitmurari.github.io" target="_blank" class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-info">
+            <span class="contact-platform">PORTFOLIO</span>
+            <span class="contact-value">sujitmurari.github.io</span>
+          </div>
+          <span class="contact-arrow">›</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────
+         ROW 2 · EXPERIENCE + EDUCATION
+    ───────────────────────────────── -->
+
+    <!-- ANALYTICS JOURNEY PANEL -->
+    <section class="rp rp-exp anim-in" data-delay="160">
+      <div class="rp-label">ANALYTICS JOURNEY</div>
+
+      <div class="exp-year-badge">
+        <span class="exp-year-num">2023</span>
+        <span class="exp-year-sup">SINCE</span>
+      </div>
+
+      <div class="exp-title">Working with Data</div>
+      <div class="exp-sub">Active Analytics Practice</div>
+
+      <ul class="exp-points">
+        <li>Built 8+ analytics projects spanning airline pricing, e-commerce, AI productivity, and fitness data.</li>
+        <li>Designed interactive Tableau dashboards with KPIs, dual-axis charts, and dynamic filters for business reporting.</li>
+        <li>Applied regression and correlation analysis to derive statistically validated business insights.</li>
+        <li>Performed EDA, data cleaning, and transformation using Python (Pandas) and Excel.</li>
+        <li>Published analytical work on Tableau Public and GitHub as a public portfolio.</li>
+      </ul>
+
+      <!-- Mini separator -->
+      <div style="margin-top:24px;padding-top:20px;border-top:1px dotted rgba(0,255,255,0.12);">
+        <div class="rp-label" style="margin-bottom:12px;">STATUS METRICS</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.02);">
+            <div style="font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:900;color:var(--cyan);text-shadow:0 0 12px rgba(0,255,255,0.5);" data-count="8">0</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.48rem;letter-spacing:0.12em;color:var(--text-lo);margin-top:2px;">PROJECTS</div>
+          </div>
+          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
+            <div style="font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:900;color:var(--purple);text-shadow:0 0 12px rgba(155,92,255,0.5);" data-count="7">0</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.48rem;letter-spacing:0.12em;color:var(--text-lo);margin-top:2px;">TOOLS</div>
+          </div>
+          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.02);">
+            <div style="font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:900;color:var(--cyan);text-shadow:0 0 12px rgba(0,255,255,0.5);" data-count="15">0</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.48rem;letter-spacing:0.12em;color:var(--text-lo);margin-top:2px;">DATASETS</div>
+          </div>
+          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
+            <div style="font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:900;color:var(--purple);text-shadow:0 0 12px rgba(155,92,255,0.5);" data-count="6">0</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.48rem;letter-spacing:0.12em;color:var(--text-lo);margin-top:2px;">DASHBOARDS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION PANEL -->
+    <section class="rp rp-edu anim-in" data-delay="200">
+      <div class="rp-label rp-label-purple">EDUCATION</div>
+      <div class="edu-list">
+
+        <!-- BBA -->
+        <div class="edu-item">
+          <div class="edu-timeline-dot"></div>
+          <div style="width:36px;flex-shrink:0;">
+            <div class="edu-index">E·01</div>
+          </div>
+          <div class="edu-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <div>
+                <div class="edu-degree">BBA — Business Analytics</div>
+                <div class="edu-school">Dev Bhoomi Uttarakhand University</div>
+                <div class="edu-meta">
+                  <span>📍 Uttarakhand, India</span>
+                  <span>· Sem IV · 2023–Present</span>
+                </div>
+              </div>
+              <span class="edu-badge">CURRENT</span>
+            </div>
+            <div style="margin-top:10px;padding:10px 12px;background:rgba(155,92,255,0.04);border:1px solid rgba(155,92,255,0.12);border-radius:2px;">
+              <div style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.12em;color:var(--purple-dim);margin-bottom:6px;">CORE SUBJECTS</div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Business Statistics</span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Data Visualization</span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Database Management</span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Business Intelligence</span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Operations Research</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HSC -->
+        <div class="edu-item">
+          <div class="edu-timeline-dot" style="border-color:rgba(0,255,255,0.4);box-shadow:0 0 8px rgba(0,255,255,0.3);">
+            <style>.edu-timeline-dot:nth-child(n+2)::after{background:var(--cyan);}</style>
+          </div>
+          <div style="width:36px;flex-shrink:0;">
+            <div class="edu-index">E·02</div>
+          </div>
+          <div class="edu-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <div>
+                <div class="edu-degree">Higher Secondary School (10+2)</div>
+                <div class="edu-school">Commerce Stream</div>
+                <div class="edu-meta">
+                  <span>📍 Uttarakhand, India</span>
+                  <span>· Completed 2023</span>
+                </div>
+              </div>
+              <span class="edu-badge" style="background:rgba(0,255,255,0.05);border-color:rgba(0,255,255,0.2);color:var(--cyan-dim);">COMPLETED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary -->
+        <div class="edu-item">
+          <div class="edu-timeline-dot" style="border-color:rgba(0,255,255,0.25);box-shadow:none;"></div>
+          <div style="width:36px;flex-shrink:0;">
+            <div class="edu-index">E·03</div>
+          </div>
+          <div class="edu-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <div>
+                <div class="edu-degree">Secondary School (Class X)</div>
+                <div class="edu-school">Board Examination</div>
+                <div class="edu-meta">
+                  <span>📍 Uttarakhand, India</span>
+                  <span>· Completed 2021</span>
+                </div>
+              </div>
+              <span class="edu-badge" style="background:rgba(0,255,255,0.05);border-color:rgba(0,255,255,0.2);color:var(--cyan-dim);">COMPLETED</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────
+         ROW 3 · TOOLS + LANGUAGES
+    ───────────────────────────────── -->
+
+    <!-- ANALYTICS TOOLS PANEL -->
+    <section class="rp rp-tools anim-in" data-delay="240">
+      <div class="rp-label">ANALYTICS TOOLS &amp; SOFTWARE</div>
+      <div class="tools-grid">
+
+        <div class="tool-card">
+          <div class="tool-icon">📊</div>
+          <div class="tool-name">TABLEAU</div>
+          <div class="tool-level"><div class="tool-level-fill" data-w="88"></div></div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">📉</div>
+          <div class="tool-name">EXCEL</div>
+          <div class="tool-level"><div class="tool-level-fill" data-w="90"></div></div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">🗄️</div>
+          <div class="tool-name">SQL</div>
+          <div class="tool-level"><div class="tool-level-fill" data-w="78"></div></div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">🐍</div>
+          <div class="tool-name">PYTHON</div>
+          <div class="tool-level"><div class="tool-level-fill" data-w="72"></div></div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">📋</div>
+          <div class="tool-name">POWER BI</div>
+          <div class="tool-level"><div class="tool-level-fill" data-w="70"></div></div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">🐼</div>
+          <div class="tool-name">PANDAS</div>
+          <div class="tool-level"><div class="tool-level-fill" data-w="74"></div></div>
+        </div>
+
+      </div>
+
+      <!-- Sub-skills row -->
+      <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;padding-top:20px;border-top:1px dotted rgba(0,255,255,0.1);">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.18em;color:rgba(0,255,255,0.4);margin-bottom:10px;">ADDITIONAL CAPABILITIES</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">NumPy</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">Matplotlib</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">Seaborn</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">Power Query</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">DAX</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">MySQL</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">Google Sheets</span>
+            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(224,247,255,0.45);">Jupyter</span>
+          </div>
+        </div>
+        <div style="flex:1;min-width:180px;">
+          <div style="font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.18em;color:rgba(155,92,255,0.4);margin-bottom:10px;">ANALYTICS METHODS</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(155,92,255,0.5);">Regression</span>
+            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(155,92,255,0.5);">Correlation</span>
+            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(155,92,255,0.5);">Hypothesis Testing</span>
+            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(155,92,255,0.5);">EDA</span>
+            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:'Orbitron',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(155,92,255,0.5);">Segmentation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGUAGES PANEL -->
+    <section class="rp rp-lang anim-in" data-delay="280">
+      <div class="rp-label">LANGUAGES</div>
+      <div class="lang-list">
+
+        <div class="lang-item">
+          <div class="lang-header">
+            <span class="lang-name">English</span>
+            <span class="lang-level-tag">PROFESSIONAL</span>
+          </div>
+          <div class="lang-dots">
+            <div class="lang-dot" data-type="filled"></div>
+            <div class="lang-dot" data-type="filled"></div>
+            <div class="lang-dot" data-type="filled"></div>
+            <div class="lang-dot" data-type="filled"></div>
+            <div class="lang-dot" data-type="filled"></div>
+          </div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.3);margin-top:6px;">Reading · Writing · Speaking</div>
+        </div>
+
+        <div style="height:1px;background:linear-gradient(90deg,rgba(0,255,255,0.12),transparent);margin:4px 0;"></div>
+
+        <div class="lang-item">
+          <div class="lang-header">
+            <span class="lang-name">Hindi</span>
+            <span class="lang-level-tag">NATIVE</span>
+          </div>
+          <div class="lang-dots">
+            <div class="lang-dot" data-type="filled-purple"></div>
+            <div class="lang-dot" data-type="filled-purple"></div>
+            <div class="lang-dot" data-type="filled-purple"></div>
+            <div class="lang-dot" data-type="filled-purple"></div>
+            <div class="lang-dot" data-type="filled-purple"></div>
+          </div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:rgba(224,247,255,0.3);margin-top:6px;">Mother Tongue · Fluent</div>
+        </div>
+
+      </div>
+
+      <!-- Soft skills -->
+      <div style="margin-top:28px;padding-top:20px;border-top:1px dotted rgba(0,255,255,0.1);">
+        <div class="rp-label" style="margin-bottom:12px;">SOFT SKILLS</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:6px;height:6px;border:1px solid var(--cyan);transform:rotate(45deg);flex-shrink:0;"></div>
+            <span style="font-family:'Rajdhani',sans-serif;font-size:0.88rem;color:var(--text-mid);">Data Storytelling</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:6px;height:6px;border:1px solid var(--purple);transform:rotate(45deg);flex-shrink:0;"></div>
+            <span style="font-family:'Rajdhani',sans-serif;font-size:0.88rem;color:var(--text-mid);">Problem Solving</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:6px;height:6px;border:1px solid var(--cyan);transform:rotate(45deg);flex-shrink:0;"></div>
+            <span style="font-family:'Rajdhani',sans-serif;font-size:0.88rem;color:var(--text-mid);">Business Acumen</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:6px;height:6px;border:1px solid var(--purple);transform:rotate(45deg);flex-shrink:0;"></div>
+            <span style="font-family:'Rajdhani',sans-serif;font-size:0.88rem;color:var(--text-mid);">Critical Thinking</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:6px;height:6px;border:1px solid var(--cyan);transform:rotate(45deg);flex-shrink:0;"></div>
+            <span style="font-family:'Rajdhani',sans-serif;font-size:0.88rem;color:var(--text-mid);">Attention to Detail</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────
+         ROW 4 · PHILOSOPHY (FULL WIDTH)
+    ───────────────────────────────── -->
+    <section class="rp rp-philo anim-in" data-delay="320">
+      <div class="rp-label" style="margin-bottom:20px;">ANALYTICS PHILOSOPHY</div>
+      <div class="philo-inner">
+        <div class="philo-quote-mark">"</div>
+        <div class="philo-text-wrap">
+          <div class="philo-statement">
+            Transforming <em>raw data</em> into<br/>
+            actionable <em>business intelligence.</em>
+          </div>
+          <div class="philo-sub">
+            Every dataset tells a story. My job is to find it, frame it,<br/>
+            and present it in a way that moves decisions forward.
+          </div>
+          <!-- Mini tags -->
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;">
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(0,255,255,0.12);background:rgba(0,255,255,0.03);">
+              <span style="color:var(--cyan);font-size:0.75rem;">◈</span>
+              <span style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">DATA-DRIVEN DECISIONS</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
+              <span style="color:var(--purple);font-size:0.75rem;">◈</span>
+              <span style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">VISUAL CLARITY</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(0,255,255,0.12);background:rgba(0,255,255,0.03);">
+              <span style="color:var(--cyan);font-size:0.75rem;">◈</span>
+              <span style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">INSIGHT ENGINEERING</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
+              <span style="color:var(--purple);font-size:0.75rem;">◈</span>
+              <span style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">STRATEGIC IMPACT</span>
+            </div>
+          </div>
+        </div>
+        <div class="philo-badge">
+          <span class="philo-badge-num" data-count="2">0</span>
+          <span class="philo-badge-lbl">YEARS OF</span>
+          <span class="philo-badge-lbl">ANALYTICS</span>
+          <div style="width:40px;height:1px;background:rgba(155,92,255,0.3);margin:8px auto;"></div>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:rgba(155,92,255,0.4);">SEM IV</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── BOTTOM BAR ── -->
+  <footer class="resume-footer anim-in" data-delay="360">
+    <div class="footer-id">[SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO · RES-2025-SM</div>
+    <div class="footer-center">SUJIT MURARI · BUSINESS ANALYTICS · DEV BHOOMI UTTARAKHAND UNIVERSITY · SEM IV · 2025</div>
+    <div class="footer-date" id="resume-date"></div>
+  </footer>
+
+</div><!-- end .page-wrap -->
+
+<!-- Print Button -->
+<button class="print-btn" id="print-btn">
+  <span>🖨</span> PRINT / PDF
+</button>
+
+<script src="js/resume-animations.js"></script>
+<script>
+  // Populate footer date
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('resume-date');
+    if (el) {
+      const now = new Date();
+      el.textContent = now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }).toUpperCase();
+    }
+    // Hamburger nav toggle
+    const hb = document.getElementById('nav-hamburger');
+    const nl = document.getElementById('nav-links');
+    if (hb && nl) {
+      hb.addEventListener('click', () => {
+        hb.classList.toggle('open');
+        nl.classList.toggle('open');
+      });
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <title>Analytics Lab — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    /* ── SQL Lab Additions ── */
+    :root {
+      --cyan: #00ffff;
+      --purple: #9b5cff;
+      --pink: #ff2d78;
+      --bg: #050510;
+      --panel: rgba(0,255,255,0.04);
+      --border: rgba(0,255,255,0.15);
+      --border-p: rgba(155,92,255,0.18);
+      --text: rgba(224,247,255,0.85);
+      --text-dim: rgba(224,247,255,0.45);
+      --mono: 'Share Tech Mono', monospace;
+      --orb: 'Orbitron', monospace;
+    }
+
+    /* SQL Panel */
+    .sql-panel {
+      background: rgba(0,10,20,0.7);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .sql-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+    }
+    .sql-editor-wrap {
+      position: relative;
+    }
+    .sql-editor-wrap .sql-gutter {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 44px;
+      background: rgba(0,255,255,0.03);
+      border-right: 1px solid rgba(0,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 14px;
+      gap: 20px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: rgba(0,255,255,0.25);
+      pointer-events: none;
+      border-radius: 4px 0 0 4px;
+      user-select: none;
+    }
+    #sql-input {
+      width: 100%;
+      min-height: 110px;
+      background: rgba(0,5,15,0.8);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: #e0f7ff;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      padding: 14px 16px 14px 52px;
+      resize: vertical;
+      outline: none;
+      caret-color: var(--cyan);
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    #sql-input:focus { border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,255,255,0.08); }
+    #sql-input::placeholder { color: rgba(0,255,255,0.25); }
+
+    /* SQL keyword highlight hint */
+    .sql-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0;
+    }
+    .sql-kw {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      background: rgba(0,255,255,0.07);
+      border: 1px solid rgba(0,255,255,0.15);
+      padding: 2px 8px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .sql-kw:hover { background: rgba(0,255,255,0.15); }
+
+    /* Chart type selector */
+    .chart-type-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 20px;
+      align-items: center;
+    }
+    .chart-type-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-right: 4px;
+    }
+    .chart-type-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      background: rgba(0,255,255,0.03);
+      border: 1px solid rgba(0,255,255,0.12);
+      border-radius: 3px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .chart-type-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,255,255,0.07); }
+    .chart-type-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,255,255,0.12); box-shadow: 0 0 8px rgba(0,255,255,0.15); }
+    .chart-type-btn.active-purple { border-color: var(--purple); color: var(--purple); background: rgba(155,92,255,0.1); box-shadow: 0 0 8px rgba(155,92,255,0.15); }
+    .chart-type-icon { font-size: 1rem; }
+
+    /* Run button */
+    .sql-run-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--orb);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: #050510;
+      background: var(--cyan);
+      border: none;
+      border-radius: 3px;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 700;
+    }
+    .sql-run-btn:hover { background: #33ffff; box-shadow: 0 0 20px rgba(0,255,255,0.4); transform: translateY(-1px); }
+    .sql-run-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .sql-clear-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sql-clear-btn:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* SQL Results Table */
+    .sql-result-section {
+      margin-top: 32px;
+      display: none;
+    }
+    .result-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .result-table-wrap::-webkit-scrollbar { width: 5px; height: 5px; }
+    .result-table-wrap::-webkit-scrollbar-track { background: rgba(0,255,255,0.03); }
+    .result-table-wrap::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); border-radius: 3px; }
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+    }
+    .result-table thead th {
+      background: rgba(0,255,255,0.08);
+      color: var(--cyan);
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,255,255,0.15);
+      white-space: nowrap;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      position: sticky;
+      top: 0;
+    }
+    .result-table tbody tr { border-bottom: 1px solid rgba(0,255,255,0.05); transition: background 0.1s; }
+    .result-table tbody tr:hover { background: rgba(0,255,255,0.04); }
+    .result-table tbody td { padding: 8px 14px; color: var(--text); white-space: nowrap; }
+    .result-table tbody td:first-child { color: rgba(0,255,255,0.6); }
+
+    /* SQL Error */
+    .sql-error {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--pink);
+      background: rgba(255,45,120,0.06);
+      border: 1px solid rgba(255,45,120,0.2);
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Query chart */
+    .query-chart-wrap {
+      background: rgba(0,5,15,0.6);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px;
+      margin-top: 24px;
+      display: none;
+    }
+    .query-chart-wrap .data-label { margin-bottom: 16px; }
+
+    /* Result meta row */
+    .result-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .result-meta-info {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    .result-meta-info span { color: var(--cyan); }
+
+    /* Example queries */
+    .example-queries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .example-q {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: rgba(155,92,255,0.7);
+      background: rgba(155,92,255,0.05);
+      border: 1px solid rgba(155,92,255,0.15);
+      border-radius: 2px;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .example-q:hover { background: rgba(155,92,255,0.12); color: var(--purple); border-color: var(--purple); }
+
+    /* Status indicator */
+    .sql-status {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sql-status .dot-green { width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 6px #00ff88; animation: pulse-green 2s infinite; }
+    .sql-status .dot-red { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 6px var(--pink); }
+    @keyframes pulse-green { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    /* Scrollbar global */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); border-radius: 3px; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      #lab-charts-row { grid-template-columns: 1fr !important; }
+      .chart-type-bar { gap: 5px; }
+      .chart-type-btn { padding: 5px 10px; font-size: 0.68rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="analytics-lab.html" class="active">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="page-content">
+  <section class="page-hero section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; ANALYTICS_LAB</div>
+      <div class="section-header" data-reveal>
+        <h1>ANALYTICS <span class="text-cyan">LAB</span></h1>
+      </div>
+      <p data-reveal data-delay="100" style="max-width:640px;margin-bottom:16px;">Experimental analytics workspace. Upload a CSV dataset, run SQL-style queries, pick your chart type, and explore your data instantly — all in the browser.</p>
+      <div class="status-badge mb-32" style="display:inline-flex;" data-reveal data-delay="150"><div class="dot"></div>LIVE ANALYSIS ENGINE — ONLINE</div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:20px;">
+    <div class="container">
+
+      <!-- Upload Zone -->
+      <div class="cp-panel cp-corner" style="padding:32px;margin-bottom:32px;" data-reveal>
+        <div class="data-label mb-16">◈ DATA INGESTION MODULE</div>
+        <div class="lab-drop-zone" id="drop-zone">
+          <input type="file" id="file-input" accept=".csv" style="display:none;"/>
+          <div style="font-size:3rem;margin-bottom:16px;opacity:0.5;">📁</div>
+          <div style="font-family:'Orbitron',monospace;font-size:0.8rem;letter-spacing:0.15em;color:rgba(0,255,255,0.7);margin-bottom:8px;">DROP CSV DATASET HERE</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:0.95rem;color:rgba(224,247,255,0.4);">or click to browse files</div>
+          <div style="margin-top:20px;">
+            <span class="hero-tag">CSV Format</span>
+            <span class="hero-tag">Headers Required</span>
+            <span class="hero-tag">Any Size</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results (hidden until data loaded) -->
+      <div id="lab-results" style="display:none;" class="lab-results">
+
+        <!-- File Info -->
+        <div class="cp-panel" style="padding:16px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div class="data-label">◈ DATASET LOADED</div>
+          <div id="lab-file-info" style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:#e0f7ff;"></div>
+        </div>
+
+        <!-- Columns -->
+        <div class="cp-panel" style="padding:20px 24px;margin-bottom:28px;">
+          <div class="data-label mb-12">◈ DETECTED COLUMNS</div>
+          <div id="lab-columns" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        </div>
+
+        <!-- ═══════════════════════════════ SQL QUERY MODULE ═══════════════════════════════ -->
+        <div class="sql-panel" data-reveal>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
+            <div class="data-label" style="margin:0;">◈ SQL QUERY ENGINE</div>
+            <div class="sql-status" id="sql-status">
+              <div class="dot-red" id="sql-status-dot"></div>
+              <span id="sql-status-text">NO DATA LOADED</span>
+            </div>
+          </div>
+
+          <!-- Quick keyword hints -->
+          <div class="sql-keywords">
+            <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);margin-right:4px;">KEYWORDS:</span>
+            <span class="sql-kw" onclick="insertKw('SELECT * FROM data')">SELECT *</span>
+            <span class="sql-kw" onclick="insertKw('WHERE')">WHERE</span>
+            <span class="sql-kw" onclick="insertKw('GROUP BY')">GROUP BY</span>
+            <span class="sql-kw" onclick="insertKw('ORDER BY')">ORDER BY</span>
+            <span class="sql-kw" onclick="insertKw('LIMIT 50')">LIMIT</span>
+            <span class="sql-kw" onclick="insertKw('COUNT(*)')">COUNT</span>
+            <span class="sql-kw" onclick="insertKw('SUM()')">SUM</span>
+            <span class="sql-kw" onclick="insertKw('AVG()')">AVG</span>
+            <span class="sql-kw" onclick="insertKw('MAX()')">MAX</span>
+            <span class="sql-kw" onclick="insertKw('MIN()')">MIN</span>
+          </div>
+
+          <!-- Editor -->
+          <div class="sql-editor-wrap" style="margin:14px 0;">
+            <div class="sql-gutter" id="sql-gutter">
+              <span>1</span><span>2</span><span>3</span><span>4</span>
+            </div>
+            <textarea id="sql-input" placeholder="SELECT * FROM data WHERE column > 100 ORDER BY column DESC LIMIT 50" spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+          </div>
+
+          <!-- Example queries -->
+          <div style="margin-bottom:16px;">
+            <div style="font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);margin-bottom:6px;">◈ EXAMPLE QUERIES:</div>
+            <div class="example-queries" id="example-queries">
+              <!-- filled dynamically based on columns -->
+              <span class="example-q" onclick="setQuery('SELECT * FROM data LIMIT 20')">SELECT * FROM data LIMIT 20</span>
+              <span class="example-q" id="eq-count">SELECT COUNT(*) as total FROM data</span>
+              <span class="example-q" id="eq-group">GROUP BY example</span>
+              <span class="example-q" id="eq-order">ORDER BY example</span>
+            </div>
+          </div>
+
+          <!-- Chart Type Selector -->
+          <div style="margin-bottom:18px;">
+            <div class="chart-type-label">◈ CHART TYPE:</div>
+            <div class="chart-type-bar" id="chart-type-bar">
+              <button class="chart-type-btn active" data-type="bar" onclick="selectChart('bar',this)">
+                <span class="chart-type-icon">▬</span> BAR
+              </button>
+              <button class="chart-type-btn" data-type="line" onclick="selectChart('line',this)">
+                <span class="chart-type-icon">╱</span> LINE
+              </button>
+              <button class="chart-type-btn" data-type="pie" onclick="selectChart('pie',this)">
+                <span class="chart-type-icon">◕</span> PIE
+              </button>
+              <button class="chart-type-btn" data-type="doughnut" onclick="selectChart('doughnut',this)">
+                <span class="chart-type-icon">◉</span> DOUGHNUT
+              </button>
+              <button class="chart-type-btn" data-type="scatter" onclick="selectChart('scatter',this)">
+                <span class="chart-type-icon">⁛</span> SCATTER
+              </button>
+              <button class="chart-type-btn" data-type="radar" onclick="selectChart('radar',this)">
+                <span class="chart-type-icon">⬡</span> RADAR
+              </button>
+              <button class="chart-type-btn" data-type="polarArea" onclick="selectChart('polarArea',this)">
+                <span class="chart-type-icon">◓</span> POLAR
+              </button>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <button class="sql-run-btn" id="sql-run-btn" onclick="runSQL()">
+              ▶ RUN QUERY
+            </button>
+            <button class="sql-clear-btn" onclick="clearSQL()">✕ CLEAR</button>
+            <span id="sql-exec-time" style="font-family:var(--mono);font-size:0.72rem;color:var(--text-dim);"></span>
+          </div>
+
+          <!-- Error box -->
+          <div class="sql-error" id="sql-error"></div>
+        </div>
+        <!-- ═══════════════════════════════ END SQL MODULE ═══════════════════════════════ -->
+
+        <!-- SQL Query Results (shown below query panel) -->
+        <div class="sql-result-section" id="sql-result-section">
+
+          <!-- Result Meta -->
+          <div class="result-meta">
+            <div class="data-label" style="margin:0;">◈ QUERY RESULTS</div>
+            <div class="result-meta-info" id="result-meta-info"></div>
+          </div>
+
+          <!-- Data Table -->
+          <div class="result-table-wrap" id="result-table-wrap">
+            <table class="result-table" id="result-table">
+              <thead id="result-thead"></thead>
+              <tbody id="result-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Chart Output -->
+          <div class="query-chart-wrap" id="query-chart-wrap">
+            <div class="data-label" id="query-chart-label">◈ CHART OUTPUT</div>
+            <canvas id="query-chart" height="220"></canvas>
+          </div>
+
+        </div>
+
+        <!-- Auto-analysis divider -->
+        <div style="margin:40px 0 20px;border-top:1px solid rgba(0,255,255,0.08);padding-top:32px;">
+          <div class="data-label mb-16">◈ AUTO ANALYSIS — FULL DATASET</div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div style="margin-bottom:40px;">
+          <div class="data-label mb-16">◈ SUMMARY STATISTICS</div>
+          <div id="lab-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
+        </div>
+
+        <!-- Charts Row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;" id="lab-charts-row">
+          <div class="cp-panel cp-corner" style="padding:24px;">
+            <div class="data-label mb-16">◈ HISTOGRAM</div>
+            <canvas id="lab-histogram" height="200"></canvas>
+          </div>
+          <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px;">
+            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">◈ SCATTER PLOT</div>
+            <canvas id="lab-scatter" height="200"></canvas>
+          </div>
+        </div>
+
+        <!-- Analysis Notes -->
+        <div class="cp-panel" style="padding:24px;margin-bottom:40px;">
+          <div class="data-label mb-16">◈ AUTOMATED ANALYSIS NOTES</div>
+          <div id="lab-notes" style="font-family:'Share Tech Mono',monospace;font-size:0.82rem;line-height:2;color:rgba(224,247,255,0.7);">
+            <div style="color:#00ffff;">// Analysis ready. Scroll up to review statistics and charts.</div>
+            <div style="color:rgba(0,255,255,0.4);">// Numeric columns detected and plotted automatically.</div>
+            <div style="color:rgba(0,255,255,0.4);">// Use the SQL engine above to query specific data.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions (shown when no data) -->
+      <div id="lab-instructions" data-reveal>
+        <div class="data-label mb-24">◈ HOW TO USE THE ANALYTICS LAB</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+          <div class="holo-card cp-corner" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.2);margin-bottom:12px;">01</div>
+            <h4 class="text-cyan mb-8">Upload CSV</h4>
+            <p style="font-size:0.9rem;">Drag & drop or click to upload any CSV dataset. The file stays in your browser — nothing is uploaded to a server.</p>
+          </div>
+          <div class="holo-card cp-corner-purple" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.2);margin-bottom:12px;">02</div>
+            <h4 class="text-purple mb-8">Write SQL</h4>
+            <p style="font-size:0.9rem;">Use the SQL engine to query your data: SELECT, WHERE, GROUP BY, ORDER BY, aggregates like COUNT, SUM, AVG — all supported.</p>
+          </div>
+          <div class="holo-card cp-corner" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.2);margin-bottom:12px;">03</div>
+            <h4 class="text-cyan mb-8">Choose Chart</h4>
+            <p style="font-size:0.9rem;">Pick from Bar, Line, Pie, Doughnut, Scatter, Radar, or Polar Area — and the engine auto-maps your query results to the selected chart.</p>
+          </div>
+          <div class="holo-card cp-corner-purple" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.2);margin-bottom:12px;">04</div>
+            <h4 class="text-purple mb-8">Explore</h4>
+            <p style="font-size:0.9rem;">Review auto-generated statistics, histogram, and scatter. Upload a new CSV to reset analysis completely.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI v2.1 &nbsp;◈&nbsp; BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; BUSINESS ANALYTICS &nbsp;◈&nbsp; 2025
+    </p>
+  </div>
+</footer>
+
+<script src="js/animations.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   ANALYTICS LAB — SQL Engine + Chart Builder
+   ═══════════════════════════════════════════════════ */
+
+// ── Global State ──
+let _csvData = [];       // full dataset (array of objects)
+let _csvCols = [];       // column names
+let _queryResult = [];   // last query result rows
+let _queryResultCols = [];
+let _selectedChart = 'bar';
+let _queryChart = null;  // Chart.js instance for query chart
+
+const CHART_COLORS = [
+  'rgba(0,255,255,0.75)', 'rgba(155,92,255,0.75)', 'rgba(255,45,120,0.65)',
+  'rgba(58,123,213,0.75)', 'rgba(0,200,150,0.65)', 'rgba(255,180,0,0.7)',
+  'rgba(255,100,50,0.7)', 'rgba(100,200,255,0.7)', 'rgba(200,100,255,0.7)',
+];
+const CHART_BORDERS = [
+  '#00ffff','#9b5cff','#ff2d78','#3a7bd5','#00c896','#ffb400','#ff6432','#64c8ff','#c864ff',
+];
+
+// ── CSV Loader (override script.js) ──
+document.addEventListener('DOMContentLoaded', () => {
+  const dz = document.getElementById('drop-zone');
+  const fi = document.getElementById('file-input');
+  if (!dz || !fi) return;
+
+  // Replace node to remove any existing listeners from script.js
+  const newDz = dz.cloneNode(true);
+  const newFi = document.createElement('input');
+  newFi.type = 'file'; newFi.id = 'file-input'; newFi.accept = '.csv'; newFi.style.display = 'none';
+  newDz.appendChild(newFi);
+  dz.parentNode.replaceChild(newDz, dz);
+
+  newDz.addEventListener('click', () => newFi.click());
+  newDz.addEventListener('dragover', e => { e.preventDefault(); newDz.classList.add('drag-over'); });
+  newDz.addEventListener('dragleave', () => newDz.classList.remove('drag-over'));
+  newDz.addEventListener('drop', e => {
+    e.preventDefault(); newDz.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) loadCsvFile(e.dataTransfer.files[0]);
+  });
+  newFi.addEventListener('change', () => { if (newFi.files[0]) loadCsvFile(newFi.files[0]); });
+});
+
+function loadCsvFile(file) {
+  if (window.Papa) {
+    Papa.parse(file, {
+      header: true, dynamicTyping: true, skipEmptyLines: true,
+      complete: results => {
+        if (!results.data || results.data.length === 0) { alert('Could not parse CSV.'); return; }
+        const headers = results.meta.fields;
+        const data = results.data.map(row => {
+          const obj = {};
+          headers.forEach(h => obj[h] = row[h] !== null && row[h] !== undefined ? String(row[h]) : '');
+          return obj;
+        });
+        onCsvLoaded(file.name, headers, data);
+      },
+      error: () => alert('Error parsing CSV file.')
+    });
+  } else {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const rows = e.target.result.trim().split('\n').map(r => r.split(',').map(c => c.trim().replace(/^"|"$/g,'')));
+      if (rows.length < 2) { alert('CSV needs headers + data.'); return; }
+      const headers = rows[0];
+      const data = rows.slice(1).map(row => { const o={}; headers.forEach((h,i) => o[h]=row[i]||''); return o; });
+      onCsvLoaded(file.name, headers, data);
+    };
+    reader.readAsText(file);
+  }
+}
+
+function onCsvLoaded(name, headers, data) {
+  _csvData = data;
+  _csvCols = headers;
+
+  // Show results panel
+  document.getElementById('lab-results').style.display = 'block';
+  document.getElementById('lab-instructions').style.display = 'none';
+
+  // File info
+  const fi = document.getElementById('lab-file-info');
+  if (fi) fi.innerHTML = `<span class="text-cyan">◈ ${name}</span> &nbsp;|&nbsp; ${data.length.toLocaleString()} rows &nbsp;|&nbsp; ${headers.length} columns`;
+
+  // Columns
+  const cl = document.getElementById('lab-columns');
+  if (cl) cl.innerHTML = headers.map(h => `<span class="project-tag">${h}</span>`).join('');
+
+  // Update SQL status
+  setSqlStatus('ready', `READY — ${data.length.toLocaleString()} rows loaded`);
+
+  // Populate example queries
+  populateExamples(headers, data);
+
+  // Default SQL
+  document.getElementById('sql-input').value = `SELECT * FROM data LIMIT 20`;
+
+  // Auto-analysis charts
+  if (window.renderLabCharts) renderLabCharts(data, headers);
+
+  // Scroll to results
+  setTimeout(() => document.getElementById('lab-results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+function populateExamples(headers, data) {
+  const numCols = headers.filter(h => data.slice(0,20).some(r => !isNaN(parseFloat(r[h])) && r[h] !== ''));
+  const strCols = headers.filter(h => !numCols.includes(h));
+  const eqEl = document.getElementById('example-queries');
+  if (!eqEl) return;
+  const examples = [
+    `SELECT * FROM data LIMIT 20`,
+    `SELECT COUNT(*) as total FROM data`,
+  ];
+  if (strCols.length > 0 && numCols.length > 0) {
+    examples.push(`SELECT ${strCols[0]}, COUNT(*) as count FROM data GROUP BY ${strCols[0]} ORDER BY count DESC LIMIT 10`);
+  }
+  if (numCols.length > 0) {
+    examples.push(`SELECT ${numCols[0]}, COUNT(*) as freq FROM data GROUP BY ${numCols[0]} ORDER BY freq DESC LIMIT 15`);
+    examples.push(`SELECT AVG(${numCols[0]}) as avg_val, MAX(${numCols[0]}) as max_val, MIN(${numCols[0]}) as min_val FROM data`);
+  }
+  if (numCols.length > 1) {
+    examples.push(`SELECT ${numCols[0]}, ${numCols[1]} FROM data ORDER BY ${numCols[0]} DESC LIMIT 30`);
+  }
+  eqEl.innerHTML = examples.map(q =>
+    `<span class="example-q" onclick="setQuery(\`${q}\`)">${q}</span>`
+  ).join('');
+}
+
+function setSqlStatus(state, text) {
+  const dot = document.getElementById('sql-status-dot');
+  const txt = document.getElementById('sql-status-text');
+  if (!dot || !txt) return;
+  dot.className = state === 'ready' ? 'dot-green' : 'dot-red';
+  txt.textContent = text;
+}
+
+// ── Chart Type Selection ──
+function selectChart(type, btn) {
+  _selectedChart = type;
+  document.querySelectorAll('.chart-type-btn').forEach(b => b.classList.remove('active','active-purple'));
+  btn.classList.add(type === 'scatter' || type === 'radar' || type === 'polarArea' ? 'active-purple' : 'active');
+}
+
+// ── SQL Keyword Insert ──
+function insertKw(kw) {
+  const ta = document.getElementById('sql-input');
+  if (!ta) return;
+  const pos = ta.selectionStart;
+  const val = ta.value;
+  ta.value = val.slice(0,pos) + (pos > 0 && val[pos-1] !== ' ' ? ' ' : '') + kw + ' ' + val.slice(pos);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = pos + kw.length + 2;
+}
+
+function setQuery(q) {
+  const ta = document.getElementById('sql-input');
+  if (ta) { ta.value = q; ta.focus(); }
+}
+
+function clearSQL() {
+  const ta = document.getElementById('sql-input');
+  if (ta) ta.value = '';
+  document.getElementById('sql-result-section').style.display = 'none';
+  document.getElementById('sql-error').style.display = 'none';
+  document.getElementById('sql-exec-time').textContent = '';
+}
+
+// ── Main SQL Runner ──
+function runSQL() {
+  const rawQuery = (document.getElementById('sql-input').value || '').trim();
+  if (!rawQuery) { showSqlError('Please enter a SQL query.'); return; }
+  if (_csvData.length === 0) { showSqlError('No dataset loaded. Please upload a CSV first.'); return; }
+
+  hideSqlError();
+  document.getElementById('sql-exec-time').textContent = '';
+
+  const t0 = performance.now();
+  let result;
+  try {
+    result = executeSQL(rawQuery, _csvData, _csvCols);
+  } catch (err) {
+    showSqlError('SQL Error: ' + err.message);
+    return;
+  }
+  const elapsed = (performance.now() - t0).toFixed(1);
+
+  _queryResult = result.rows;
+  _queryResultCols = result.columns;
+
+  document.getElementById('sql-exec-time').textContent = `◈ ${result.rows.length} rows · ${elapsed}ms`;
+
+  renderResultTable(result.columns, result.rows);
+  renderQueryChart(result.columns, result.rows, _selectedChart);
+
+  document.getElementById('sql-result-section').style.display = 'block';
+  setTimeout(() => document.getElementById('sql-result-section').scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+function showSqlError(msg) {
+  const el = document.getElementById('sql-error');
+  el.textContent = '⚠ ' + msg;
+  el.style.display = 'block';
+}
+function hideSqlError() {
+  const el = document.getElementById('sql-error');
+  el.style.display = 'none';
+}
+
+// ── SQL Engine (pure JS) ──
+function executeSQL(query, data, cols) {
+  // Normalize
+  const q = query.replace(/\s+/g, ' ').trim();
+
+  // Only support SELECT
+  if (!/^SELECT\s/i.test(q)) throw new Error('Only SELECT statements are supported. Start with SELECT.');
+
+  // Parse parts
+  const upper = q.toUpperCase();
+
+  // Extract LIMIT
+  let limit = Infinity;
+  const limitM = q.match(/\bLIMIT\s+(\d+)/i);
+  if (limitM) { limit = parseInt(limitM[1]); }
+
+  // Extract ORDER BY
+  let orderBy = null, orderDir = 'ASC';
+  const orderM = q.match(/\bORDER\s+BY\s+([\w.`]+)(?:\s+(ASC|DESC))?/i);
+  if (orderM) { orderBy = orderM[1].replace(/`/g,''); orderDir = (orderM[2]||'ASC').toUpperCase(); }
+
+  // Extract GROUP BY
+  let groupBy = null;
+  const groupM = q.match(/\bGROUP\s+BY\s+([\w.`]+)/i);
+  if (groupM) groupBy = groupM[1].replace(/`/g,'');
+
+  // Extract WHERE (before GROUP/ORDER/LIMIT)
+  let whereClause = null;
+  const whereM = q.match(/\bWHERE\s+(.*?)(?:\s+(?:GROUP|ORDER|LIMIT)\s|$)/i);
+  if (whereM) whereClause = whereM[1].trim();
+
+  // Extract SELECT columns (between SELECT and FROM)
+  const fromM = q.match(/^SELECT\s+(.*?)\s+FROM\s+\w+/i);
+  if (!fromM) throw new Error('Invalid SELECT syntax. Expected: SELECT ... FROM data');
+  const selectRaw = fromM[1].trim();
+
+  // Parse select expressions
+  const selectExprs = parseSelectExprs(selectRaw);
+
+  // Apply WHERE filter
+  let filtered = data;
+  if (whereClause) {
+    filtered = data.filter(row => evaluateWhere(whereClause, row));
+  }
+
+  // Apply GROUP BY with aggregates
+  let rows;
+  const hasAggregate = selectExprs.some(e => e.isAggregate);
+
+  if (groupBy && hasAggregate) {
+    rows = applyGroupBy(filtered, groupBy, selectExprs);
+  } else if (!groupBy && hasAggregate && selectExprs.every(e => e.isAggregate)) {
+    // Global aggregates (no group by)
+    rows = [applyGlobalAggregates(filtered, selectExprs)];
+  } else {
+    // Plain SELECT
+    rows = filtered.map(row => {
+      const out = {};
+      selectExprs.forEach(e => {
+        if (e.star) {
+          cols.forEach(c => out[c] = row[c]);
+        } else {
+          out[e.alias] = row[e.col] !== undefined ? row[e.col] : e.col;
+        }
+      });
+      return out;
+    });
+  }
+
+  // ORDER BY
+  if (orderBy) {
+    rows.sort((a, b) => {
+      const av = a[orderBy], bv = b[orderBy];
+      const an = parseFloat(av), bn = parseFloat(bv);
+      const isNum = !isNaN(an) && !isNaN(bn);
+      const cmp = isNum ? an - bn : String(av||'').localeCompare(String(bv||''));
+      return orderDir === 'DESC' ? -cmp : cmp;
+    });
+  }
+
+  // LIMIT
+  if (limit < Infinity) rows = rows.slice(0, limit);
+
+  // Compute result columns
+  let resultCols;
+  if (rows.length > 0) {
+    resultCols = Object.keys(rows[0]);
+  } else {
+    resultCols = selectExprs[0]?.star ? cols : selectExprs.map(e => e.alias);
+  }
+
+  return { rows, columns: resultCols };
+}
+
+function parseSelectExprs(raw) {
+  if (raw === '*') return [{ star: true }];
+  // Split by comma (but not inside parentheses)
+  const parts = [];
+  let depth = 0, cur = '';
+  for (const ch of raw) {
+    if (ch === '(') depth++;
+    if (ch === ')') depth--;
+    if (ch === ',' && depth === 0) { parts.push(cur.trim()); cur = ''; }
+    else cur += ch;
+  }
+  if (cur.trim()) parts.push(cur.trim());
+
+  return parts.map(part => {
+    // alias via AS
+    const asM = part.match(/^(.*?)\s+AS\s+([\w]+)$/i);
+    const expr = asM ? asM[1].trim() : part.trim();
+    const alias = asM ? asM[2] : expr.replace(/[()]/g,'').replace(/\s+/g,'_');
+
+    // Aggregate?
+    const aggM = expr.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\w*]+)\s*\)/i);
+    if (aggM) {
+      return { isAggregate: true, fn: aggM[1].toUpperCase(), col: aggM[2] === '*' ? null : aggM[2], alias: asM ? asM[2] : `${aggM[1]}(${aggM[2]})` };
+    }
+    return { isAggregate: false, col: expr, alias: alias };
+  });
+}
+
+function applyGroupBy(rows, groupCol, exprs) {
+  const groups = {};
+  rows.forEach(row => {
+    const key = String(row[groupCol] ?? 'null');
+    if (!groups[key]) groups[key] = { key, rows: [] };
+    groups[key].rows.push(row);
+  });
+  return Object.values(groups).map(g => {
+    const out = {};
+    exprs.forEach(e => {
+      if (!e.isAggregate) {
+        out[e.alias] = g.rows[0][e.col];
+      } else {
+        out[e.alias] = computeAggregate(e.fn, e.col, g.rows);
+      }
+    });
+    return out;
+  });
+}
+
+function applyGlobalAggregates(rows, exprs) {
+  const out = {};
+  exprs.forEach(e => {
+    out[e.alias] = computeAggregate(e.fn, e.col, rows);
+  });
+  return out;
+}
+
+function computeAggregate(fn, col, rows) {
+  if (fn === 'COUNT') return rows.length;
+  const vals = col ? rows.map(r => parseFloat(r[col])).filter(v => !isNaN(v)) : [];
+  if (fn === 'SUM') return vals.reduce((a,b) => a+b, 0);
+  if (fn === 'AVG') return vals.length ? +(vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(4) : 0;
+  if (fn === 'MAX') return vals.length ? Math.max(...vals) : null;
+  if (fn === 'MIN') return vals.length ? Math.min(...vals) : null;
+  return null;
+}
+
+function evaluateWhere(clause, row) {
+  // Support: col OP value, AND, OR, NOT
+  // Replace column names with values safely
+  try {
+    // Replace AND/OR/NOT with JS equivalents
+    let expr = clause
+      .replace(/\bAND\b/gi, '&&')
+      .replace(/\bOR\b/gi, '||')
+      .replace(/\bNOT\b/gi, '!');
+
+    // Replace col >= val, col LIKE 'x%', etc.
+    // Handle LIKE operator
+    expr = expr.replace(/([\w]+)\s+LIKE\s+'([^']+)'/gi, (m, col, pat) => {
+      const val = String(row[col] || '');
+      const regex = '^' + pat.replace(/%/g, '.*').replace(/_/g, '.') + '$';
+      return new RegExp(regex, 'i').test(val) ? 'true' : 'false';
+    });
+
+    // Replace column references with their values
+    expr = expr.replace(/\b([A-Za-z_][\w]*)\b/g, (m) => {
+      if (m === 'true' || m === 'false' || m === 'null') return m;
+      if (row.hasOwnProperty(m)) {
+        const v = row[m];
+        if (typeof v === 'string') return `"${v.replace(/"/g,'\\"')}"`;
+        return v === null || v === undefined ? 'null' : v;
+      }
+      return m;
+    });
+
+    return !!Function(`"use strict"; return (${expr})`)();
+  } catch {
+    return true; // on parse error, include row
+  }
+}
+
+// ── Render Table ──
+function renderResultTable(cols, rows) {
+  const meta = document.getElementById('result-meta-info');
+  if (meta) meta.innerHTML = `<span>${rows.length.toLocaleString()}</span> rows · <span>${cols.length}</span> columns`;
+
+  const thead = document.getElementById('result-thead');
+  const tbody = document.getElementById('result-tbody');
+  if (!thead || !tbody) return;
+
+  thead.innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
+  tbody.innerHTML = rows.map(row =>
+    `<tr>${cols.map(c => `<td>${row[c] !== undefined ? row[c] : ''}</td>`).join('')}</tr>`
+  ).join('');
+}
+
+// ── Render Query Chart ──
+function renderQueryChart(cols, rows, type) {
+  const wrap = document.getElementById('query-chart-wrap');
+  const canvas = document.getElementById('query-chart');
+  const label = document.getElementById('query-chart-label');
+  if (!wrap || !canvas) return;
+
+  if (_queryChart) { _queryChart.destroy(); _queryChart = null; }
+
+  if (rows.length === 0 || cols.length === 0) { wrap.style.display = 'none'; return; }
+
+  // Determine X label and Y values
+  const numCols = cols.filter(c => rows.some(r => !isNaN(parseFloat(r[c])) && r[c] !== ''));
+  const strCols = cols.filter(c => !numCols.includes(c));
+
+  let xCol = strCols.length > 0 ? strCols[0] : cols[0];
+  let yCol = numCols.length > 0 ? numCols[0] : (cols.length > 1 ? cols[1] : cols[0]);
+
+  if (cols.length === 1) { xCol = cols[0]; yCol = cols[0]; }
+
+  const labels = rows.map(r => String(r[xCol] !== undefined ? r[xCol] : ''));
+  const values = rows.map(r => parseFloat(r[yCol])).map(v => isNaN(v) ? 0 : v);
+
+  wrap.style.display = 'block';
+  if (label) label.textContent = `◈ CHART — ${type.toUpperCase()} · ${xCol} vs ${yCol}`;
+
+  const ctx = canvas.getContext('2d');
+
+  // Build dataset
+  let config;
+  const CYAN = '#00ffff', PURP = '#9b5cff';
+
+  if (type === 'scatter') {
+    // Scatter needs x/y pairs
+    const xNum = cols.filter(c => rows.some(r => !isNaN(parseFloat(r[c])) && r[c] !== ''));
+    const xC = xNum[0] || cols[0], yC = xNum[1] || cols[1] || cols[0];
+    const pts = rows.map(r => ({ x: parseFloat(r[xC])||0, y: parseFloat(r[yC])||0 }));
+    config = {
+      type: 'scatter',
+      data: { datasets: [{ label: `${xC} vs ${yC}`, data: pts, backgroundColor: 'rgba(155,92,255,0.6)', borderColor: PURP, pointRadius: 5, pointHoverRadius: 8 }] },
+      options: scatterOpts(xC, yC),
+    };
+  } else if (type === 'pie' || type === 'doughnut' || type === 'polarArea') {
+    config = {
+      type,
+      data: { labels, datasets: [{ data: values, backgroundColor: CHART_COLORS, borderColor: '#050510', borderWidth: 2, hoverOffset: 6 }] },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        plugins: {
+          legend: { position: 'right', labels: { color: 'rgba(224,247,255,0.7)', padding: 14, usePointStyle: true } },
+          tooltip: tooltipOpts(),
+        },
+        animation: { duration: 900, easing: 'easeInOutQuart' },
+        ...(type === 'doughnut' ? { cutout: '60%' } : {}),
+      }
+    };
+  } else if (type === 'radar') {
+    config = {
+      type: 'radar',
+      data: { labels, datasets: [{ label: yCol, data: values, fill: true, backgroundColor: 'rgba(0,255,255,0.15)', borderColor: CYAN, borderWidth: 2, pointBackgroundColor: CYAN, pointRadius: 4 }] },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        scales: { r: { ticks: { color: 'rgba(0,255,255,0.3)', backdropColor: 'transparent' }, grid: { color: 'rgba(0,255,255,0.1)' }, angleLines: { color: 'rgba(0,255,255,0.1)' }, pointLabels: { color: 'rgba(224,247,255,0.8)', font: { size: 10 } } } },
+        plugins: { legend: { display: false }, tooltip: tooltipOpts() },
+        animation: { duration: 900 },
+      }
+    };
+  } else {
+    // bar / line
+    const g = ctx.createLinearGradient(0, 0, 0, 260);
+    g.addColorStop(0, 'rgba(0,255,255,0.75)');
+    g.addColorStop(1, 'rgba(0,255,255,0.05)');
+    config = {
+      type,
+      data: {
+        labels,
+        datasets: [{
+          label: yCol,
+          data: values,
+          backgroundColor: type === 'line' ? 'rgba(0,255,255,0.1)' : g,
+          borderColor: CYAN,
+          borderWidth: 2,
+          fill: type === 'line',
+          tension: 0.4,
+          pointBackgroundColor: CYAN,
+          pointRadius: type === 'line' ? 4 : 0,
+          borderRadius: type === 'bar' ? 3 : 0,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        scales: {
+          x: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)', maxTicksLimit: 15 }, border: { color: 'rgba(0,255,255,0.15)' } },
+          y: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } }
+        },
+        plugins: { legend: { display: false }, tooltip: tooltipOpts() },
+        animation: { duration: 900, easing: 'easeInOutQuart' },
+      }
+    };
+  }
+
+  _queryChart = new Chart(ctx, config);
+}
+
+function tooltipOpts() {
+  return { backgroundColor: 'rgba(5,5,16,0.92)', borderColor: '#00ffff', borderWidth: 1, titleColor: '#00ffff', bodyColor: '#e0f7ff', padding: 12 };
+}
+function scatterOpts(xC, yC) {
+  return {
+    responsive: true, maintainAspectRatio: true,
+    plugins: { legend: { display: false }, tooltip: tooltipOpts() },
+    scales: {
+      x: { title: { display: true, text: xC, color: 'rgba(0,255,255,0.6)' }, grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } },
+      y: { title: { display: true, text: yC, color: 'rgba(0,255,255,0.6)' }, grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } }
+    },
+    animation: { duration: 900 },
+  };
+}
+
+// ── Keyboard shortcut: Ctrl+Enter to run ──
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    runSQL();
+  }
+});
+</script>
+
+<style>
+  @media (max-width: 640px) {
+    #lab-charts-row { grid-template-columns: 1fr !important; }
+    .chart-type-bar { gap: 5px; }
+    .chart-type-btn { padding: 5px 10px; font-size: 0.68rem; }
+    .sql-panel { padding: 18px; }
+  }
+</style>
+</body>
+</html>

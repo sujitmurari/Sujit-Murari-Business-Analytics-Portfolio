@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <title>About — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="page-content">
+  <!-- Page Hero -->
+  <section class="page-hero section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; ABOUT</div>
+      <div class="section-header" data-reveal>
+        <h1>ABOUT <span class="text-cyan">THE ANALYST</span></h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main About Grid -->
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Left: Profile Info -->
+        <div>
+          <div class="cp-panel cp-corner" style="padding:36px;" data-reveal data-delay="100">
+            <!-- Avatar placeholder -->
+            <div style="width:100px;height:100px;border:2px solid rgba(0,255,255,0.4);border-radius:4px;background:linear-gradient(135deg,rgba(0,255,255,0.1),rgba(155,92,255,0.1));display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-family:'Orbitron',monospace;font-size:2rem;font-weight:900;color:#00ffff;text-shadow:0 0 20px #00ffff;box-shadow:0 0 20px rgba(0,255,255,0.15);">SM</div>
+            <h2 style="margin-bottom:4px;">SUJIT MURARI</h2>
+            <div class="text-cyan" style="font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.1em;margin-bottom:20px;">Business Analytics Student</div>
+            <div class="status-badge mb-24"><div class="dot"></div>SEEKING INTERNSHIP</div>
+
+            <div class="cyber-divider"><span>PROFILE DATA</span></div>
+
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div style="display:flex;gap:16px;align-items:flex-start;">
+                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">PROGRAM</span>
+                <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">BBA — Business Analytics</span>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start;">
+                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">UNIVERSITY</span>
+                <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">Dev Bhoomi Uttarakhand University</span>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start;">
+                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">SEMESTER</span>
+                <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">IV · 2025</span>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start;">
+                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">FOCUS</span>
+                <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">Data Visualization · BI · Analytics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interests -->
+          <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:32px;margin-top:24px;" data-reveal data-delay="200">
+            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">◈ INTERESTS & FOCUS AREAS</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="padding:14px;border:1px solid rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);border-radius:2px;">
+                <div style="font-size:1.2rem;margin-bottom:6px;">📊</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#9b5cff;letter-spacing:0.1em;">DATA VIZ</div>
+              </div>
+              <div style="padding:14px;border:1px solid rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);border-radius:2px;">
+                <div style="font-size:1.2rem;margin-bottom:6px;">📐</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#00ffff;letter-spacing:0.1em;">STATISTICS</div>
+              </div>
+              <div style="padding:14px;border:1px solid rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);border-radius:2px;">
+                <div style="font-size:1.2rem;margin-bottom:6px;">💡</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#00ffff;letter-spacing:0.1em;">BUSINESS INTEL</div>
+              </div>
+              <div style="padding:14px;border:1px solid rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);border-radius:2px;">
+                <div style="font-size:1.2rem;margin-bottom:6px;">🖥️</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#9b5cff;letter-spacing:0.1em;">DASHBOARDS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Bio + Timeline -->
+        <div>
+          <div data-reveal data-delay="100">
+            <div class="data-label mb-16">◈ ANALYST OVERVIEW</div>
+            <p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px;">I am <strong style="color:#00ffff;">Sujit Murari</strong>, a Business Analytics student with a passion for transforming complex datasets into clear, actionable business intelligence. I specialize in building data pipelines and visualization systems that help organizations make faster, smarter decisions.</p>
+            <p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px;">My academic journey at Dev Bhoomi Uttarakhand University has equipped me with a strong foundation in statistical analysis, database management, and executive-grade dashboard design using tools like Tableau, Excel, SQL, and Python.</p>
+            <p style="font-size:1.1rem;line-height:1.8;margin-bottom:32px;">I approach every dataset as a story waiting to be told — finding patterns, correlations, and anomalies that reveal the business narrative hidden within the numbers.</p>
+          </div>
+
+          <!-- Skill Growth Chart -->
+          <div class="cp-panel" style="padding:24px;" data-reveal data-delay="200">
+            <div class="data-label mb-16">◈ ANALYTICAL SKILLS GROWTH TRAJECTORY</div>
+            <canvas id="line-chart" height="160"></canvas>
+          </div>
+
+          <!-- Timeline -->
+          <div style="margin-top:32px;" data-reveal data-delay="300">
+            <div class="data-label mb-24">◈ SKILLS DEVELOPMENT TIMELINE</div>
+            <div style="display:flex;gap:0;">
+              <!-- Timeline line -->
+              <div style="display:flex;flex-direction:column;align-items:center;margin-right:20px;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line" style="flex:1;min-height:60px;"></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-line" style="flex:1;min-height:60px;"></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-line" style="flex:1;min-height:60px;"></div>
+                <div class="timeline-dot"></div>
+              </div>
+              <!-- Timeline content -->
+              <div style="flex:1;display:flex;flex-direction:column;gap:0;">
+                <div class="cp-panel" style="padding:16px 18px;margin-bottom:12px;">
+                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM I — FOUNDATION</div>
+                  <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">Data Fundamentals</div>
+                  <p style="font-size:0.9rem;margin:0;">Introduced to Excel, basic statistics, and data cleaning methodologies. Built first data summary reports.</p>
+                </div>
+                <div class="cp-panel" style="padding:16px 18px;margin-bottom:12px;">
+                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM II — Learning advance tools</div>
+                  <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">R programming</div>
+                  <p style="font-size:0.9rem;margin:0;">Learned first ever programming language R and started building my own projects.</p>
+                </div>
+                <div class="cp-panel cp-panel-purple" style="padding:16px 18px;margin-bottom:12px;">
+                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(155,92,255,0.5);margin-bottom:4px;">SEM III — Python</div>
+                  <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">Python & numpy</div>
+                  <p style="font-size:0.9rem;margin:0;">Introduced Python with Pandas for data manipulation. Applied statistical models to real business problems.</p>
+                </div>
+                <div class="cp-panel" style="padding:16px 18px;">
+                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM IV — CURRENT</div>
+                  <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#00ffff;margin-bottom:6px;">Tableau & SQL</div>
+                  <p style="font-size:0.9rem;margin:0;">Building advanced analytics projects like dashboards using Tableau and SQL.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2025
+    </p>
+  </div>
+</footer>
+
+<script src="js/animations.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

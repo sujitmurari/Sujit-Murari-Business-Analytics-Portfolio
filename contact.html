@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <title>Contact — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="page-content">
+  <section class="page-hero section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; CONTACT</div>
+      <div class="section-header" data-reveal>
+        <h1>ESTABLISH <span class="text-cyan">CONNECTION</span></h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:20px;">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Left: Terminal + Socials -->
+        <div>
+          <!-- Terminal Window -->
+          <div class="terminal-window" data-reveal data-delay="100">
+            <div class="terminal-titlebar">
+              <div class="terminal-dot" style="background:#ff5f57;"></div>
+              <div class="terminal-dot" style="background:#febc2e;"></div>
+              <div class="terminal-dot" style="background:#28c840;"></div>
+              <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:rgba(224,247,255,0.4);margin-left:12px;">sujitmurari — contact.sh</span>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div style="margin-top:32px;" data-reveal data-delay="200">
+            <div class="data-label mb-16">◈ COMMUNICATION CHANNELS</div>
+            <div class="social-links">
+              <a href="/cdn-cgi/l/email-protection#dcafa9b6b5a8b1a9aebdaeb5ecea9cbbb1bdb5b0f2bfb3b1" class="social-link">
+                <div class="icon">✉️</div>
+                <div class="info">
+                  <span class="name">EMAIL</span>
+                  <span class="handle"><span class="__cf_email__" data-cfemail="3546405f5c4158404754475c0503755258545c591b565a58">[email&#160;protected]</span></span>
+                </div>
+              </a>
+              <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="social-link">
+                <div class="icon">💼</div>
+                <div class="info">
+                  <span class="name">LINKEDIN</span>
+                  <span class="handle">linkedin.com/in/sujitmurari06</span>
+                </div>
+              </a>
+              <a href="https://github.com/sujitmurari" target="_blank" class="social-link">
+                <div class="icon">⚙️</div>
+                <div class="info">
+                  <span class="name">GITHUB</span>
+                  <span class="handle">github.com/sujitmurari</span>
+                </div>
+              </a>
+              <a href="https://public.tableau.com/app/profile/sujit.murari" target="_blank" class="social-link">
+                <div class="icon">📊</div>
+                <div class="info">
+                  <span class="name">TABLEAU PUBLIC</span>
+                  <span class="handle">public.tableau.com/app/profile/sujit.murari</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Status Cards -->
+          <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:12px;" data-reveal data-delay="250">
+            <div class="cp-panel" style="padding:18px;">
+              <div class="data-label mb-8">AVAILABILITY</div>
+              <div class="status-badge"><div class="dot"></div>OPEN TO INTERNSHIPS</div>
+            </div>
+            <div class="cp-panel cp-panel-purple" style="padding:18px;">
+              <div class="data-label mb-8" style="color:rgba(155,92,255,0.5);">RESPONSE TIME</div>
+              <div style="font-family:'Share Tech Mono',monospace;font-size:0.9rem;color:#9b5cff;">~24 HOURS</div>
+            </div>
+            <div class="cp-panel" style="padding:18px;">
+              <div class="data-label mb-8">LOCATION</div>
+              <div style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">UTTARAKHAND, IND</div>
+            </div>
+            <div class="cp-panel cp-panel-purple" style="padding:18px;">
+              <div class="data-label mb-8" style="color:rgba(155,92,255,0.5);">PREFERRED MODE</div>
+              <div style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#9b5cff;">REMOTE / HYBRID</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div data-reveal data-delay="150">
+          <div class="cp-panel cp-corner" style="padding:36px;">
+            <div class="data-label mb-24">◈ SEND A MESSAGE</div>
+            <form id="contact-form" style="display:flex;flex-direction:column;gap:20px;">
+              <div>
+                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
+                <input type="text" class="cyber-input" placeholder="Enter your name" required/>
+              </div>
+              <div>
+                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL ADDRESS</label>
+                <input type="email" class="cyber-input" placeholder="your@email.com" required/>
+              </div>
+              <div>
+                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">SUBJECT</label>
+                <input type="text" class="cyber-input" placeholder="Internship inquiry / Collaboration..." required/>
+              </div>
+              <div>
+                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
+                <textarea class="cyber-input" rows="6" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
+              </div>
+              <button type="submit" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">▸ TRANSMIT MESSAGE</button>
+            </form>
+          </div>
+
+          <!-- Quick Message Options -->
+          <div style="margin-top:20px;" data-reveal data-delay="300">
+            <div class="data-label mb-12">◈ QUICK CONNECT</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button class="btn-neon" style="font-size:0.58rem;padding:8px 16px;" onclick="document.querySelector('#contact-form textarea').value='I would like to discuss an internship opportunity with you.'">Internship Inquiry</button>
+              <button class="btn-neon btn-neon-purple" style="font-size:0.58rem;padding:8px 16px;" onclick="document.querySelector('#contact-form textarea').value='I am interested in collaborating on an analytics project.'">Collaboration</button>
+              <button class="btn-neon" style="font-size:0.58rem;padding:8px 16px;" onclick="document.querySelector('#contact-form textarea').value='I would love to learn more about your analytics work and projects.'">General Inquiry</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2025
+    </p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/animations.js"></script>
+<script src="js/script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const lines = [
+    { type:'prompt', text:'> connect --analyst sujitmurari', delay:400 },
+    { type:'output', text:'Initializing secure connection...', delay:200 },
+    { type:'output', text:'', delay:100 },
+    { type:'prompt', text:'> status --check', delay:300 },
+    { type:'output', text:'[ ANALYST ] Sujit Murari — ONLINE', delay:150 },
+    { type:'output', text:'[ STATUS  ] Seeking Internship Opportunities', delay:80 },
+    { type:'output', text:'[ FOCUS   ] Business Analytics · Data Visualization', delay:80 },
+    { type:'output', text:'', delay:100 },
+    { type:'prompt', text:'> contact --init communication', delay:500 },
+    { type:'output', text:'Communication channels ready.', delay:200 },
+    { type:'output', text:'Select a channel or use the form →', delay:100 },
+    { type:'output', text:'', delay:100 },
+    { type:'prompt', tex

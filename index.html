@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <title>SUJIT MURARI — Analytics Command Center</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loader" style="position:fixed;inset:0;z-index:999;background:#050510;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
+  <div style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.4em;color:rgba(0,255,255,0.6);">ANALYTICS COMMAND CENTER</div>
+  <div style="font-family:'Orbitron',monospace;font-size:2rem;font-weight:900;color:#00ffff;text-shadow:0 0 20px #00ffff;">SUJIT MURARI</div>
+  <div style="width:300px;height:3px;background:rgba(0,255,255,0.1);border-radius:2px;overflow:hidden;">
+    <div class="loader-bar-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#00ffff,#9b5cff);transition:width 0.1s;box-shadow:0 0 10px #00ffff;"></div>
+  </div>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:rgba(0,255,255,0.5);">INITIALIZING SYSTEM — <span class="loader-pct">0%</span></div>
+</div>
+
+<!-- Background -->
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- Navigation -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span class="nav-status-text" id="live-clock">00:00:00</span>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Stats Ticker -->
+<div class="stats-bar" style="position:fixed;top:64px;left:0;right:0;z-index:99;">
+  <div class="stats-bar-inner">
+    <div class="stats-bar-item"><span class="key">STATUS</span><span class="val">ONLINE</span></div>
+    <div class="stats-bar-item"><span class="key">ANALYST</span><span class="val">SUJIT MURARI</span></div>
+    <div class="stats-bar-item"><span class="key">TOOLS</span><span class="val">TABLEAU · SQL · PYTHON · EXCEL</span></div>
+    <div class="stats-bar-item"><span class="key">UNIVERSITY</span><span class="val">DEV BHOOMI UTTARAKHAND</span></div>
+    <div class="stats-bar-item"><span class="key">SEMESTER</span><span class="val">IV · 2025</span></div>
+    <div class="stats-bar-item"><span class="key">INTERNSHIP</span><span class="val">OPEN TO OPPORTUNITIES</span></div>
+    <div class="stats-bar-item"><span class="key">SPECIALIZATION</span><span class="val">BUSINESS ANALYTICS</span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="stats-bar-item"><span class="key">STATUS</span><span class="val">ONLINE</span></div>
+    <div class="stats-bar-item"><span class="key">ANALYST</span><span class="val">SUJIT MURARI</span></div>
+    <div class="stats-bar-item"><span class="key">TOOLS</span><span class="val">TABLEAU · SQL · PYTHON · EXCEL</span></div>
+    <div class="stats-bar-item"><span class="key">UNIVERSITY</span><span class="val">DEV BHOOMI UTTARAKHAND</span></div>
+    <div class="stats-bar-item"><span class="key">SEMESTER</span><span class="val">IV · 2025</span></div>
+    <div class="stats-bar-item"><span class="key">INTERNSHIP</span><span class="val">OPEN TO OPPORTUNITIES</span></div>
+    <div class="stats-bar-item"><span class="key">SPECIALIZATION</span><span class="val">BUSINESS ANALYTICS</span></div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="page-content" style="padding-top: calc(64px + 38px);">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;" class="hero-grid">
+        <!-- Left: Text -->
+        <div class="hero-content" data-reveal data-delay="200">
+          <div class="hero-eyebrow">ANALYTICS COMMAND CENTER v2.0</div>
+          <h1 class="hero-name glitch" data-text="SUJIT MURARI">SUJIT MURARI</h1>
+          <div class="hero-title">◈ <span id="hero-typing">Business Analytics</span></div>
+          <p class="hero-subtitle">Transforming raw business data into strategic intelligence. Building executive-grade dashboards that power data-driven decisions.</p>
+          <div class="hero-tags">
+            <span class="hero-tag">Tableau</span>
+            <span class="hero-tag">Excel</span>
+            <span class="hero-tag">SQL</span>
+            <span class="hero-tag">Python</span>
+            <span class="hero-tag">Pandas</span>
+            <span class="hero-tag">Power BI</span>
+            <span class="hero-tag">Statistics</span>
+          </div>
+          <div class="hero-btns">
+            <a href="projects.html" class="btn-neon btn-neon-solid">▸ Explore Projects</a>
+            <a href="dashboards.html" class="btn-neon btn-neon-purple">▸ View Dashboards</a>
+          </div>
+        </div>
+
+        <!-- Right: Visual Panel -->
+        <div data-reveal data-delay="400">
+          <div class="cp-panel cp-corner" style="padding:28px;">
+            <div class="data-label mb-16">◈ ANALYST PROFILE — ACTIVE</div>
+
+            <!-- Profile vitals -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+              <div class="cp-panel cp-panel-purple" style="padding:16px 14px;">
+                <div class="data-label">SPECIALIZATION</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.7rem;color:#00ffff;margin-top:4px;">Business Analytics</div>
+              </div>
+              <div class="cp-panel" style="padding:16px 14px;">
+                <div class="data-label">UNIVERSITY</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#e0f7ff;margin-top:4px;">Dev Bhoomi Uttarakhand University</div>
+              </div>
+              <div class="cp-panel" style="padding:16px 14px;">
+                <div class="data-label">PROGRAM</div>
+                <div style="font-family:'Orbitron',monospace;font-size:0.7rem;color:#9b5cff;margin-top:4px;">BBA — Analytics</div>
+              </div>
+              <div class="cp-panel cp-corner-purple" style="padding:16px 14px;">
+                <div class="data-label">STATUS</div>
+                <div class="status-badge mt-8" style="margin-top:6px;font-size:0.55rem;padding:3px 8px;"><div class="dot"></div>SEEKING INTERNSHIP</div>
+              </div>
+            </div>
+
+            <!-- Mini skill bars -->
+            <div class="data-label mb-16">CORE COMPETENCIES</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div class="skill-header" style="margin-bottom:5px;">
+                  <span style="font-family:'Orbitron',monospace;font-size:0.6rem;color:#e0f7ff;">Tableau</span>
+                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#00ffff;">88%</span>
+                </div>
+                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="88"></div></div>
+              </div>
+              <div>
+                <div class="skill-header" style="margin-bottom:5px;">
+                  <span style="font-family:'Orbitron',monospace;font-size:0.6rem;color:#e0f7ff;">Excel</span>
+                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#00ffff;">90%</span>
+                </div>
+                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="90"></div></div>
+              </div>
+              <div>
+                <div class="skill-header" style="margin-bottom:5px;">
+                  <span style="font-family:'Orbitron',monospace;font-size:0.6rem;color:#e0f7ff;">R Programming</span>
+                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#1cbb5e;">66%</span>
+                </div>
+                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="66"></div></div>
+              </div>
+              <div>
+                <div class="skill-header" style="margin-bottom:5px;">
+                  <span style="font-family:'Orbitron',monospace;font-size:0.6rem;color:#e0f7ff;">SQL</span>
+                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#00ffff;">78%</span>
+                </div>
+                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="78"></div></div>
+              </div>
+              <div>
+                <div class="skill-header" style="margin-bottom:5px;">
+                  <span style="font-family:'Orbitron',monospace;font-size:0.6rem;color:#e0f7ff;">Python</span>
+                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#9b5cff;">72%</span>
+                </div>
+                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#9b5cff,#00ffff);box-shadow:0 0 10px #9b5cff;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid mt-60" data-reveal data-delay="600">
+        <div class="holo-card cp-corner kpi-card">
+          <div class="data-label mb-8">◈ PROJECTS</div>
+          <span class="kpi-value" data-count="8">0</span>
+          <div class="kpi-label">Projects Completed</div>
+          <div class="kpi-sublabel">Analytics & Dashboard Projects</div>
+        </div>
+        <div class="holo-card cp-corner-purple kpi-card">
+          <div class="data-label mb-8">◈ DATASETS</div>
+          <span class="kpi-value" style="color:#9b5cff;text-shadow:0 0 20px #9b5cff;" data-count="15">0</span>
+          <div class="kpi-label">Datasets Analyzed</div>
+          <div class="kpi-sublabel">Real Business Datasets</div>
+        </div>
+        <div class="holo-card cp-corner kpi-card">
+          <div class="data-label mb-8">◈ DASHBOARDS</div>
+          <span class="kpi-value" data-count="6">0</span>
+          <div class="kpi-label">Dashboards Built</div>
+          <div class="kpi-sublabel">Tableau & Power BI Dashboards</div>
+        </div>
+        <div class="holo-card cp-corner-purple kpi-card">
+          <div class="data-label mb-8">◈ TOOLS</div>
+          <span class="kpi-value" style="color:#9b5cff;text-shadow:0 0 20px #9b5cff;" data-count="7">0</span>
+          <div class="kpi-label">Tools Mastered</div>
+          <div class="kpi-sublabel">Analytics & BI Tools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAINS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2>SPECIALIZATION <span class="text-cyan">DOMAINS</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        <div class="cp-panel cp-corner holo-card" style="padding:32px;" data-reveal data-delay="100">
+          <div style="font-size:2rem;margin-bottom:16px;">📊</div>
+          <div class="data-label mb-8">DOMAIN_01</div>
+          <h3 class="text-cyan mb-16">Data Visualization</h3>
+          <p>Building executive-grade Tableau dashboards with KPI cards, dual-axis charts, and interactive filters that communicate business insights with precision.</p>
+          <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
+          <div class="hero-tags"><span class="hero-tag">Tableau</span><span class="hero-tag">Power BI</span><span class="hero-tag">Excel</span><span class="hero-tag">R Programming</span></div>
+        </div>
+        <div class="cp-panel cp-panel-purple cp-corner-purple holo-card" style="padding:32px;" data-reveal data-delay="200">
+          <div style="font-size:2rem;margin-bottom:16px;">📈</div>
+          <div class="data-label mb-8" style="color:rgba(155,92,255,0.5);">DOMAIN_02</div>
+          <h3 class="text-purple mb-16">Statistical Analytics</h3>
+          <p>Applying regression, correlation analysis, hypothesis testing, and distribution modeling to derive statistically sound business recommendations.</p>
+          <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
+          <div class="hero-tags"><span class="hero-tag">Python</span><span class="hero-tag">Pandas</span><span class="hero-tag">Statistics</span></div>
+        </div>
+        <div class="cp-panel cp-corner holo-card" style="padding:32px;" data-reveal data-delay="300">
+          <div style="font-size:2rem;margin-bottom:16px;">💡</div>
+          <div class="data-label mb-8">DOMAIN_03</div>
+          <h3 class="text-cyan mb-16">Business Intelligence</h3>
+          <p>Translating raw operational data into pricing, revenue, and customer segmentation insights aligned with strategic business objectives.</p>
+          <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
+          <div class="hero-tags"><span class="hero-tag">SQL</span><span class="hero-tag">Excel</span><span class="hero-tag">Tableau</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;">
+    <div class="container" style="text-align:center;" data-reveal>
+      <div class="cp-panel" style="padding:60px 40px;max-width:700px;margin:0 auto;">
+        <div class="data-label mb-16">◈ READY TO COLLABORATE</div>
+        <h2 style="margin-bottom:16px;">Let's Build Something <span class="text-cyan">Intelligence-Driven</span></h2>
+        <p style="margin-bottom:32px;">Open to analytics internships, collaborative projects, and data-driven challenges. Let's turn your data into decisions.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn-neon btn-neon-solid">▸ Get In Touch</a>
+          <a href="about.html" class="btn-neon btn-neon-purple">▸ Know More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; DEV BHOOMI UTTARAKHAND UNIVERSITY · SEM IV · 2025
+    </p>
+  </div>
+</footer>
+
+<script src="js/animations.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/script.js"></script>
+<style>
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+</body>
+</html>
