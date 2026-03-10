@@ -1,0 +1,500 @@
+/* ═══════════════════════════════════════════════════
+   CYBERPUNK.CSS — Neon Glow, Panels, Animated Borders
+   ═══════════════════════════════════════════════════ */
+
+/* ── Neon Glow Utilities ── */
+.glow-cyan {
+  text-shadow: 0 0 8px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffffaa;
+}
+.glow-purple {
+  text-shadow: 0 0 8px #9b5cff, 0 0 20px #9b5cff, 0 0 40px #9b5cffaa;
+}
+.glow-pink {
+  text-shadow: 0 0 8px #ff2d78, 0 0 20px #ff2d78, 0 0 40px #ff2d7888;
+}
+
+/* ── Cyberpunk Panel ── */
+.cp-panel {
+  background: linear-gradient(135deg, rgba(0,255,255,0.04) 0%, rgba(155,92,255,0.04) 100%);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.cp-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(0,255,255,0.03) 100%);
+  pointer-events: none;
+}
+.cp-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffff, transparent);
+  animation: scanTop 3s linear infinite;
+}
+.cp-panel:hover {
+  border-color: rgba(0,255,255,0.6);
+  box-shadow: 0 0 20px rgba(0,255,255,0.15), 0 0 60px rgba(0,255,255,0.05), inset 0 0 30px rgba(0,255,255,0.03);
+  transform: translateY(-2px);
+}
+@keyframes scanTop {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* ── Panel opt-outs (use on large/structural panels that shouldn't lift) ── */
+.cp-panel.no-hover-lift:hover { transform: none; }
+.cp-panel.no-scan::after      { display: none; }
+
+/* ── Panel variants ── */
+.cp-panel-purple {
+  border-color: rgba(155,92,255,0.25);
+}
+.cp-panel-purple::after {
+  background: linear-gradient(90deg, transparent, #9b5cff, transparent);
+}
+.cp-panel-purple:hover {
+  border-color: rgba(155,92,255,0.7);
+  box-shadow: 0 0 20px rgba(155,92,255,0.2), 0 0 60px rgba(155,92,255,0.06), inset 0 0 30px rgba(155,92,255,0.04);
+}
+
+/* ── Corner Brackets ── */
+.cp-corner {
+  position: relative;
+}
+.cp-corner::before,
+.cp-corner::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: #00ffff;
+  border-style: solid;
+}
+.cp-corner::before {
+  top: -1px; left: -1px;
+  border-width: 2px 0 0 2px;
+}
+.cp-corner::after {
+  bottom: -1px; right: -1px;
+  border-width: 0 2px 2px 0;
+}
+.cp-corner-purple::before,
+.cp-corner-purple::after {
+  border-color: #9b5cff;
+}
+
+/* ── Neon Border Animation ── */
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(0,255,255,0.2); }
+  50%       { border-color: rgba(0,255,255,0.7); box-shadow: 0 0 20px rgba(0,255,255,0.3); }
+}
+.border-pulse { animation: borderPulse 2.5s ease-in-out infinite; }
+
+/* ── Holographic Card ── */
+.holo-card {
+  background: linear-gradient(135deg,
+    rgba(0,255,255,0.06) 0%,
+    rgba(155,92,255,0.06) 50%,
+    rgba(0,255,255,0.04) 100%);
+  border: 1px solid rgba(0,255,255,0.18);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.holo-card::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(0,255,255,0.06) 60deg, transparent 120deg);
+  animation: holoPulse 6s linear infinite;
+  pointer-events: none;
+}
+.holo-card:hover {
+  border-color: rgba(0,255,255,0.5);
+  box-shadow:
+    0 0 30px rgba(0,255,255,0.12),
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 0 40px rgba(0,255,255,0.04);
+  transform: translateY(-4px) scale(1.01);
+}
+@keyframes holoPulse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Neon Button ── */
+.btn-neon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,255,255,0.15), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+.btn-neon:hover::before { transform: translateX(0); }
+.btn-neon:hover {
+  box-shadow: 0 0 20px rgba(0,255,255,0.5), 0 0 60px rgba(0,255,255,0.2);
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.btn-neon-purple {
+  border-color: #9b5cff;
+  color: #9b5cff;
+}
+.btn-neon-purple::before {
+  background: linear-gradient(135deg, rgba(155,92,255,0.15), transparent);
+}
+.btn-neon-purple:hover {
+  box-shadow: 0 0 20px rgba(155,92,255,0.5), 0 0 60px rgba(155,92,255,0.2);
+  text-shadow: 0 0 10px #9b5cff;
+}
+
+.btn-neon-solid {
+  background: rgba(0,255,255,0.1);
+}
+.btn-neon-solid:hover {
+  background: rgba(0,255,255,0.2);
+}
+
+/* ── Grid Background ── */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+.grid-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, #050510 80%);
+}
+
+/* ── Scanline Overlay ── */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  animation: scanlineScroll 8s linear infinite;
+}
+@keyframes scanlineScroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 -200px; }
+}
+
+/* ── Terminal Text ── */
+.terminal-text {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  color: #00ffff;
+  font-size: 0.85rem;
+}
+
+/* ── Data Label ── */
+.data-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: rgba(0,255,255,0.5);
+  text-transform: uppercase;
+}
+
+/* ── Neon Progress Bar ── */
+.neon-progress-wrap {
+  background: rgba(0,255,255,0.08);
+  border: 1px solid rgba(0,255,255,0.15);
+  border-radius: 2px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.neon-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ffff, #9b5cff);
+  border-radius: 2px;
+  position: relative;
+  width: 0%;
+  transition: width 1.5s cubic-bezier(0.23,1,0.32,1);
+  box-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0,255,255,0.5);
+}
+.neon-progress-bar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0; bottom: 0;
+  width: 20px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  filter: blur(4px);
+}
+
+/* ── Status Badge ── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid rgba(0,255,255,0.3);
+  border-radius: 2px;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: rgba(0,255,255,0.8);
+  background: rgba(0,255,255,0.05);
+}
+.status-badge .dot {
+  width: 6px; height: 6px;
+  background: #00ffff;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00ffff;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ── Section Header ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.section-header::before {
+  content: '';
+  width: 4px;
+  height: 40px;
+  background: linear-gradient(180deg, #00ffff, #9b5cff);
+  box-shadow: 0 0 10px #00ffff;
+  flex-shrink: 0;
+}
+.section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,255,255,0.4), transparent);
+}
+
+/* ── Glitch Text ── */
+.glitch {
+  position: relative;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0.8;
+}
+.glitch::before {
+  color: #ff2d78;
+  animation: glitchA 4s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+.glitch::after {
+  color: #00ffff;
+  animation: glitchB 4s infinite;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+@keyframes glitchA {
+  0%, 90%, 100% { transform: translate(0); }
+  92%           { transform: translate(-3px, 1px); }
+  94%           { transform: translate(3px, -1px); }
+  96%           { transform: translate(-2px, 2px); }
+  98%           { transform: translate(2px, -2px); }
+}
+@keyframes glitchB {
+  0%, 90%, 100% { transform: translate(0); }
+  92%           { transform: translate(3px, -1px); }
+  94%           { transform: translate(-3px, 1px); }
+  96%           { transform: translate(2px, -2px); }
+  98%           { transform: translate(-2px, 2px); }
+}
+
+/* ── Particle Canvas ── */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ── Hex Grid Decoration ── */
+.hex-accent {
+  position: absolute;
+  width: 120px; height: 120px;
+  opacity: 0.06;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%2300ffff' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+  animation: hexRotate 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes hexRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Flicker Animation ── */
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%           { opacity: 0.4; }
+  97%           { opacity: 1; }
+  98%           { opacity: 0.2; }
+  99%           { opacity: 1; }
+}
+.flicker { animation: flicker 8s infinite; }
+
+/* ── Cyber Divider ── */
+.cyber-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+}
+.cyber-divider::before,
+.cyber-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,255,0.3), transparent);
+}
+.cyber-divider span {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(0,255,255,0.4);
+}
+
+/* ── Timeline ── */
+.timeline-line {
+  width: 2px;
+  background: linear-gradient(180deg, #00ffff, #9b5cff, transparent);
+  box-shadow: 0 0 8px rgba(0,255,255,0.5);
+}
+.timeline-dot {
+  width: 12px; height: 12px;
+  border: 2px solid #00ffff;
+  border-radius: 50%;
+  background: #050510;
+  box-shadow: 0 0 8px #00ffff, 0 0 20px rgba(0,255,255,0.4);
+  flex-shrink: 0;
+  position: relative;
+}
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: #00ffff;
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0; }
+}
+
+/* ── Radar Chart Container ── */
+.chart-container {
+  position: relative;
+  background: rgba(0,255,255,0.02);
+  border: 1px solid rgba(0,255,255,0.1);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+/* ── Card flip / project card animations ── */
+.project-card {
+  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+  position: relative;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+}
+.project-card .card-accent-line {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #00ffff, #9b5cff);
+  box-shadow: 0 0 10px #00ffff;
+  transition: width 0.4s ease;
+}
+.project-card:hover .card-accent-line { width: 100%; }
+.project-card .card-number {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  font-weight: 900;
+  opacity: 0.07;
+  position: absolute;
+  top: 16px; right: 20px;
+  line-height: 1;
+  color: #00ffff;
+  pointer-events: none;
+}
+
+/* ── Input / Form Styles ── */
+.cyber-input {
+  background: rgba(0,255,255,0.04);
+  border: 1px solid rgba(0,255,255,0.2);
+  color: #e0f7ff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  padding: 12px 16px;
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+.cyber-input:focus {
+  border-color: rgba(0,255,255,0.6);
+  box-shadow: 0 0 15px rgba(0,255,255,0.12);
+  background: rgba(0,255,255,0.07);
+}
+.cyber-input::placeholder { color: rgba(0,255,255,0.3); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050510; }
+::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,255,0.6); }
