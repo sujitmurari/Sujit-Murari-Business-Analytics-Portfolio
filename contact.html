@@ -153,24 +153,25 @@
         <div data-reveal data-delay="150">
           <div class="cp-panel cp-corner" style="padding:36px;">
             <div class="data-label mb-24">◈ SEND A MESSAGE</div>
-            <form id="contact-form" style="display:flex;flex-direction:column;gap:20px;">
+            <form id="contact-form" action="https://formspree.io/f/xreybnby" method="POST" style="display:flex;flex-direction:column;gap:20px;">
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
-                <input type="text" class="cyber-input" placeholder="Enter your name" required/>
+                <input type="text" name="name" class="cyber-input" placeholder="Enter your name" required/>
               </div>
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL ADDRESS</label>
-                <input type="email" class="cyber-input" placeholder="your@email.com" required/>
+                <input type="email" name="email" class="cyber-input" placeholder="your@email.com" required/>
               </div>
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">SUBJECT</label>
-                <input type="text" class="cyber-input" placeholder="Internship inquiry / Collaboration..." required/>
+                <input type="text" name="subject" class="cyber-input" placeholder="Internship inquiry / Collaboration..." required/>
               </div>
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
-                <textarea class="cyber-input" rows="6" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
+                <textarea name="message" class="cyber-input" rows="6" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
               </div>
               <button type="submit" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">▸ TRANSMIT MESSAGE</button>
+              <div id="form-status" style="font-family:'Share Tech Mono',monospace;font-size:0.78rem;text-align:center;display:none;"></div>
             </form>
           </div>
 
@@ -202,8 +203,52 @@
 <script src="js/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  initTerminal('terminal-output', [
-    { type: 'prompt', text: '> connect --analyst sujitmurari',          delay: 400 },
+  // ── Formspree contact form ──
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('[type="submit"]');
+      const data = new FormData(form);
+      btn.textContent = '◈ TRANSMITTING...';
+      btn.disabled = true;
+      status.style.display = 'none';
+      try {
+        const res = await fetch('https://formspree.io/f/xreybnby', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.textContent = '✓ MESSAGE TRANSMITTED SUCCESSFULLY';
+          status.style.color = '#00ff88';
+          status.style.display = 'block';
+          form.reset();
+          btn.textContent = '✓ SENT';
+          btn.style.borderColor = '#00ff88';
+          btn.style.color = '#00ff88';
+          setTimeout(() => {
+            btn.textContent = '▸ TRANSMIT MESSAGE';
+            btn.disabled = false;
+            btn.style.borderColor = '';
+            btn.style.color = '';
+            status.style.display = 'none';
+          }, 4000);
+        } else {
+          throw new Error('Send failed');
+        }
+      } catch {
+        status.textContent = '✗ TRANSMISSION FAILED — try emailing directly';
+        status.style.color = '#ff2d78';
+        status.style.display = 'block';
+        btn.textContent = '▸ TRANSMIT MESSAGE';
+        btn.disabled = false;
+      }
+    });
+  }
+
+  initTerminal('terminal-output', [    { type: 'prompt', text: '> connect --analyst sujitmurari',          delay: 400 },
     { type: 'output', text: 'Initializing secure connection...',         delay: 200 },
     { type: 'output', text: '',                                           delay: 100 },
     { type: 'prompt', text: '> status --check',                          delay: 300 },
