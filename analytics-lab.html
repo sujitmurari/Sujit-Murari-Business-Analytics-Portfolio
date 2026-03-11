@@ -959,28 +959,41 @@ function runSQL(){
   if(!raw){showErr('Please enter a SQL query.');return}
   if(!Object.keys(_tables).length){showErr('No tables loaded. Upload CSV files first.');return}
   hideErr();
+
+  // ── INP Fix: set button to loading state immediately, then process async ──
+  const btn=document.getElementById('run-btn');
+  if(btn){btn.textContent='⏳ RUNNING...';btn.disabled=true;}
   document.getElementById('perf-strip').classList.remove('vis');
-  const t0=performance.now();
-  let res;
-  try{res=execSQL(raw)}
-  catch(e){showErr('SQL Error: '+e.message);return}
-  const ms=(performance.now()-t0).toFixed(1);
-  _qRows=res.rows;_qCols=res.columns;
-  const ps=document.getElementById('perf-strip');ps.classList.add('vis');
-  document.getElementById('p-rows').textContent=res.rows.length.toLocaleString();
-  document.getElementById('p-time').textContent=ms+' ms';
-  document.getElementById('p-cols').textContent=res.columns.length;
-  document.getElementById('p-join').innerHTML=res.wasJoin
-    ?`<span class="join-badge">${res.joinType||'JOIN'}</span>`
-    :'<span style="color:var(--dim)">NONE</span>';
-  const cx=getCx(raw);
-  document.getElementById('p-cx').innerHTML=`<span class="cx-badge cx-${cx.cls}">${cx.lbl}</span>`;
-  renderTable(res.columns,res.rows);
-  const ct=_selChart==='auto'?autoChart(res.columns,res.rows):_selChart;
-  renderChart(res.columns,res.rows,ct);
-  document.getElementById('result-section').style.display='block';
-  const jb=document.getElementById('join-badge');if(jb)jb.style.display=res.wasJoin?'inline-flex':'none';
-  setTimeout(()=>document.getElementById('result-section').scrollIntoView({behavior:'smooth',block:'start'}),60);
+
+  // Defer heavy SQL work off the main thread so click is registered instantly
+  setTimeout(()=>{
+    const t0=performance.now();
+    let res;
+    try{res=execSQL(raw)}
+    catch(e){
+      showErr('SQL Error: '+e.message);
+      if(btn){btn.textContent='▶ RUN QUERY';btn.disabled=false;}
+      return;
+    }
+    const ms=(performance.now()-t0).toFixed(1);
+    _qRows=res.rows;_qCols=res.columns;
+    const ps=document.getElementById('perf-strip');ps.classList.add('vis');
+    document.getElementById('p-rows').textContent=res.rows.length.toLocaleString();
+    document.getElementById('p-time').textContent=ms+' ms';
+    document.getElementById('p-cols').textContent=res.columns.length;
+    document.getElementById('p-join').innerHTML=res.wasJoin
+      ?`<span class="join-badge">${res.joinType||'JOIN'}</span>`
+      :'<span style="color:var(--dim)">NONE</span>';
+    const cx=getCx(raw);
+    document.getElementById('p-cx').innerHTML=`<span class="cx-badge cx-${cx.cls}">${cx.lbl}</span>`;
+    renderTable(res.columns,res.rows);
+    const ct=_selChart==='auto'?autoChart(res.columns,res.rows):_selChart;
+    renderChart(res.columns,res.rows,ct);
+    document.getElementById('result-section').style.display='block';
+    const jb=document.getElementById('join-badge');if(jb)jb.style.display=res.wasJoin?'inline-flex':'none';
+    if(btn){btn.textContent='▶ RUN QUERY';btn.disabled=false;}
+    setTimeout(()=>document.getElementById('result-section').scrollIntoView({behavior:'smooth',block:'start'}),60);
+  },0);
 }
 
 function showErr(m){const e=document.getElementById('sql-err');e.textContent='⚠ '+m;e.style.display='block'}
@@ -1085,6 +1098,10 @@ function execSQL(query){
     });
   }
   const rcols=rows.length>0?Object.keys(rows[0]):(exprs[0]?.star?[]:exprs.map(e=>e.alias));
+  // Warn if result is very large — suggest adding LIMIT
+  if(rows.length>5000&&lim===Infinity){
+    console.warn(`[SQL] Large result: ${rows.length} rows. Consider adding LIMIT to speed up rendering.`);
+  }
   return{rows,columns:rcols,wasJoin,joinType};
 }
 
@@ -1121,6 +1138,11 @@ function parseFrom(fromClause){
     lastJoinType=jtype;
     rows=execJoin(rows,_tables[jtable].rows,lkey,rkey,jalias,jtype);
   });
+  // Safety cap: prevent browser freeze from accidental cross joins
+  if(rows.length>50000){
+    console.warn(`[SQL] JOIN produced ${rows.length} rows — capped at 50,000`);
+    rows=rows.slice(0,50000);
+  }
   return{baseRows:rows,aliases,wasJoin:true,joinType:lastJoinType};
 }
 
@@ -1336,10 +1358,30 @@ function autoChart(cols,rows){
 /* ── Render Table ── */
 function renderTable(cols,rows){
   const inf=document.getElementById('result-info');
-  if(inf)inf.innerHTML=`<span>${rows.length.toLocaleString()}</span> rows · <span>${cols.length}</span> cols`;
-  const th=document.getElementById('rtbl-head'),tb=document.getElementById('rtbl-body');
-  if(th)th.innerHTML=`<tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
-  if(tb)tb.innerHTML=rows.slice(0,200).map(r=>`<tr>${cols.map(c=>`<td>${r[c]!==undefined&&r[c]!==null?r[c]:''}</td>`).join('')}</tr>`).join('');
+  const displayRows=rows.slice(0,200);
+  const truncated=rows.length>200;
+  if(inf)inf.innerHTML=`<span>${rows.length.toLocaleString()}</span> rows · <span>${cols.length}</span> cols`
+    +(truncated?` <span style="color:rgba(255,180,0,0.7);font-size:0.72rem;">(showing first 200)</span>`:'');
+  const th=document.getElementById('rtbl-head');
+  const tb=document.getElementById('rtbl-body');
+  if(!th||!tb)return;
+
+  // Fast DOM build — avoid repeated innerHTML reflows
+  // Build all HTML in one string, set once
+  th.innerHTML=`<tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
+
+  // Build rows in chunks to avoid one giant string for large results
+  const CHUNK=50;
+  let html='';
+  for(let i=0;i<displayRows.length;i++){
+    const r=displayRows[i];
+    html+=`<tr>${cols.map(c=>`<td>${r[c]!==undefined&&r[c]!==null?r[c]:''}</td>`).join('')}</tr>`;
+    // Flush every 50 rows to avoid building a huge string all at once
+    if((i+1)%CHUNK===0||(i+1)===displayRows.length){
+      if(i<CHUNK){tb.innerHTML=html;}else{tb.innerHTML+=html;}
+      html='';
+    }
+  }
 }
 
 /* ── Render Chart ── */
