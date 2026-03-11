@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Offline — Sujit Murari</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="manifest" href="site.webmanifest"/>
+  <meta name="theme-color" content="#050510"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+    :root{--cyan:#00ffff;--purple:#9b5cff;--pink:#ff2d78;--bg:#050510}
+
+    body {
+      background: var(--bg);
+      color: rgba(224,247,255,0.85);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px 24px;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .error-code {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(5rem, 20vw, 8rem);
+      font-weight: 900;
+      color: var(--cyan);
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(0,255,255,0.4);
+      margin-bottom: 8px;
+      animation: glitch 4s infinite;
+    }
+
+    @keyframes glitch {
+      0%,90%,100% { transform: none; opacity: 1; }
+      92%   { transform: translateX(-3px); opacity: 0.8; color: var(--pink); }
+      94%   { transform: translateX(3px);  opacity: 1;   color: var(--cyan); }
+      96%   { transform: translateX(-2px); opacity: 0.9; }
+      98%   { transform: translateX(2px);  opacity: 1; }
+    }
+
+    .label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: rgba(0,255,255,0.5);
+      margin-bottom: 32px;
+    }
+
+    .panel {
+      background: rgba(0,10,20,0.7);
+      border: 1px solid rgba(0,255,255,0.15);
+      border-radius: 8px;
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+    }
+
+    .terminal-line {
+      text-align: left;
+      font-size: 0.82rem;
+      line-height: 2;
+      color: rgba(224,247,255,0.6);
+    }
+    .terminal-line .prompt { color: var(--cyan); }
+    .terminal-line .error  { color: var(--pink); }
+    .terminal-line .ok     { color: #00ff88; }
+
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: rgba(224,247,255,0.9);
+      margin-bottom: 12px;
+    }
+    p {
+      font-size: 0.82rem;
+      color: rgba(224,247,255,0.5);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #050510;
+      background: var(--cyan);
+      border: none;
+      border-radius: 4px;
+      padding: 12px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: #33ffff;
+      box-shadow: 0 0 24px rgba(0,255,255,0.4);
+      transform: translateY(-2px);
+    }
+
+    .pulse {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 8px var(--pink);
+      animation: blink 1.2s ease-in-out infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">404</div>
+    <div class="label">CONNECTION LOST</div>
+
+    <div class="panel">
+      <div class="terminal-line">
+        <span class="prompt">&gt; ping sujitmurari.is-a.dev</span>
+      </div>
+      <div class="terminal-line">
+        <span class="error">✗ Request timeout — no network detected</span>
+      </div>
+      <div class="terminal-line">
+        <span class="prompt">&gt; status --check</span>
+      </div>
+      <div class="terminal-line">
+        <span class="error">[ NETWORK ] OFFLINE</span>
+      </div>
+      <div class="terminal-line">
+        <span class="ok">[ CACHE   ] Available — cached pages still accessible</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="pulse"></span>YOU ARE OFFLINE</h2>
+      <p>No internet connection detected. Connect to a network and try again, or navigate to a previously cached page.</p>
+    </div>
+
+    <a href="/" class="btn">↩ BACK TO HOME</a>
+  </div>
+</body>
+</html>

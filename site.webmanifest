@@ -1,22 +1,53 @@
 {
   "name": "Sujit Murari | Business Analytics Portfolio",
   "short_name": "SM Portfolio",
-  "description": "Business Analytics Portfolio — Sujit Murari",
+  "description": "Business Analytics Portfolio — Data Visualization, SQL, Tableau & Python",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#050510",
+  "background_color": "#050510",
+  "categories": ["portfolio", "education", "business"],
   "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#050510",
-  "background_color": "#050510",
-  "display": "standalone",
-  "start_url": "/",
-  "scope": "/"
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "url": "/projects.html",
+      "description": "View analytics projects"
+    },
+    {
+      "name": "Analytics Lab",
+      "url": "/analytics-lab.html",
+      "description": "Open the SQL analytics lab"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact.html",
+      "description": "Get in touch"
+    }
+  ]
 }
