@@ -10,292 +10,221 @@
   <link rel="stylesheet" href="css/cyberpunk.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
-    /* ── SQL Lab Additions ── */
     :root {
-      --cyan: #00ffff;
-      --purple: #9b5cff;
-      --pink: #ff2d78;
-      --bg: #050510;
-      --panel: rgba(0,255,255,0.04);
-      --border: rgba(0,255,255,0.15);
-      --border-p: rgba(155,92,255,0.18);
-      --text: rgba(224,247,255,0.85);
-      --text-dim: rgba(224,247,255,0.45);
-      --mono: 'Share Tech Mono', monospace;
-      --orb: 'Orbitron', monospace;
+      --cyan:#00ffff; --purple:#9b5cff; --pink:#ff2d78; --green:#00ff88; --amber:#ffb400;
+      --bg:#050510; --border:rgba(0,255,255,0.15); --border-p:rgba(155,92,255,0.18);
+      --text:rgba(224,247,255,0.85); --dim:rgba(224,247,255,0.45);
+      --mono:'Share Tech Mono',monospace; --orb:'Orbitron',monospace;
     }
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
+    ::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.2);border-radius:3px}
 
-    /* SQL Panel */
-    .sql-panel {
-      background: rgba(0,10,20,0.7);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 28px;
-      margin-bottom: 32px;
-      position: relative;
-    }
-    .sql-panel::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-    }
-    .sql-editor-wrap {
-      position: relative;
-    }
-    .sql-editor-wrap .sql-gutter {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 44px;
-      background: rgba(0,255,255,0.03);
-      border-right: 1px solid rgba(0,255,255,0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 14px;
-      gap: 20px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: rgba(0,255,255,0.25);
-      pointer-events: none;
-      border-radius: 4px 0 0 4px;
-      user-select: none;
-    }
-    #sql-input {
-      width: 100%;
-      min-height: 110px;
-      background: rgba(0,5,15,0.8);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: #e0f7ff;
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      line-height: 1.8;
-      padding: 14px 16px 14px 52px;
-      resize: vertical;
-      outline: none;
-      caret-color: var(--cyan);
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-    #sql-input:focus { border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,255,255,0.08); }
-    #sql-input::placeholder { color: rgba(0,255,255,0.25); }
+    @keyframes fadeSlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .panel-enter{animation:fadeSlideUp 0.38s ease both}
 
-    /* SQL keyword highlight hint */
-    .sql-keywords {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 10px 0;
+    /* ── Metadata Bar ── */
+    .meta-bar{
+      display:flex;flex-wrap:wrap;
+      background:rgba(0,8,18,0.75);
+      border:1px solid var(--border);
+      border-radius:6px;overflow:hidden;
+      margin-bottom:24px;
     }
-    .sql-kw {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--cyan);
-      background: rgba(0,255,255,0.07);
-      border: 1px solid rgba(0,255,255,0.15);
-      padding: 2px 8px;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: background 0.15s;
+    .meta-item{
+      display:flex;flex-direction:column;gap:4px;
+      padding:14px 20px;border-right:1px solid rgba(0,255,255,0.07);
+      flex:1;min-width:110px;
     }
-    .sql-kw:hover { background: rgba(0,255,255,0.15); }
+    .meta-item:last-child{border-right:none}
+    .meta-label{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.18em;color:var(--dim)}
+    .meta-val{font-family:var(--mono);font-size:0.88rem;color:var(--cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .meta-val.p{color:var(--purple)} .meta-val.g{color:var(--green)} .meta-val.a{color:var(--amber)}
 
-    /* Chart type selector */
-    .chart-type-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 18px 0 20px;
-      align-items: center;
+    /* ── KPI Cards ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:32px}
+    .kpi-card{
+      background:rgba(0,8,18,0.8);border:1px solid var(--border);border-radius:6px;
+      padding:18px 20px 16px;position:relative;overflow:hidden;
+      transition:box-shadow .25s,transform .2s;cursor:default;
     }
-    .chart-type-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      margin-right: 4px;
-    }
-    .chart-type-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      color: var(--text-dim);
-      background: rgba(0,255,255,0.03);
-      border: 1px solid rgba(0,255,255,0.12);
-      border-radius: 3px;
-      padding: 6px 14px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .chart-type-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,255,255,0.07); }
-    .chart-type-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,255,255,0.12); box-shadow: 0 0 8px rgba(0,255,255,0.15); }
-    .chart-type-btn.active-purple { border-color: var(--purple); color: var(--purple); background: rgba(155,92,255,0.1); box-shadow: 0 0 8px rgba(155,92,255,0.15); }
-    .chart-type-icon { font-size: 1rem; }
+    .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent 80%)}
+    .kpi-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(0,255,255,0.04),transparent 65%);pointer-events:none}
+    .kpi-card:hover{box-shadow:0 0 22px rgba(0,255,255,0.1);transform:translateY(-2px)}
+    .kpi-card.p::before{background:linear-gradient(90deg,var(--purple),transparent 80%)}
+    .kpi-card.p::after{background:radial-gradient(ellipse at top left,rgba(155,92,255,0.05),transparent 65%)}
+    .kpi-card.p:hover{box-shadow:0 0 22px rgba(155,92,255,0.12)}
+    .kpi-card.g::before{background:linear-gradient(90deg,var(--green),transparent 80%)}
+    .kpi-card.g:hover{box-shadow:0 0 22px rgba(0,255,136,0.1)}
+    .kpi-card.pk::before{background:linear-gradient(90deg,var(--pink),transparent 80%)}
+    .kpi-card.pk:hover{box-shadow:0 0 22px rgba(255,45,120,0.1)}
+    .kpi-card.a::before{background:linear-gradient(90deg,var(--amber),transparent 80%)}
+    .kpi-icon{font-size:1.2rem;margin-bottom:9px;opacity:0.55}
+    .kpi-label{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.18em;color:var(--dim);margin-bottom:5px}
+    .kpi-val{font-family:var(--orb);font-size:1.55rem;font-weight:900;color:var(--cyan);line-height:1}
+    .kpi-card.p .kpi-val{color:var(--purple)} .kpi-card.g .kpi-val{color:var(--green)}
+    .kpi-card.pk .kpi-val{color:var(--pink)}  .kpi-card.a .kpi-val{color:var(--amber)}
+    .kpi-sub{font-family:var(--mono);font-size:0.6rem;color:var(--dim);margin-top:7px;line-height:1.4}
 
-    /* Run button */
-    .sql-run-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--orb);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: #050510;
-      background: var(--cyan);
-      border: none;
-      border-radius: 3px;
-      padding: 10px 24px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-weight: 700;
+    /* ── Profiling Table ── */
+    .profile-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:6px;margin-bottom:32px}
+    .profile-tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.76rem}
+    .profile-tbl thead th{
+      background:rgba(0,255,255,0.07);color:var(--cyan);padding:10px 15px;
+      text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
+      font-family:var(--orb);font-size:0.56rem;letter-spacing:0.12em;
+      white-space:nowrap;position:sticky;top:0;
     }
-    .sql-run-btn:hover { background: #33ffff; box-shadow: 0 0 20px rgba(0,255,255,0.4); transform: translateY(-1px); }
-    .sql-run-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .sql-clear-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      color: var(--text-dim);
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 3px;
-      padding: 10px 18px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .sql-clear-btn:hover { border-color: var(--pink); color: var(--pink); }
+    .profile-tbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
+    .profile-tbl tbody tr:hover{background:rgba(0,255,255,0.03)}
+    .profile-tbl td{padding:8px 15px;color:var(--text);white-space:nowrap}
+    .profile-tbl td:first-child{color:var(--cyan);font-weight:600}
+    .badge-num{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size:0.5rem;letter-spacing:0.1em;background:rgba(0,255,255,0.08);color:var(--cyan);border:1px solid rgba(0,255,255,0.2)}
+    .badge-txt{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size:0.5rem;letter-spacing:0.1em;background:rgba(155,92,255,0.08);color:var(--purple);border:1px solid rgba(155,92,255,0.2)}
+    .miss-ok{color:var(--green)} .miss-warn{color:var(--pink)}
 
-    /* SQL Results Table */
-    .sql-result-section {
-      margin-top: 32px;
-      display: none;
+    /* ── SQL Panel ── */
+    .sql-panel{
+      background:rgba(0,10,20,0.7);border:1px solid var(--border);
+      border-radius:6px;padding:28px;margin-bottom:32px;position:relative;
     }
-    .result-table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      max-height: 320px;
-      overflow-y: auto;
+    .sql-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple))}
+    .sql-editor-wrap{position:relative}
+    .sql-gutter{
+      position:absolute;left:0;top:0;bottom:0;width:44px;
+      background:rgba(0,255,255,0.03);border-right:1px solid rgba(0,255,255,0.08);
+      display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:20px;
+      font-family:var(--mono);font-size:0.7rem;color:rgba(0,255,255,0.22);
+      pointer-events:none;border-radius:4px 0 0 4px;user-select:none;
     }
-    .result-table-wrap::-webkit-scrollbar { width: 5px; height: 5px; }
-    .result-table-wrap::-webkit-scrollbar-track { background: rgba(0,255,255,0.03); }
-    .result-table-wrap::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); border-radius: 3px; }
-    .result-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--mono);
-      font-size: 0.78rem;
+    #sql-input{
+      width:100%;min-height:120px;background:rgba(0,5,15,0.8);
+      border:1px solid var(--border);border-radius:4px;
+      color:#e0f7ff;font-family:var(--mono);font-size:0.9rem;line-height:1.8;
+      padding:14px 16px 14px 52px;resize:vertical;outline:none;
+      caret-color:var(--cyan);transition:border-color .2s,box-shadow .2s;box-sizing:border-box;
     }
-    .result-table thead th {
-      background: rgba(0,255,255,0.08);
-      color: var(--cyan);
-      padding: 10px 14px;
-      text-align: left;
-      border-bottom: 1px solid rgba(0,255,255,0.15);
-      white-space: nowrap;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      position: sticky;
-      top: 0;
-    }
-    .result-table tbody tr { border-bottom: 1px solid rgba(0,255,255,0.05); transition: background 0.1s; }
-    .result-table tbody tr:hover { background: rgba(0,255,255,0.04); }
-    .result-table tbody td { padding: 8px 14px; color: var(--text); white-space: nowrap; }
-    .result-table tbody td:first-child { color: rgba(0,255,255,0.6); }
+    #sql-input:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,255,255,0.1),0 0 16px rgba(0,255,255,0.05)}
+    #sql-input::placeholder{color:rgba(0,255,255,0.2)}
 
-    /* SQL Error */
-    .sql-error {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--pink);
-      background: rgba(255,45,120,0.06);
-      border: 1px solid rgba(255,45,120,0.2);
-      border-radius: 4px;
-      padding: 12px 16px;
-      margin-top: 12px;
-      display: none;
+    .sql-kw-row{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+    .sql-kw{
+      font-family:var(--mono);font-size:0.7rem;color:var(--cyan);
+      background:rgba(0,255,255,0.06);border:1px solid rgba(0,255,255,0.14);
+      padding:3px 9px;border-radius:2px;cursor:pointer;transition:background .14s;white-space:nowrap;
     }
+    .sql-kw:hover{background:rgba(0,255,255,0.14);box-shadow:0 0 7px rgba(0,255,255,0.12)}
 
-    /* Query chart */
-    .query-chart-wrap {
-      background: rgba(0,5,15,0.6);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 24px;
-      margin-top: 24px;
-      display: none;
+    /* Smart suggestions */
+    .sugg-label{font-family:var(--mono);font-size:0.67rem;color:var(--dim);letter-spacing:0.1em;margin-bottom:7px}
+    .sugg-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+    .sugg-chip{
+      font-family:var(--mono);font-size:0.67rem;
+      color:rgba(155,92,255,0.8);background:rgba(155,92,255,0.05);
+      border:1px solid rgba(155,92,255,0.16);border-radius:3px;
+      padding:4px 10px;cursor:pointer;transition:all .14s;
+      white-space:nowrap;max-width:360px;overflow:hidden;text-overflow:ellipsis;
     }
-    .query-chart-wrap .data-label { margin-bottom: 16px; }
+    .sugg-chip:hover{background:rgba(155,92,255,0.12);color:var(--purple);border-color:var(--purple);box-shadow:0 0 8px rgba(155,92,255,0.14)}
 
-    /* Result meta row */
-    .result-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
+    /* Chart type */
+    .ct-bar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 18px}
+    .ct-btn{
+      display:inline-flex;align-items:center;gap:5px;
+      font-family:var(--mono);font-size:0.7rem;letter-spacing:0.05em;
+      color:var(--dim);background:rgba(0,255,255,0.02);
+      border:1px solid rgba(0,255,255,0.1);border-radius:3px;
+      padding:6px 12px;cursor:pointer;transition:all .14s;
     }
-    .result-meta-info {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--text-dim);
-    }
-    .result-meta-info span { color: var(--cyan); }
+    .ct-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.06)}
+    .ct-btn.act{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.11);box-shadow:0 0 9px rgba(0,255,255,0.13)}
+    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background:rgba(155,92,255,0.09);box-shadow:0 0 9px rgba(155,92,255,0.13)}
 
-    /* Example queries */
-    .example-queries {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
+    /* Buttons */
+    .btn-run{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--orb);font-size:0.7rem;letter-spacing:0.12em;font-weight:700;
+      color:#050510;background:var(--cyan);border:none;border-radius:3px;
+      padding:11px 26px;cursor:pointer;transition:all .2s;
     }
-    .example-q {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: rgba(155,92,255,0.7);
-      background: rgba(155,92,255,0.05);
-      border: 1px solid rgba(155,92,255,0.15);
-      border-radius: 2px;
-      padding: 3px 10px;
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
+    .btn-run:hover{background:#33ffff;box-shadow:0 0 24px rgba(0,255,255,0.4);transform:translateY(-1px)}
+    .btn-run:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .btn-clr{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:0.75rem;letter-spacing:0.07em;
+      color:var(--dim);background:transparent;border:1px solid rgba(255,255,255,0.1);
+      border-radius:3px;padding:11px 18px;cursor:pointer;transition:all .2s;
     }
-    .example-q:hover { background: rgba(155,92,255,0.12); color: var(--purple); border-color: var(--purple); }
+    .btn-clr:hover{border-color:var(--pink);color:var(--pink)}
 
-    /* Status indicator */
-    .sql-status {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    /* Performance strip */
+    .perf-strip{
+      display:none;flex-wrap:wrap;align-items:stretch;
+      background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.14);
+      border-radius:4px;margin-top:14px;overflow:hidden;
     }
-    .sql-status .dot-green { width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 6px #00ff88; animation: pulse-green 2s infinite; }
-    .sql-status .dot-red { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 6px var(--pink); }
-    @keyframes pulse-green { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .perf-strip.vis{display:flex;animation:fadeSlideUp .3s ease both}
+    .perf-cell{display:flex;flex-direction:column;gap:3px;padding:10px 18px;border-right:1px solid rgba(0,255,136,0.09)}
+    .perf-cell:last-child{border-right:none}
+    .perf-lbl{font-family:var(--orb);font-size:0.49rem;letter-spacing:0.17em;color:rgba(0,255,136,0.42)}
+    .perf-v{font-family:var(--mono);font-size:0.82rem;color:var(--green)}
+    .cx-badge{display:inline-block;font-family:var(--orb);font-size:0.49rem;letter-spacing:0.1em;padding:1px 7px;border-radius:2px}
+    .cx-low{color:var(--green);background:rgba(0,255,136,0.09);border:1px solid rgba(0,255,136,0.22)}
+    .cx-med{color:var(--amber);background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.22)}
+    .cx-high{color:var(--pink);background:rgba(255,45,120,0.07);border:1px solid rgba(255,45,120,0.18)}
 
-    /* Scrollbar global */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-    ::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); border-radius: 3px; }
+    .sql-err{
+      font-family:var(--mono);font-size:0.8rem;color:var(--pink);
+      background:rgba(255,45,120,0.06);border:1px solid rgba(255,45,120,0.2);
+      border-radius:4px;padding:12px 16px;margin-top:14px;display:none;
+    }
+    .sql-status-row{font-family:var(--mono);font-size:0.7rem;color:var(--dim);display:flex;align-items:center;gap:6px}
+    .dot-g{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pg 2s infinite}
+    .dot-r{width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 6px var(--pink)}
+    @keyframes pg{0%,100%{opacity:1}50%{opacity:.35}}
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      #lab-charts-row { grid-template-columns: 1fr !important; }
-      .chart-type-bar { gap: 5px; }
-      .chart-type-btn { padding: 5px 10px; font-size: 0.68rem; }
+    /* Results */
+    .result-section{margin-top:32px;display:none}
+    .result-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+    .result-meta-info{font-family:var(--mono);font-size:0.77rem;color:var(--dim)}
+    .result-meta-info span{color:var(--cyan)}
+    .export-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .exp-btn{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:0.69rem;letter-spacing:0.06em;
+      color:var(--green);background:rgba(0,255,136,0.05);
+      border:1px solid rgba(0,255,136,0.2);border-radius:3px;
+      padding:8px 15px;cursor:pointer;transition:all .2s;
+    }
+    .exp-btn:hover{background:rgba(0,255,136,0.1);border-color:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.16);transform:translateY(-1px)}
+    .exp-btn.xl{color:var(--purple);background:rgba(155,92,255,0.05);border-color:rgba(155,92,255,0.2)}
+    .exp-btn.xl:hover{background:rgba(155,92,255,0.1);border-color:var(--purple);box-shadow:0 0 12px rgba(155,92,255,0.16)}
+
+    .rtbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:6px;max-height:320px}
+    .rtbl-wrap::-webkit-scrollbar{width:5px;height:5px}
+    .rtbl-wrap::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.2);border-radius:3px}
+    .rtbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.77rem}
+    .rtbl thead th{
+      background:rgba(0,255,255,0.08);color:var(--cyan);padding:10px 14px;
+      text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
+      font-family:var(--orb);font-size:0.58rem;letter-spacing:0.1em;
+      white-space:nowrap;position:sticky;top:0;
+    }
+    .rtbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
+    .rtbl tbody tr:hover{background:rgba(0,255,255,0.04)}
+    .rtbl tbody td{padding:8px 14px;color:var(--text);white-space:nowrap}
+    .rtbl tbody td:first-child{color:rgba(0,255,255,0.65)}
+
+    .chart-wrap{background:rgba(0,5,15,0.6);border:1px solid var(--border);border-radius:6px;padding:24px;margin-top:22px;display:none}
+
+    @media(max-width:860px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.meta-item{min-width:130px}}
+    @media(max-width:640px){
+      #lab-charts-row{grid-template-columns:1fr !important}
+      .ct-bar{gap:4px}.ct-btn{padding:5px 9px;font-size:0.66rem}
+      .sql-panel{padding:16px}.kpi-grid{grid-template-columns:repeat(2,1fr);gap:9px}
+      .meta-bar{flex-direction:column}.meta-item{border-right:none;border-bottom:1px solid rgba(0,255,255,0.07)}
     }
   </style>
 </head>
@@ -329,15 +258,15 @@
       <div class="section-header" data-reveal>
         <h1>ANALYTICS <span class="text-cyan">LAB</span></h1>
       </div>
-      <p data-reveal data-delay="100" style="max-width:640px;margin-bottom:16px;">Experimental analytics workspace. Upload a CSV dataset, run SQL-style queries, pick your chart type, and explore your data instantly — all in the browser.</p>
-      <div class="status-badge mb-32" style="display:inline-flex;" data-reveal data-delay="150"><div class="dot"></div>LIVE ANALYSIS ENGINE — ONLINE</div>
+      <p data-reveal data-delay="100" style="max-width:640px;margin-bottom:16px;">Full-stack analytics workspace — upload any CSV, auto-profile your data, run advanced SQL queries, build smart visualizations, and export results. Everything runs locally in your browser.</p>
+      <div class="status-badge mb-32" style="display:inline-flex;" data-reveal data-delay="150"><div class="dot"></div>ANALYSIS ENGINE v2.0 — ONLINE</div>
     </div>
   </section>
 
   <section class="section" style="padding-top:20px;">
     <div class="container">
 
-      <!-- Upload Zone -->
+      <!-- UPLOAD -->
       <div class="cp-panel cp-corner" style="padding:32px;margin-bottom:32px;" data-reveal>
         <div class="data-label mb-16">◈ DATA INGESTION MODULE</div>
         <div class="lab-drop-zone" id="drop-zone">
@@ -348,150 +277,147 @@
           <div style="margin-top:20px;">
             <span class="hero-tag">CSV Format</span>
             <span class="hero-tag">Headers Required</span>
-            <span class="hero-tag">Any Size</span>
+            <span class="hero-tag">Browser-Only — Private</span>
           </div>
         </div>
       </div>
 
-      <!-- Results (hidden until data loaded) -->
-      <div id="lab-results" style="display:none;" class="lab-results">
+      <!-- RESULTS -->
+      <div id="lab-results" style="display:none;">
 
-        <!-- File Info -->
-        <div class="cp-panel" style="padding:16px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-          <div class="data-label">◈ DATASET LOADED</div>
-          <div id="lab-file-info" style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:#e0f7ff;"></div>
+        <!-- 1. Metadata Bar -->
+        <div class="meta-bar panel-enter" id="meta-bar">
+          <div class="meta-item"><div class="meta-label">DATASET</div><div class="meta-val" id="m-name">—</div></div>
+          <div class="meta-item"><div class="meta-label">ROWS</div><div class="meta-val" id="m-rows">—</div></div>
+          <div class="meta-item"><div class="meta-label">COLUMNS</div><div class="meta-val p" id="m-cols">—</div></div>
+          <div class="meta-item"><div class="meta-label">FILE SIZE</div><div class="meta-val g" id="m-size">—</div></div>
+          <div class="meta-item"><div class="meta-label">NUMERIC</div><div class="meta-val" id="m-numcols">—</div></div>
+          <div class="meta-item"><div class="meta-label">TEXT COLS</div><div class="meta-val p" id="m-txtcols">—</div></div>
         </div>
 
-        <!-- Columns -->
-        <div class="cp-panel" style="padding:20px 24px;margin-bottom:28px;">
-          <div class="data-label mb-12">◈ DETECTED COLUMNS</div>
-          <div id="lab-columns" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        <!-- Columns list -->
+        <div class="cp-panel" style="padding:16px 22px;margin-bottom:24px;">
+          <div class="data-label mb-10">◈ DETECTED COLUMNS</div>
+          <div id="lab-columns" style="display:flex;flex-wrap:wrap;gap:7px;"></div>
         </div>
 
-        <!-- ═══════════════════════════════ SQL QUERY MODULE ═══════════════════════════════ -->
-        <div class="sql-panel" data-reveal>
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
+        <!-- 2. KPI Dashboard -->
+        <div class="data-label mb-12">◈ KPI DASHBOARD</div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+
+        <!-- 3. Data Profiling -->
+        <div class="data-label mb-12">◈ DATA PROFILING</div>
+        <div class="profile-wrap panel-enter">
+          <table class="profile-tbl">
+            <thead>
+              <tr>
+                <th>COLUMN</th><th>TYPE</th><th>UNIQUE</th>
+                <th>MISSING</th><th>MIN</th><th>MAX</th><th>SAMPLES</th>
+              </tr>
+            </thead>
+            <tbody id="profile-body"></tbody>
+          </table>
+        </div>
+
+        <!-- SQL ENGINE -->
+        <div class="sql-panel panel-enter" data-reveal>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
             <div class="data-label" style="margin:0;">◈ SQL QUERY ENGINE</div>
-            <div class="sql-status" id="sql-status">
-              <div class="dot-red" id="sql-status-dot"></div>
-              <span id="sql-status-text">NO DATA LOADED</span>
+            <div class="sql-status-row" id="sql-status">
+              <div class="dot-r" id="sql-dot"></div>
+              <span id="sql-txt">NO DATA LOADED</span>
             </div>
           </div>
 
-          <!-- Quick keyword hints -->
-          <div class="sql-keywords">
-            <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);margin-right:4px;">KEYWORDS:</span>
+          <!-- Keywords -->
+          <div class="sql-kw-row">
+            <span style="font-family:var(--mono);font-size:0.68rem;color:var(--dim);margin-right:3px;">KW:</span>
             <span class="sql-kw" onclick="insertKw('SELECT * FROM data')">SELECT *</span>
             <span class="sql-kw" onclick="insertKw('WHERE')">WHERE</span>
             <span class="sql-kw" onclick="insertKw('GROUP BY')">GROUP BY</span>
             <span class="sql-kw" onclick="insertKw('ORDER BY')">ORDER BY</span>
+            <span class="sql-kw" onclick="insertKw('HAVING')">HAVING</span>
             <span class="sql-kw" onclick="insertKw('LIMIT 50')">LIMIT</span>
             <span class="sql-kw" onclick="insertKw('COUNT(*)')">COUNT</span>
             <span class="sql-kw" onclick="insertKw('SUM()')">SUM</span>
             <span class="sql-kw" onclick="insertKw('AVG()')">AVG</span>
             <span class="sql-kw" onclick="insertKw('MAX()')">MAX</span>
             <span class="sql-kw" onclick="insertKw('MIN()')">MIN</span>
+            <span class="sql-kw" onclick="insertKw('ROUND(, 2)')">ROUND</span>
+            <span class="sql-kw" onclick="insertKw('DISTINCT')">DISTINCT</span>
+            <span class="sql-kw" onclick="insertKw('COALESCE(, 0)')">COALESCE</span>
           </div>
 
           <!-- Editor -->
-          <div class="sql-editor-wrap" style="margin:14px 0;">
-            <div class="sql-gutter" id="sql-gutter">
-              <span>1</span><span>2</span><span>3</span><span>4</span>
-            </div>
-            <textarea id="sql-input" placeholder="SELECT * FROM data WHERE column > 100 ORDER BY column DESC LIMIT 50" spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+          <div class="sql-editor-wrap" style="margin:12px 0;">
+            <div class="sql-gutter"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+            <textarea id="sql-input"
+              placeholder="SELECT category, SUM(sales) AS total&#10;FROM data&#10;GROUP BY category&#10;ORDER BY total DESC&#10;LIMIT 10"
+              spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
           </div>
 
-          <!-- Example queries -->
-          <div style="margin-bottom:16px;">
-            <div style="font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);margin-bottom:6px;">◈ EXAMPLE QUERIES:</div>
-            <div class="example-queries" id="example-queries">
-              <!-- filled dynamically based on columns -->
-              <span class="example-q" onclick="setQuery('SELECT * FROM data LIMIT 20')">SELECT * FROM data LIMIT 20</span>
-              <span class="example-q" id="eq-count">SELECT COUNT(*) as total FROM data</span>
-              <span class="example-q" id="eq-group">GROUP BY example</span>
-              <span class="example-q" id="eq-order">ORDER BY example</span>
-            </div>
+          <!-- Smart suggestions -->
+          <div class="sugg-label">◈ SMART QUERY SUGGESTIONS — click to use:</div>
+          <div class="sugg-list" id="sugg-list"></div>
+
+          <!-- Chart type -->
+          <div style="font-family:var(--mono);font-size:0.68rem;color:var(--dim);margin-bottom:7px;">◈ VISUALIZATION TYPE:</div>
+          <div class="ct-bar" id="ct-bar">
+            <button class="ct-btn act" onclick="selChart('auto',this)">⚡ AUTO</button>
+            <button class="ct-btn" onclick="selChart('bar',this)">▬ BAR</button>
+            <button class="ct-btn" onclick="selChart('line',this)">╱ LINE</button>
+            <button class="ct-btn" onclick="selChart('pie',this)">◕ PIE</button>
+            <button class="ct-btn" onclick="selChart('doughnut',this)">◉ DOUGHNUT</button>
+            <button class="ct-btn" onclick="selChart('scatter',this)">⁛ SCATTER</button>
+            <button class="ct-btn" onclick="selChart('radar',this)">⬡ RADAR</button>
+            <button class="ct-btn" onclick="selChart('polarArea',this)">◓ POLAR</button>
           </div>
 
-          <!-- Chart Type Selector -->
-          <div style="margin-bottom:18px;">
-            <div class="chart-type-label">◈ CHART TYPE:</div>
-            <div class="chart-type-bar" id="chart-type-bar">
-              <button class="chart-type-btn active" data-type="bar" onclick="selectChart('bar',this)">
-                <span class="chart-type-icon">▬</span> BAR
-              </button>
-              <button class="chart-type-btn" data-type="line" onclick="selectChart('line',this)">
-                <span class="chart-type-icon">╱</span> LINE
-              </button>
-              <button class="chart-type-btn" data-type="pie" onclick="selectChart('pie',this)">
-                <span class="chart-type-icon">◕</span> PIE
-              </button>
-              <button class="chart-type-btn" data-type="doughnut" onclick="selectChart('doughnut',this)">
-                <span class="chart-type-icon">◉</span> DOUGHNUT
-              </button>
-              <button class="chart-type-btn" data-type="scatter" onclick="selectChart('scatter',this)">
-                <span class="chart-type-icon">⁛</span> SCATTER
-              </button>
-              <button class="chart-type-btn" data-type="radar" onclick="selectChart('radar',this)">
-                <span class="chart-type-icon">⬡</span> RADAR
-              </button>
-              <button class="chart-type-btn" data-type="polarArea" onclick="selectChart('polarArea',this)">
-                <span class="chart-type-icon">◓</span> POLAR
-              </button>
-            </div>
+          <!-- Actions -->
+          <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap;">
+            <button class="btn-run" id="run-btn" onclick="runSQL()">▶ RUN QUERY</button>
+            <button class="btn-clr" onclick="clearSQL()">✕ CLEAR</button>
+            <span style="font-family:var(--mono);font-size:0.68rem;color:var(--dim);">Ctrl+Enter to run</span>
           </div>
 
-          <!-- Action buttons -->
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-            <button class="sql-run-btn" id="sql-run-btn" onclick="runSQL()">
-              ▶ RUN QUERY
-            </button>
-            <button class="sql-clear-btn" onclick="clearSQL()">✕ CLEAR</button>
-            <span id="sql-exec-time" style="font-family:var(--mono);font-size:0.72rem;color:var(--text-dim);"></span>
+          <!-- Performance strip -->
+          <div class="perf-strip" id="perf-strip">
+            <div class="perf-cell"><div class="perf-lbl">ROWS RETURNED</div><div class="perf-v" id="p-rows">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">EXEC TIME</div><div class="perf-v" id="p-time">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">COLUMNS</div><div class="perf-v" id="p-cols">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">COMPLEXITY</div><div class="perf-v" id="p-cx">—</div></div>
           </div>
 
-          <!-- Error box -->
-          <div class="sql-error" id="sql-error"></div>
+          <div class="sql-err" id="sql-err"></div>
         </div>
-        <!-- ═══════════════════════════════ END SQL MODULE ═══════════════════════════════ -->
 
-        <!-- SQL Query Results (shown below query panel) -->
-        <div class="sql-result-section" id="sql-result-section">
-
-          <!-- Result Meta -->
+        <!-- Results -->
+        <div class="result-section" id="result-section">
           <div class="result-meta">
             <div class="data-label" style="margin:0;">◈ QUERY RESULTS</div>
-            <div class="result-meta-info" id="result-meta-info"></div>
+            <div class="result-meta-info" id="result-info"></div>
           </div>
-
-          <!-- Data Table -->
-          <div class="result-table-wrap" id="result-table-wrap">
-            <table class="result-table" id="result-table">
-              <thead id="result-thead"></thead>
-              <tbody id="result-tbody"></tbody>
-            </table>
+          <div class="rtbl-wrap">
+            <table class="rtbl"><thead id="rtbl-head"></thead><tbody id="rtbl-body"></tbody></table>
           </div>
-
-          <!-- Chart Output -->
-          <div class="query-chart-wrap" id="query-chart-wrap">
-            <div class="data-label" id="query-chart-label">◈ CHART OUTPUT</div>
-            <canvas id="query-chart" height="220"></canvas>
+          <div class="export-row">
+            <button class="exp-btn" onclick="exportCSV()">⬇ EXPORT CSV</button>
+            <button class="exp-btn xl" onclick="exportExcel()">⬇ EXPORT EXCEL</button>
           </div>
-
+          <div class="chart-wrap" id="chart-wrap">
+            <div class="data-label mb-14" id="chart-lbl">◈ VISUALIZATION</div>
+            <canvas id="q-chart" height="220"></canvas>
+          </div>
         </div>
 
-        <!-- Auto-analysis divider -->
-        <div style="margin:40px 0 20px;border-top:1px solid rgba(0,255,255,0.08);padding-top:32px;">
+        <!-- Auto-analysis -->
+        <div style="margin:44px 0 28px;padding-top:36px;border-top:1px solid rgba(0,255,255,0.08);">
           <div class="data-label mb-16">◈ AUTO ANALYSIS — FULL DATASET</div>
         </div>
-
-        <!-- Stats Grid -->
         <div style="margin-bottom:40px;">
           <div class="data-label mb-16">◈ SUMMARY STATISTICS</div>
           <div id="lab-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
         </div>
-
-        <!-- Charts Row -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;" id="lab-charts-row">
           <div class="cp-panel cp-corner" style="padding:24px;">
             <div class="data-label mb-16">◈ HISTOGRAM</div>
@@ -502,8 +428,6 @@
             <canvas id="lab-scatter" height="200"></canvas>
           </div>
         </div>
-
-        <!-- Analysis Notes -->
         <div class="cp-panel" style="padding:24px;margin-bottom:40px;">
           <div class="data-label mb-16">◈ AUTOMATED ANALYSIS NOTES</div>
           <div id="lab-notes" style="font-family:'Share Tech Mono',monospace;font-size:0.82rem;line-height:2;color:rgba(224,247,255,0.7);">
@@ -514,29 +438,29 @@
         </div>
       </div>
 
-      <!-- Instructions (shown when no data) -->
+      <!-- Instructions -->
       <div id="lab-instructions" data-reveal>
         <div class="data-label mb-24">◈ HOW TO USE THE ANALYTICS LAB</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
           <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.2);margin-bottom:12px;">01</div>
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">01</div>
             <h4 class="text-cyan mb-8">Upload CSV</h4>
-            <p style="font-size:0.9rem;">Drag & drop or click to upload any CSV dataset. The file stays in your browser — nothing is uploaded to a server.</p>
+            <p style="font-size:0.9rem;">Drag & drop or click to upload any CSV. Instant profiling, KPI generation, and column detection. Stays in your browser.</p>
           </div>
           <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.2);margin-bottom:12px;">02</div>
-            <h4 class="text-purple mb-8">Write SQL</h4>
-            <p style="font-size:0.9rem;">Use the SQL engine to query your data: SELECT, WHERE, GROUP BY, ORDER BY, aggregates like COUNT, SUM, AVG — all supported.</p>
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">02</div>
+            <h4 class="text-purple mb-8">Profile &amp; KPIs</h4>
+            <p style="font-size:0.9rem;">Auto-generated KPI cards, data profiling table (type, missing, unique), and full dataset metadata.</p>
           </div>
           <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.2);margin-bottom:12px;">03</div>
-            <h4 class="text-cyan mb-8">Choose Chart</h4>
-            <p style="font-size:0.9rem;">Pick from Bar, Line, Pie, Doughnut, Scatter, Radar, or Polar Area — and the engine auto-maps your query results to the selected chart.</p>
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">03</div>
+            <h4 class="text-cyan mb-8">Write SQL</h4>
+            <p style="font-size:0.9rem;">SELECT, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT — plus COUNT, SUM, AVG, MIN, MAX, ROUND, DISTINCT, COALESCE. Smart suggestions auto-populate.</p>
           </div>
           <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.2);margin-bottom:12px;">04</div>
-            <h4 class="text-purple mb-8">Explore</h4>
-            <p style="font-size:0.9rem;">Review auto-generated statistics, histogram, and scatter. Upload a new CSV to reset analysis completely.</p>
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">04</div>
+            <h4 class="text-purple mb-8">Visualize &amp; Export</h4>
+            <p style="font-size:0.9rem;">Intelligent chart auto-selection. 7 chart types to choose from. Export results as CSV or Excel in one click.</p>
           </div>
         </div>
       </div>
@@ -548,7 +472,7 @@
 <footer id="footer">
   <div class="container">
     <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI v2.1 &nbsp;◈&nbsp; BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; BUSINESS ANALYTICS &nbsp;◈&nbsp; 2026
+      [SM] SUJIT MURARI v2.1 &nbsp;◈&nbsp; ANALYTICS LAB &nbsp;◈&nbsp; BUSINESS ANALYTICS &nbsp;◈&nbsp; 2026
     </p>
   </div>
 </footer>
@@ -556,562 +480,552 @@
 <script src="js/animations.js"></script>
 <script src="js/charts.js"></script>
 <script src="js/script.js"></script>
-
 <script>
-/* ═══════════════════════════════════════════════════
-   ANALYTICS LAB — SQL Engine + Chart Builder
-   ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   ANALYTICS LAB — SQL Engine v2.0
+   New: KPI Dashboard · Data Profiling · Smart Suggestions ·
+        Performance Indicator · Viz Intelligence · Export CSV/Excel ·
+        Metadata Bar · ROUND · COALESCE · DISTINCT · HAVING ·
+        Arithmetic expressions inside aggregates
+   ═══════════════════════════════════════════════════════════════════ */
 
-// ── Global State ──
-let _csvData = [];       // full dataset (array of objects)
-let _csvCols = [];       // column names
-let _queryResult = [];   // last query result rows
-let _queryResultCols = [];
-let _selectedChart = 'bar';
-let _queryChart = null;  // Chart.js instance for query chart
+let _data=[], _cols=[], _numCols=[], _strCols=[];
+let _qRows=[], _qCols=[];
+let _selChart='auto', _chartInst=null;
+let _fileBytes=0;
 
-const CHART_COLORS = [
-  'rgba(0,255,255,0.75)', 'rgba(155,92,255,0.75)', 'rgba(255,45,120,0.65)',
-  'rgba(58,123,213,0.75)', 'rgba(0,200,150,0.65)', 'rgba(255,180,0,0.7)',
-  'rgba(255,100,50,0.7)', 'rgba(100,200,255,0.7)', 'rgba(200,100,255,0.7)',
-];
-const CHART_BORDERS = [
-  '#00ffff','#9b5cff','#ff2d78','#3a7bd5','#00c896','#ffb400','#ff6432','#64c8ff','#c864ff',
-];
+const CC=['rgba(0,255,255,0.75)','rgba(155,92,255,0.75)','rgba(255,45,120,0.65)',
+  'rgba(58,123,213,0.75)','rgba(0,200,150,0.65)','rgba(255,180,0,0.7)',
+  'rgba(255,100,50,0.7)','rgba(100,200,255,0.7)','rgba(200,100,255,0.7)'];
 
-// ── CSV Loader (override script.js) ──
-document.addEventListener('DOMContentLoaded', () => {
-  const dz = document.getElementById('drop-zone');
-  const fi = document.getElementById('file-input');
-  if (!dz || !fi) return;
-
-  // Replace node to remove any existing listeners from script.js
-  const newDz = dz.cloneNode(true);
-  const newFi = document.createElement('input');
-  newFi.type = 'file'; newFi.id = 'file-input'; newFi.accept = '.csv'; newFi.style.display = 'none';
-  newDz.appendChild(newFi);
-  dz.parentNode.replaceChild(newDz, dz);
-
-  newDz.addEventListener('click', () => newFi.click());
-  newDz.addEventListener('dragover', e => { e.preventDefault(); newDz.classList.add('drag-over'); });
-  newDz.addEventListener('dragleave', () => newDz.classList.remove('drag-over'));
-  newDz.addEventListener('drop', e => {
-    e.preventDefault(); newDz.classList.remove('drag-over');
-    if (e.dataTransfer.files[0]) loadCsvFile(e.dataTransfer.files[0]);
-  });
-  newFi.addEventListener('change', () => { if (newFi.files[0]) loadCsvFile(newFi.files[0]); });
+/* ── FILE LOAD ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const dz=document.getElementById('drop-zone');
+  if(!dz)return;
+  const newDz=dz.cloneNode(true);
+  const fi=document.createElement('input');
+  fi.type='file';fi.id='file-input';fi.accept='.csv';fi.style.display='none';
+  newDz.appendChild(fi);
+  dz.parentNode.replaceChild(newDz,dz);
+  newDz.addEventListener('click',()=>fi.click());
+  newDz.addEventListener('dragover',e=>{e.preventDefault();newDz.classList.add('drag-over')});
+  newDz.addEventListener('dragleave',()=>newDz.classList.remove('drag-over'));
+  newDz.addEventListener('drop',e=>{e.preventDefault();newDz.classList.remove('drag-over');if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0])});
+  fi.addEventListener('change',()=>{if(fi.files[0])loadFile(fi.files[0])});
 });
 
-function loadCsvFile(file) {
-  if (window.Papa) {
-    Papa.parse(file, {
-      header: true, dynamicTyping: true, skipEmptyLines: true,
-      complete: results => {
-        if (!results.data || results.data.length === 0) { alert('Could not parse CSV.'); return; }
-        const headers = results.meta.fields;
-        const data = results.data.map(row => {
-          const obj = {};
-          headers.forEach(h => obj[h] = row[h] !== null && row[h] !== undefined ? String(row[h]) : '');
-          return obj;
-        });
-        onCsvLoaded(file.name, headers, data);
+function loadFile(file){
+  _fileBytes=file.size;
+  if(window.Papa){
+    Papa.parse(file,{
+      header:true,dynamicTyping:true,skipEmptyLines:true,
+      complete:r=>{
+        if(!r.data||!r.data.length){alert('Could not parse CSV.');return}
+        const h=r.meta.fields;
+        const d=r.data.map(row=>{const o={};h.forEach(k=>o[k]=row[k]!==null&&row[k]!==undefined?String(row[k]):'');return o});
+        onLoaded(file.name,h,d);
       },
-      error: () => alert('Error parsing CSV file.')
+      error:()=>alert('Error parsing CSV.')
     });
   } else {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const rows = e.target.result.trim().split('\n').map(r => r.split(',').map(c => c.trim().replace(/^"|"$/g,'')));
-      if (rows.length < 2) { alert('CSV needs headers + data.'); return; }
-      const headers = rows[0];
-      const data = rows.slice(1).map(row => { const o={}; headers.forEach((h,i) => o[h]=row[i]||''); return o; });
-      onCsvLoaded(file.name, headers, data);
+    const rd=new FileReader();
+    rd.onload=e=>{
+      const rows=e.target.result.trim().split('\n').map(r=>r.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
+      if(rows.length<2){alert('CSV needs headers + data.');return}
+      const h=rows[0];
+      const d=rows.slice(1).map(row=>{const o={};h.forEach((k,i)=>o[k]=row[i]||'');return o});
+      onLoaded(file.name,h,d);
     };
-    reader.readAsText(file);
+    rd.readAsText(file);
   }
 }
 
-function onCsvLoaded(name, headers, data) {
-  _csvData = data;
-  _csvCols = headers;
-
-  // Show results panel
-  document.getElementById('lab-results').style.display = 'block';
-  document.getElementById('lab-instructions').style.display = 'none';
-
-  // File info
-  const fi = document.getElementById('lab-file-info');
-  if (fi) fi.innerHTML = `<span class="text-cyan">◈ ${name}</span> &nbsp;|&nbsp; ${data.length.toLocaleString()} rows &nbsp;|&nbsp; ${headers.length} columns`;
-
-  // Columns
-  const cl = document.getElementById('lab-columns');
-  if (cl) cl.innerHTML = headers.map(h => `<span class="project-tag">${h}</span>`).join('');
-
-  // Update SQL status
-  setSqlStatus('ready', `READY — ${data.length.toLocaleString()} rows loaded`);
-
-  // Populate example queries
-  populateExamples(headers, data);
-
-  // Default SQL
-  document.getElementById('sql-input').value = `SELECT * FROM data LIMIT 20`;
-
-  // Auto-analysis charts
-  if (window.renderLabCharts) renderLabCharts(data, headers);
-
-  // Scroll to results
-  setTimeout(() => document.getElementById('lab-results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+function onLoaded(name,headers,data){
+  _data=data;_cols=headers;
+  const samp=data.slice(0,50);
+  _numCols=headers.filter(h=>samp.some(r=>r[h]!==''&&!isNaN(parseFloat(r[h]))));
+  _strCols=headers.filter(h=>!_numCols.includes(h));
+  document.getElementById('lab-results').style.display='block';
+  document.getElementById('lab-instructions').style.display='none';
+  renderMeta(name);
+  renderKPIs();
+  renderProfile();
+  renderSuggestions();
+  const cl=document.getElementById('lab-columns');
+  if(cl)cl.innerHTML=headers.map(h=>{
+    const n=_numCols.includes(h);
+    return `<span class="project-tag" style="${n?'border-color:rgba(0,255,255,0.3)':'border-color:rgba(155,92,255,0.3)'}">${h}<sup style="font-size:0.55em;opacity:0.55;margin-left:3px">${n?'N':'T'}</sup></span>`;
+  }).join('');
+  setSqlStatus('ready',`READY — ${data.length.toLocaleString()} rows`);
+  document.getElementById('sql-input').value='SELECT * FROM data LIMIT 20';
+  if(window.renderLabCharts)renderLabCharts(data,headers);
+  setTimeout(()=>document.getElementById('lab-results').scrollIntoView({behavior:'smooth',block:'start'}),120);
 }
 
-function populateExamples(headers, data) {
-  const numCols = headers.filter(h => data.slice(0,20).some(r => !isNaN(parseFloat(r[h])) && r[h] !== ''));
-  const strCols = headers.filter(h => !numCols.includes(h));
-  const eqEl = document.getElementById('example-queries');
-  if (!eqEl) return;
-  const examples = [
-    `SELECT * FROM data LIMIT 20`,
-    `SELECT COUNT(*) as total FROM data`,
-  ];
-  if (strCols.length > 0 && numCols.length > 0) {
-    examples.push(`SELECT ${strCols[0]}, COUNT(*) as count FROM data GROUP BY ${strCols[0]} ORDER BY count DESC LIMIT 10`);
+/* ── META BAR ── */
+function renderMeta(name){
+  const fmt=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?(n/1024).toFixed(1)+' KB':n+' B';
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  s('m-name',name);s('m-rows',_data.length.toLocaleString());s('m-cols',_cols.length);
+  s('m-size',fmt(_fileBytes));s('m-numcols',_numCols.length);s('m-txtcols',_strCols.length);
+  // legacy support
+  const fi=document.getElementById('lab-file-info');
+  if(fi)fi.innerHTML=`<span class="text-cyan">◈ ${name}</span> | ${_data.length.toLocaleString()} rows | ${_cols.length} cols`;
+}
+
+/* ── KPI DASHBOARD ── */
+function renderKPIs(){
+  const g=document.getElementById('kpi-grid');if(!g)return;
+  const cards=[];
+  cards.push({cls:'',icon:'◈',lbl:'TOTAL ROWS',val:fmtNum(_data.length),sub:`${_cols.length} columns · ${_numCols.length} numeric`});
+  if(_numCols.length>0){
+    const col=_numCols[0];
+    const vals=_data.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
+    if(vals.length){
+      const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
+      const mx=Math.max(...vals),mn=Math.min(...vals);
+      cards.push({cls:'g',icon:'⌀',lbl:`AVG — ${col}`,val:fmtNum(avg),sub:`${vals.length.toLocaleString()} values`});
+      cards.push({cls:'p',icon:'▲',lbl:`MAX — ${col}`,val:fmtNum(mx),sub:'column maximum'});
+      cards.push({cls:'pk',icon:'▼',lbl:`MIN — ${col}`,val:fmtNum(mn),sub:'column minimum'});
+    }
   }
-  if (numCols.length > 0) {
-    examples.push(`SELECT ${numCols[0]}, COUNT(*) as freq FROM data GROUP BY ${numCols[0]} ORDER BY freq DESC LIMIT 15`);
-    examples.push(`SELECT AVG(${numCols[0]}) as avg_val, MAX(${numCols[0]}) as max_val, MIN(${numCols[0]}) as min_val FROM data`);
+  const miss=_data.reduce((s,r)=>s+_cols.filter(c=>r[c]===''||r[c]===null||r[c]===undefined).length,0);
+  cards.push({cls:miss>0?'a':'g',icon:miss>0?'⚠':'✓',lbl:'MISSING VALUES',val:miss.toLocaleString(),sub:miss>0?'across all cols':'complete dataset'});
+  if(_strCols.length>0){
+    const uc=new Set(_data.map(r=>r[_strCols[0]])).size;
+    cards.push({cls:'p',icon:'◉',lbl:`UNIQUE — ${_strCols[0]}`,val:uc.toLocaleString(),sub:`of ${_data.length.toLocaleString()} rows`});
   }
-  if (numCols.length > 1) {
-    examples.push(`SELECT ${numCols[0]}, ${numCols[1]} FROM data ORDER BY ${numCols[0]} DESC LIMIT 30`);
+  g.innerHTML=cards.map(c=>`
+    <div class="kpi-card ${c.cls} panel-enter">
+      <div class="kpi-icon">${c.icon}</div>
+      <div class="kpi-label">${c.lbl}</div>
+      <div class="kpi-val">${c.val}</div>
+      <div class="kpi-sub">${c.sub}</div>
+    </div>`).join('');
+}
+
+function fmtNum(n){
+  if(typeof n!=='number'||isNaN(n))return String(n);
+  if(Math.abs(n)>=1e9)return(n/1e9).toFixed(2)+'B';
+  if(Math.abs(n)>=1e6)return(n/1e6).toFixed(2)+'M';
+  if(Math.abs(n)>=1000)return(n/1000).toFixed(1)+'K';
+  return Number.isInteger(n)?n.toString():n.toFixed(2);
+}
+
+/* ── DATA PROFILING ── */
+function renderProfile(){
+  const tb=document.getElementById('profile-body');if(!tb)return;
+  tb.innerHTML=_cols.map(col=>{
+    const isN=_numCols.includes(col);
+    const vals=_data.map(r=>r[col]);
+    const noEmpty=vals.filter(v=>v!==''&&v!==null&&v!==undefined);
+    const miss=vals.length-noEmpty.length;
+    const uniq=new Set(vals).size;
+    const pct=((miss/vals.length)*100).toFixed(1);
+    const samp=[...new Set(noEmpty)].slice(0,3).join(', ');
+    let mn='—',mx='—';
+    if(isN){
+      const nv=noEmpty.map(v=>parseFloat(v)).filter(v=>!isNaN(v));
+      if(nv.length){mn=fmtNum(Math.min(...nv));mx=fmtNum(Math.max(...nv))}
+    }
+    return `<tr>
+      <td>${col}</td>
+      <td><span class="${isN?'badge-num':'badge-txt'}">${isN?'NUMERIC':'TEXT'}</span></td>
+      <td>${uniq.toLocaleString()}</td>
+      <td>${miss>0?`<span class="miss-warn">${miss} (${pct}%)</span>`:'<span class="miss-ok">0</span>'}</td>
+      <td style="color:var(--dim)">${mn}</td>
+      <td style="color:var(--dim)">${mx}</td>
+      <td style="color:var(--dim);max-width:190px;overflow:hidden;text-overflow:ellipsis">${samp}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── SMART SUGGESTIONS ── */
+function renderSuggestions(){
+  const el=document.getElementById('sugg-list');if(!el)return;
+  const qs=[];
+  qs.push('SELECT * FROM data LIMIT 20');
+  qs.push('SELECT COUNT(*) AS total_rows FROM data');
+  if(_strCols.length>0){
+    qs.push(`SELECT DISTINCT ${_strCols[0]} FROM data ORDER BY ${_strCols[0]}`);
+    qs.push(`SELECT ${_strCols[0]}, COUNT(*) AS count FROM data GROUP BY ${_strCols[0]} ORDER BY count DESC LIMIT 10`);
   }
-  eqEl.innerHTML = examples.map(q =>
-    `<span class="example-q" onclick="setQuery(\`${q}\`)">${q}</span>`
-  ).join('');
-}
-
-function setSqlStatus(state, text) {
-  const dot = document.getElementById('sql-status-dot');
-  const txt = document.getElementById('sql-status-text');
-  if (!dot || !txt) return;
-  dot.className = state === 'ready' ? 'dot-green' : 'dot-red';
-  txt.textContent = text;
-}
-
-// ── Chart Type Selection ──
-function selectChart(type, btn) {
-  _selectedChart = type;
-  document.querySelectorAll('.chart-type-btn').forEach(b => b.classList.remove('active','active-purple'));
-  btn.classList.add(type === 'scatter' || type === 'radar' || type === 'polarArea' ? 'active-purple' : 'active');
-}
-
-// ── SQL Keyword Insert ──
-function insertKw(kw) {
-  const ta = document.getElementById('sql-input');
-  if (!ta) return;
-  const pos = ta.selectionStart;
-  const val = ta.value;
-  ta.value = val.slice(0,pos) + (pos > 0 && val[pos-1] !== ' ' ? ' ' : '') + kw + ' ' + val.slice(pos);
-  ta.focus();
-  ta.selectionStart = ta.selectionEnd = pos + kw.length + 2;
-}
-
-function setQuery(q) {
-  const ta = document.getElementById('sql-input');
-  if (ta) { ta.value = q; ta.focus(); }
-}
-
-function clearSQL() {
-  const ta = document.getElementById('sql-input');
-  if (ta) ta.value = '';
-  document.getElementById('sql-result-section').style.display = 'none';
-  document.getElementById('sql-error').style.display = 'none';
-  document.getElementById('sql-exec-time').textContent = '';
-}
-
-// ── Main SQL Runner ──
-function runSQL() {
-  const rawQuery = (document.getElementById('sql-input').value || '').trim();
-  if (!rawQuery) { showSqlError('Please enter a SQL query.'); return; }
-  if (_csvData.length === 0) { showSqlError('No dataset loaded. Please upload a CSV first.'); return; }
-
-  hideSqlError();
-  document.getElementById('sql-exec-time').textContent = '';
-
-  const t0 = performance.now();
-  let result;
-  try {
-    result = executeSQL(rawQuery, _csvData, _csvCols);
-  } catch (err) {
-    showSqlError('SQL Error: ' + err.message);
-    return;
+  if(_numCols.length>0){
+    const nc=_numCols[0];
+    qs.push(`SELECT AVG(${nc}) AS avg_val, MAX(${nc}) AS max_val, MIN(${nc}) AS min_val FROM data`);
+    qs.push(`SELECT ROUND(AVG(${nc}), 2) AS rounded_avg FROM data`);
   }
-  const elapsed = (performance.now() - t0).toFixed(1);
-
-  _queryResult = result.rows;
-  _queryResultCols = result.columns;
-
-  document.getElementById('sql-exec-time').textContent = `◈ ${result.rows.length} rows · ${elapsed}ms`;
-
-  renderResultTable(result.columns, result.rows);
-  renderQueryChart(result.columns, result.rows, _selectedChart);
-
-  document.getElementById('sql-result-section').style.display = 'block';
-  setTimeout(() => document.getElementById('sql-result-section').scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-}
-
-function showSqlError(msg) {
-  const el = document.getElementById('sql-error');
-  el.textContent = '⚠ ' + msg;
-  el.style.display = 'block';
-}
-function hideSqlError() {
-  const el = document.getElementById('sql-error');
-  el.style.display = 'none';
-}
-
-// ── SQL Engine (pure JS) ──
-function executeSQL(query, data, cols) {
-  // Normalize
-  const q = query.replace(/\s+/g, ' ').trim();
-
-  // Only support SELECT
-  if (!/^SELECT\s/i.test(q)) throw new Error('Only SELECT statements are supported. Start with SELECT.');
-
-  // Parse parts
-  const upper = q.toUpperCase();
-
-  // Extract LIMIT
-  let limit = Infinity;
-  const limitM = q.match(/\bLIMIT\s+(\d+)/i);
-  if (limitM) { limit = parseInt(limitM[1]); }
-
-  // Extract ORDER BY
-  let orderBy = null, orderDir = 'ASC';
-  const orderM = q.match(/\bORDER\s+BY\s+([\w.`]+)(?:\s+(ASC|DESC))?/i);
-  if (orderM) { orderBy = orderM[1].replace(/`/g,''); orderDir = (orderM[2]||'ASC').toUpperCase(); }
-
-  // Extract GROUP BY
-  let groupBy = null;
-  const groupM = q.match(/\bGROUP\s+BY\s+([\w.`]+)/i);
-  if (groupM) groupBy = groupM[1].replace(/`/g,'');
-
-  // Extract WHERE (before GROUP/ORDER/LIMIT)
-  let whereClause = null;
-  const whereM = q.match(/\bWHERE\s+(.*?)(?:\s+(?:GROUP|ORDER|LIMIT)\s|$)/i);
-  if (whereM) whereClause = whereM[1].trim();
-
-  // Extract SELECT columns (between SELECT and FROM)
-  const fromM = q.match(/^SELECT\s+(.*?)\s+FROM\s+\w+/i);
-  if (!fromM) throw new Error('Invalid SELECT syntax. Expected: SELECT ... FROM data');
-  const selectRaw = fromM[1].trim();
-
-  // Parse select expressions
-  const selectExprs = parseSelectExprs(selectRaw);
-
-  // Apply WHERE filter
-  let filtered = data;
-  if (whereClause) {
-    filtered = data.filter(row => evaluateWhere(whereClause, row));
+  if(_strCols.length>0&&_numCols.length>0){
+    qs.push(`SELECT ${_strCols[0]}, SUM(${_numCols[0]}) AS total FROM data GROUP BY ${_strCols[0]} ORDER BY total DESC`);
+    qs.push(`SELECT ${_strCols[0]}, ROUND(AVG(${_numCols[0]}), 2) AS avg_val FROM data GROUP BY ${_strCols[0]} ORDER BY avg_val DESC LIMIT 10`);
+    qs.push(`SELECT ${_strCols[0]}, COUNT(*) AS cnt FROM data GROUP BY ${_strCols[0]} HAVING cnt > 1 ORDER BY cnt DESC`);
   }
+  if(_numCols.length>1)qs.push(`SELECT ${_numCols[0]}, ${_numCols[1]} FROM data ORDER BY ${_numCols[0]} DESC LIMIT 30`);
+  el.innerHTML=qs.map(q=>`<span class="sugg-chip" onclick="setQuery(\`${q.replace(/`/g,"'")}\`)" title="${q}">${q}</span>`).join('');
+}
 
-  // Apply GROUP BY with aggregates
-  let rows;
-  const hasAggregate = selectExprs.some(e => e.isAggregate);
+function setSqlStatus(s,t){
+  const d=document.getElementById('sql-dot'),tx=document.getElementById('sql-txt');
+  if(d)d.className=s==='ready'?'dot-g':'dot-r';if(tx)tx.textContent=t;
+}
 
-  if (groupBy && hasAggregate) {
-    rows = applyGroupBy(filtered, groupBy, selectExprs);
-  } else if (!groupBy && hasAggregate && selectExprs.every(e => e.isAggregate)) {
-    // Global aggregates (no group by)
-    rows = [applyGlobalAggregates(filtered, selectExprs)];
+/* ── CHART TYPE ── */
+function selChart(type,btn){
+  _selChart=type;
+  document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('act','act-p'));
+  btn.classList.add(['scatter','radar','polarArea'].includes(type)?'act-p':'act');
+}
+
+/* ── KEYWORD INSERT ── */
+function insertKw(kw){
+  const ta=document.getElementById('sql-input');if(!ta)return;
+  const p=ta.selectionStart,v=ta.value;
+  ta.value=v.slice(0,p)+(p>0&&v[p-1]!==' '?' ':'')+kw+' '+v.slice(p);
+  ta.focus();ta.selectionStart=ta.selectionEnd=p+kw.length+2;
+}
+function setQuery(q){const ta=document.getElementById('sql-input');if(ta){ta.value=q;ta.focus()}}
+function clearSQL(){
+  const ta=document.getElementById('sql-input');if(ta)ta.value='';
+  document.getElementById('result-section').style.display='none';
+  document.getElementById('sql-err').style.display='none';
+  document.getElementById('perf-strip').classList.remove('vis');
+}
+
+/* ── RUN SQL ── */
+function runSQL(){
+  const raw=(document.getElementById('sql-input').value||'').trim();
+  if(!raw){showErr('Please enter a SQL query.');return}
+  if(!_data.length){showErr('No dataset loaded. Upload a CSV first.');return}
+  hideErr();
+  document.getElementById('perf-strip').classList.remove('vis');
+  const t0=performance.now();
+  let res;
+  try{res=execSQL(raw,_data,_cols)}
+  catch(e){showErr('SQL Error: '+e.message);return}
+  const ms=(performance.now()-t0).toFixed(1);
+  _qRows=res.rows;_qCols=res.columns;
+  // perf
+  const ps=document.getElementById('perf-strip');ps.classList.add('vis');
+  document.getElementById('p-rows').textContent=res.rows.length.toLocaleString();
+  document.getElementById('p-time').textContent=ms+' ms';
+  document.getElementById('p-cols').textContent=res.columns.length;
+  const cx=getCx(raw);
+  document.getElementById('p-cx').innerHTML=`<span class="cx-badge cx-${cx.cls}">${cx.lbl}</span>`;
+  renderTable(res.columns,res.rows);
+  const ct=_selChart==='auto'?autoChart(res.columns,res.rows):_selChart;
+  renderChart(res.columns,res.rows,ct);
+  document.getElementById('result-section').style.display='block';
+  setTimeout(()=>document.getElementById('result-section').scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+
+function showErr(m){const e=document.getElementById('sql-err');e.textContent='⚠ '+m;e.style.display='block'}
+function hideErr(){document.getElementById('sql-err').style.display='none'}
+
+function getCx(q){
+  const u=q.toUpperCase();
+  let s=0;
+  if(/GROUP\s+BY/.test(u))s++;if(/ORDER\s+BY/.test(u))s++;if(/\bWHERE\b/.test(u))s++;
+  if(/\bHAVING\b/.test(u))s++;if(/\bJOIN\b/.test(u))s+=2;
+  if(/(SUM|AVG|COUNT|MAX|MIN|ROUND|COALESCE)/.test(u))s++;
+  if(s<=1)return{cls:'low',lbl:'LOW'};if(s<=3)return{cls:'med',lbl:'MEDIUM'};return{cls:'high',lbl:'HIGH'};
+}
+
+/* ══════════════════════════════════════════════════
+   SQL ENGINE — Full Pure-JS
+   SELECT [DISTINCT] expr [AS alias], ...
+   FROM data
+   WHERE condition (AND/OR/NOT/LIKE/IS NULL)
+   GROUP BY col
+   HAVING condition
+   ORDER BY col|agg_expr [ASC|DESC]
+   LIMIT n
+   Aggregates: COUNT SUM AVG MIN MAX ROUND COALESCE
+   Arithmetic in aggregates: SUM(qty * price)
+══════════════════════════════════════════════════ */
+function execSQL(query,data,cols){
+  let q=query.replace(/\s+/g,' ').trim();
+  if(!/^SELECT\s/i.test(q))throw new Error('Only SELECT statements supported.');
+
+  // LIMIT
+  let lim=Infinity;
+  const lmM=q.match(/\bLIMIT\s+(\d+)\s*$/i);
+  if(lmM){lim=parseInt(lmM[1]);q=q.replace(/\bLIMIT\s+\d+\s*$/i,'').trim()}
+
+  // ORDER BY
+  let obCol=null,obDir='ASC';
+  const obM=q.match(/\bORDER\s+BY\s+([\w`.()*\s]+?)\s*(ASC|DESC)?\s*$/i);
+  if(obM){obCol=obM[1].trim().replace(/`/g,'');obDir=(obM[2]||'ASC').toUpperCase();q=q.replace(/\bORDER\s+BY[\s\S]*$/i,'').trim()}
+
+  // HAVING
+  let having=null;
+  const havM=q.match(/\bHAVING\s+(.+)$/i);
+  if(havM){having=havM[1].trim();q=q.replace(/\bHAVING\s+.+$/i,'').trim()}
+
+  // GROUP BY
+  let groupBy=null;
+  const gbM=q.match(/\bGROUP\s+BY\s+([\w`]+)\s*$/i);
+  if(gbM){groupBy=gbM[1].replace(/`/g,'');q=q.replace(/\bGROUP\s+BY\s+[\w`]+\s*$/i,'').trim()}
+
+  // WHERE
+  let where=null;
+  const whM=q.match(/\bWHERE\s+(.+)$/i);
+  if(whM){where=whM[1].trim();q=q.replace(/\bWHERE\s+.+$/i,'').trim()}
+
+  // FROM
+  q=q.replace(/\bFROM\s+\w+\s*$/i,'').trim();
+
+  // DISTINCT
+  const isDist=/^SELECT\s+DISTINCT\s/i.test(q);
+  const selRaw=q.replace(/^SELECT\s+(DISTINCT\s+)?/i,'').trim();
+  const exprs=parseExprs(selRaw);
+
+  // Filter
+  let rows=where?data.filter(r=>evalWhere(where,r)):data;
+
+  // Aggregate
+  const hasAgg=exprs.some(e=>e.isAgg);
+  if(groupBy&&hasAgg){
+    rows=doGroup(rows,groupBy,exprs,cols);
+  } else if(!groupBy&&hasAgg&&exprs.every(e=>e.isAgg)){
+    rows=[doGlobalAgg(rows,exprs)];
   } else {
-    // Plain SELECT
-    rows = filtered.map(row => {
-      const out = {};
-      selectExprs.forEach(e => {
-        if (e.star) {
-          cols.forEach(c => out[c] = row[c]);
-        } else {
-          out[e.alias] = row[e.col] !== undefined ? row[e.col] : e.col;
-        }
+    rows=rows.map(row=>{
+      const out={};
+      exprs.forEach(e=>{
+        if(e.star){cols.forEach(c=>out[c]=row[c])}
+        else if(e.fn==='ROUND'){out[e.alias]=doRound(evalExpr(e.expr,row),e.dec)}
+        else if(e.fn==='COALESCE'){out[e.alias]=doCoalesce(e.args.map(a=>row[a]!==undefined?row[a]:a))}
+        else{out[e.alias]=row[e.col]!==undefined?row[e.col]:(evalExpr(e.expr,row)??e.col)}
       });
       return out;
     });
   }
 
+  // DISTINCT
+  if(isDist){const seen=new Set();rows=rows.filter(r=>{const k=JSON.stringify(r);if(seen.has(k))return false;seen.add(k);return true})}
+
+  // HAVING
+  if(having)rows=rows.filter(r=>evalWhere(having,r));
+
   // ORDER BY
-  if (orderBy) {
-    rows.sort((a, b) => {
-      const av = a[orderBy], bv = b[orderBy];
-      const an = parseFloat(av), bn = parseFloat(bv);
-      const isNum = !isNaN(an) && !isNaN(bn);
-      const cmp = isNum ? an - bn : String(av||'').localeCompare(String(bv||''));
-      return orderDir === 'DESC' ? -cmp : cmp;
+  if(obCol){
+    const k=resolveOBKey(obCol,rows,exprs);
+    rows.sort((a,b)=>{
+      const av=a[k],bv=b[k];
+      const an=parseFloat(av),bn=parseFloat(bv);
+      const isN=!isNaN(an)&&!isNaN(bn);
+      const cmp=isN?an-bn:String(av||'').localeCompare(String(bv||''));
+      return obDir==='DESC'?-cmp:cmp;
     });
   }
 
-  // LIMIT
-  if (limit < Infinity) rows = rows.slice(0, limit);
-
-  // Compute result columns
-  let resultCols;
-  if (rows.length > 0) {
-    resultCols = Object.keys(rows[0]);
-  } else {
-    resultCols = selectExprs[0]?.star ? cols : selectExprs.map(e => e.alias);
-  }
-
-  return { rows, columns: resultCols };
+  if(lim<Infinity)rows=rows.slice(0,lim);
+  const rcols=rows.length>0?Object.keys(rows[0]):(exprs[0]?.star?cols:exprs.map(e=>e.alias));
+  return{rows,columns:rcols};
 }
 
-function parseSelectExprs(raw) {
-  if (raw === '*') return [{ star: true }];
-  // Split by comma (but not inside parentheses)
-  const parts = [];
-  let depth = 0, cur = '';
-  for (const ch of raw) {
-    if (ch === '(') depth++;
-    if (ch === ')') depth--;
-    if (ch === ',' && depth === 0) { parts.push(cur.trim()); cur = ''; }
-    else cur += ch;
-  }
-  if (cur.trim()) parts.push(cur.trim());
+function parseExprs(raw){
+  if(raw.trim()==='*')return[{star:true}];
+  const parts=splitTop(raw,',');
+  return parts.map(part=>{
+    part=part.trim();
+    const asM=part.match(/^(.*?)\s+AS\s+([\w]+)\s*$/i);
+    const expr=asM?asM[1].trim():part;
+    const alias=asM?asM[2]:expr.replace(/[()]/g,'').replace(/[\s\W]+/g,'_').slice(0,40);
 
-  return parts.map(part => {
-    // alias via AS
-    const asM = part.match(/^(.*?)\s+AS\s+([\w]+)$/i);
-    const expr = asM ? asM[1].trim() : part.trim();
-    const alias = asM ? asM[2] : expr.replace(/[()]/g,'').replace(/\s+/g,'_');
+    // Aggregate
+    const aggM=expr.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\s\S]*?)\s*\)\s*$/i);
+    if(aggM)return{isAgg:true,fn:aggM[1].toUpperCase(),expr:aggM[2]==='*'?null:aggM[2],col:aggM[2]==='*'?null:aggM[2],alias:asM?asM[2]:`${aggM[1].toUpperCase()}(${aggM[2]})`};
 
-    // Aggregate?
-    const aggM = expr.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\w*]+)\s*\)/i);
-    if (aggM) {
-      return { isAggregate: true, fn: aggM[1].toUpperCase(), col: aggM[2] === '*' ? null : aggM[2], alias: asM ? asM[2] : `${aggM[1]}(${aggM[2]})` };
-    }
-    return { isAggregate: false, col: expr, alias: alias };
+    // ROUND
+    const rndM=expr.match(/^ROUND\s*\(\s*(.*?)\s*(?:,\s*(\d+))?\s*\)\s*$/i);
+    if(rndM)return{isAgg:false,fn:'ROUND',expr:rndM[1],dec:parseInt(rndM[2]??2),alias:asM?asM[2]:`ROUND(${rndM[1]})`};
+
+    // COALESCE
+    const coM=expr.match(/^COALESCE\s*\(\s*(.*)\s*\)\s*$/i);
+    if(coM){const args=splitTop(coM[1],',').map(a=>a.trim().replace(/^'|'$/g,''));return{isAgg:false,fn:'COALESCE',args,alias:asM?asM[2]:'COALESCE'}}
+
+    return{isAgg:false,fn:null,col:expr,expr,alias};
   });
 }
 
-function applyGroupBy(rows, groupCol, exprs) {
-  const groups = {};
-  rows.forEach(row => {
-    const key = String(row[groupCol] ?? 'null');
-    if (!groups[key]) groups[key] = { key, rows: [] };
-    groups[key].rows.push(row);
-  });
-  return Object.values(groups).map(g => {
-    const out = {};
-    exprs.forEach(e => {
-      if (!e.isAggregate) {
-        out[e.alias] = g.rows[0][e.col];
-      } else {
-        out[e.alias] = computeAggregate(e.fn, e.col, g.rows);
-      }
+function splitTop(s,sep){
+  const p=[];let d=0,c='';
+  for(const ch of s){if(ch==='(')d++;if(ch===')')d--;if(ch===sep&&d===0){p.push(c);c=''}else c+=ch}
+  if(c)p.push(c);return p;
+}
+
+function doGroup(rows,gcol,exprs,allCols){
+  const grps={};
+  rows.forEach(r=>{const k=String(r[gcol]??'__null__');if(!grps[k])grps[k]={rows:[]};grps[k].rows.push(r)});
+  return Object.values(grps).map(g=>{
+    const out={};
+    exprs.forEach(e=>{
+      if(!e.isAgg){
+        if(e.fn==='ROUND')out[e.alias]=doRound(evalExpr(e.expr,g.rows[0]),e.dec);
+        else if(e.fn==='COALESCE')out[e.alias]=doCoalesce(e.args.map(a=>g.rows[0][a]??a));
+        else out[e.alias]=g.rows[0][e.col];
+      } else out[e.alias]=calcAgg(e.fn,e.expr,g.rows);
     });
     return out;
   });
 }
 
-function applyGlobalAggregates(rows, exprs) {
-  const out = {};
-  exprs.forEach(e => {
-    out[e.alias] = computeAggregate(e.fn, e.col, rows);
-  });
-  return out;
+function doGlobalAgg(rows,exprs){
+  const out={};exprs.forEach(e=>{out[e.alias]=calcAgg(e.fn,e.expr,rows)});return out;
 }
 
-function computeAggregate(fn, col, rows) {
-  if (fn === 'COUNT') return rows.length;
-  const vals = col ? rows.map(r => parseFloat(r[col])).filter(v => !isNaN(v)) : [];
-  if (fn === 'SUM') return vals.reduce((a,b) => a+b, 0);
-  if (fn === 'AVG') return vals.length ? +(vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(4) : 0;
-  if (fn === 'MAX') return vals.length ? Math.max(...vals) : null;
-  if (fn === 'MIN') return vals.length ? Math.min(...vals) : null;
+function calcAgg(fn,expr,rows){
+  if(fn==='COUNT')return rows.length;
+  const vals=rows.map(r=>{
+    if(!expr||expr==='*')return NaN;
+    const v=evalExpr(expr,r);return parseFloat(v);
+  }).filter(v=>!isNaN(v));
+  if(fn==='SUM')return vals.length?+vals.reduce((a,b)=>a+b,0).toFixed(8):0;
+  if(fn==='AVG')return vals.length?+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(8):0;
+  if(fn==='MAX')return vals.length?Math.max(...vals):null;
+  if(fn==='MIN')return vals.length?Math.min(...vals):null;
   return null;
 }
 
-function evaluateWhere(clause, row) {
-  // Support: col OP value, AND, OR, NOT
-  // Replace column names with values safely
-  try {
-    // Replace AND/OR/NOT with JS equivalents
-    let expr = clause
-      .replace(/\bAND\b/gi, '&&')
-      .replace(/\bOR\b/gi, '||')
-      .replace(/\bNOT\b/gi, '!');
+function evalExpr(s,row){
+  if(!s)return null;
+  if(row[s]!==undefined)return row[s];
+  try{
+    const mapped=s.replace(/\b([A-Za-z_][\w]*)\b/g,m=>row[m]!==undefined?parseFloat(row[m])||0:m);
+    if(/^[\d\s+\-*/.()]+$/.test(mapped))return Function('"use strict";return ('+mapped+')')();
+  }catch(_){}
+  return null;
+}
 
-    // Replace col >= val, col LIKE 'x%', etc.
-    // Handle LIKE operator
-    expr = expr.replace(/([\w]+)\s+LIKE\s+'([^']+)'/gi, (m, col, pat) => {
-      const val = String(row[col] || '');
-      const regex = '^' + pat.replace(/%/g, '.*').replace(/_/g, '.') + '$';
-      return new RegExp(regex, 'i').test(val) ? 'true' : 'false';
+function doRound(v,dec){const n=parseFloat(v);return isNaN(n)?v:+n.toFixed(dec)}
+function doCoalesce(args){return args.find(a=>a!==null&&a!==undefined&&a!==''&&a!=='null')??null}
+
+function evalWhere(clause,row){
+  try{
+    let e=clause.replace(/\bAND\b/gi,'&&').replace(/\bOR\b/gi,'||').replace(/\bNOT\b/gi,'!');
+    e=e.replace(/([\w]+)\s+LIKE\s+'([^']+)'/gi,(_,c,p)=>{
+      const rx=new RegExp('^'+p.replace(/%/g,'.*').replace(/_/g,'.')+'$','i');
+      return rx.test(String(row[c]||''))?'true':'false';
     });
-
-    // Replace column references with their values
-    expr = expr.replace(/\b([A-Za-z_][\w]*)\b/g, (m) => {
-      if (m === 'true' || m === 'false' || m === 'null') return m;
-      if (row.hasOwnProperty(m)) {
-        const v = row[m];
-        if (typeof v === 'string') return `"${v.replace(/"/g,'\\"')}"`;
-        return v === null || v === undefined ? 'null' : v;
+    e=e.replace(/([\w]+)\s+IS\s+NOT\s+NULL/gi,(_,c)=>(row[c]!==null&&row[c]!==undefined&&row[c]!=='')?'true':'false');
+    e=e.replace(/([\w]+)\s+IS\s+NULL/gi,(_,c)=>(row[c]===null||row[c]===undefined||row[c]==='')?'true':'false');
+    e=e.replace(/\b([A-Za-z_][\w]*)\b/g,m=>{
+      if(['true','false','null'].includes(m))return m;
+      if(Object.prototype.hasOwnProperty.call(row,m)){
+        const v=row[m];
+        if(typeof v==='string')return`"${v.replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"`;
+        return(v===null||v===undefined)?'null':v;
       }
-      return m;
+      return`"${m}"`;
     });
+    return!!Function('"use strict";return ('+e+')')();
+  }catch{return true}
+}
 
-    return !!Function(`"use strict"; return (${expr})`)();
-  } catch {
-    return true; // on parse error, include row
+function resolveOBKey(ob,rows,exprs){
+  if(!rows.length)return ob;
+  if(ob in rows[0])return ob;
+  const aggM=ob.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\w*]+)\s*\)/i);
+  if(aggM){
+    const fn=aggM[1].toUpperCase(),c=aggM[2];
+    const k=Object.keys(rows[0]).find(k=>k===`${fn}(${c})`||k.toUpperCase().startsWith(fn));
+    if(k)return k;
   }
+  return ob;
 }
 
-// ── Render Table ──
-function renderResultTable(cols, rows) {
-  const meta = document.getElementById('result-meta-info');
-  if (meta) meta.innerHTML = `<span>${rows.length.toLocaleString()}</span> rows · <span>${cols.length}</span> columns`;
-
-  const thead = document.getElementById('result-thead');
-  const tbody = document.getElementById('result-tbody');
-  if (!thead || !tbody) return;
-
-  thead.innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
-  tbody.innerHTML = rows.map(row =>
-    `<tr>${cols.map(c => `<td>${row[c] !== undefined ? row[c] : ''}</td>`).join('')}</tr>`
-  ).join('');
+/* ── VIZ INTELLIGENCE ── */
+function autoChart(cols,rows){
+  if(!rows.length||cols.length===0)return'table';
+  if(cols.length===1)return'table';
+  const nc=cols.filter(c=>rows.some(r=>!isNaN(parseFloat(r[c]))&&r[c]!==''));
+  const sc=cols.filter(c=>!nc.includes(c));
+  const timeCol=cols.find(c=>/date|time|year|month|day|week|quarter/i.test(c));
+  if(timeCol&&nc.length>=1)return'line';
+  if(nc.length>=2&&sc.length===0)return'scatter';
+  if(sc.length>=1&&nc.length>=1&&rows.length<=8)return'pie';
+  return'bar';
 }
 
-// ── Render Query Chart ──
-function renderQueryChart(cols, rows, type) {
-  const wrap = document.getElementById('query-chart-wrap');
-  const canvas = document.getElementById('query-chart');
-  const label = document.getElementById('query-chart-label');
-  if (!wrap || !canvas) return;
+/* ── RENDER TABLE ── */
+function renderTable(cols,rows){
+  const inf=document.getElementById('result-info');
+  if(inf)inf.innerHTML=`<span>${rows.length.toLocaleString()}</span> rows · <span>${cols.length}</span> cols`;
+  const th=document.getElementById('rtbl-head'),tb=document.getElementById('rtbl-body');
+  if(th)th.innerHTML=`<tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
+  if(tb)tb.innerHTML=rows.map(r=>`<tr>${cols.map(c=>`<td>${r[c]!==undefined?r[c]:''}</td>`).join('')}</tr>`).join('');
+}
 
-  if (_queryChart) { _queryChart.destroy(); _queryChart = null; }
-
-  if (rows.length === 0 || cols.length === 0) { wrap.style.display = 'none'; return; }
-
-  // Determine X label and Y values
-  const numCols = cols.filter(c => rows.some(r => !isNaN(parseFloat(r[c])) && r[c] !== ''));
-  const strCols = cols.filter(c => !numCols.includes(c));
-
-  let xCol = strCols.length > 0 ? strCols[0] : cols[0];
-  let yCol = numCols.length > 0 ? numCols[0] : (cols.length > 1 ? cols[1] : cols[0]);
-
-  if (cols.length === 1) { xCol = cols[0]; yCol = cols[0]; }
-
-  const labels = rows.map(r => String(r[xCol] !== undefined ? r[xCol] : ''));
-  const values = rows.map(r => parseFloat(r[yCol])).map(v => isNaN(v) ? 0 : v);
-
-  wrap.style.display = 'block';
-  if (label) label.textContent = `◈ CHART — ${type.toUpperCase()} · ${xCol} vs ${yCol}`;
-
-  const ctx = canvas.getContext('2d');
-
-  // Build dataset
-  let config;
-  const CYAN = '#00ffff', PURP = '#9b5cff';
-
-  if (type === 'scatter') {
-    // Scatter needs x/y pairs
-    const xNum = cols.filter(c => rows.some(r => !isNaN(parseFloat(r[c])) && r[c] !== ''));
-    const xC = xNum[0] || cols[0], yC = xNum[1] || cols[1] || cols[0];
-    const pts = rows.map(r => ({ x: parseFloat(r[xC])||0, y: parseFloat(r[yC])||0 }));
-    config = {
-      type: 'scatter',
-      data: { datasets: [{ label: `${xC} vs ${yC}`, data: pts, backgroundColor: 'rgba(155,92,255,0.6)', borderColor: PURP, pointRadius: 5, pointHoverRadius: 8 }] },
-      options: scatterOpts(xC, yC),
-    };
-  } else if (type === 'pie' || type === 'doughnut' || type === 'polarArea') {
-    config = {
-      type,
-      data: { labels, datasets: [{ data: values, backgroundColor: CHART_COLORS, borderColor: '#050510', borderWidth: 2, hoverOffset: 6 }] },
-      options: {
-        responsive: true, maintainAspectRatio: true,
-        plugins: {
-          legend: { position: 'right', labels: { color: 'rgba(224,247,255,0.7)', padding: 14, usePointStyle: true } },
-          tooltip: tooltipOpts(),
-        },
-        animation: { duration: 900, easing: 'easeInOutQuart' },
-        ...(type === 'doughnut' ? { cutout: '60%' } : {}),
-      }
-    };
-  } else if (type === 'radar') {
-    config = {
-      type: 'radar',
-      data: { labels, datasets: [{ label: yCol, data: values, fill: true, backgroundColor: 'rgba(0,255,255,0.15)', borderColor: CYAN, borderWidth: 2, pointBackgroundColor: CYAN, pointRadius: 4 }] },
-      options: {
-        responsive: true, maintainAspectRatio: true,
-        scales: { r: { ticks: { color: 'rgba(0,255,255,0.3)', backdropColor: 'transparent' }, grid: { color: 'rgba(0,255,255,0.1)' }, angleLines: { color: 'rgba(0,255,255,0.1)' }, pointLabels: { color: 'rgba(224,247,255,0.8)', font: { size: 10 } } } },
-        plugins: { legend: { display: false }, tooltip: tooltipOpts() },
-        animation: { duration: 900 },
-      }
-    };
+/* ── RENDER CHART ── */
+function renderChart(cols,rows,type){
+  const wrap=document.getElementById('chart-wrap');
+  const canvas=document.getElementById('q-chart');
+  const lbl=document.getElementById('chart-lbl');
+  if(!wrap||!canvas)return;
+  if(_chartInst){_chartInst.destroy();_chartInst=null}
+  if(!rows.length||type==='table'){wrap.style.display='none';return}
+  const nc=cols.filter(c=>rows.some(r=>!isNaN(parseFloat(r[c]))&&r[c]!==''));
+  const sc=cols.filter(c=>!nc.includes(c));
+  const xCol=sc.length>0?sc[0]:cols[0];
+  const yCol=nc.length>0?nc[0]:(cols.length>1?cols[1]:cols[0]);
+  const labels=rows.map(r=>String(r[xCol]!==undefined?r[xCol]:''));
+  const values=rows.map(r=>parseFloat(r[yCol])).map(v=>isNaN(v)?0:v);
+  wrap.style.display='block';
+  if(lbl)lbl.textContent=`◈ ${type.toUpperCase()} — ${xCol} vs ${yCol}`;
+  const ctx=canvas.getContext('2d');
+  const TIP={backgroundColor:'rgba(5,5,16,0.94)',borderColor:'#00ffff',borderWidth:1,titleColor:'#00ffff',bodyColor:'#e0f7ff',padding:12};
+  let cfg;
+  if(type==='scatter'){
+    const xC=nc[0]||cols[0],yC=nc[1]||cols[1]||cols[0];
+    cfg={type:'scatter',data:{datasets:[{label:`${xC} vs ${yC}`,data:rows.map(r=>({x:parseFloat(r[xC])||0,y:parseFloat(r[yC])||0})),backgroundColor:'rgba(155,92,255,0.6)',borderColor:'#9b5cff',pointRadius:5,pointHoverRadius:8}]},
+      options:{responsive:true,plugins:{legend:{display:false},tooltip:TIP},
+        scales:{x:{title:{display:true,text:xC,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}},
+          y:{title:{display:true,text:yC,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},animation:{duration:900}}};
+  } else if(['pie','doughnut','polarArea'].includes(type)){
+    cfg={type,data:{labels,datasets:[{data:values,backgroundColor:CC,borderColor:'#050510',borderWidth:2,hoverOffset:6}]},
+      options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'rgba(224,247,255,0.7)',padding:14,usePointStyle:true}},tooltip:TIP},
+        ...(type==='doughnut'?{cutout:'60%'}:{}),animation:{duration:900,easing:'easeInOutQuart'}}};
+  } else if(type==='radar'){
+    cfg={type:'radar',data:{labels,datasets:[{label:yCol,data:values,fill:true,backgroundColor:'rgba(0,255,255,0.12)',borderColor:'#00ffff',borderWidth:2,pointBackgroundColor:'#00ffff',pointRadius:4}]},
+      options:{responsive:true,scales:{r:{ticks:{color:'rgba(0,255,255,0.28)',backdropColor:'transparent'},grid:{color:'rgba(0,255,255,0.1)'},angleLines:{color:'rgba(0,255,255,0.1)'},pointLabels:{color:'rgba(224,247,255,0.8)',font:{size:10}}}},
+        plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900}}};
   } else {
-    // bar / line
-    const g = ctx.createLinearGradient(0, 0, 0, 260);
-    g.addColorStop(0, 'rgba(0,255,255,0.75)');
-    g.addColorStop(1, 'rgba(0,255,255,0.05)');
-    config = {
-      type,
-      data: {
-        labels,
-        datasets: [{
-          label: yCol,
-          data: values,
-          backgroundColor: type === 'line' ? 'rgba(0,255,255,0.1)' : g,
-          borderColor: CYAN,
-          borderWidth: 2,
-          fill: type === 'line',
-          tension: 0.4,
-          pointBackgroundColor: CYAN,
-          pointRadius: type === 'line' ? 4 : 0,
-          borderRadius: type === 'bar' ? 3 : 0,
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: true,
-        scales: {
-          x: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)', maxTicksLimit: 15 }, border: { color: 'rgba(0,255,255,0.15)' } },
-          y: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } }
-        },
-        plugins: { legend: { display: false }, tooltip: tooltipOpts() },
-        animation: { duration: 900, easing: 'easeInOutQuart' },
-      }
-    };
+    const g=ctx.createLinearGradient(0,0,0,260);
+    g.addColorStop(0,'rgba(0,255,255,0.75)');g.addColorStop(1,'rgba(0,255,255,0.04)');
+    cfg={type,data:{labels,datasets:[{label:yCol,data:values,
+      backgroundColor:type==='line'?'rgba(0,255,255,0.08)':g,
+      borderColor:'#00ffff',borderWidth:2,fill:type==='line',tension:0.4,
+      pointBackgroundColor:'#00ffff',pointRadius:type==='line'?4:0,borderRadius:type==='bar'?4:0}]},
+      options:{responsive:true,scales:{x:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)',maxTicksLimit:16},border:{color:'rgba(0,255,255,0.15)'}},
+        y:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},
+        plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900,easing:'easeInOutQuart'}}};
   }
-
-  _queryChart = new Chart(ctx, config);
+  _chartInst=new Chart(ctx,cfg);
 }
 
-function tooltipOpts() {
-  return { backgroundColor: 'rgba(5,5,16,0.92)', borderColor: '#00ffff', borderWidth: 1, titleColor: '#00ffff', bodyColor: '#e0f7ff', padding: 12 };
-}
-function scatterOpts(xC, yC) {
-  return {
-    responsive: true, maintainAspectRatio: true,
-    plugins: { legend: { display: false }, tooltip: tooltipOpts() },
-    scales: {
-      x: { title: { display: true, text: xC, color: 'rgba(0,255,255,0.6)' }, grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } },
-      y: { title: { display: true, text: yC, color: 'rgba(0,255,255,0.6)' }, grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } }
-    },
-    animation: { duration: 900 },
-  };
+/* ── EXPORT ── */
+function exportCSV(){
+  if(!_qRows.length){alert('Run a query first.');return}
+  const hdr=_qCols.join(',');
+  const body=_qRows.map(r=>_qCols.map(c=>{const v=String(r[c]??'');return(v.includes(',')||v.includes('"')||v.includes('\n'))?`"${v.replace(/"/g,'""')}"`  :v}).join(','));
+  const blob=new Blob([[hdr,...body].join('\n')],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='query_results.csv';a.click();URL.revokeObjectURL(a.href);
 }
 
-// ── Keyboard shortcut: Ctrl+Enter to run ──
-document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-    e.preventDefault();
-    runSQL();
-  }
-});
+function exportExcel(){
+  if(!_qRows.length){alert('Run a query first.');return}
+  if(!window.XLSX){alert('XLSX library not available.');return}
+  try{
+    const ws=XLSX.utils.json_to_sheet(_qRows,{header:_qCols});
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,'Query Results');
+    XLSX.writeFile(wb,'query_results.xlsx');
+  }catch(e){alert('Export failed: '+e.message)}
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()}});
 </script>
-
-<style>
-  @media (max-width: 640px) {
-    #lab-charts-row { grid-template-columns: 1fr !important; }
-    .chart-type-bar { gap: 5px; }
-    .chart-type-btn { padding: 5px 10px; font-size: 0.68rem; }
-    .sql-panel { padding: 18px; }
-  }
-</style>
 </body>
 </html>
