@@ -1101,27 +1101,52 @@ function parseFrom(fromClause){
   return{baseRows:rows,aliases,wasJoin:true,joinType:lastJoinType};
 }
 
-function execJoin(leftRows,rightRows,lkeyRaw,rkeyRaw,rAlias,jtype){
-  const rkname=rkeyRaw.includes('.')?rkeyRaw.split('.')[1]:rkeyRaw;
-  const rightIndex={};
-  rightRows.forEach(r=>{const kval=String(r[rkname]??'__null__');if(!rightIndex[kval])rightIndex[kval]=[];rightIndex[kval].push(r)});
-  const result=[];
-  const isLeft=/LEFT/i.test(jtype);
-  leftRows.forEach(l=>{
-    const lkname=lkeyRaw.includes('.')?lkeyRaw.split('.')[1]:lkeyRaw;
-    const lAli=lkeyRaw.includes('.')?lkeyRaw.split('.')[0]:null;
-    const lval=String((lAli?l[`${lAli}.${lkname}`]:undefined)??l[lkname]??'__null__');
-    const matches=rightIndex[lval]||[];
-    if(matches.length){
-      matches.forEach(r=>{
-        const merged={...l};
-        Object.keys(r).forEach(k=>{merged[`${rAlias}.${k}`]=r[k];if(merged[k]===undefined)merged[k]=r[k]});
+function execJoin(leftRows, rightRows, lkeyRaw, rkeyRaw, rAlias, jtype) {
+  // Parse left and right key parts (may be "alias.col" or just "col")
+  const lAli  = lkeyRaw.includes('.') ? lkeyRaw.split('.')[0] : null;
+  const lkname = lkeyRaw.includes('.') ? lkeyRaw.split('.')[1] : lkeyRaw;
+  const rkname = rkeyRaw.includes('.') ? rkeyRaw.split('.')[1] : rkeyRaw;
+
+  // Build index on right table using the bare column name
+  const rightIndex = {};
+  rightRows.forEach(r => {
+    const kval = String(r[rkname] ?? '__null__').trim().toLowerCase();
+    if (!rightIndex[kval]) rightIndex[kval] = [];
+    rightIndex[kval].push(r);
+  });
+
+  const result = [];
+  const isLeft = /LEFT/i.test(jtype);
+
+  leftRows.forEach(l => {
+    // Try alias-qualified key first, then bare key
+    let lval = undefined;
+    if (lAli) lval = l[`${lAli}.${lkname}`];
+    if (lval === undefined) lval = l[lkname];
+    // Also try scanning all keys ending in ".lkname"
+    if (lval === undefined) {
+      const qk = Object.keys(l).find(k => k === lkname || k.endsWith('.' + lkname));
+      if (qk) lval = l[qk];
+    }
+    lval = String(lval ?? '__null__').trim().toLowerCase();
+
+    const matches = rightIndex[lval] || [];
+    if (matches.length) {
+      matches.forEach(r => {
+        const merged = { ...l };
+        Object.keys(r).forEach(k => {
+          merged[`${rAlias}.${k}`] = r[k];
+          if (merged[k] === undefined) merged[k] = r[k];
+        });
         result.push(merged);
       });
-    } else if(isLeft){
-      const merged={...l};
-      const sampleRight=rightRows[0]||{};
-      Object.keys(sampleRight).forEach(k=>{merged[`${rAlias}.${k}`]=null;if(merged[k]===undefined)merged[k]=null});
+    } else if (isLeft) {
+      const merged = { ...l };
+      const sampleRight = rightRows[0] || {};
+      Object.keys(sampleRight).forEach(k => {
+        merged[`${rAlias}.${k}`] = null;
+        if (merged[k] === undefined) merged[k] = null;
+      });
       result.push(merged);
     }
   });
@@ -1187,20 +1212,29 @@ function doGroup(rows,gcol,exprs,aliases){
   const grps={};
   rows.forEach(r=>{const v=resolveCol(gcol,r,aliases);const k=String(v??'__null__');if(!grps[k])grps[k]={rows:[],keyVal:v};grps[k].rows.push(r)});
   // Bare label for the group key column header
-  const gcolBare=gcol.includes('.')?gcol.split('.')[1]:gcol;
+  // BEFORE (line already in your code — confirm it reads like this):
+const gcolBare = gcol.includes('.') ? gcol.split('.')[1] : gcol;
   return Object.values(grps).map(g=>{
     const out={};
-    exprs.forEach(e=>{
-      if(e.star){out[gcolBare]=g.keyVal}
-      else if(!e.isAgg){
-        if(e.fn==='ROUND')out[e.alias]=doRound(evalExpr(e.expr,g.rows[0],aliases),e.dec);
-        else if(e.fn==='COALESCE')out[e.alias]=doCoalesce(e.args.map(a=>resolveCol(a,g.rows[0],aliases)));
-        else out[e.alias]=resolveCol(e.expr,g.rows[0],aliases)??g.rows[0][e.col];
-      } else out[e.alias]=calcAgg(e.fn,e.expr,g.rows,aliases);
-    });
-    return out;
-  });
-}
+   exprs.forEach(e => {
+  if (e.star) {
+    out[gcolBare] = g.keyVal;
+  } else if (!e.isAgg) {
+    // If this expression IS the group key, use the resolved key value
+    const exprBare = e.expr && e.expr.includes('.') ? e.expr.split('.')[1] : e.expr;
+    if (exprBare === gcolBare || e.expr === gcol) {
+      out[e.alias] = g.keyVal;
+    } else if (e.fn === 'ROUND') {
+      out[e.alias] = doRound(evalExpr(e.expr, g.rows[0], aliases), e.dec);
+    } else if (e.fn === 'COALESCE') {
+      out[e.alias] = doCoalesce(e.args.map(a => resolveCol(a, g.rows[0], aliases)));
+    } else {
+      out[e.alias] = resolveCol(e.expr, g.rows[0], aliases) ?? g.rows[0][e.col];
+    }
+  } else {
+    out[e.alias] = calcAgg(e.fn, e.expr, g.rows, aliases);
+  }
+});
 
 function doGlobalAgg(rows,exprs,aliases){const out={};exprs.forEach(e=>{out[e.alias]=calcAgg(e.fn,e.expr,rows,aliases)});return out}
 
