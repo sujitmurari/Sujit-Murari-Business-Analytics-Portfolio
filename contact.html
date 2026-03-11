@@ -24,10 +24,7 @@
       background: rgba(0,255,255,0.04);
       border-bottom: 1px solid rgba(0,255,255,0.1);
     }
-    .terminal-dot {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
     .terminal-body {
       padding: 20px;
       min-height: 260px;
@@ -39,6 +36,87 @@
     .t-prompt { color: #00ffff; font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; line-height: 1.8; display: block; }
     .t-output  { color: rgba(224,247,255,0.5); font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; line-height: 1.8; display: block; padding-left: 12px; }
     .t-cmd     { color: #00ff88; font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; line-height: 1.8; display: block; }
+
+    /* ── Form row: 2 columns for name+email ── */
+    .cyber-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 560px) { .cyber-form-row { grid-template-columns: 1fr; } }
+
+    /* ── Cyber select — matches cyber-input style ── */
+    .cyber-select {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: rgba(224,247,255,0.85);
+      background: rgba(5,5,16,0.9);
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 4px;
+      padding: 10px 14px;
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300ffff' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .cyber-select:focus { border-color: rgba(0,255,255,0.6); box-shadow: 0 0 0 2px rgba(0,255,255,0.08); }
+    .cyber-select option { background: #050510; color: rgba(224,247,255,0.85); }
+
+    /* ── Cat card ── */
+    .cat-card {
+      margin-top: 20px;
+      border: 1px solid rgba(0,255,255,0.12);
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(5,5,16,0.6);
+    }
+    .cat-card img {
+      width: 100%;
+      display: block;
+      filter: saturate(1.1) brightness(0.9);
+      transition: filter 0.3s, transform 0.4s;
+    }
+    .cat-card:hover img { filter: saturate(1.2) brightness(1.0); transform: scale(1.02); }
+    .cat-card-caption {
+      padding: 10px 14px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      color: rgba(0,255,255,0.4);
+      letter-spacing: 0.16em;
+      border-top: 1px solid rgba(0,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cat-pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #00ffff;
+      flex-shrink: 0;
+      animation: catpulse 2.4s ease-in-out infinite;
+    }
+    @keyframes catpulse { 0%,100%{opacity:1;box-shadow:0 0 4px #00ffff} 50%{opacity:0.3;box-shadow:none} }
+
+    /* ── Open To list ── */
+    .open-to-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .open-to-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(224,247,255,0.55);
+    }
   </style>
 </head>
 <body>
@@ -78,9 +156,10 @@
     <div class="container">
       <div class="contact-grid">
 
-        <!-- Left: Terminal + Socials -->
+        <!-- ── LEFT: Terminal + Socials + Status ── -->
         <div>
-          <!-- Terminal Window -->
+
+          <!-- Terminal -->
           <div class="terminal-window" data-reveal data-delay="100">
             <div class="terminal-titlebar">
               <div class="terminal-dot" style="background:#ff5f57;"></div>
@@ -88,9 +167,7 @@
               <div class="terminal-dot" style="background:#28c840;"></div>
               <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:rgba(224,247,255,0.4);margin-left:12px;">sujitmurari — contact.sh</span>
             </div>
-            <div class="terminal-body" id="terminal-output">
-
-            </div>
+            <div class="terminal-body" id="terminal-output"></div>
           </div>
 
           <!-- Social Links -->
@@ -147,46 +224,101 @@
               <div style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#9b5cff;">REMOTE / HYBRID</div>
             </div>
           </div>
+
+          <!-- Open To -->
+          <div class="cp-panel" style="padding:20px;margin-top:12px;" data-reveal data-delay="300">
+            <div class="data-label mb-8">◈ OPEN TO</div>
+            <div class="open-to-list">
+              <div class="open-to-item"><span style="color:#00ffff;">▸</span> Analytics internships</div>
+              <div class="open-to-item"><span style="color:#00ff88;">▸</span> Tableau / BI freelance projects</div>
+              <div class="open-to-item"><span style="color:#9b5cff;">▸</span> Data analysis collaborations</div>
+              <div class="open-to-item"><span style="color:#ff9f40;">▸</span> Portfolio / project feedback</div>
+            </div>
+          </div>
+
+          <!-- Cat Card -->
+          <div class="cat-card" data-reveal data-delay="350">
+            <img src="images/cat.png" alt="Sleepy analyst cat" loading="lazy">
+            <div class="cat-card-caption">
+              <span class="cat-pulse"></span>
+              ANALYST MODE: OFFLINE &nbsp;·&nbsp; NAPPING
+            </div>
+          </div>
+
         </div>
 
-        <!-- Right: Contact Form -->
+        <!-- ── RIGHT: Contact Form ── -->
         <div data-reveal data-delay="150">
           <div class="cp-panel cp-corner" style="padding:36px;">
             <div class="data-label mb-24">◈ SEND A MESSAGE</div>
-            <form id="contact-form" action="https://formspree.io/f/xreybnby" method="POST" style="display:flex;flex-direction:column;gap:20px;">
-              <div>
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
-                <input type="text" name="name" class="cyber-input" placeholder="Enter your name" required/>
+
+            <form id="contact-form" style="display:flex;flex-direction:column;gap:18px;">
+
+              <!-- Name + Email row -->
+              <div class="cyber-form-row">
+                <div>
+                  <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
+                  <input type="text" name="name" class="cyber-input" placeholder="Full name" required/>
+                </div>
+                <div>
+                  <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL</label>
+                  <input type="email" name="email" class="cyber-input" placeholder="you@email.com" required/>
+                </div>
               </div>
-              <div>
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL ADDRESS</label>
-                <input type="email" name="email" class="cyber-input" placeholder="your@email.com" required/>
-              </div>
+
+              <!-- Subject dropdown -->
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">SUBJECT</label>
-                <input type="text" name="subject" class="cyber-input" placeholder="Internship inquiry / Collaboration..." required/>
+                <select name="subject" class="cyber-select" required>
+                  <option value="" disabled selected>Select a subject...</option>
+                  <option value="Internship Opportunity">Internship Opportunity</option>
+                  <option value="Project Collaboration">Project Collaboration</option>
+                  <option value="Freelance Analytics Work">Freelance Analytics Work</option>
+                  <option value="Portfolio Feedback">Portfolio Feedback</option>
+                  <option value="Other Inquiry">Other Inquiry</option>
+                </select>
               </div>
+
+              <!-- Organization -->
+              <div>
+                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;">(optional)</span></label>
+                <input type="text" name="organization" class="cyber-input" placeholder="Company or university"/>
+              </div>
+
+              <!-- Message -->
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
-                <textarea name="message" class="cyber-input" rows="6" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
+                <textarea name="message" class="cyber-input" rows="5" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
               </div>
-              <button type="submit" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">▸ TRANSMIT MESSAGE</button>
+
+              <button type="submit" id="submit-btn" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">▸ TRANSMIT MESSAGE</button>
               <div id="form-status" style="font-family:'Share Tech Mono',monospace;font-size:0.78rem;text-align:center;display:none;"></div>
+
             </form>
           </div>
 
-          <!-- Quick Message Options -->
+          <!-- Quick Connect -->
           <div style="margin-top:20px;" data-reveal data-delay="300">
             <div class="data-label mb-12">◈ QUICK CONNECT</div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;">
-              <button class="btn-neon" style="font-size:0.58rem;padding:8px 16px;" onclick="document.querySelector('#contact-form textarea').value='I would like to discuss an internship opportunity with you.'">Internship Inquiry</button>
-              <button class="btn-neon btn-neon-purple" style="font-size:0.58rem;padding:8px 16px;" onclick="document.querySelector('#contact-form textarea').value='I am interested in collaborating on an analytics project.'">Collaboration</button>
-              <button class="btn-neon" style="font-size:0.58rem;padding:8px 16px;" onclick="document.querySelector('#contact-form textarea').value='I would love to learn more about your analytics work and projects.'">General Inquiry</button>
+              <button class="btn-neon" style="font-size:0.58rem;padding:8px 16px;"
+                onclick="document.querySelector('#contact-form select[name=subject]').value='Internship Opportunity';document.querySelector('#contact-form textarea').value='I would like to discuss an internship opportunity with you.'">
+                Internship Inquiry
+              </button>
+              <button class="btn-neon btn-neon-purple" style="font-size:0.58rem;padding:8px 16px;"
+                onclick="document.querySelector('#contact-form select[name=subject]').value='Project Collaboration';document.querySelector('#contact-form textarea').value='I am interested in collaborating on an analytics project.'">
+                Collaboration
+              </button>
+              <button class="btn-neon" style="font-size:0.58rem;padding:8px 16px;"
+                onclick="document.querySelector('#contact-form select[name=subject]').value='Other Inquiry';document.querySelector('#contact-form textarea').value='I would love to learn more about your analytics work and projects.'">
+                General Inquiry
+              </button>
             </div>
           </div>
-        </div>
 
-      </div>
+        </div><!-- end right -->
+
+      </div><!-- end contact-grid -->
     </div>
   </section>
 </main>
@@ -203,17 +335,20 @@
 <script src="js/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // ── Formspree contact form ──
-  const form = document.getElementById('contact-form');
-  const status = document.getElementById('form-status');
+
+  // ── Formspree ──
+  const form      = document.getElementById('contact-form');
+  const statusEl  = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = form.querySelector('[type="submit"]');
       const data = new FormData(form);
-      btn.textContent = '◈ TRANSMITTING...';
-      btn.disabled = true;
-      status.style.display = 'none';
+      submitBtn.textContent = '◈ TRANSMITTING...';
+      submitBtn.disabled = true;
+      statusEl.style.display = 'none';
+
       try {
         const res = await fetch('https://formspree.io/f/xreybnby', {
           method: 'POST',
@@ -221,48 +356,51 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: { 'Accept': 'application/json' }
         });
         if (res.ok) {
-          status.textContent = '✓ MESSAGE TRANSMITTED SUCCESSFULLY';
-          status.style.color = '#00ff88';
-          status.style.display = 'block';
+          statusEl.textContent = '✓ MESSAGE TRANSMITTED SUCCESSFULLY';
+          statusEl.style.color = '#00ff88';
+          statusEl.style.display = 'block';
           form.reset();
-          btn.textContent = '✓ SENT';
-          btn.style.borderColor = '#00ff88';
-          btn.style.color = '#00ff88';
+          submitBtn.textContent = '✓ SENT';
+          submitBtn.style.borderColor = '#00ff88';
+          submitBtn.style.color = '#00ff88';
           setTimeout(() => {
-            btn.textContent = '▸ TRANSMIT MESSAGE';
-            btn.disabled = false;
-            btn.style.borderColor = '';
-            btn.style.color = '';
-            status.style.display = 'none';
+            submitBtn.textContent = '▸ TRANSMIT MESSAGE';
+            submitBtn.disabled = false;
+            submitBtn.style.borderColor = '';
+            submitBtn.style.color = '';
+            statusEl.style.display = 'none';
           }, 4000);
         } else {
-          throw new Error('Send failed');
+          throw new Error('failed');
         }
       } catch {
-        status.textContent = '✗ TRANSMISSION FAILED — try emailing directly';
-        status.style.color = '#ff2d78';
-        status.style.display = 'block';
-        btn.textContent = '▸ TRANSMIT MESSAGE';
-        btn.disabled = false;
+        statusEl.textContent = '✗ TRANSMISSION FAILED — email sujitmurari06@gmail.com directly';
+        statusEl.style.color = '#ff2d78';
+        statusEl.style.display = 'block';
+        submitBtn.textContent = '▸ TRANSMIT MESSAGE';
+        submitBtn.disabled = false;
       }
     });
   }
 
-  initTerminal('terminal-output', [    { type: 'prompt', text: '> connect --analyst sujitmurari',          delay: 400 },
-    { type: 'output', text: 'Initializing secure connection...',         delay: 200 },
-    { type: 'output', text: '',                                           delay: 100 },
-    { type: 'prompt', text: '> status --check',                          delay: 300 },
-    { type: 'output', text: '[ ANALYST ] Sujit Murari — ONLINE',         delay: 150 },
-    { type: 'output', text: '[ STATUS  ] Seeking Internship Opportunities', delay: 80 },
+  // ── Terminal ──
+  initTerminal('terminal-output', [
+    { type: 'prompt', text: '> connect --analyst sujitmurari',               delay: 400 },
+    { type: 'output', text: 'Initializing secure connection...',              delay: 200 },
+    { type: 'output', text: '',                                                delay: 100 },
+    { type: 'prompt', text: '> status --check',                               delay: 300 },
+    { type: 'output', text: '[ ANALYST ] Sujit Murari — ONLINE',              delay: 150 },
+    { type: 'output', text: '[ STATUS  ] Seeking Internship Opportunities',   delay: 80  },
     { type: 'output', text: '[ FOCUS   ] Business Analytics · Data Visualization', delay: 80 },
-    { type: 'output', text: '',                                           delay: 100 },
-    { type: 'prompt', text: '> contact --init communication',            delay: 500 },
-    { type: 'output', text: 'Communication channels ready.',             delay: 200 },
-    { type: 'output', text: 'Select a channel or use the form →',        delay: 100 },
-    { type: 'output', text: '',                                           delay: 100 },
-    { type: 'prompt', text: '> await --response',                        delay: 400 },
-    { type: 'output', text: 'Ready. Awaiting your message...',           delay: 150 },
+    { type: 'output', text: '',                                                delay: 100 },
+    { type: 'prompt', text: '> contact --init communication',                 delay: 500 },
+    { type: 'output', text: 'Communication channels ready.',                  delay: 200 },
+    { type: 'output', text: 'Select a channel or use the form →',             delay: 100 },
+    { type: 'output', text: '',                                                delay: 100 },
+    { type: 'prompt', text: '> await --response',                             delay: 400 },
+    { type: 'output', text: 'Ready. Awaiting your message...',                delay: 150 },
   ]);
+
 });
 </script>
 </body>
