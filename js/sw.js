@@ -56,13 +56,29 @@ self.addEventListener('message', event => {
   }
 });
 
-// ── INSTALL — pre-cache all core files ─────────────
+// ── INSTALL — cache offline.html FIRST, then rest ──
+// offline.html cached separately → guaranteed available
+// even on very first install before any online visit.
+// Promise.allSettled() → one failed asset won't block install.
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('[SW] Pre-caching assets');
-      return cache.addAll(PRE_CACHE);
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then(async cache => {
+        // 1. Cache offline page first — must never fail
+        await cache.add(OFFLINE_PAGE);
+        console.log('[SW] Offline page cached ✓');
+
+        // 2. Cache everything else — ignore individual failures
+        const results = await Promise.allSettled(
+          PRE_CACHE.map(url => cache.add(url))
+        );
+        results.forEach((r, i) => {
+          if (r.status === 'rejected')
+            console.warn(`[SW] Skipped: ${PRE_CACHE[i]}`);
+        });
+        console.log(`[SW] Install complete — ${CACHE_NAME}`);
+      })
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -87,38 +103,51 @@ self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET and cross-origin requests
+  // Skip non-GET and cross-origin requests (CDN, analytics etc.)
   if (request.method !== 'GET' || url.origin !== location.origin) return;
 
-  // HTML pages → Network First (always try fresh, fallback to cache)
+  // HTML pages → Network First
+  // Try network → cache fresh copy → on fail serve cache → last resort: offline.html
   if (request.headers.get('Accept')?.includes('text/html')) {
     event.respondWith(
       fetch(request)
         .then(response => {
-          // Cache the fresh response
+          // Clone and store fresh copy in cache
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
           return response;
         })
-        .catch(() =>
-          caches.match(request).then(cached => cached || caches.match(OFFLINE_PAGE))
-        )
+        .catch(async () => {
+          // Try cached version of the exact page
+          const cached = await caches.match(request);
+          if (cached) return cached;
+
+          // Try cached version of the root/index
+          const root = await caches.match('/index.html');
+          if (root) return root;
+
+          // Guaranteed fallback — offline.html was cached on install
+          return caches.match(OFFLINE_PAGE);
+        })
     );
     return;
   }
 
-  // Assets (CSS, JS, images) → Cache First
+  // Assets (CSS, JS, images, fonts) → Cache First
+  // Serve from cache instantly, fetch+cache in background if missing
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
       return fetch(request).then(response => {
-        // Only cache valid responses
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
         const clone = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
         return response;
+      }).catch(() => {
+        // Asset missing offline — silently fail (page still renders from cache)
+        console.warn('[SW] Asset unavailable offline:', request.url);
       });
     })
   );
