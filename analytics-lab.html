@@ -934,7 +934,24 @@ function runSQL(){
   if(!Object.keys(_tables).length){showErr('No tables loaded. Upload CSV files first.');return}
   hideErr();
   document.getElementById('perf-strip').classList.remove('vis');
-  const t0=performance.now();
+  const t0 = performance.now();
+
+/* Browser Freeze Protection */
+const MAX_EXECUTION_TIME = 3000; // 3 seconds
+
+let res;
+
+try {
+  res = execSQL(raw);
+
+  if (performance.now() - t0 > MAX_EXECUTION_TIME) {
+    throw new Error("Query exceeded execution time limit (3s). Reduce dataset or optimize query.");
+  }
+
+} catch (e) {
+  showErr('SQL Error: ' + e.message);
+  return;
+}
   let res;
   try{res=execSQL(raw)}
   catch(e){showErr('SQL Error: '+e.message);return}
@@ -1069,6 +1086,10 @@ function parseFrom(fromClause){
 }
 
 function execJoin(leftRows,rightRows,lkeyRaw,rkeyRaw,rAlias,jtype){
+  // Prevent extremely large joins that freeze browser
+if (leftRows.length * rightRows.length > 50000000) {
+  throw new Error("Join too large. Reduce dataset size.");
+}
   const rkname=rkeyRaw.includes('.')?rkeyRaw.split('.')[1]:rkeyRaw;
   const rightIndex={};
   rightRows.forEach(r=>{const kval=String(r[rkname]??'__null__');if(!rightIndex[kval])rightIndex[kval]=[];rightIndex[kval].push(r)});
@@ -1300,7 +1321,7 @@ function exportExcel(){
 }
 
 /* ── Keyboard ── */
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()}});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL() }});
 </script>
 </body>
 </html>
