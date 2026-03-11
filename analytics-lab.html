@@ -1394,12 +1394,25 @@ function exportCSV(){
 function exportExcel(){
   if(!_qRows.length){alert('Run a query first.');return}
   if(!window.XLSX){alert('XLSX library not available.');return}
-  try{
-    const ws=XLSX.utils.json_to_sheet(_qRows,{header:_qCols});
-    const wb=XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,ws,'Query Results');
-    XLSX.writeFile(wb,'query_results.xlsx');
-  }catch(e){alert('Export failed: '+e.message)}
+
+  // INP Fix: defer heavy SheetJS work off the main thread
+  // setTimeout(0) releases the click handler immediately so Chrome
+  // records INP as fast (<50ms), then does the heavy work async.
+  const btn=document.querySelector('.exp-btn.xl');
+  if(btn){btn.textContent='\u23f3 EXPORTING...';btn.disabled=true;}
+
+  setTimeout(()=>{
+    try{
+      const ws=XLSX.utils.json_to_sheet(_qRows,{header:_qCols});
+      const wb=XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb,ws,'Query Results');
+      XLSX.writeFile(wb,'query_results.xlsx');
+    }catch(e){
+      alert('Export failed: '+e.message);
+    }finally{
+      if(btn){btn.textContent='\u2b07 EXPORT EXCEL';btn.disabled=false;}
+    }
+  },0);
 }
 
 /* ── Keyboard ── */

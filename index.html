@@ -30,9 +30,24 @@
   <meta property="og:image:width"  content="512"/>
   <meta property="og:image:height" content="512"/>
   <title>SUJIT MURARI — Analytics Command Center</title>
+
+  <!-- ── LCP Fix: preconnect to font origins ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+  <!-- ── LCP Fix: preload critical CSS so render isn't blocked ── -->
+  <link rel="preload" href="css/style.css" as="style"/>
+  <link rel="preload" href="css/cyberpunk.css" as="style"/>
+
+  <!-- ── LCP Fix: preload Orbitron (hero h1 font) ── -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500&display=swap"/>
+
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- ── Defer Chart.js — not needed for LCP ── -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -105,7 +120,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;" class="hero-grid">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:520px;" class="hero-grid">
         <!-- Left: Text -->
         <div class="hero-content" data-reveal data-delay="200">
           <div class="hero-eyebrow">ANALYTICS COMMAND CENTER v2.0</div>
@@ -128,7 +143,7 @@
         </div>
 
         <!-- Right: Visual Panel -->
-        <div data-reveal data-delay="400">
+        <div data-reveal data-delay="400" style="min-height:520px;contain:layout;">
           <div class="cp-panel cp-corner" style="padding:28px;">
             <div class="data-label mb-16">◈ ANALYST PROFILE — ACTIVE</div>
 

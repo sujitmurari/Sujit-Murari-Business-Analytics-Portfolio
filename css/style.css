@@ -2,6 +2,20 @@
    STYLE.CSS — Layout, Navigation, Typography, Grid
    ═══════════════════════════════════════════════════ */
 
+/* ── LCP Fix: ensure Google Fonts use swap to avoid invisible text ── */
+@font-face {
+  font-family: 'Orbitron';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-display: swap;
+}
+
    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
    /* ── Reset & Base ── */
@@ -217,7 +231,13 @@
      position: relative;
      overflow: hidden;
    }
+   /* CLS Fix: reserve space before JS/fonts load */
+   .hero-grid {
+     min-height: 520px;
+     width: 100%;
+   }
    .hero-content {
+     min-height: 420px; /* prevents layout shift when typing animation runs */
      position: relative;
      z-index: 2;
      padding: 60px 0;
