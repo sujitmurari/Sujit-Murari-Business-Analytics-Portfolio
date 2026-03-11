@@ -3,809 +3,920 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Analytics Lab v3.0 — Multi-Dataset SQL Engine</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <title>Analytics Lab — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     :root {
       --cyan:#00ffff; --purple:#9b5cff; --pink:#ff2d78; --green:#00ff88; --amber:#ffb400;
-      --blue:#3a7bd5; --teal:#00c8a0;
-      --bg:#050510; --bg2:#07091a; --bg3:#0a0c1e;
-      --border:rgba(0,255,255,0.15); --border-p:rgba(155,92,255,0.18);
+      --teal:#00c8a0;
+      --bg:#050510; --border:rgba(0,255,255,0.15); --border-p:rgba(155,92,255,0.18);
       --text:rgba(224,247,255,0.85); --dim:rgba(224,247,255,0.45);
       --mono:'Share Tech Mono',monospace; --orb:'Orbitron',monospace;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:var(--mono);min-height:100vh;overflow-x:hidden}
-    
-    /* Grid background */
-    body::before{content:'';position:fixed;inset:0;
-      background-image:linear-gradient(rgba(0,255,255,0.03) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,255,255,0.03) 1px,transparent 1px);
-      background-size:40px 40px;pointer-events:none;z-index:0}
-    
     ::-webkit-scrollbar{width:6px;height:6px}
     ::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
     ::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.2);border-radius:3px}
 
-    @keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    @keyframes scanline{from{transform:translateY(-100%)}to{transform:translateY(100vh)}}
-    @keyframes blink{0%,100%{opacity:1}49%{opacity:1}50%{opacity:0}}
-    @keyframes glow{0%,100%{box-shadow:0 0 8px rgba(0,255,255,0.2)}50%{box-shadow:0 0 20px rgba(0,255,255,0.5)}}
+    @keyframes fadeSlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .panel-enter{animation:fadeSlideUp 0.38s ease both}
 
-    /* Header */
-    .header{position:sticky;top:0;z-index:100;background:rgba(5,5,16,0.95);
-      border-bottom:1px solid var(--border);backdrop-filter:blur(12px);
-      padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .logo{font-family:var(--orb);font-size:1.1rem;font-weight:900;letter-spacing:0.12em}
-    .logo span{color:var(--cyan)}
-    .header-badge{display:flex;align-items:center;gap:8px;font-size:0.65rem;letter-spacing:0.15em;color:var(--dim)}
-    .header-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 8px var(--green)}
-
-    /* Layout */
-    .app{max-width:1400px;margin:0 auto;padding:28px 24px;position:relative;z-index:1}
-
-    /* Panel */
-    .panel{background:rgba(0,8,20,0.8);border:1px solid var(--border);border-radius:8px;position:relative;overflow:hidden}
-    .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent 70%)}
-    .panel-p{border-color:var(--border-p)}
-    .panel-p::before{background:linear-gradient(90deg,var(--purple),transparent 70%)}
-    .panel-body{padding:24px}
-
-    .section-label{font-family:var(--orb);font-size:0.55rem;letter-spacing:0.2em;color:rgba(0,255,255,0.5);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-    .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,255,0.2),transparent)}
-
-    /* Upload Zone Grid */
-    .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px}
-    .upload-drop{
-      padding:32px 24px;text-align:center;cursor:pointer;
-      border-right:1px solid var(--border);
-      background:rgba(0,5,15,0.6);
-      transition:all .2s;position:relative;
+    /* ── Metadata Bar ── */
+    .meta-bar{
+      display:flex;flex-wrap:wrap;
+      background:rgba(0,8,18,0.75);
+      border:1px solid var(--border);
+      border-radius:6px;overflow:hidden;
+      margin-bottom:24px;
     }
-    .upload-drop:last-child{border-right:none}
-    .upload-drop:hover,.upload-drop.drag-over{background:rgba(0,255,255,0.04);border-color:var(--cyan)}
-    .upload-drop-icon{font-size:2.2rem;margin-bottom:12px;opacity:0.45;display:block}
-    .upload-drop-title{font-family:var(--orb);font-size:0.72rem;letter-spacing:0.18em;color:rgba(0,255,255,0.7);margin-bottom:6px}
-    .upload-drop-sub{font-size:0.72rem;color:var(--dim)}
-    .upload-limit{font-family:var(--orb);font-size:0.48rem;letter-spacing:0.15em;color:rgba(0,255,255,0.25);margin-top:8px}
+    .meta-item{
+      display:flex;flex-direction:column;gap:4px;
+      padding:14px 20px;border-right:1px solid rgba(0,255,255,0.07);
+      flex:1;min-width:110px;
+    }
+    .meta-item:last-child{border-right:none}
+    .meta-label{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.18em;color:var(--dim)}
+    .meta-val{font-family:var(--mono);font-size:0.88rem;color:var(--cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .meta-val.p{color:var(--purple)} .meta-val.g{color:var(--green)} .meta-val.a{color:var(--amber)}
 
-    /* Table Registry */
-    .table-registry{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+    /* ── Table Registry ── */
+    .table-registry{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
     .table-card{
-      display:flex;align-items:center;gap:16px;
+      display:flex;align-items:center;gap:14px;
       background:rgba(0,8,18,0.9);border:1px solid rgba(0,255,255,0.12);
-      border-radius:6px;padding:14px 18px;
+      border-radius:6px;padding:13px 18px;
       animation:fadeSlideUp .35s ease both;position:relative;overflow:hidden;
-      transition:border-color .2s;
     }
     .table-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cyan)}
     .table-card:nth-child(2)::before{background:var(--purple)}
     .table-card:nth-child(3)::before{background:var(--pink)}
     .table-card:nth-child(4)::before{background:var(--amber)}
     .table-card:nth-child(5)::before{background:var(--green)}
-    .table-card:hover{border-color:rgba(0,255,255,0.28)}
-    .table-icon{font-size:1.4rem;opacity:0.6}
-    .table-info{flex:1}
-    .table-name{font-family:var(--orb);font-size:0.78rem;font-weight:700;color:var(--cyan);letter-spacing:0.05em}
-    .table-card:nth-child(2) .table-name{color:var(--purple)}
-    .table-card:nth-child(3) .table-name{color:var(--pink)}
-    .table-card:nth-child(4) .table-name{color:var(--amber)}
-    .table-card:nth-child(5) .table-name{color:var(--green)}
-    .table-meta{font-size:0.68rem;color:var(--dim);margin-top:3px}
-    .table-cols-preview{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-    .col-tag{font-size:0.58rem;padding:2px 7px;border-radius:2px;font-family:var(--orb);letter-spacing:0.08em}
-    .col-tag-n{background:rgba(0,255,255,0.07);color:var(--cyan);border:1px solid rgba(0,255,255,0.18)}
-    .col-tag-t{background:rgba(155,92,255,0.07);color:var(--purple);border:1px solid rgba(155,92,255,0.18)}
-    .table-remove{background:none;border:none;color:rgba(255,45,120,0.4);cursor:pointer;font-size:1rem;padding:4px 8px;border-radius:3px;transition:all .15s;font-family:var(--mono)}
-    .table-remove:hover{color:var(--pink);background:rgba(255,45,120,0.08)}
+    .tc-name{font-family:var(--orb);font-size:0.78rem;font-weight:700;color:var(--cyan)}
+    .table-card:nth-child(2) .tc-name{color:var(--purple)}
+    .table-card:nth-child(3) .tc-name{color:var(--pink)}
+    .table-card:nth-child(4) .tc-name{color:var(--amber)}
+    .table-card:nth-child(5) .tc-name{color:var(--green)}
+    .tc-meta{font-family:var(--mono);font-size:0.68rem;color:var(--dim);margin-top:3px}
+    .tc-cols{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+    .col-tag-n{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.08em;padding:2px 7px;border-radius:2px;background:rgba(0,255,255,0.07);color:var(--cyan);border:1px solid rgba(0,255,255,0.18)}
+    .col-tag-t{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.08em;padding:2px 7px;border-radius:2px;background:rgba(155,92,255,0.07);color:var(--purple);border:1px solid rgba(155,92,255,0.18)}
+    .tc-remove{background:none;border:none;color:rgba(255,45,120,0.4);cursor:pointer;font-size:1rem;padding:4px 8px;border-radius:3px;transition:all .15s;font-family:var(--mono);margin-left:auto}
+    .tc-remove:hover{color:var(--pink);background:rgba(255,45,120,0.08)}
 
-    /* Relationship Explorer */
-    .rel-explorer{background:rgba(0,5,15,0.7);border:1px solid rgba(155,92,255,0.2);border-radius:6px;padding:18px 20px;margin-bottom:28px}
-    .rel-title{font-family:var(--orb);font-size:0.55rem;letter-spacing:0.18em;color:rgba(155,92,255,0.6);margin-bottom:14px}
-    .rel-grid{display:flex;flex-direction:column;gap:8px}
-    .rel-item{display:flex;align-items:center;gap:10px;font-size:0.72rem}
+    /* ── Relationship Explorer ── */
+    .rel-explorer{
+      background:rgba(0,5,15,0.7);border:1px solid rgba(155,92,255,0.2);
+      border-radius:6px;padding:18px 20px;margin-bottom:24px;
+    }
+    .rel-title{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.18em;color:rgba(155,92,255,0.6);margin-bottom:14px}
+    .rel-item{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:0.72rem;margin-bottom:7px}
     .rel-from{color:var(--cyan);font-weight:600}
-    .rel-arrow{color:rgba(155,92,255,0.5);letter-spacing:0.05em}
+    .rel-arrow{color:rgba(155,92,255,0.5)}
     .rel-to{color:var(--purple);font-weight:600}
-    .rel-conf{font-size:0.6rem;color:var(--dim);margin-left:auto}
-    .rel-empty{font-size:0.72rem;color:var(--dim);font-style:italic}
-    .rel-conf-badge{padding:2px 8px;border-radius:2px;font-family:var(--orb);font-size:0.48rem;letter-spacing:0.1em}
+    .rel-conf-badge{padding:2px 8px;border-radius:2px;font-family:var(--orb);font-size:0.48rem;letter-spacing:0.1em;margin-left:auto}
     .conf-high{background:rgba(0,255,136,0.08);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
     .conf-med{background:rgba(255,180,0,0.08);color:var(--amber);border:1px solid rgba(255,180,0,0.2)}
+    .rel-empty{font-family:var(--mono);font-size:0.72rem;color:var(--dim)}
 
-    /* SQL Panel */
-    .sql-panel{background:rgba(0,10,22,0.8);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:28px;position:relative}
-    .sql-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple),transparent 80%)}
+    /* ── KPI Cards ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:32px}
+    .kpi-card{
+      background:rgba(0,8,18,0.8);border:1px solid var(--border);border-radius:6px;
+      padding:18px 20px 16px;position:relative;overflow:hidden;
+      transition:box-shadow .25s,transform .2s;cursor:default;
+    }
+    .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent 80%)}
+    .kpi-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(0,255,255,0.04),transparent 65%);pointer-events:none}
+    .kpi-card:hover{box-shadow:0 0 22px rgba(0,255,255,0.1);transform:translateY(-2px)}
+    .kpi-card.p::before{background:linear-gradient(90deg,var(--purple),transparent 80%)}
+    .kpi-card.p::after{background:radial-gradient(ellipse at top left,rgba(155,92,255,0.05),transparent 65%)}
+    .kpi-card.p:hover{box-shadow:0 0 22px rgba(155,92,255,0.12)}
+    .kpi-card.g::before{background:linear-gradient(90deg,var(--green),transparent 80%)}
+    .kpi-card.g:hover{box-shadow:0 0 22px rgba(0,255,136,0.1)}
+    .kpi-card.pk::before{background:linear-gradient(90deg,var(--pink),transparent 80%)}
+    .kpi-card.pk:hover{box-shadow:0 0 22px rgba(255,45,120,0.1)}
+    .kpi-card.a::before{background:linear-gradient(90deg,var(--amber),transparent 80%)}
+    .kpi-icon{font-size:1.2rem;margin-bottom:9px;opacity:0.55}
+    .kpi-label{font-family:var(--orb);font-size:0.5rem;letter-spacing:0.18em;color:var(--dim);margin-bottom:5px}
+    .kpi-val{font-family:var(--orb);font-size:1.55rem;font-weight:900;color:var(--cyan);line-height:1}
+    .kpi-card.p .kpi-val{color:var(--purple)} .kpi-card.g .kpi-val{color:var(--green)}
+    .kpi-card.pk .kpi-val{color:var(--pink)}  .kpi-card.a .kpi-val{color:var(--amber)}
+    .kpi-sub{font-family:var(--mono);font-size:0.6rem;color:var(--dim);margin-top:7px;line-height:1.4}
 
-    .sql-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px}
-    .sql-status{display:flex;align-items:center;gap:7px;font-size:0.68rem;color:var(--dim)}
-    .status-dot{width:7px;height:7px;border-radius:50%}
-    .status-dot.ready{background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 6px var(--green)}
-    .status-dot.error{background:var(--pink);box-shadow:0 0 6px var(--pink)}
-    .status-dot.idle{background:var(--dim)}
+    /* ── Profiling Table ── */
+    .profile-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:6px;margin-bottom:32px}
+    .profile-tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.76rem}
+    .profile-tbl thead th{
+      background:rgba(0,255,255,0.07);color:var(--cyan);padding:10px 15px;
+      text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
+      font-family:var(--orb);font-size:0.56rem;letter-spacing:0.12em;
+      white-space:nowrap;position:sticky;top:0;
+    }
+    .profile-tbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
+    .profile-tbl tbody tr:hover{background:rgba(0,255,255,0.03)}
+    .profile-tbl td{padding:8px 15px;color:var(--text);white-space:nowrap}
+    .profile-tbl td:first-child{color:var(--cyan);font-weight:600}
+    .badge-num{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size:0.5rem;letter-spacing:0.1em;background:rgba(0,255,255,0.08);color:var(--cyan);border:1px solid rgba(0,255,255,0.2)}
+    .badge-txt{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size:0.5rem;letter-spacing:0.1em;background:rgba(155,92,255,0.08);color:var(--purple);border:1px solid rgba(155,92,255,0.2)}
+    .miss-ok{color:var(--green)} .miss-warn{color:var(--pink)}
 
-    /* Keywords */
-    .kw-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-    .kw-group{display:flex;flex-wrap:wrap;gap:4px;padding:6px 10px;border:1px solid rgba(0,255,255,0.08);border-radius:4px;background:rgba(0,255,255,0.02)}
-    .kw-group-label{font-size:0.52rem;color:rgba(0,255,255,0.3);letter-spacing:0.12em;width:100%;margin-bottom:4px;font-family:var(--orb)}
-    .kw{font-size:0.7rem;color:var(--cyan);background:rgba(0,255,255,0.05);border:1px solid rgba(0,255,255,0.12);padding:3px 8px;border-radius:2px;cursor:pointer;transition:background .12s;white-space:nowrap}
-    .kw:hover{background:rgba(0,255,255,0.14)}
-    .kw.join{color:var(--purple);background:rgba(155,92,255,0.05);border-color:rgba(155,92,255,0.15)}
-    .kw.join:hover{background:rgba(155,92,255,0.14)}
+    /* ── SQL Panel ── */
+    .sql-panel{
+      background:rgba(0,10,20,0.7);border:1px solid var(--border);
+      border-radius:6px;padding:28px;margin-bottom:32px;position:relative;
+    }
+    .sql-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple))}
+    .sql-editor-wrap{position:relative}
+    .sql-gutter{
+      position:absolute;left:0;top:0;bottom:0;width:44px;
+      background:rgba(0,255,255,0.03);border-right:1px solid rgba(0,255,255,0.08);
+      display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:20px;
+      font-family:var(--mono);font-size:0.7rem;color:rgba(0,255,255,0.22);
+      pointer-events:none;border-radius:4px 0 0 4px;user-select:none;
+    }
+    #sql-input{
+      width:100%;min-height:140px;background:rgba(0,5,15,0.8);
+      border:1px solid var(--border);border-radius:4px;
+      color:#e0f7ff;font-family:var(--mono);font-size:0.9rem;line-height:1.8;
+      padding:14px 16px 14px 52px;resize:vertical;outline:none;
+      caret-color:var(--cyan);transition:border-color .2s,box-shadow .2s;box-sizing:border-box;
+    }
+    #sql-input:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,255,255,0.1),0 0 16px rgba(0,255,255,0.05)}
+    #sql-input::placeholder{color:rgba(0,255,255,0.2)}
 
-    /* Editor */
-    .editor-wrap{position:relative;margin-bottom:14px}
-    .editor-gutter{position:absolute;left:0;top:0;bottom:0;width:42px;background:rgba(0,255,255,0.025);border-right:1px solid rgba(0,255,255,0.07);display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:21px;font-size:0.68rem;color:rgba(0,255,255,0.2);pointer-events:none;user-select:none;border-radius:4px 0 0 4px}
-    #sql-input{width:100%;min-height:140px;background:rgba(0,5,15,0.9);border:1px solid var(--border);border-radius:4px;color:#e0f7ff;font-family:var(--mono);font-size:0.88rem;line-height:1.85;padding:14px 16px 14px 50px;resize:vertical;outline:none;caret-color:var(--cyan);transition:border-color .2s,box-shadow .2s;tab-size:2}
-    #sql-input:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,255,255,0.08),0 0 20px rgba(0,255,255,0.04)}
-    #sql-input::placeholder{color:rgba(0,255,255,0.18)}
+    .sql-kw-row{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+    .sql-kw{
+      font-family:var(--mono);font-size:0.7rem;color:var(--cyan);
+      background:rgba(0,255,255,0.06);border:1px solid rgba(0,255,255,0.14);
+      padding:3px 9px;border-radius:2px;cursor:pointer;transition:background .14s;white-space:nowrap;
+    }
+    .sql-kw:hover{background:rgba(0,255,255,0.14);box-shadow:0 0 7px rgba(0,255,255,0.12)}
+    .sql-kw.join{color:var(--purple);background:rgba(155,92,255,0.06);border-color:rgba(155,92,255,0.18)}
+    .sql-kw.join:hover{background:rgba(155,92,255,0.14)}
 
-    /* Suggestions */
-    .sugg-section{margin-bottom:18px}
-    .sugg-label{font-size:0.62rem;color:var(--dim);letter-spacing:0.1em;margin-bottom:7px;font-family:var(--orb)}
-    .sugg-tabs{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
-    .sugg-tab{font-size:0.62rem;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,255,255,0.1);background:transparent;color:var(--dim);cursor:pointer;font-family:var(--mono);transition:all .14s;letter-spacing:0.06em}
+    /* Smart suggestions */
+    .sugg-label{font-family:var(--mono);font-size:0.67rem;color:var(--dim);letter-spacing:0.1em;margin-bottom:7px}
+    .sugg-tabs{display:flex;gap:5px;margin-bottom:8px}
+    .sugg-tab{font-family:var(--mono);font-size:0.62rem;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,255,255,0.1);background:transparent;color:var(--dim);cursor:pointer;transition:all .14s}
     .sugg-tab.act{background:rgba(0,255,255,0.1);border-color:var(--cyan);color:var(--cyan)}
     .sugg-tab.act-p{background:rgba(155,92,255,0.1);border-color:var(--purple);color:var(--purple)}
-    .sugg-list{display:flex;flex-wrap:wrap;gap:6px}
-    .sugg-chip{font-size:0.66rem;color:rgba(155,92,255,0.8);background:rgba(155,92,255,0.04);border:1px solid rgba(155,92,255,0.15);border-radius:3px;padding:5px 11px;cursor:pointer;transition:all .14s;white-space:nowrap;max-width:440px;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono)}
-    .sugg-chip:hover{background:rgba(155,92,255,0.12);color:var(--purple);border-color:var(--purple)}
+    .sugg-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+    .sugg-chip{
+      font-family:var(--mono);font-size:0.67rem;
+      color:rgba(155,92,255,0.8);background:rgba(155,92,255,0.05);
+      border:1px solid rgba(155,92,255,0.16);border-radius:3px;
+      padding:4px 10px;cursor:pointer;transition:all .14s;
+      white-space:nowrap;max-width:420px;overflow:hidden;text-overflow:ellipsis;
+    }
+    .sugg-chip:hover{background:rgba(155,92,255,0.12);color:var(--purple);border-color:var(--purple);box-shadow:0 0 8px rgba(155,92,255,0.14)}
     .sugg-chip.join-q{color:rgba(0,200,160,0.8);background:rgba(0,200,160,0.04);border-color:rgba(0,200,160,0.15)}
     .sugg-chip.join-q:hover{background:rgba(0,200,160,0.12);color:var(--teal);border-color:var(--teal)}
 
-    /* Chart types */
-    .ct-bar{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
-    .ct-btn{display:inline-flex;align-items:center;gap:5px;font-size:0.68rem;color:var(--dim);background:rgba(0,255,255,0.02);border:1px solid rgba(0,255,255,0.09);border-radius:3px;padding:5px 11px;cursor:pointer;transition:all .13s;font-family:var(--mono)}
-    .ct-btn:hover{border-color:var(--cyan);color:var(--cyan)}
-    .ct-btn.act{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.1)}
-    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background:rgba(155,92,255,0.09)}
+    /* Chart type */
+    .ct-bar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 18px}
+    .ct-btn{
+      display:inline-flex;align-items:center;gap:5px;
+      font-family:var(--mono);font-size:0.7rem;letter-spacing:0.05em;
+      color:var(--dim);background:rgba(0,255,255,0.02);
+      border:1px solid rgba(0,255,255,0.1);border-radius:3px;
+      padding:6px 12px;cursor:pointer;transition:all .14s;
+    }
+    .ct-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.06)}
+    .ct-btn.act{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.11);box-shadow:0 0 9px rgba(0,255,255,0.13)}
+    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background:rgba(155,92,255,0.09);box-shadow:0 0 9px rgba(155,92,255,0.13)}
 
-    /* Action buttons */
-    .action-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:14px}
-    .btn-run{display:inline-flex;align-items:center;gap:8px;font-family:var(--orb);font-size:0.68rem;letter-spacing:0.12em;font-weight:700;color:#050510;background:var(--cyan);border:none;border-radius:3px;padding:11px 26px;cursor:pointer;transition:all .2s}
+    /* Buttons */
+    .btn-run{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--orb);font-size:0.7rem;letter-spacing:0.12em;font-weight:700;
+      color:#050510;background:var(--cyan);border:none;border-radius:3px;
+      padding:11px 26px;cursor:pointer;transition:all .2s;
+    }
     .btn-run:hover{background:#33ffff;box-shadow:0 0 24px rgba(0,255,255,0.4);transform:translateY(-1px)}
-    .btn-run:disabled{opacity:.35;cursor:not-allowed;transform:none}
-    .btn-secondary{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--dim);background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:11px 16px;cursor:pointer;transition:all .2s;font-family:var(--mono)}
-    .btn-secondary:hover{border-color:var(--pink);color:var(--pink)}
-    .hint-text{font-size:0.65rem;color:rgba(0,255,255,0.25);letter-spacing:0.05em}
+    .btn-run:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .btn-clr{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:0.75rem;letter-spacing:0.07em;
+      color:var(--dim);background:transparent;border:1px solid rgba(255,255,255,0.1);
+      border-radius:3px;padding:11px 18px;cursor:pointer;transition:all .2s;
+    }
+    .btn-clr:hover{border-color:var(--pink);color:var(--pink)}
 
     /* Performance strip */
-    .perf-strip{display:none;flex-wrap:wrap;background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.12);border-radius:4px;margin-top:14px;overflow:hidden}
+    .perf-strip{
+      display:none;flex-wrap:wrap;align-items:stretch;
+      background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.14);
+      border-radius:4px;margin-top:14px;overflow:hidden;
+    }
     .perf-strip.vis{display:flex;animation:fadeSlideUp .3s ease both}
-    .perf-cell{display:flex;flex-direction:column;gap:3px;padding:10px 18px;border-right:1px solid rgba(0,255,136,0.08)}
+    .perf-cell{display:flex;flex-direction:column;gap:3px;padding:10px 18px;border-right:1px solid rgba(0,255,136,0.09)}
     .perf-cell:last-child{border-right:none}
-    .perf-lbl{font-family:var(--orb);font-size:0.47rem;letter-spacing:0.17em;color:rgba(0,255,136,0.4)}
-    .perf-v{font-size:0.82rem;color:var(--green);font-family:var(--mono)}
-    .cx-badge{font-family:var(--orb);font-size:0.47rem;letter-spacing:0.1em;padding:2px 7px;border-radius:2px}
-    .cx-low{color:var(--green);background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2)}
-    .cx-med{color:var(--amber);background:rgba(255,180,0,0.07);border:1px solid rgba(255,180,0,0.2)}
-    .cx-high{color:var(--pink);background:rgba(255,45,120,0.06);border:1px solid rgba(255,45,120,0.16)}
-    .join-badge{background:rgba(0,200,160,0.08);color:var(--teal);border:1px solid rgba(0,200,160,0.2);font-family:var(--orb);font-size:0.47rem;letter-spacing:0.1em;padding:2px 7px;border-radius:2px}
+    .perf-lbl{font-family:var(--orb);font-size:0.49rem;letter-spacing:0.17em;color:rgba(0,255,136,0.42)}
+    .perf-v{font-family:var(--mono);font-size:0.82rem;color:var(--green)}
+    .cx-badge{display:inline-block;font-family:var(--orb);font-size:0.49rem;letter-spacing:0.1em;padding:1px 7px;border-radius:2px}
+    .cx-low{color:var(--green);background:rgba(0,255,136,0.09);border:1px solid rgba(0,255,136,0.22)}
+    .cx-med{color:var(--amber);background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.22)}
+    .cx-high{color:var(--pink);background:rgba(255,45,120,0.07);border:1px solid rgba(255,45,120,0.18)}
+    .join-badge{background:rgba(0,200,160,0.08);color:var(--teal);border:1px solid rgba(0,200,160,0.2);font-family:var(--orb);font-size:0.49rem;letter-spacing:0.1em;padding:1px 7px;border-radius:2px}
 
-    .sql-err{font-size:0.8rem;color:var(--pink);background:rgba(255,45,120,0.05);border:1px solid rgba(255,45,120,0.18);border-radius:4px;padding:12px 16px;margin-top:14px;display:none;white-space:pre-wrap}
+    .sql-err{
+      font-family:var(--mono);font-size:0.8rem;color:var(--pink);
+      background:rgba(255,45,120,0.06);border:1px solid rgba(255,45,120,0.2);
+      border-radius:4px;padding:12px 16px;margin-top:14px;display:none;
+    }
+    .sql-status-row{font-family:var(--mono);font-size:0.7rem;color:var(--dim);display:flex;align-items:center;gap:6px}
+    .dot-g{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pg 2s infinite}
+    .dot-r{width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 6px var(--pink)}
+    @keyframes pg{0%,100%{opacity:1}50%{opacity:.35}}
 
-    /* Results section */
-    .result-section{display:none;margin-top:0;animation:fadeSlideUp .35s ease both}
-    .result-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
-    .result-info{font-size:0.75rem;color:var(--dim)}
-    .result-info span{color:var(--cyan)}
-    .join-info-badge{display:inline-flex;align-items:center;gap:6px;font-size:0.65rem;color:var(--teal);background:rgba(0,200,160,0.06);border:1px solid rgba(0,200,160,0.18);border-radius:3px;padding:4px 10px;font-family:var(--orb);letter-spacing:0.08em}
+    /* Results */
+    .result-section{margin-top:32px;display:none}
+    .result-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+    .result-meta-info{font-family:var(--mono);font-size:0.77rem;color:var(--dim)}
+    .result-meta-info span{color:var(--cyan)}
+    .join-result-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--orb);font-size:0.49rem;letter-spacing:0.1em;color:var(--teal);background:rgba(0,200,160,0.06);border:1px solid rgba(0,200,160,0.18);border-radius:3px;padding:3px 10px}
+    .export-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .exp-btn{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:0.69rem;letter-spacing:0.06em;
+      color:var(--green);background:rgba(0,255,136,0.05);
+      border:1px solid rgba(0,255,136,0.2);border-radius:3px;
+      padding:8px 15px;cursor:pointer;transition:all .2s;
+    }
+    .exp-btn:hover{background:rgba(0,255,136,0.1);border-color:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.16);transform:translateY(-1px)}
+    .exp-btn.xl{color:var(--purple);background:rgba(155,92,255,0.05);border-color:rgba(155,92,255,0.2)}
+    .exp-btn.xl:hover{background:rgba(155,92,255,0.1);border-color:var(--purple);box-shadow:0 0 12px rgba(155,92,255,0.16)}
 
-    .rtbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:6px;max-height:340px}
-    .rtbl{width:100%;border-collapse:collapse;font-size:0.75rem}
-    .rtbl thead th{background:rgba(0,255,255,0.07);color:var(--cyan);padding:9px 14px;text-align:left;border-bottom:1px solid rgba(0,255,255,0.12);font-family:var(--orb);font-size:0.55rem;letter-spacing:0.1em;white-space:nowrap;position:sticky;top:0}
+    .rtbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:6px;max-height:320px}
+    .rtbl-wrap::-webkit-scrollbar{width:5px;height:5px}
+    .rtbl-wrap::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.2);border-radius:3px}
+    .rtbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.77rem}
+    .rtbl thead th{
+      background:rgba(0,255,255,0.08);color:var(--cyan);padding:10px 14px;
+      text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
+      font-family:var(--orb);font-size:0.58rem;letter-spacing:0.1em;
+      white-space:nowrap;position:sticky;top:0;
+    }
     .rtbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
-    .rtbl tbody tr:hover{background:rgba(0,255,255,0.03)}
-    .rtbl tbody td{padding:7px 14px;white-space:nowrap;color:var(--text)}
+    .rtbl tbody tr:hover{background:rgba(0,255,255,0.04)}
+    .rtbl tbody td{padding:8px 14px;color:var(--text);white-space:nowrap}
     .rtbl tbody td:first-child{color:rgba(0,255,255,0.65)}
 
-    .export-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .exp-btn{display:inline-flex;align-items:center;gap:6px;font-size:0.68rem;color:var(--green);background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.18);border-radius:3px;padding:8px 14px;cursor:pointer;transition:all .2s;font-family:var(--mono)}
-    .exp-btn:hover{background:rgba(0,255,136,0.1);box-shadow:0 0 12px rgba(0,255,136,0.14);transform:translateY(-1px)}
-    .exp-btn.xl{color:var(--purple);background:rgba(155,92,255,0.04);border-color:rgba(155,92,255,0.18)}
-    .exp-btn.xl:hover{background:rgba(155,92,255,0.1)}
+    .chart-wrap{background:rgba(0,5,15,0.6);border:1px solid var(--border);border-radius:6px;padding:24px;margin-top:22px;display:none}
 
-    .chart-wrap{background:rgba(0,5,15,0.6);border:1px solid var(--border);border-radius:6px;padding:24px;margin-top:20px;display:none}
-    .chart-label{font-family:var(--orb);font-size:0.55rem;letter-spacing:0.16em;color:rgba(0,255,255,0.5);margin-bottom:16px}
-
-    /* KPI Grid */
-    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:11px;margin-bottom:28px}
-    .kpi-card{background:rgba(0,8,18,0.9);border:1px solid var(--border);border-radius:6px;padding:17px 18px 14px;position:relative;overflow:hidden;cursor:default;transition:transform .2s,box-shadow .2s}
-    .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent 75%)}
-    .kpi-card:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(0,255,255,0.09)}
-    .kpi-card.p::before{background:linear-gradient(90deg,var(--purple),transparent 75%)}
-    .kpi-card.g::before{background:linear-gradient(90deg,var(--green),transparent 75%)}
-    .kpi-card.pk::before{background:linear-gradient(90deg,var(--pink),transparent 75%)}
-    .kpi-card.a::before{background:linear-gradient(90deg,var(--amber),transparent 75%)}
-    .kpi-icon{font-size:1.1rem;margin-bottom:8px;opacity:0.5}
-    .kpi-label{font-family:var(--orb);font-size:0.48rem;letter-spacing:0.16em;color:var(--dim);margin-bottom:5px}
-    .kpi-val{font-family:var(--orb);font-size:1.5rem;font-weight:900;color:var(--cyan);line-height:1}
-    .kpi-card.p .kpi-val{color:var(--purple)}
-    .kpi-card.g .kpi-val{color:var(--green)}
-    .kpi-card.pk .kpi-val{color:var(--pink)}
-    .kpi-card.a .kpi-val{color:var(--amber)}
-    .kpi-sub{font-size:0.6rem;color:var(--dim);margin-top:6px;line-height:1.4}
-
-    /* Profile table */
-    .profile-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:6px;margin-bottom:28px}
-    .profile-tbl{width:100%;border-collapse:collapse;font-size:0.74rem}
-    .profile-tbl thead th{background:rgba(0,255,255,0.06);color:var(--cyan);padding:9px 14px;text-align:left;border-bottom:1px solid rgba(0,255,255,0.12);font-family:var(--orb);font-size:0.54rem;letter-spacing:0.1em;white-space:nowrap;position:sticky;top:0}
-    .profile-tbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
-    .profile-tbl tbody tr:hover{background:rgba(0,255,255,0.025)}
-    .profile-tbl td{padding:7px 14px;white-space:nowrap;color:var(--text)}
-    .profile-tbl td:first-child{color:var(--cyan)}
-    .badge-n{padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size:0.48rem;letter-spacing:0.08em;background:rgba(0,255,255,0.07);color:var(--cyan);border:1px solid rgba(0,255,255,0.18)}
-    .badge-t{padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size:0.48rem;letter-spacing:0.08em;background:rgba(155,92,255,0.07);color:var(--purple);border:1px solid rgba(155,92,255,0.18)}
-    .miss-ok{color:var(--green)} .miss-warn{color:var(--pink)}
-
-    /* Auto stats */
-    .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:11px;margin-bottom:28px}
-    .stat-card{background:rgba(0,8,18,0.8);border:1px solid rgba(0,255,255,0.12);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden}
-    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent)}
-    .stat-val{font-family:var(--orb);font-size:1.3rem;font-weight:900;color:var(--cyan);line-height:1;margin-bottom:7px}
-    .stat-key{font-family:var(--orb);font-size:0.48rem;letter-spacing:0.16em;color:rgba(224,247,255,0.35)}
-
-    /* Instruction cards */
-    .instr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:32px}
-    .instr-card{background:rgba(0,5,15,0.7);border:1px solid rgba(0,255,255,0.1);border-radius:6px;padding:22px;position:relative;overflow:hidden;transition:border-color .2s}
-    .instr-card:hover{border-color:rgba(0,255,255,0.25)}
-    .instr-num{font-family:var(--orb);font-size:1.6rem;font-weight:900;color:rgba(0,255,255,0.08);margin-bottom:10px}
-    .instr-title{font-family:var(--orb);font-size:0.68rem;color:var(--cyan);letter-spacing:0.1em;margin-bottom:8px}
-    .instr-text{font-size:0.78rem;color:var(--dim);line-height:1.7}
-    .instr-card.p{border-color:rgba(155,92,255,0.12)}
-    .instr-card.p:hover{border-color:rgba(155,92,255,0.28)}
-    .instr-card.p .instr-title{color:var(--purple)}
-    .instr-card.p .instr-num{color:rgba(155,92,255,0.08)}
-    .instr-card.g .instr-title{color:var(--teal)}
-    .instr-card.g .instr-num{color:rgba(0,200,160,0.08)}
-
-    /* Analysis charts row */
-    .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px}
-    .chart-panel{background:rgba(0,5,15,0.7);border:1px solid var(--border);border-radius:6px;padding:22px}
-    .chart-panel.p{border-color:var(--border-p)}
-
-    /* Empty states */
-    .empty-state{text-align:center;padding:48px 24px}
-    .empty-icon{font-size:3rem;opacity:0.2;margin-bottom:14px}
-    .empty-title{font-family:var(--orb);font-size:0.72rem;letter-spacing:0.18em;color:rgba(0,255,255,0.4);margin-bottom:8px}
-    .empty-sub{font-size:0.78rem;color:var(--dim)}
-
-    /* Divider */
-    .divider{border:none;border-top:1px solid rgba(0,255,255,0.07);margin:36px 0}
-
-    /* Meta bar */
-    .meta-bar{display:flex;flex-wrap:wrap;background:rgba(0,8,18,0.8);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:22px}
-    .meta-item{display:flex;flex-direction:column;gap:4px;padding:13px 18px;border-right:1px solid rgba(0,255,255,0.07);flex:1;min-width:100px}
-    .meta-item:last-child{border-right:none}
-    .meta-lbl{font-family:var(--orb);font-size:0.47rem;letter-spacing:0.16em;color:var(--dim)}
-    .meta-val{font-size:0.86rem;color:var(--cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .meta-val.p{color:var(--purple)}.meta-val.g{color:var(--green)}.meta-val.a{color:var(--amber)}.meta-val.t{color:var(--teal)}
-
-    @media(max-width:768px){
-      .upload-grid{grid-template-columns:1fr}
-      .upload-drop{border-right:none;border-bottom:1px solid var(--border)}
-      .upload-drop:last-child{border-bottom:none}
-      .charts-row{grid-template-columns:1fr}
-      .app{padding:16px 14px}
+    @media(max-width:860px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.meta-item{min-width:130px}}
+    @media(max-width:640px){
+      #lab-charts-row{grid-template-columns:1fr !important}
+      .ct-bar{gap:4px}.ct-btn{padding:5px 9px;font-size:0.66rem}
+      .sql-panel{padding:16px}.kpi-grid{grid-template-columns:repeat(2,1fr);gap:9px}
+      .meta-bar{flex-direction:column}.meta-item{border-right:none;border-bottom:1px solid rgba(0,255,255,0.07)}
     }
   </style>
 </head>
 <body>
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
 
-<header class="header">
-  <div class="logo">ANALYTICS <span>LAB</span> <span style="color:rgba(0,255,255,0.3);font-size:0.65rem;">v3.0</span></div>
-  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-    <div id="engine-status" class="header-badge"><div class="header-dot"></div>SQL ENGINE ONLINE</div>
-    <div class="header-badge" id="tables-count" style="color:var(--purple)">0 TABLES LOADED</div>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="analytics-lab.html" class="active">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
-</header>
+</nav>
 
-<div class="app">
-
-  <!-- UPLOAD ZONE -->
-  <div class="section-label">◈ DATA INGESTION — MULTI-DATASET UPLOAD</div>
-  <div id="upload-area">
-    <div class="upload-grid" id="upload-grid">
-      <div class="upload-drop" id="drop-primary">
-        <input type="file" id="file-primary" accept=".csv" multiple style="display:none"/>
-        <span class="upload-drop-icon">📦</span>
-        <div class="upload-drop-title">DROP DATASETS HERE</div>
-        <div class="upload-drop-sub">Upload multiple CSV files — each becomes a SQL table</div>
-        <div class="upload-limit">CSV · HEADERS REQUIRED · BROWSER-ONLY</div>
+<main class="page-content">
+  <section class="page-hero section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; ANALYTICS_LAB</div>
+      <div class="section-header" data-reveal>
+        <h1>ANALYTICS <span class="text-cyan">LAB</span></h1>
       </div>
-      <div style="padding:24px;background:rgba(0,5,15,0.5);display:flex;flex-direction:column;justify-content:center;gap:10px">
-        <div style="font-family:var(--orb);font-size:0.58rem;letter-spacing:0.16em;color:rgba(0,255,255,0.4);margin-bottom:4px">HOW TABLE NAMES WORK</div>
-        <div style="font-size:0.72rem;color:var(--dim);line-height:1.8">
-          <span style="color:var(--cyan)">sales.csv</span> → table <span style="color:var(--green)">sales</span><br>
-          <span style="color:var(--cyan)">products.csv</span> → table <span style="color:var(--green)">products</span><br>
-          <span style="color:var(--cyan)">stores.csv</span> → table <span style="color:var(--green)">stores</span>
-        </div>
-        <div style="font-size:0.7rem;color:rgba(155,92,255,0.6);margin-top:6px">Then write: SELECT * FROM sales JOIN products ON sales.product_id = products.product_id</div>
-      </div>
+      <p data-reveal data-delay="100" style="max-width:640px;margin-bottom:16px;">Full-stack relational analytics workspace — upload multiple CSVs as named SQL tables, auto-detect join keys, run JOIN queries, build smart visualizations, and export results. Everything runs locally in your browser.</p>
+      <div class="status-badge mb-32" style="display:inline-flex;" data-reveal data-delay="150"><div class="dot"></div>ANALYSIS ENGINE v3.0 — ONLINE &nbsp;·&nbsp; <span id="tables-count" style="color:var(--amber);margin-left:4px;">0 TABLES LOADED</span></div>
     </div>
+  </section>
+
+  <section class="section" style="padding-top:20px;">
+    <div class="container">
+
+      <!-- UPLOAD -->
+      <div class="cp-panel cp-corner" style="padding:32px;margin-bottom:32px;" data-reveal>
+        <div class="data-label mb-16">◈ DATA INGESTION MODULE — MULTI-TABLE UPLOAD</div>
+        <div class="lab-drop-zone" id="drop-zone">
+          <input type="file" id="file-input" accept=".csv" multiple style="display:none;"/>
+          <div style="font-size:3rem;margin-bottom:16px;opacity:0.5;">📦</div>
+          <div style="font-family:'Orbitron',monospace;font-size:0.8rem;letter-spacing:0.15em;color:rgba(0,255,255,0.7);margin-bottom:8px;">DROP MULTIPLE CSV FILES HERE</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:rgba(224,247,255,0.4);">Each file becomes a named SQL table &nbsp;·&nbsp; click to browse</div>
+          <div style="margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:rgba(0,255,255,0.35);">
+            sales.csv → <span style="color:var(--green)">sales</span> &nbsp;·&nbsp;
+            products.csv → <span style="color:var(--green)">products</span> &nbsp;·&nbsp;
+            stores.csv → <span style="color:var(--green)">stores</span>
+          </div>
+          <div style="margin-top:20px;">
+            <span class="hero-tag">CSV Format</span>
+            <span class="hero-tag">Multi-Table JOIN</span>
+            <span class="hero-tag">Browser-Only — Private</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="lab-results" style="display:none;">
+
+        <!-- Table Registry -->
+        <div class="data-label mb-12">◈ TABLE REGISTRY</div>
+        <div id="table-registry" class="table-registry"></div>
+
+        <!-- Relationship Explorer -->
+        <div class="rel-explorer panel-enter">
+          <div class="rel-title">◈ AUTO-DETECTED RELATIONSHIPS — potential JOIN keys</div>
+          <div id="rel-grid"><div class="rel-empty">Upload multiple tables to discover relationships…</div></div>
+        </div>
+
+        <!-- 1. Metadata Bar -->
+        <div class="meta-bar panel-enter" id="meta-bar">
+          <div class="meta-item"><div class="meta-label">TABLE</div><div class="meta-val" id="m-name">—</div></div>
+          <div class="meta-item"><div class="meta-label">ROWS</div><div class="meta-val" id="m-rows">—</div></div>
+          <div class="meta-item"><div class="meta-label">COLUMNS</div><div class="meta-val p" id="m-cols">—</div></div>
+          <div class="meta-item"><div class="meta-label">FILE SIZE</div><div class="meta-val g" id="m-size">—</div></div>
+          <div class="meta-item"><div class="meta-label">NUMERIC</div><div class="meta-val" id="m-numcols">—</div></div>
+          <div class="meta-item"><div class="meta-label">TEXT COLS</div><div class="meta-val p" id="m-txtcols">—</div></div>
+        </div>
+
+        <!-- Columns list -->
+        <div class="cp-panel" style="padding:16px 22px;margin-bottom:24px;">
+          <div class="data-label mb-10">◈ DETECTED COLUMNS — PRIMARY TABLE</div>
+          <div id="lab-columns" style="display:flex;flex-wrap:wrap;gap:7px;"></div>
+        </div>
+
+        <!-- 2. KPI Dashboard -->
+        <div class="data-label mb-12">◈ KPI DASHBOARD</div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+
+        <!-- 3. Data Profiling -->
+        <div class="data-label mb-12">◈ DATA PROFILING</div>
+        <div class="profile-wrap panel-enter">
+          <table class="profile-tbl">
+            <thead>
+              <tr>
+                <th>COLUMN</th><th>TYPE</th><th>UNIQUE</th>
+                <th>MISSING</th><th>MIN</th><th>MAX</th><th>SAMPLES</th>
+              </tr>
+            </thead>
+            <tbody id="profile-body"></tbody>
+          </table>
+        </div>
+
+        <!-- SQL ENGINE -->
+        <div class="sql-panel panel-enter" data-reveal>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+            <div class="data-label" style="margin:0;">◈ SQL QUERY ENGINE — RELATIONAL MODE</div>
+            <div class="sql-status-row" id="sql-status">
+              <div class="dot-r" id="sql-dot"></div>
+              <span id="sql-txt">NO DATA LOADED</span>
+            </div>
+          </div>
+
+          <!-- Keywords -->
+          <div class="sql-kw-row">
+            <span style="font-family:var(--mono);font-size:0.68rem;color:var(--dim);margin-right:3px;">KW:</span>
+            <span class="sql-kw" onclick="insertKw('SELECT * FROM ')">SELECT *</span>
+            <span class="sql-kw" onclick="insertKw('WHERE ')">WHERE</span>
+            <span class="sql-kw" onclick="insertKw('GROUP BY ')">GROUP BY</span>
+            <span class="sql-kw" onclick="insertKw('ORDER BY ')">ORDER BY</span>
+            <span class="sql-kw" onclick="insertKw('HAVING ')">HAVING</span>
+            <span class="sql-kw" onclick="insertKw('LIMIT 50')">LIMIT</span>
+            <span class="sql-kw" onclick="insertKw('COUNT(*)')">COUNT</span>
+            <span class="sql-kw" onclick="insertKw('SUM()')">SUM</span>
+            <span class="sql-kw" onclick="insertKw('AVG()')">AVG</span>
+            <span class="sql-kw" onclick="insertKw('MAX()')">MAX</span>
+            <span class="sql-kw" onclick="insertKw('MIN()')">MIN</span>
+            <span class="sql-kw" onclick="insertKw('ROUND(, 2)')">ROUND</span>
+            <span class="sql-kw" onclick="insertKw('DISTINCT ')">DISTINCT</span>
+            <span class="sql-kw" onclick="insertKw('COALESCE(, 0)')">COALESCE</span>
+          </div>
+          <div class="sql-kw-row">
+            <span style="font-family:var(--mono);font-size:0.68rem;color:rgba(155,92,255,0.5);margin-right:3px;">JOIN:</span>
+            <span class="sql-kw join" onclick="insertKw('\nJOIN  ON .')">JOIN</span>
+            <span class="sql-kw join" onclick="insertKw('\nINNER JOIN  ON .')">INNER JOIN</span>
+            <span class="sql-kw join" onclick="insertKw('\nLEFT JOIN  ON .')">LEFT JOIN</span>
+            <span class="sql-kw join" onclick="insertKw('ON .')">ON</span>
+          </div>
+
+          <!-- Editor -->
+          <div class="sql-editor-wrap" style="margin:12px 0;">
+            <div class="sql-gutter"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+            <textarea id="sql-input"
+              placeholder="SELECT s.order_id, p.category, SUM(s.revenue) AS total&#10;FROM sales s&#10;JOIN products p ON s.product_id = p.product_id&#10;GROUP BY p.category&#10;ORDER BY total DESC&#10;LIMIT 10"
+              spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+          </div>
+
+          <!-- Smart suggestions -->
+          <div class="sugg-label">◈ SMART QUERY SUGGESTIONS — click to use:</div>
+          <div class="sugg-tabs">
+            <button class="sugg-tab act" onclick="showSuggTab('single',this)">SINGLE TABLE</button>
+            <button class="sugg-tab act-p" onclick="showSuggTab('join',this)">JOIN QUERIES</button>
+          </div>
+          <div class="sugg-list" id="sugg-list"></div>
+
+          <!-- Chart type -->
+          <div style="font-family:var(--mono);font-size:0.68rem;color:var(--dim);margin-bottom:7px;">◈ VISUALIZATION TYPE:</div>
+          <div class="ct-bar" id="ct-bar">
+            <button class="ct-btn act" onclick="selChart('auto',this)">⚡ AUTO</button>
+            <button class="ct-btn" onclick="selChart('bar',this)">▬ BAR</button>
+            <button class="ct-btn" onclick="selChart('line',this)">╱ LINE</button>
+            <button class="ct-btn" onclick="selChart('pie',this)">◕ PIE</button>
+            <button class="ct-btn" onclick="selChart('doughnut',this)">◉ DOUGHNUT</button>
+            <button class="ct-btn" onclick="selChart('scatter',this)">⁛ SCATTER</button>
+            <button class="ct-btn" onclick="selChart('radar',this)">⬡ RADAR</button>
+            <button class="ct-btn" onclick="selChart('polarArea',this)">◓ POLAR</button>
+          </div>
+
+          <!-- Actions -->
+          <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap;">
+            <button class="btn-run" id="run-btn" onclick="runSQL()">▶ RUN QUERY</button>
+            <button class="btn-clr" onclick="clearSQL()">✕ CLEAR</button>
+            <span style="font-family:var(--mono);font-size:0.68rem;color:var(--dim);">Ctrl+Enter to run</span>
+          </div>
+
+          <!-- Performance strip -->
+          <div class="perf-strip" id="perf-strip">
+            <div class="perf-cell"><div class="perf-lbl">ROWS RETURNED</div><div class="perf-v" id="p-rows">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">EXEC TIME</div><div class="perf-v" id="p-time">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">COLUMNS</div><div class="perf-v" id="p-cols">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">JOIN TYPE</div><div class="perf-v" id="p-join">—</div></div>
+            <div class="perf-cell"><div class="perf-lbl">COMPLEXITY</div><div class="perf-v" id="p-cx">—</div></div>
+          </div>
+
+          <div class="sql-err" id="sql-err"></div>
+        </div>
+
+        <!-- Results -->
+        <div class="result-section" id="result-section">
+          <div class="result-meta">
+            <div class="data-label" style="margin:0;">◈ QUERY RESULTS</div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <div class="result-meta-info" id="result-info"></div>
+              <div class="join-result-badge" id="join-badge" style="display:none;">⟵⟶ JOIN RESULT</div>
+            </div>
+          </div>
+          <div class="rtbl-wrap">
+            <table class="rtbl"><thead id="rtbl-head"></thead><tbody id="rtbl-body"></tbody></table>
+          </div>
+          <div class="export-row">
+            <button class="exp-btn" onclick="exportCSV()">⬇ EXPORT CSV</button>
+            <button class="exp-btn xl" onclick="exportExcel()">⬇ EXPORT EXCEL</button>
+          </div>
+          <div class="chart-wrap" id="chart-wrap">
+            <div class="data-label mb-14" id="chart-lbl">◈ VISUALIZATION</div>
+            <canvas id="q-chart" height="220"></canvas>
+          </div>
+        </div>
+
+        <!-- Auto-analysis -->
+        <div style="margin:44px 0 28px;padding-top:36px;border-top:1px solid rgba(0,255,255,0.08);">
+          <div class="data-label mb-16">◈ AUTO ANALYSIS — PRIMARY TABLE</div>
+        </div>
+        <div style="margin-bottom:40px;">
+          <div class="data-label mb-16">◈ SUMMARY STATISTICS</div>
+          <div id="lab-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;" id="lab-charts-row">
+          <div class="cp-panel cp-corner" style="padding:24px;">
+            <div class="data-label mb-16">◈ HISTOGRAM</div>
+            <canvas id="lab-histogram" height="200"></canvas>
+          </div>
+          <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px;">
+            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">◈ SCATTER PLOT</div>
+            <canvas id="lab-scatter" height="200"></canvas>
+          </div>
+        </div>
+        <div class="cp-panel" style="padding:24px;margin-bottom:40px;">
+          <div class="data-label mb-16">◈ AUTOMATED ANALYSIS NOTES</div>
+          <div id="lab-notes" style="font-family:'Share Tech Mono',monospace;font-size:0.82rem;line-height:2;color:rgba(224,247,255,0.7);">
+            <div style="color:#00ffff;">// Analysis ready. Scroll up to review statistics and charts.</div>
+            <div style="color:rgba(0,255,255,0.4);">// Numeric columns detected and plotted automatically.</div>
+            <div style="color:rgba(0,255,255,0.4);">// Upload multiple tables, then use JOIN queries in the SQL engine above.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div id="lab-instructions" data-reveal>
+        <div class="data-label mb-24">◈ HOW TO USE THE ANALYTICS LAB</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+          <div class="holo-card cp-corner" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">01</div>
+            <h4 class="text-cyan mb-8">Upload CSVs</h4>
+            <p style="font-size:0.9rem;">Drag & drop multiple CSVs at once. Each file becomes a named SQL table — sales.csv → <strong style="color:var(--green)">sales</strong>. Instant profiling &amp; KPIs.</p>
+          </div>
+          <div class="holo-card cp-corner-purple" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">02</div>
+            <h4 class="text-purple mb-8">Detect Relationships</h4>
+            <p style="font-size:0.9rem;">Auto-detected JOIN keys shown before you write a query. Matching column names scored HIGH / MEDIUM confidence.</p>
+          </div>
+          <div class="holo-card cp-corner" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">03</div>
+            <h4 class="text-cyan mb-8">Write SQL JOINs</h4>
+            <p style="font-size:0.9rem;">INNER JOIN, LEFT JOIN with table aliases. Full GROUP BY, HAVING, ORDER BY, LIMIT — COUNT, SUM, AVG, MIN, MAX, ROUND, DISTINCT, COALESCE.</p>
+          </div>
+          <div class="holo-card cp-corner-purple" style="padding:24px;">
+            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">04</div>
+            <h4 class="text-purple mb-8">Visualize &amp; Export</h4>
+            <p style="font-size:0.9rem;">Intelligent chart auto-selection. 7 chart types. Export JOIN results as CSV or Excel in one click. All data stays in your browser.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI v3.0 &nbsp;◈&nbsp; ANALYTICS LAB &nbsp;◈&nbsp; BUSINESS ANALYTICS &nbsp;◈&nbsp; 2026
+    </p>
   </div>
+</footer>
 
-  <!-- TABLE REGISTRY -->
-  <div id="registry-section" style="display:none">
-    <div class="section-label">◈ TABLE REGISTRY</div>
-    <div id="table-registry" class="table-registry"></div>
-
-    <!-- RELATIONSHIP EXPLORER -->
-    <div class="rel-explorer">
-      <div class="rel-title">◈ AUTO-DETECTED RELATIONSHIPS — potential JOIN keys</div>
-      <div id="rel-grid" class="rel-grid"><div class="rel-empty">Upload multiple tables to discover relationships…</div></div>
-    </div>
-
-    <hr class="divider"/>
-
-    <!-- SQL ENGINE -->
-    <div class="sql-panel">
-      <div class="sql-header">
-        <div class="section-label" style="margin:0">◈ SQL QUERY ENGINE — RELATIONAL MODE</div>
-        <div class="sql-status" id="sql-status">
-          <div class="status-dot idle" id="sql-dot"></div>
-          <span id="sql-txt">AWAITING INPUT</span>
-        </div>
-      </div>
-
-      <!-- Keywords -->
-      <div class="kw-row">
-        <div class="kw-group">
-          <div class="kw-group-label">BASIC</div>
-          <span class="kw" onclick="insertKw('SELECT * FROM ')">SELECT *</span>
-          <span class="kw" onclick="insertKw('WHERE ')">WHERE</span>
-          <span class="kw" onclick="insertKw('GROUP BY ')">GROUP BY</span>
-          <span class="kw" onclick="insertKw('ORDER BY ')">ORDER BY</span>
-          <span class="kw" onclick="insertKw('LIMIT 50')">LIMIT</span>
-          <span class="kw" onclick="insertKw('HAVING ')">HAVING</span>
-        </div>
-        <div class="kw-group">
-          <div class="kw-group-label">AGGREGATES</div>
-          <span class="kw" onclick="insertKw('COUNT(*)')">COUNT</span>
-          <span class="kw" onclick="insertKw('SUM()')">SUM</span>
-          <span class="kw" onclick="insertKw('AVG()')">AVG</span>
-          <span class="kw" onclick="insertKw('MAX()')">MAX</span>
-          <span class="kw" onclick="insertKw('MIN()')">MIN</span>
-          <span class="kw" onclick="insertKw('ROUND(, 2)')">ROUND</span>
-          <span class="kw" onclick="insertKw('DISTINCT ')">DISTINCT</span>
-        </div>
-        <div class="kw-group">
-          <div class="kw-group-label">JOIN</div>
-          <span class="kw join" onclick="insertKw('\nJOIN  ON .')">JOIN</span>
-          <span class="kw join" onclick="insertKw('\nINNER JOIN  ON .')">INNER JOIN</span>
-          <span class="kw join" onclick="insertKw('\nLEFT JOIN  ON .')">LEFT JOIN</span>
-          <span class="kw join" onclick="insertKw('ON .')">ON</span>
-        </div>
-      </div>
-
-      <!-- Editor -->
-      <div class="editor-wrap">
-        <div class="editor-gutter"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
-        <textarea id="sql-input" spellcheck="false" autocorrect="off" autocapitalize="off"
-          placeholder="SELECT s.order_id, p.category, SUM(s.revenue) AS total&#10;FROM sales s&#10;JOIN products p ON s.product_id = p.product_id&#10;GROUP BY p.category&#10;ORDER BY total DESC&#10;LIMIT 10"></textarea>
-      </div>
-
-      <!-- Suggestions -->
-      <div class="sugg-section">
-        <div class="sugg-label">◈ SMART QUERY SUGGESTIONS</div>
-        <div class="sugg-tabs">
-          <button class="sugg-tab act" onclick="showSuggTab('single',this)">SINGLE TABLE</button>
-          <button class="sugg-tab act-p" onclick="showSuggTab('join',this)">JOIN QUERIES</button>
-        </div>
-        <div class="sugg-list" id="sugg-list"></div>
-      </div>
-
-      <!-- Chart type -->
-      <div style="font-size:0.62rem;color:var(--dim);letter-spacing:0.1em;margin-bottom:7px;font-family:var(--orb)">◈ VISUALIZATION TYPE</div>
-      <div class="ct-bar" id="ct-bar">
-        <button class="ct-btn act" onclick="selChart('auto',this)">⚡ AUTO</button>
-        <button class="ct-btn" onclick="selChart('bar',this)">▬ BAR</button>
-        <button class="ct-btn" onclick="selChart('line',this)">╱ LINE</button>
-        <button class="ct-btn" onclick="selChart('pie',this)">◕ PIE</button>
-        <button class="ct-btn" onclick="selChart('doughnut',this)">◉ DOUGHNUT</button>
-        <button class="ct-btn" onclick="selChart('scatter',this)">⁛ SCATTER</button>
-        <button class="ct-btn" onclick="selChart('radar',this)">⬡ RADAR</button>
-      </div>
-
-      <!-- Actions -->
-      <div class="action-row">
-        <button class="btn-run" id="run-btn" onclick="runSQL()">▶ RUN QUERY</button>
-        <button class="btn-secondary" onclick="clearSQL()">✕ CLEAR</button>
-        <span class="hint-text">Ctrl+Enter to run</span>
-      </div>
-
-      <!-- Perf -->
-      <div class="perf-strip" id="perf-strip">
-        <div class="perf-cell"><div class="perf-lbl">ROWS RETURNED</div><div class="perf-v" id="p-rows">—</div></div>
-        <div class="perf-cell"><div class="perf-lbl">EXEC TIME</div><div class="perf-v" id="p-time">—</div></div>
-        <div class="perf-cell"><div class="perf-lbl">COLUMNS</div><div class="perf-v" id="p-cols">—</div></div>
-        <div class="perf-cell"><div class="perf-lbl">JOIN TYPE</div><div class="perf-v" id="p-join">—</div></div>
-        <div class="perf-cell"><div class="perf-lbl">COMPLEXITY</div><div class="perf-v" id="p-cx">—</div></div>
-      </div>
-
-      <div class="sql-err" id="sql-err"></div>
-    </div>
-
-    <!-- RESULTS -->
-    <div class="result-section" id="result-section">
-      <div class="result-header">
-        <div class="section-label" style="margin:0">◈ QUERY RESULTS</div>
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <div class="result-info" id="result-info"></div>
-          <div class="join-info-badge" id="join-badge" style="display:none">⟵⟶ JOIN RESULT</div>
-        </div>
-      </div>
-      <div class="rtbl-wrap">
-        <table class="rtbl"><thead id="rtbl-head"></thead><tbody id="rtbl-body"></tbody></table>
-      </div>
-      <div class="export-row">
-        <button class="exp-btn" onclick="exportCSV()">⬇ EXPORT CSV</button>
-        <button class="exp-btn xl" onclick="exportExcel()">⬇ EXPORT EXCEL</button>
-      </div>
-      <div class="chart-wrap" id="chart-wrap">
-        <div class="chart-label" id="chart-lbl">◈ VISUALIZATION</div>
-        <canvas id="q-chart" height="220"></canvas>
-      </div>
-    </div>
-
-    <hr class="divider"/>
-
-    <!-- AUTO ANALYSIS (first loaded table) -->
-    <div id="auto-analysis" style="display:none">
-      <div class="section-label">◈ AUTO ANALYSIS — PRIMARY TABLE</div>
-      <div class="meta-bar" id="meta-bar">
-        <div class="meta-item"><div class="meta-lbl">TABLE</div><div class="meta-val" id="m-name">—</div></div>
-        <div class="meta-item"><div class="meta-lbl">ROWS</div><div class="meta-val" id="m-rows">—</div></div>
-        <div class="meta-item"><div class="meta-lbl">COLUMNS</div><div class="meta-val p" id="m-cols">—</div></div>
-        <div class="meta-item"><div class="meta-lbl">NUMERIC</div><div class="meta-val" id="m-numcols">—</div></div>
-        <div class="meta-item"><div class="meta-lbl">TEXT</div><div class="meta-val p" id="m-txtcols">—</div></div>
-        <div class="meta-item"><div class="meta-lbl">MISSING</div><div class="meta-val a" id="m-missing">—</div></div>
-      </div>
-      <div class="section-label">◈ KPI DASHBOARD</div>
-      <div class="kpi-grid" id="kpi-grid"></div>
-      <div class="section-label">◈ DATA PROFILING</div>
-      <div class="profile-wrap"><table class="profile-tbl"><thead><tr><th>COLUMN</th><th>TYPE</th><th>UNIQUE</th><th>MISSING</th><th>MIN</th><th>MAX</th><th>SAMPLES</th></tr></thead><tbody id="profile-body"></tbody></table></div>
-      <div class="section-label">◈ SUMMARY STATISTICS</div>
-      <div class="stat-grid" id="lab-stats"></div>
-      <div class="charts-row">
-        <div class="chart-panel"><div class="section-label">◈ HISTOGRAM</div><canvas id="lab-histogram" height="200"></canvas></div>
-        <div class="chart-panel p"><div class="section-label" style="color:rgba(155,92,255,0.5)">◈ SCATTER PLOT</div><canvas id="lab-scatter" height="200"></canvas></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- INSTRUCTIONS (shown when no data loaded) -->
-  <div id="instructions">
-    <div class="section-label">◈ HOW TO USE THE RELATIONAL ANALYTICS LAB</div>
-    <div class="instr-grid">
-      <div class="instr-card">
-        <div class="instr-num">01</div>
-        <div class="instr-title">UPLOAD DATASETS</div>
-        <div class="instr-text">Drag & drop multiple CSV files. Each file automatically becomes a named SQL table. Upload sales.csv, products.csv, stores.csv — or any dataset.</div>
-      </div>
-      <div class="instr-card p">
-        <div class="instr-num">02</div>
-        <div class="instr-title">DISCOVER RELATIONSHIPS</div>
-        <div class="instr-text">The engine auto-detects potential JOIN keys by matching column names across tables. See the relationship graph before writing a single query.</div>
-      </div>
-      <div class="instr-card g">
-        <div class="instr-num">03</div>
-        <div class="instr-title">WRITE JOIN SQL</div>
-        <div class="instr-text">Use INNER JOIN, LEFT JOIN with table aliases. Full GROUP BY, HAVING, ORDER BY, aggregate functions. Smart suggestions auto-populate based on your tables.</div>
-      </div>
-      <div class="instr-card">
-        <div class="instr-num">04</div>
-        <div class="instr-title">VISUALIZE & EXPORT</div>
-        <div class="instr-text">Auto-intelligent chart selection. 6 chart types. Export to CSV or Excel. All computation stays in your browser — your data never leaves.</div>
-      </div>
-    </div>
-
-    <div class="section-label" style="margin-top:8px">◈ EXAMPLE JOIN QUERIES</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px">
-      <div style="background:rgba(0,5,15,0.7);border:1px solid rgba(0,200,160,0.15);border-radius:6px;padding:18px">
-        <div style="font-family:var(--orb);font-size:0.52rem;letter-spacing:0.14em;color:var(--teal);margin-bottom:10px">CATEGORY REVENUE</div>
-        <pre style="font-size:0.72rem;color:rgba(224,247,255,0.65);line-height:1.8;white-space:pre-wrap">SELECT p.category,
-  SUM(s.revenue) AS total
-FROM sales s
-JOIN products p
-  ON s.product_id = p.product_id
-GROUP BY p.category
-ORDER BY total DESC</pre>
-      </div>
-      <div style="background:rgba(0,5,15,0.7);border:1px solid rgba(155,92,255,0.15);border-radius:6px;padding:18px">
-        <div style="font-family:var(--orb);font-size:0.52rem;letter-spacing:0.14em;color:var(--purple);margin-bottom:10px">REGIONAL PERFORMANCE</div>
-        <pre style="font-size:0.72rem;color:rgba(224,247,255,0.65);line-height:1.8;white-space:pre-wrap">SELECT st.state,
-  COUNT(*) AS orders,
-  SUM(s.revenue) AS revenue
-FROM sales s
-LEFT JOIN stores st
-  ON s.store_id = st.store_id
-GROUP BY st.state
-ORDER BY revenue DESC</pre>
-      </div>
-    </div>
-  </div>
-
-</div>
-
+<script src="js/animations.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/script.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   ANALYTICS LAB v3.0 — Multi-Dataset Relational SQL Engine
-   Features: JOIN (INNER/LEFT), multi-table upload, auto-relations,
-             alias support, full aggregation pipeline
-   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   ANALYTICS LAB — SQL Engine v3.0
+   New: Multi-table upload · INNER JOIN · LEFT JOIN · Table aliases ·
+        Auto relationship detection · JOIN suggestions · JOIN perf strip ·
+        All v2.0 features preserved (KPI · Profiling · Smart Suggestions ·
+        Performance · Viz Intelligence · Export CSV/Excel · Metadata Bar ·
+        ROUND · COALESCE · DISTINCT · HAVING · Arithmetic in aggregates)
+   ═══════════════════════════════════════════════════════════════════ */
 
-// ── State ─────────────────────────────────────────
-const _tables   = {};   // { tableName: { rows, cols, numCols, strCols, fileSize } }
-let _qRows      = [];
-let _qCols      = [];
-let _selChart   = 'auto';
-let _chartInst  = null;
-let _lastWasJoin = false;
+/* ── State ── */
+const _tables   = {};
+let _qRows      = [], _qCols = [];
+let _selChart   = 'auto', _chartInst = null;
+let _suggTab    = 'single';
 let _allSuggs   = { single: [], join: [] };
-let _activeSuggTab = 'both';
 
-const TABLE_COLORS = ['var(--cyan)','var(--purple)','var(--pink)','var(--amber)','var(--green)'];
-
-// ── Chart Registry ─────────────────────────────────
-const _chartReg = {};
-function destroyChart(id) { if(_chartReg[id]){_chartReg[id].destroy();delete _chartReg[id]} }
-function regChart(id, inst) { _chartReg[id]=inst; return inst }
-
-// ── Shared Chart Colors ────────────────────────────
 const CC = ['rgba(0,255,255,0.75)','rgba(155,92,255,0.75)','rgba(255,45,120,0.65)',
   'rgba(58,123,213,0.75)','rgba(0,200,150,0.65)','rgba(255,180,0,0.7)',
   'rgba(255,100,50,0.7)','rgba(100,200,255,0.7)','rgba(200,100,255,0.7)'];
-const TIP = {backgroundColor:'rgba(5,5,16,0.94)',borderColor:'#00ffff',borderWidth:1,titleColor:'#00ffff',bodyColor:'#e0f7ff',padding:12};
 
-// ── File Upload ────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  const dz  = document.getElementById('drop-primary');
-  const fi  = document.getElementById('file-primary');
-  dz.addEventListener('click', () => fi.click());
-  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over') });
-  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
-  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); [...e.dataTransfer.files].forEach(loadFile) });
-  fi.addEventListener('change', () => { [...fi.files].forEach(loadFile); fi.value='' });
+const TABLE_COLORS = ['var(--cyan)','var(--purple)','var(--pink)','var(--amber)','var(--green)'];
 
-  // Keyboard shortcut
-  document.addEventListener('keydown', e => { if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()} });
+/* ── Chart Registry ── */
+const _chartReg = {};
+function destroyChart(id){if(_chartReg[id]){_chartReg[id].destroy();delete _chartReg[id]}}
+function regChart(id,inst){_chartReg[id]=inst;return inst}
+
+/* ── FILE LOAD ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const dz=document.getElementById('drop-zone');
+  if(!dz)return;
+  const newDz=dz.cloneNode(true);
+  const fi=document.createElement('input');
+  fi.type='file';fi.id='file-input';fi.accept='.csv';fi.multiple=true;fi.style.display='none';
+  newDz.appendChild(fi);
+  dz.parentNode.replaceChild(newDz,dz);
+  newDz.addEventListener('click',()=>fi.click());
+  newDz.addEventListener('dragover',e=>{e.preventDefault();newDz.classList.add('drag-over')});
+  newDz.addEventListener('dragleave',()=>newDz.classList.remove('drag-over'));
+  newDz.addEventListener('drop',e=>{e.preventDefault();newDz.classList.remove('drag-over');[...e.dataTransfer.files].forEach(loadFile)});
+  fi.addEventListener('change',()=>{[...fi.files].forEach(loadFile);fi.value=''});
+  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()}});
 });
 
-function loadFile(file) {
-  if (!file.name.endsWith('.csv')) { alert('Only CSV files are supported.'); return }
-  const tname = file.name.replace(/\.csv$/i,'').replace(/[^a-zA-Z0-9_]/g,'_').toLowerCase();
-  if (window.Papa) {
-    Papa.parse(file, {
-      header:true, dynamicTyping:false, skipEmptyLines:true,
-      complete: r => {
-        if (!r.data||!r.data.length) { alert('Could not parse ' + file.name); return }
-        const h = r.meta.fields;
-        const d = r.data.map(row => {
-          const o = {}; h.forEach(k => o[k] = row[k]!==null&&row[k]!==undefined ? String(row[k]) : ''); return o
-        });
-        registerTable(tname, h, d, file.size);
+function loadFile(file){
+  if(!file.name.endsWith('.csv')){alert('Only CSV files are supported.');return}
+  const tname=file.name.replace(/\.csv$/i,'').replace(/[^a-zA-Z0-9_]/g,'_').toLowerCase();
+  if(window.Papa){
+    Papa.parse(file,{
+      header:true,dynamicTyping:false,skipEmptyLines:true,
+      complete:r=>{
+        if(!r.data||!r.data.length){alert('Could not parse '+file.name);return}
+        const h=r.meta.fields;
+        const d=r.data.map(row=>{const o={};h.forEach(k=>o[k]=row[k]!==null&&row[k]!==undefined?String(row[k]):'');return o});
+        registerTable(tname,h,d,file.size);
       }
     });
   } else {
-    const rd = new FileReader();
-    rd.onload = e => {
-      const rows = e.target.result.trim().split('\n').map(r=>r.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
-      if (rows.length<2) { alert('CSV needs headers + data.'); return }
-      const h=rows[0], d=rows.slice(1).map(row=>{const o={};h.forEach((k,i)=>o[k]=row[i]||'');return o});
-      registerTable(tname, h, d, file.size);
+    const rd=new FileReader();
+    rd.onload=e=>{
+      const rows=e.target.result.trim().split('\n').map(r=>r.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
+      if(rows.length<2){alert('CSV needs headers + data.');return}
+      const h=rows[0],d=rows.slice(1).map(row=>{const o={};h.forEach((k,i)=>o[k]=row[i]||'');return o});
+      registerTable(tname,h,d,file.size);
     };
     rd.readAsText(file);
   }
 }
 
-function registerTable(name, headers, data, fileSize) {
-  const samp = data.slice(0,50);
-  const numCols = headers.filter(h => samp.some(r=>r[h]!==''&&!isNaN(parseFloat(r[h]))));
-  const strCols = headers.filter(h => !numCols.includes(h));
-  _tables[name] = { rows:data, cols:headers, numCols, strCols, fileSize: fileSize||0 };
+function registerTable(name,headers,data,fileSize){
+  const samp=data.slice(0,50);
+  const numCols=headers.filter(h=>samp.some(r=>r[h]!==''&&!isNaN(parseFloat(r[h]))));
+  const strCols=headers.filter(h=>!numCols.includes(h));
+  _tables[name]={rows:data,cols:headers,numCols,strCols,fileSize:fileSize||0};
+  document.getElementById('lab-results').style.display='block';
+  document.getElementById('lab-instructions').style.display='none';
   renderTableRegistry();
   detectRelationships();
   updateSuggestions();
   updateTablesCount();
-  if (Object.keys(_tables).length === 1) renderAutoAnalysis(name);
-  document.getElementById('registry-section').style.display = 'block';
-  document.getElementById('instructions').style.display = 'none';
-  setSqlStatus('ready', `READY — ${Object.keys(_tables).length} table(s) loaded`);
+  const names=Object.keys(_tables);
+  if(names.length===1||name===names[0])renderPrimaryAnalysis(name);
+  setSqlStatus('ready',`READY — ${names.length} table(s) loaded`);
+  setTimeout(()=>document.getElementById('lab-results').scrollIntoView({behavior:'smooth',block:'start'}),120);
 }
 
-function removeTable(name) {
+function removeTable(name){
   delete _tables[name];
   renderTableRegistry();
   detectRelationships();
   updateSuggestions();
   updateTablesCount();
-  if (!Object.keys(_tables).length) {
-    document.getElementById('registry-section').style.display='none';
-    document.getElementById('instructions').style.display='block';
-    document.getElementById('auto-analysis').style.display='none';
-    setSqlStatus('idle','NO DATA LOADED');
+  const names=Object.keys(_tables);
+  if(!names.length){
+    document.getElementById('lab-results').style.display='none';
+    document.getElementById('lab-instructions').style.display='block';
+    setSqlStatus('no','NO DATA LOADED');
   } else {
-    const first = Object.keys(_tables)[0];
-    renderAutoAnalysis(first);
-    setSqlStatus('ready',`READY — ${Object.keys(_tables).length} table(s) loaded`);
+    renderPrimaryAnalysis(names[0]);
+    setSqlStatus('ready',`READY — ${names.length} table(s) loaded`);
   }
-  updateTablesCount();
 }
 
-function updateTablesCount() {
-  const n = Object.keys(_tables).length;
-  document.getElementById('tables-count').textContent = `${n} TABLE${n!==1?'S':''} LOADED`;
+function updateTablesCount(){
+  const n=Object.keys(_tables).length;
+  const el=document.getElementById('tables-count');
+  if(el)el.textContent=`${n} TABLE${n!==1?'S':''} LOADED`;
 }
 
-// ── Table Registry Render ──────────────────────────
-function renderTableRegistry() {
-  const el = document.getElementById('table-registry');
-  const names = Object.keys(_tables);
-  if (!names.length) { el.innerHTML=''; return }
-  el.innerHTML = names.map((name,i) => {
-    const t = _tables[name];
-    const color = TABLE_COLORS[i % TABLE_COLORS.length];
-    const colTags = t.cols.slice(0,8).map(c => {
-      const isN = t.numCols.includes(c);
-      return `<span class="col-tag ${isN?'col-tag-n':'col-tag-t'}">${c}<sup style="font-size:0.5em;margin-left:2px">${isN?'N':'T'}</sup></span>`
-    }).join('') + (t.cols.length>8?`<span class="col-tag col-tag-t">+${t.cols.length-8} more</span>`:'');
-    const fmt = n => n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?(n/1024).toFixed(1)+' KB':n+' B';
+/* ── Table Registry ── */
+function renderTableRegistry(){
+  const el=document.getElementById('table-registry');if(!el)return;
+  const names=Object.keys(_tables);
+  if(!names.length){el.innerHTML='';return}
+  el.innerHTML=names.map((name,i)=>{
+    const t=_tables[name];
+    const color=TABLE_COLORS[i%TABLE_COLORS.length];
+    const fmt=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?(n/1024).toFixed(1)+' KB':n+' B';
+    const colTags=t.cols.slice(0,8).map(c=>{
+      const isN=t.numCols.includes(c);
+      return `<span class="${isN?'col-tag-n':'col-tag-t'}">${c}<sup style="font-size:0.5em;margin-left:2px">${isN?'N':'T'}</sup></span>`;
+    }).join('')+(t.cols.length>8?`<span class="col-tag-t">+${t.cols.length-8} more</span>`:'');
     return `<div class="table-card">
-      <div class="table-icon">🗄</div>
-      <div class="table-info">
-        <div class="table-name" style="color:${color}">${name}</div>
-        <div class="table-meta">${t.rows.length.toLocaleString()} rows · ${t.cols.length} cols · ${t.numCols.length} numeric · ${fmt(t.fileSize)}</div>
-        <div class="table-cols-preview">${colTags}</div>
+      <div style="flex:1">
+        <div class="tc-name" style="color:${color}">${name}</div>
+        <div class="tc-meta">${t.rows.length.toLocaleString()} rows · ${t.cols.length} cols · ${t.numCols.length} numeric · ${fmt(t.fileSize)}</div>
+        <div class="tc-cols">${colTags}</div>
       </div>
-      <button class="table-remove" onclick="removeTable('${name}')" title="Remove table">✕</button>
+      <button class="tc-remove" onclick="removeTable('${name}')" title="Remove table">✕</button>
     </div>`;
   }).join('');
 }
 
-// ── Relationship Detector ──────────────────────────
-function detectRelationships() {
-  const el = document.getElementById('rel-grid');
-  const names = Object.keys(_tables);
-  if (names.length < 2) { el.innerHTML='<div class="rel-empty">Upload multiple tables to discover relationships…</div>'; return }
-  const rels = [];
-  for (let i=0; i<names.length; i++) {
-    for (let j=i+1; j<names.length; j++) {
-      const a = names[i], b = names[j];
-      const aCols = _tables[a].cols, bCols = _tables[b].cols;
-      aCols.forEach(ca => {
-        bCols.forEach(cb => {
-          const score = colMatchScore(ca, cb, a, b);
-          if (score > 0) rels.push({ from:`${a}.${ca}`, to:`${b}.${cb}`, score, a, b, ca, cb });
+/* ── Relationship Detection ── */
+function detectRelationships(){
+  const el=document.getElementById('rel-grid');if(!el)return;
+  const names=Object.keys(_tables);
+  if(names.length<2){el.innerHTML='<div class="rel-empty">Upload multiple tables to discover relationships…</div>';return}
+  const rels=[];
+  for(let i=0;i<names.length;i++){
+    for(let j=i+1;j<names.length;j++){
+      const a=names[i],b=names[j];
+      _tables[a].cols.forEach(ca=>{
+        _tables[b].cols.forEach(cb=>{
+          const s=colMatchScore(ca,cb,a,b);
+          if(s>0)rels.push({from:`${a}.${ca}`,to:`${b}.${cb}`,score:s});
         });
       });
     }
   }
   rels.sort((x,y)=>y.score-x.score);
-  const top = rels.slice(0,8);
-  if (!top.length) { el.innerHTML='<div class="rel-empty">No obvious join keys detected. Check column names manually.</div>'; return }
-  el.innerHTML = top.map(r => {
-    const conf = r.score>=3?'high':r.score>=2?'med':'low';
-    const confLabel = conf==='high'?'HIGH CONF':conf==='med'?'MEDIUM':'LOW';
-    const badgeCls = conf==='high'?'conf-high':'conf-med';
+  const top=rels.slice(0,8);
+  if(!top.length){el.innerHTML='<div class="rel-empty">No obvious join keys detected. Check column names manually.</div>';return}
+  el.innerHTML=top.map(r=>{
+    const conf=r.score>=3?'high':'med';
     return `<div class="rel-item">
       <span class="rel-from">${r.from}</span>
       <span class="rel-arrow">⟵⟶</span>
       <span class="rel-to">${r.to}</span>
-      <span class="rel-conf"><span class="rel-conf-badge ${badgeCls}">${confLabel}</span></span>
+      <span class="rel-conf-badge conf-${conf}">${conf==='high'?'HIGH CONF':'MEDIUM'}</span>
     </div>`;
   }).join('');
 }
 
-function colMatchScore(ca, cb, ta, tb) {
-  const na = ca.toLowerCase(), nb = cb.toLowerCase();
-  if (na === nb) return 3; // exact match
-  // id-style: one ends with _id or id
-  const idA = na.endsWith('_id')||na.endsWith('id');
-  const idB = nb.endsWith('_id')||nb.endsWith('id');
-  if (idA && idB) {
-    const baseA = na.replace(/_?id$/,''), baseB = nb.replace(/_?id$/,'');
-    if (baseA===baseB) return 3;
-    if (baseA.includes(tb)||tb.includes(baseA)) return 2;
-    if (baseB.includes(ta)||ta.includes(baseB)) return 2;
+function colMatchScore(ca,cb,ta,tb){
+  const na=ca.toLowerCase(),nb=cb.toLowerCase();
+  if(na===nb)return 3;
+  const idA=na.endsWith('_id')||na.endsWith('id');
+  const idB=nb.endsWith('_id')||nb.endsWith('id');
+  if(idA&&idB){
+    const baseA=na.replace(/_?id$/,''),baseB=nb.replace(/_?id$/,'');
+    if(baseA===baseB)return 3;
+    if(baseA.includes(tb)||tb.includes(baseA))return 2;
+    if(baseB.includes(ta)||ta.includes(baseB))return 2;
     return 1;
   }
   return 0;
 }
 
-// ── Suggestions ────────────────────────────────────
-let _suggTab = 'single';
-function showSuggTab(tab, btn) {
-  _suggTab = tab;
+/* ── Suggestions ── */
+function showSuggTab(tab,btn){
+  _suggTab=tab;
   document.querySelectorAll('.sugg-tab').forEach(b=>b.classList.remove('act','act-p'));
   btn.classList.add(tab==='join'?'act-p':'act');
   renderSuggList();
 }
 
-function updateSuggestions() {
-  const names = Object.keys(_tables);
-  const singleQs = [], joinQs = [];
-
-  names.forEach(name => {
-    const t = _tables[name];
+function updateSuggestions(){
+  const names=Object.keys(_tables);
+  const singleQs=[],joinQs=[];
+  names.forEach(name=>{
+    const t=_tables[name];
     singleQs.push(`SELECT * FROM ${name} LIMIT 20`);
-    singleQs.push(`SELECT COUNT(*) AS total FROM ${name}`);
-    if (t.strCols.length) singleQs.push(`SELECT ${t.strCols[0]}, COUNT(*) AS cnt FROM ${name} GROUP BY ${t.strCols[0]} ORDER BY cnt DESC LIMIT 10`);
-    if (t.numCols.length) singleQs.push(`SELECT AVG(${t.numCols[0]}) AS avg_val, MAX(${t.numCols[0]}) AS max_val, MIN(${t.numCols[0]}) AS min_val FROM ${name}`);
-    if (t.strCols.length && t.numCols.length) singleQs.push(`SELECT ${t.strCols[0]}, SUM(${t.numCols[0]}) AS total FROM ${name} GROUP BY ${t.strCols[0]} ORDER BY total DESC LIMIT 10`);
+    singleQs.push(`SELECT COUNT(*) AS total_rows FROM ${name}`);
+    if(t.strCols.length)singleQs.push(`SELECT ${t.strCols[0]}, COUNT(*) AS count FROM ${name} GROUP BY ${t.strCols[0]} ORDER BY count DESC LIMIT 10`);
+    if(t.numCols.length)singleQs.push(`SELECT AVG(${t.numCols[0]}) AS avg_val, MAX(${t.numCols[0]}) AS max_val, MIN(${t.numCols[0]}) AS min_val FROM ${name}`);
+    if(t.strCols.length&&t.numCols.length)singleQs.push(`SELECT ${t.strCols[0]}, SUM(${t.numCols[0]}) AS total FROM ${name} GROUP BY ${t.strCols[0]} ORDER BY total DESC`);
   });
-
-  // JOIN suggestions based on detected relationships
-  if (names.length >= 2) {
-    for (let i=0; i<names.length; i++) {
-      for (let j=i+1; j<names.length; j++) {
-        const a=names[i], b=names[j];
-        const ta=_tables[a], tb=_tables[b];
-        const aCols=ta.cols, bCols=tb.cols;
-        let bestKey = null;
-        let bestScore = 0;
-        aCols.forEach(ca=>bCols.forEach(cb=>{
-          const s=colMatchScore(ca,cb,a,b);
-          if(s>bestScore){bestScore=s;bestKey={ca,cb}}
-        }));
-        if (bestKey) {
-          const {ca,cb} = bestKey;
-          const ai=a[0], bi=b[0];
-          // Basic join
+  if(names.length>=2){
+    for(let i=0;i<names.length;i++){
+      for(let j=i+1;j<names.length;j++){
+        const a=names[i],b=names[j];
+        const ta=_tables[a],tb=_tables[b];
+        let bestKey=null,bestScore=0;
+        ta.cols.forEach(ca=>tb.cols.forEach(cb=>{const s=colMatchScore(ca,cb,a,b);if(s>bestScore){bestScore=s;bestKey={ca,cb}}}));
+        if(bestKey){
+          const{ca,cb}=bestKey;
+          const ai=a[0],bi=b[0];
           joinQs.push(`SELECT ${ai}.*, ${bi}.*\nFROM ${a} ${ai}\nJOIN ${b} ${bi} ON ${ai}.${ca} = ${bi}.${cb}\nLIMIT 20`);
-          // Aggregate join
-          if (ta.numCols.length && tb.strCols.length) {
-            joinQs.push(`SELECT ${bi}.${tb.strCols[0]}, SUM(${ai}.${ta.numCols[0]}) AS total\nFROM ${a} ${ai}\nJOIN ${b} ${bi} ON ${ai}.${ca} = ${bi}.${cb}\nGROUP BY ${bi}.${tb.strCols[0]}\nORDER BY total DESC`);
-          }
-          if (tb.numCols.length && ta.strCols.length) {
-            joinQs.push(`SELECT ${ai}.${ta.strCols[0]}, SUM(${bi}.${tb.numCols[0]}) AS total\nFROM ${a} ${ai}\nLEFT JOIN ${b} ${bi} ON ${ai}.${ca} = ${bi}.${cb}\nGROUP BY ${ai}.${ta.strCols[0]}\nORDER BY total DESC`);
-          }
+          if(ta.numCols.length&&tb.strCols.length)joinQs.push(`SELECT ${bi}.${tb.strCols[0]}, SUM(${ai}.${ta.numCols[0]}) AS total\nFROM ${a} ${ai}\nJOIN ${b} ${bi} ON ${ai}.${ca} = ${bi}.${cb}\nGROUP BY ${bi}.${tb.strCols[0]}\nORDER BY total DESC`);
+          if(tb.numCols.length&&ta.strCols.length)joinQs.push(`SELECT ${ai}.${ta.strCols[0]}, SUM(${bi}.${tb.numCols[0]}) AS total\nFROM ${a} ${ai}\nLEFT JOIN ${b} ${bi} ON ${ai}.${ca} = ${bi}.${cb}\nGROUP BY ${ai}.${ta.strCols[0]}\nORDER BY total DESC`);
           joinQs.push(`SELECT ${ai}.${ca}, COUNT(*) AS matches\nFROM ${a} ${ai}\nINNER JOIN ${b} ${bi} ON ${ai}.${ca} = ${bi}.${cb}\nGROUP BY ${ai}.${ca}\nORDER BY matches DESC LIMIT 15`);
         }
       }
     }
   }
-
-  _allSuggs = { single: singleQs, join: joinQs };
+  _allSuggs={single:singleQs,join:joinQs};
   renderSuggList();
 }
 
-function renderSuggList() {
-  const el = document.getElementById('sugg-list');
-  if (!el) return;
-  const qs = _suggTab==='join' ? _allSuggs.join : _allSuggs.single;
-  if (!qs.length) { el.innerHTML='<span style="font-size:0.7rem;color:var(--dim)">Upload tables to generate suggestions…</span>'; return }
-  const isJoin = _suggTab==='join';
-  el.innerHTML = qs.slice(0,10).map(q=>{
-    const safe = q.replace(/`/g,"'").replace(/\n/g,' ');
-    const short = q.replace(/\n/g,' ').slice(0,80) + (q.length>80?'…':'');
-    return `<span class="sugg-chip ${isJoin?'join-q':''}" onclick="setQuery(\`${q.replace(/`/g,"'")}\`)" title="${safe}">${short}</span>`;
+function renderSuggList(){
+  const el=document.getElementById('sugg-list');if(!el)return;
+  const qs=_suggTab==='join'?_allSuggs.join:_allSuggs.single;
+  const isJoin=_suggTab==='join';
+  if(!qs.length){el.innerHTML='<span style="font-family:var(--mono);font-size:0.7rem;color:var(--dim)">Upload tables to generate suggestions…</span>';return}
+  el.innerHTML=qs.slice(0,10).map(q=>{
+    const short=q.replace(/\n/g,' ').slice(0,80)+(q.length>80?'…':'');
+    return `<span class="sugg-chip ${isJoin?'join-q':''}" onclick="setQuery(\`${q.replace(/`/g,"'")}\`)" title="${q.replace(/\n/g,' ')}">${short}</span>`;
   }).join('');
 }
 
-function setSqlStatus(s,t) {
+/* ── Primary Table Analysis ── */
+function renderPrimaryAnalysis(tname){
+  const t=_tables[tname];if(!t)return;
+  const fmt=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?(n/1024).toFixed(1)+' KB':n+' B';
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  s('m-name',tname);s('m-rows',t.rows.length.toLocaleString());s('m-cols',t.cols.length);
+  s('m-size',fmt(t.fileSize));s('m-numcols',t.numCols.length);s('m-txtcols',t.strCols.length);
+  const cl=document.getElementById('lab-columns');
+  if(cl)cl.innerHTML=t.cols.map(h=>{
+    const n=t.numCols.includes(h);
+    return `<span class="project-tag" style="${n?'border-color:rgba(0,255,255,0.3)':'border-color:rgba(155,92,255,0.3)'}">${h}<sup style="font-size:0.55em;opacity:0.55;margin-left:3px">${n?'N':'T'}</sup></span>`;
+  }).join('');
+  renderKPIs(tname);
+  renderProfile(tname);
+  document.getElementById('sql-input').value=`SELECT * FROM ${tname} LIMIT 20`;
+  if(window.renderLabCharts)renderLabCharts(t.rows,t.cols);
+  renderStats(tname);
+}
+
+/* ── KPI Dashboard ── */
+function renderKPIs(tname){
+  const t=_tables[tname];
+  const g=document.getElementById('kpi-grid');if(!g||!t)return;
+  const cards=[];
+  cards.push({cls:'',icon:'◈',lbl:'TOTAL ROWS',val:fmtNum(t.rows.length),sub:`${t.cols.length} columns · ${t.numCols.length} numeric`});
+  if(t.numCols.length>0){
+    const col=t.numCols[0];
+    const vals=t.rows.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
+    if(vals.length){
+      const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
+      const mx=Math.max(...vals),mn=Math.min(...vals);
+      cards.push({cls:'g',icon:'⌀',lbl:`AVG — ${col}`,val:fmtNum(avg),sub:`${vals.length.toLocaleString()} values`});
+      cards.push({cls:'p',icon:'▲',lbl:`MAX — ${col}`,val:fmtNum(mx),sub:'column maximum'});
+      cards.push({cls:'pk',icon:'▼',lbl:`MIN — ${col}`,val:fmtNum(mn),sub:'column minimum'});
+    }
+  }
+  const miss=t.rows.reduce((s,r)=>s+t.cols.filter(c=>r[c]===''||r[c]===null||r[c]===undefined).length,0);
+  cards.push({cls:miss>0?'a':'g',icon:miss>0?'⚠':'✓',lbl:'MISSING VALUES',val:miss.toLocaleString(),sub:miss>0?'across all cols':'complete dataset'});
+  if(t.strCols.length>0){
+    const uc=new Set(t.rows.map(r=>r[t.strCols[0]])).size;
+    cards.push({cls:'p',icon:'◉',lbl:`UNIQUE — ${t.strCols[0]}`,val:uc.toLocaleString(),sub:`of ${t.rows.length.toLocaleString()} rows`});
+  }
+  g.innerHTML=cards.map(c=>`
+    <div class="kpi-card ${c.cls} panel-enter">
+      <div class="kpi-icon">${c.icon}</div>
+      <div class="kpi-label">${c.lbl}</div>
+      <div class="kpi-val">${c.val}</div>
+      <div class="kpi-sub">${c.sub}</div>
+    </div>`).join('');
+}
+
+function fmtNum(n){
+  if(typeof n!=='number'||isNaN(n))return String(n);
+  if(Math.abs(n)>=1e9)return(n/1e9).toFixed(2)+'B';
+  if(Math.abs(n)>=1e6)return(n/1e6).toFixed(2)+'M';
+  if(Math.abs(n)>=1000)return(n/1000).toFixed(1)+'K';
+  return Number.isInteger(n)?n.toString():n.toFixed(2);
+}
+
+/* ── Data Profiling ── */
+function renderProfile(tname){
+  const t=_tables[tname];
+  const tb=document.getElementById('profile-body');if(!tb||!t)return;
+  tb.innerHTML=t.cols.map(col=>{
+    const isN=t.numCols.includes(col);
+    const vals=t.rows.map(r=>r[col]);
+    const noEmpty=vals.filter(v=>v!==''&&v!==null&&v!==undefined);
+    const miss=vals.length-noEmpty.length;
+    const uniq=new Set(vals).size;
+    const pct=((miss/vals.length)*100).toFixed(1);
+    const samp=[...new Set(noEmpty)].slice(0,3).join(', ');
+    let mn='—',mx='—';
+    if(isN){const nv=noEmpty.map(v=>parseFloat(v)).filter(v=>!isNaN(v));if(nv.length){mn=fmtNum(Math.min(...nv));mx=fmtNum(Math.max(...nv))}}
+    return `<tr>
+      <td>${col}</td>
+      <td><span class="${isN?'badge-num':'badge-txt'}">${isN?'NUMERIC':'TEXT'}</span></td>
+      <td>${uniq.toLocaleString()}</td>
+      <td>${miss>0?`<span class="miss-warn">${miss} (${pct}%)</span>`:'<span class="miss-ok">0</span>'}</td>
+      <td style="color:var(--dim)">${mn}</td>
+      <td style="color:var(--dim)">${mx}</td>
+      <td style="color:var(--dim);max-width:190px;overflow:hidden;text-overflow:ellipsis">${samp}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── Summary Stats ── */
+function renderStats(tname){
+  const t=_tables[tname];if(!t||!t.numCols.length)return;
+  const col=t.numCols[0];
+  const vals=t.rows.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
+  if(!vals.length)return;
+  const mean=vals.reduce((a,b)=>a+b,0)/vals.length;
+  const std=Math.sqrt(vals.reduce((a,b)=>a+(b-mean)**2,0)/vals.length);
+  const sorted=[...vals].sort((a,b)=>a-b);
+  const med=sorted.length%2===0?(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2:sorted[Math.floor(sorted.length/2)];
+  const stats=[{k:'COUNT',v:vals.length},{k:'MEAN',v:mean.toFixed(2)},{k:'STD',v:std.toFixed(2)},{k:'MEDIAN',v:med.toFixed(2)},{k:'MIN',v:Math.min(...vals).toFixed(2)},{k:'MAX',v:Math.max(...vals).toFixed(2)}];
+  const sg=document.getElementById('lab-stats');
+  if(sg)sg.innerHTML=stats.map(({k,v})=>`
+    <div style="background:rgba(0,8,18,0.75);border:1px solid rgba(0,255,255,0.15);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00ffff,transparent 80%);"></div>
+      <div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:#00ffff;line-height:1;margin-bottom:8px;">${v}</div>
+      <div style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.18em;color:rgba(224,247,255,0.4);">${k} · ${col}</div>
+    </div>`).join('');
+}
+
+function setSqlStatus(s,t){
   const d=document.getElementById('sql-dot'),tx=document.getElementById('sql-txt');
-  if(d)d.className='status-dot '+(s==='ready'?'ready':s==='error'?'error':'idle');
-  if(tx)tx.textContent=t;
+  if(d)d.className=s==='ready'?'dot-g':'dot-r';if(tx)tx.textContent=t;
 }
 
-// ── Chart type selector ────────────────────────────
-function selChart(type, btn) {
-  _selChart = type;
+/* ── Chart Type ── */
+function selChart(type,btn){
+  _selChart=type;
   document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('act','act-p'));
-  btn.classList.add(['scatter','radar'].includes(type)?'act-p':'act');
+  btn.classList.add(['scatter','radar','polarArea'].includes(type)?'act-p':'act');
 }
 
-function insertKw(kw) {
-  const ta=document.getElementById('sql-input'); if(!ta)return;
+/* ── Keyword Insert ── */
+function insertKw(kw){
+  const ta=document.getElementById('sql-input');if(!ta)return;
   const p=ta.selectionStart,v=ta.value;
   ta.value=v.slice(0,p)+(p>0&&v[p-1]!==' '&&!kw.startsWith('\n')?'\n':'')+kw+v.slice(p);
-  ta.focus(); const np=p+(p>0&&v[p-1]!==' '&&!kw.startsWith('\n')?1:0)+kw.length;
+  ta.focus();
+  const np=p+(p>0&&v[p-1]!==' '&&!kw.startsWith('\n')?1:0)+kw.length;
   ta.selectionStart=ta.selectionEnd=np;
 }
 function setQuery(q){const ta=document.getElementById('sql-input');if(ta){ta.value=q;ta.focus()}}
@@ -816,8 +927,8 @@ function clearSQL(){
   document.getElementById('perf-strip').classList.remove('vis');
 }
 
-// ── Run SQL ────────────────────────────────────────
-function runSQL() {
+/* ── Run SQL ── */
+function runSQL(){
   const raw=(document.getElementById('sql-input').value||'').trim();
   if(!raw){showErr('Please enter a SQL query.');return}
   if(!Object.keys(_tables).length){showErr('No tables loaded. Upload CSV files first.');return}
@@ -825,14 +936,11 @@ function runSQL() {
   document.getElementById('perf-strip').classList.remove('vis');
   const t0=performance.now();
   let res;
-  try { res = execSQL(raw) }
-  catch(e) { showErr('SQL Error: ' + e.message); setSqlStatus('error','QUERY FAILED'); return }
+  try{res=execSQL(raw)}
+  catch(e){showErr('SQL Error: '+e.message);return}
   const ms=(performance.now()-t0).toFixed(1);
-  _qRows=res.rows; _qCols=res.columns;
-  _lastWasJoin = res.wasJoin||false;
-
-  // Perf strip
-  const ps=document.getElementById('perf-strip'); ps.classList.add('vis');
+  _qRows=res.rows;_qCols=res.columns;
+  const ps=document.getElementById('perf-strip');ps.classList.add('vis');
   document.getElementById('p-rows').textContent=res.rows.length.toLocaleString();
   document.getElementById('p-time').textContent=ms+' ms';
   document.getElementById('p-cols').textContent=res.columns.length;
@@ -841,131 +949,75 @@ function runSQL() {
     :'<span style="color:var(--dim)">NONE</span>';
   const cx=getCx(raw);
   document.getElementById('p-cx').innerHTML=`<span class="cx-badge cx-${cx.cls}">${cx.lbl}</span>`;
-
   renderTable(res.columns,res.rows);
   const ct=_selChart==='auto'?autoChart(res.columns,res.rows):_selChart;
   renderChart(res.columns,res.rows,ct);
   document.getElementById('result-section').style.display='block';
-  document.getElementById('join-badge').style.display=res.wasJoin?'inline-flex':'none';
-  setSqlStatus('ready',`${res.rows.length.toLocaleString()} rows returned in ${ms}ms`);
-  setTimeout(()=>document.getElementById('result-section').scrollIntoView({behavior:'smooth',block:'start'}),80);
+  const jb=document.getElementById('join-badge');if(jb)jb.style.display=res.wasJoin?'inline-flex':'none';
+  setTimeout(()=>document.getElementById('result-section').scrollIntoView({behavior:'smooth',block:'start'}),60);
 }
 
-function showErr(m){const e=document.getElementById('sql-err');e.textContent='⚠ '+m;e.style.display='block';setSqlStatus('error','QUERY FAILED')}
+function showErr(m){const e=document.getElementById('sql-err');e.textContent='⚠ '+m;e.style.display='block'}
 function hideErr(){document.getElementById('sql-err').style.display='none'}
 
-function getCx(q) {
-  const u=q.toUpperCase(); let s=0;
+function getCx(q){
+  const u=q.toUpperCase();let s=0;
   if(/GROUP\s+BY/.test(u))s++;if(/ORDER\s+BY/.test(u))s++;if(/\bWHERE\b/.test(u))s++;
   if(/\bHAVING\b/.test(u))s++;if(/\bJOIN\b/.test(u))s+=2;
   if(/(SUM|AVG|COUNT|MAX|MIN|ROUND|COALESCE)/.test(u))s++;
   if(s<=1)return{cls:'low',lbl:'LOW'};if(s<=3)return{cls:'med',lbl:'MEDIUM'};return{cls:'high',lbl:'HIGH'};
 }
 
-/* ═══════════════════════════════════════════════════
-   SQL ENGINE v3.0 — Full Relational SQL with JOINs
-   Supports:
-     SELECT [DISTINCT] cols/aliases
-     FROM table [alias]
-     [INNER|LEFT] JOIN table [alias] ON a.col = b.col
-     WHERE conditions (AND/OR/NOT/LIKE/IS NULL)
-     GROUP BY col
-     HAVING condition
-     ORDER BY col [ASC|DESC]
-     LIMIT n
-     Aggregates: COUNT SUM AVG MIN MAX ROUND COALESCE
-     Arithmetic in expressions: SUM(qty * price)
-     Table-qualified columns: t.column
-═══════════════════════════════════════════════════ */
-
-function execSQL(query) {
-  let q = query.replace(/\s+/g,' ').trim();
-  if (!/^SELECT\s/i.test(q)) throw new Error('Only SELECT statements supported.');
-
-  // ── 1. LIMIT ─────────────────────────────────
-  let lim = Infinity;
-  const limM = q.match(/\bLIMIT\s+(\d+)\s*$/i);
-  if (limM) { lim=parseInt(limM[1]); q=q.replace(/\bLIMIT\s+\d+\s*$/i,'').trim() }
-
-  // ── 2. ORDER BY ──────────────────────────────
-  let obCol=null, obDir='ASC';
-  const obM = q.match(/\bORDER\s+BY\s+([\w`.*()\s]+?)\s*(ASC|DESC)?\s*$/i);
-  if (obM) { obCol=obM[1].trim().replace(/`/g,''); obDir=(obM[2]||'ASC').toUpperCase(); q=q.replace(/\bORDER\s+BY[\s\S]*$/i,'').trim() }
-
-  // ── 3. HAVING ────────────────────────────────
+/* ════════════════════════════════════════════════════
+   SQL ENGINE v3.0 — Full Relational with JOIN support
+════════════════════════════════════════════════════ */
+function execSQL(query){
+  let q=query.replace(/\s+/g,' ').trim();
+  if(!/^SELECT\s/i.test(q))throw new Error('Only SELECT statements supported.');
+  let lim=Infinity;
+  const lmM=q.match(/\bLIMIT\s+(\d+)\s*$/i);
+  if(lmM){lim=parseInt(lmM[1]);q=q.replace(/\bLIMIT\s+\d+\s*$/i,'').trim()}
+  let obCol=null,obDir='ASC';
+  const obM=q.match(/\bORDER\s+BY\s+([\w`.()*\s]+?)\s*(ASC|DESC)?\s*$/i);
+  if(obM){obCol=obM[1].trim().replace(/`/g,'');obDir=(obM[2]||'ASC').toUpperCase();q=q.replace(/\bORDER\s+BY[\s\S]*$/i,'').trim()}
   let having=null;
-  const havM = q.match(/\bHAVING\s+(.+)$/i);
-  if (havM) { having=havM[1].trim(); q=q.replace(/\bHAVING\s+.+$/i,'').trim() }
-
-  // ── 4. GROUP BY ──────────────────────────────
+  const havM=q.match(/\bHAVING\s+(.+)$/i);
+  if(havM){having=havM[1].trim();q=q.replace(/\bHAVING\s+.+$/i,'').trim()}
   let groupBy=null;
-  const gbM = q.match(/\bGROUP\s+BY\s+([\w`.]+)\s*$/i);
-  if (gbM) { groupBy=gbM[1].replace(/`/g,''); q=q.replace(/\bGROUP\s+BY\s+[\w`.]+\s*$/i,'').trim() }
-
-  // ── 5. WHERE ─────────────────────────────────
+  const gbM=q.match(/\bGROUP\s+BY\s+([\w`.]+)\s*$/i);
+  if(gbM){groupBy=gbM[1].replace(/`/g,'');q=q.replace(/\bGROUP\s+BY\s+[\w`.]+\s*$/i,'').trim()}
   let where=null;
-  const whM = q.match(/\bWHERE\s+(.+)$/i);
-  if (whM) { where=whM[1].trim(); q=q.replace(/\bWHERE\s+.+$/i,'').trim() }
-
-  // ── 6. Parse JOINs ───────────────────────────
-  // Extract everything after FROM
-  const fromMatch = q.match(/\bFROM\s+([\s\S]+)$/i);
-  if (!fromMatch) throw new Error('Missing FROM clause.');
-  const fromClause = fromMatch[1].trim();
-  q = q.replace(/\bFROM\s+[\s\S]+$/i,'').trim();
-
-  // DISTINCT
-  const isDist = /^SELECT\s+DISTINCT\s/i.test(q);
-  const selRaw = q.replace(/^SELECT\s+(DISTINCT\s+)?/i,'').trim();
-  const exprs  = parseExprs(selRaw);
-
-  // Parse FROM + JOINs
-  const { baseRows, aliases, wasJoin, joinType } = parseFrom(fromClause);
-
-  // ── 7. Resolve column aliases in exprs ───────
-  // After JOIN, qualify bare column references with their table alias
-  const allAliases = Object.keys(aliases);
-
-  // ── 8. Apply WHERE ───────────────────────────
-  let rows = where ? baseRows.filter(r => evalWhere(where,r,aliases)) : baseRows;
-
-  // ── 9. Aggregate / Projection ────────────────
-  const hasAgg = exprs.some(e=>e.isAgg);
-  if (groupBy && hasAgg) {
-    rows = doGroup(rows, groupBy, exprs, aliases);
-  } else if (!groupBy && hasAgg && exprs.every(e=>e.isAgg)) {
-    rows = [doGlobalAgg(rows, exprs, aliases)];
+  const whM=q.match(/\bWHERE\s+(.+)$/i);
+  if(whM){where=whM[1].trim();q=q.replace(/\bWHERE\s+.+$/i,'').trim()}
+  const fromMatch=q.match(/\bFROM\s+([\s\S]+)$/i);
+  if(!fromMatch)throw new Error('Missing FROM clause.');
+  const fromClause=fromMatch[1].trim();
+  q=q.replace(/\bFROM\s+[\s\S]+$/i,'').trim();
+  const isDist=/^SELECT\s+DISTINCT\s/i.test(q);
+  const selRaw=q.replace(/^SELECT\s+(DISTINCT\s+)?/i,'').trim();
+  const exprs=parseExprs(selRaw);
+  const{baseRows,aliases,wasJoin,joinType}=parseFrom(fromClause);
+  let rows=where?baseRows.filter(r=>evalWhere(where,r,aliases)):baseRows;
+  const hasAgg=exprs.some(e=>e.isAgg);
+  if(groupBy&&hasAgg){
+    rows=doGroup(rows,groupBy,exprs,aliases);
+  } else if(!groupBy&&hasAgg&&exprs.every(e=>e.isAgg)){
+    rows=[doGlobalAgg(rows,exprs,aliases)];
   } else {
-    rows = rows.map(row => {
-      const out = {};
-      exprs.forEach(e => {
-        if (e.star) {
-          // For JOIN results include all cols, for single table use cols
-          Object.keys(row).forEach(k => out[k]=row[k]);
-        } else if (e.fn==='ROUND') {
-          out[e.alias] = doRound(evalExpr(e.expr,row,aliases), e.dec);
-        } else if (e.fn==='COALESCE') {
-          out[e.alias] = doCoalesce(e.args.map(a=>resolveCol(a,row,aliases)));
-        } else {
-          const v = resolveCol(e.expr, row, aliases);
-          out[e.alias] = v!==undefined ? v : evalExpr(e.expr,row,aliases);
-        }
+    rows=rows.map(row=>{
+      const out={};
+      exprs.forEach(e=>{
+        if(e.star){Object.keys(row).forEach(k=>out[k]=row[k])}
+        else if(e.fn==='ROUND'){out[e.alias]=doRound(evalExpr(e.expr,row,aliases),e.dec)}
+        else if(e.fn==='COALESCE'){out[e.alias]=doCoalesce(e.args.map(a=>resolveCol(a,row,aliases)))}
+        else{const v=resolveCol(e.expr,row,aliases);out[e.alias]=v!==undefined?v:(evalExpr(e.expr,row,aliases)??e.col)}
       });
       return out;
     });
   }
-
-  // ── 10. DISTINCT ─────────────────────────────
-  if (isDist) {
-    const seen=new Set();
-    rows=rows.filter(r=>{const k=JSON.stringify(r);if(seen.has(k))return false;seen.add(k);return true});
-  }
-
-  // ── 11. HAVING ───────────────────────────────
-  if (having) rows=rows.filter(r=>evalWhere(having,r,{}));
-
-  // ── 12. ORDER BY ─────────────────────────────
-  if (obCol) {
+  if(isDist){const seen=new Set();rows=rows.filter(r=>{const k=JSON.stringify(r);if(seen.has(k))return false;seen.add(k);return true})}
+  if(having)rows=rows.filter(r=>evalWhere(having,r,{}));
+  if(obCol){
     const k=resolveOBKey(obCol,rows,exprs,aliases);
     rows.sort((a,b)=>{
       const av=a[k],bv=b[k];
@@ -975,164 +1027,90 @@ function execSQL(query) {
       return obDir==='DESC'?-cmp:cmp;
     });
   }
-
-  if (lim<Infinity) rows=rows.slice(0,lim);
-
-  // Column list
-  const rcols = rows.length>0 ? Object.keys(rows[0])
-    : (exprs[0]?.star ? [] : exprs.map(e=>e.alias));
-
-  return { rows, columns:rcols, wasJoin, joinType };
+  if(lim<Infinity)rows=rows.slice(0,lim);
+  const rcols=rows.length>0?Object.keys(rows[0]):(exprs[0]?.star?[]:exprs.map(e=>e.alias));
+  return{rows,columns:rcols,wasJoin,joinType};
 }
 
-/* ── FROM + JOIN Parser ───────────────────────────
-   Handles:
-     FROM t1 [alias]
-     [INNER|LEFT] JOIN t2 [alias] ON a.c = b.c
-     Multiple JOINs chained
-*/
-function parseFrom(fromClause) {
-  // Tokenise JOIN blocks
-  const joinPattern = /\b(INNER\s+JOIN|LEFT\s+JOIN|JOIN)\s+(\w+)\s*(?:(\w+)\s+)?ON\s+([\w.`]+)\s*=\s*([\w.`]+)/gi;
-  const aliases = {};
-  const joinSpecs = [];
-
-  // Base table (before first JOIN)
-  const firstJoinIdx = fromClause.search(/\b(INNER\s+JOIN|LEFT\s+JOIN|JOIN)\b/i);
-  const basePart = firstJoinIdx>=0 ? fromClause.slice(0,firstJoinIdx).trim() : fromClause.trim();
-
-  // Parse base table + optional alias
-  const baseParts = basePart.split(/\s+/);
-  const baseTableName = baseParts[0];
-  const baseAlias = baseParts[1] || baseTableName;
-  if (!_tables[baseTableName]) throw new Error(`Table "${baseTableName}" not found. Available: ${Object.keys(_tables).join(', ')}`);
-  aliases[baseAlias] = baseTableName;
-
-  // Parse JOIN specs
-  let joinMatch;
-  const joinRe = /\b(INNER\s+JOIN|LEFT\s+JOIN|JOIN)\s+(\w+)\s*(?:(\w+)\s+)?ON\s+([\w.`]+)\s*=\s*([\w.`]+)/gi;
-  while ((joinMatch=joinRe.exec(fromClause))!==null) {
-    const jtype = joinMatch[1].toUpperCase().replace(/\s+/g,' ');
-    const jtable = joinMatch[2];
-    const jalias = joinMatch[3] || jtable;
-    const lkey = joinMatch[4].replace(/`/g,'');
-    const rkey = joinMatch[5].replace(/`/g,'');
-    if (!_tables[jtable]) throw new Error(`Table "${jtable}" not found. Available: ${Object.keys(_tables).join(', ')}`);
-    aliases[jalias] = jtable;
-    joinSpecs.push({ jtype, jtable, jalias, lkey, rkey });
+function parseFrom(fromClause){
+  const aliases={};
+  const joinSpecs=[];
+  const firstJoinIdx=fromClause.search(/\b(INNER\s+JOIN|LEFT\s+JOIN|JOIN)\b/i);
+  const basePart=firstJoinIdx>=0?fromClause.slice(0,firstJoinIdx).trim():fromClause.trim();
+  const baseParts=basePart.split(/\s+/);
+  const baseTableName=baseParts[0];
+  const baseAlias=baseParts[1]||baseTableName;
+  if(!_tables[baseTableName])throw new Error(`Table "${baseTableName}" not found. Available: ${Object.keys(_tables).join(', ')}`);
+  aliases[baseAlias]=baseTableName;
+  const joinRe=/\b(INNER\s+JOIN|LEFT\s+JOIN|JOIN)\s+(\w+)\s*(?:(\w+)\s+)?ON\s+([\w.`]+)\s*=\s*([\w.`]+)/gi;
+  let jm;
+  while((jm=joinRe.exec(fromClause))!==null){
+    const jtype=jm[1].toUpperCase().replace(/\s+/g,' ');
+    const jtable=jm[2],jalias=jm[3]||jm[2];
+    const lkey=jm[4].replace(/`/g,''),rkey=jm[5].replace(/`/g,'');
+    if(!_tables[jtable])throw new Error(`Table "${jtable}" not found. Available: ${Object.keys(_tables).join(', ')}`);
+    aliases[jalias]=jtable;
+    joinSpecs.push({jtype,jtable,jalias,lkey,rkey});
   }
-
-  if (!joinSpecs.length) {
-    // Single table
-    return { baseRows: _tables[baseTableName].rows.map(r=>({...r})), aliases, wasJoin:false, joinType:null };
+  if(!joinSpecs.length){
+    return{baseRows:_tables[baseTableName].rows.map(r=>({...r})),aliases,wasJoin:false,joinType:null};
   }
-
-  // Execute joins sequentially
-  let rows = _tables[baseTableName].rows.map(r => {
-    const out = {};
-    Object.keys(r).forEach(k => out[`${baseAlias}.${k}`] = r[k]);
-    // Also keep bare keys for compat
-    Object.keys(r).forEach(k => { if(out[k]===undefined) out[k]=r[k] });
+  let rows=_tables[baseTableName].rows.map(r=>{
+    const out={};
+    Object.keys(r).forEach(k=>{out[`${baseAlias}.${k}`]=r[k];if(out[k]===undefined)out[k]=r[k]});
     return out;
   });
-
-  let lastJoinType = 'INNER JOIN';
-  joinSpecs.forEach(({jtype,jtable,jalias,lkey,rkey}) => {
-    lastJoinType = jtype;
-    const rightRows = _tables[jtable].rows;
-    rows = execJoin(rows, rightRows, lkey, rkey, jalias, jtype, aliases);
+  let lastJoinType='JOIN';
+  joinSpecs.forEach(({jtype,jtable,jalias,lkey,rkey})=>{
+    lastJoinType=jtype;
+    rows=execJoin(rows,_tables[jtable].rows,lkey,rkey,jalias,jtype);
   });
-
-  return { baseRows:rows, aliases, wasJoin:true, joinType:lastJoinType };
+  return{baseRows:rows,aliases,wasJoin:true,joinType:lastJoinType};
 }
 
-function execJoin(leftRows, rightRows, lkeyRaw, rkeyRaw, rAlias, jtype, aliases) {
-  // Resolve the actual column name from possibly qualified "alias.col"
-  const resolveKey = (keyExpr, row, side) => {
-    if (keyExpr.includes('.')) {
-      const [ali, col] = keyExpr.split('.');
-      // Try alias-qualified key
-      const qualified = `${ali}.${col}`;
-      if (row[qualified] !== undefined) return row[qualified];
-      if (row[col] !== undefined) return row[col];
-      return row[col];
-    }
-    return row[keyExpr];
-  };
-
-  // Build right-side index for performance
-  const rightIndex = {};
-  rightRows.forEach(r => {
-    const kname = rkeyRaw.includes('.') ? rkeyRaw.split('.')[1] : rkeyRaw;
-    const kval = String(r[kname]??'__null__');
-    if (!rightIndex[kval]) rightIndex[kval] = [];
-    rightIndex[kval].push(r);
-  });
-
-  const result = [];
-  const isLeft = /LEFT/i.test(jtype);
-
-  leftRows.forEach(l => {
-    const lkname = lkeyRaw.includes('.') ? lkeyRaw.split('.')[1] : lkeyRaw;
-    // Try qualified first, then bare
-    const lval = String(l[`${lkeyRaw.split('.')[0]}.${lkname}`] ?? l[lkname] ?? '__null__');
-    const matches = rightIndex[lval] || [];
-
-    if (matches.length) {
-      matches.forEach(r => {
-        const merged = {...l};
-        Object.keys(r).forEach(k => {
-          merged[`${rAlias}.${k}`] = r[k];
-          // Bare key only if no conflict
-          if (merged[k]===undefined) merged[k]=r[k];
-        });
+function execJoin(leftRows,rightRows,lkeyRaw,rkeyRaw,rAlias,jtype){
+  const rkname=rkeyRaw.includes('.')?rkeyRaw.split('.')[1]:rkeyRaw;
+  const rightIndex={};
+  rightRows.forEach(r=>{const kval=String(r[rkname]??'__null__');if(!rightIndex[kval])rightIndex[kval]=[];rightIndex[kval].push(r)});
+  const result=[];
+  const isLeft=/LEFT/i.test(jtype);
+  leftRows.forEach(l=>{
+    const lkname=lkeyRaw.includes('.')?lkeyRaw.split('.')[1]:lkeyRaw;
+    const lAli=lkeyRaw.includes('.')?lkeyRaw.split('.')[0]:null;
+    const lval=String((lAli?l[`${lAli}.${lkname}`]:undefined)??l[lkname]??'__null__');
+    const matches=rightIndex[lval]||[];
+    if(matches.length){
+      matches.forEach(r=>{
+        const merged={...l};
+        Object.keys(r).forEach(k=>{merged[`${rAlias}.${k}`]=r[k];if(merged[k]===undefined)merged[k]=r[k]});
         result.push(merged);
       });
-    } else if (isLeft) {
-      // LEFT JOIN: keep left row with nulls for right
-      const merged = {...l};
-      const rkname = rkeyRaw.includes('.') ? rkeyRaw.split('.')[1] : rkeyRaw;
-      const sampleRight = rightRows[0] || {};
-      Object.keys(sampleRight).forEach(k => {
-        merged[`${rAlias}.${k}`] = null;
-        if (merged[k]===undefined) merged[k]=null;
-      });
+    } else if(isLeft){
+      const merged={...l};
+      const sampleRight=rightRows[0]||{};
+      Object.keys(sampleRight).forEach(k=>{merged[`${rAlias}.${k}`]=null;if(merged[k]===undefined)merged[k]=null});
       result.push(merged);
     }
   });
-
   return result;
 }
 
-/* ── Expression Parser ────────────────────────────*/
-function parseExprs(raw) {
-  if (raw.trim()==='*') return [{star:true}];
-  const parts = splitTop(raw,',');
-  return parts.map(part => {
+function parseExprs(raw){
+  if(raw.trim()==='*')return[{star:true}];
+  const parts=splitTop(raw,',');
+  return parts.map(part=>{
     part=part.trim();
-    const asM = part.match(/^(.*?)\s+AS\s+([\w]+)\s*$/i);
-    const expr = asM?asM[1].trim():part;
-    const alias = asM?asM[2]:expr.replace(/[`().\s\W]+/g,'_').replace(/^_|_$/g,'').slice(0,40)||'col';
-
-    // Handle star with table prefix: t.*
-    if (/^\w+\.\*$/.test(expr)) return {star:true,tablePrefix:expr.split('.')[0],alias};
-
-    // Aggregate
-    const aggM = expr.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\s\S]*?)\s*\)\s*$/i);
-    if (aggM) return {isAgg:true,fn:aggM[1].toUpperCase(),expr:aggM[2]==='*'?null:aggM[2],alias:asM?asM[2]:`${aggM[1].toUpperCase()}(${aggM[2]})`};
-
-    // ROUND
-    const rndM = expr.match(/^ROUND\s*\(\s*(.*?)\s*(?:,\s*(\d+))?\s*\)\s*$/i);
-    if (rndM) return {isAgg:false,fn:'ROUND',expr:rndM[1],dec:parseInt(rndM[2]??2),alias:asM?asM[2]:`ROUND(${rndM[1]})`};
-
-    // COALESCE
-    const coM = expr.match(/^COALESCE\s*\(\s*(.*)\s*\)\s*$/i);
-    if (coM) {
-      const args=splitTop(coM[1],',').map(a=>a.trim().replace(/^'|'$/g,''));
-      return {isAgg:false,fn:'COALESCE',args,alias:asM?asM[2]:'COALESCE'};
-    }
-
-    return {isAgg:false,fn:null,col:expr,expr,alias};
+    const asM=part.match(/^(.*?)\s+AS\s+([\w]+)\s*$/i);
+    const expr=asM?asM[1].trim():part;
+    const alias=asM?asM[2]:expr.replace(/[`().\s\W]+/g,'_').replace(/^_|_$/g,'').slice(0,40)||'col';
+    if(/^\w+\.\*$/.test(expr))return{star:true,tablePrefix:expr.split('.')[0],alias};
+    const aggM=expr.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\s\S]*?)\s*\)\s*$/i);
+    if(aggM)return{isAgg:true,fn:aggM[1].toUpperCase(),expr:aggM[2]==='*'?null:aggM[2],col:aggM[2]==='*'?null:aggM[2],alias:asM?asM[2]:`${aggM[1].toUpperCase()}(${aggM[2]})`};
+    const rndM=expr.match(/^ROUND\s*\(\s*(.*?)\s*(?:,\s*(\d+))?\s*\)\s*$/i);
+    if(rndM)return{isAgg:false,fn:'ROUND',expr:rndM[1],dec:parseInt(rndM[2]??2),alias:asM?asM[2]:`ROUND(${rndM[1]})`};
+    const coM=expr.match(/^COALESCE\s*\(\s*(.*)\s*\)\s*$/i);
+    if(coM){const args=splitTop(coM[1],',').map(a=>a.trim().replace(/^'|'$/g,''));return{isAgg:false,fn:'COALESCE',args,alias:asM?asM[2]:'COALESCE'}}
+    return{isAgg:false,fn:null,col:expr,expr,alias};
   });
 }
 
@@ -1142,158 +1120,120 @@ function splitTop(s,sep){
   if(c)p.push(c);return p;
 }
 
-/* ── Column Resolution ────────────────────────────
-   Handles: bare col, alias.col, t.col
-*/
-function resolveCol(expr, row, aliases) {
-  if (!expr) return undefined;
-  // Qualified: alias.col
-  if (expr.includes('.')) {
-    const [ali,col] = expr.split('.',2);
-    // Try qualified key first
-    const qk = `${ali}.${col}`;
-    if (row[qk] !== undefined) return row[qk];
-    // Try bare col
-    if (row[col] !== undefined) return row[col];
+function resolveCol(expr,row,aliases){
+  if(!expr)return undefined;
+  if(expr.includes('.')){
+    const[ali,col]=expr.split('.',2);
+    const qk=`${ali}.${col}`;
+    if(row[qk]!==undefined)return row[qk];
+    if(row[col]!==undefined)return row[col];
     return undefined;
   }
-  // Bare: try direct key
-  if (row[expr] !== undefined) return row[expr];
-  // Try finding among qualified keys
-  const qkey = Object.keys(row).find(k=>k.endsWith('.'+expr));
-  if (qkey) return row[qkey];
+  if(row[expr]!==undefined)return row[expr];
+  const qkey=Object.keys(row).find(k=>k.endsWith('.'+expr));
+  if(qkey)return row[qkey];
   return undefined;
 }
 
-function evalExpr(s, row, aliases={}) {
-  if (!s) return null;
-  const direct = resolveCol(s, row, aliases);
-  if (direct !== undefined) return direct;
-  try {
-    const mapped = s.replace(/[\w.`]+/g, m => {
-      const v = resolveCol(m.replace(/`/g,''), row, aliases);
-      if (v !== undefined) return isNaN(parseFloat(v)) ? `"${v}"` : (parseFloat(v)||0);
+function evalExpr(s,row,aliases={}){
+  if(!s)return null;
+  const direct=resolveCol(s,row,aliases);
+  if(direct!==undefined)return direct;
+  try{
+    const mapped=s.replace(/[\w.`]+/g,m=>{
+      const v=resolveCol(m.replace(/`/g,''),row,aliases);
+      if(v!==undefined)return isNaN(parseFloat(v))?`"${v}"`:(parseFloat(v)||0);
       return m;
     });
-    if (/^[\d\s+\-*/.()]+$/.test(mapped)) return Function('"use strict";return ('+mapped+')')();
-  } catch(_){}
+    if(/^[\d\s+\-*/.()]+$/.test(mapped))return Function('"use strict";return ('+mapped+')')();
+  }catch(_){}
   return null;
 }
 
-function doGroup(rows, gcol, exprs, aliases) {
-  const resolveGroupKey = r => {
-    const v = resolveCol(gcol, r, aliases);
-    return String(v ?? '__null__');
-  };
-  const grps = {};
-  rows.forEach(r => {
-    const k = resolveGroupKey(r);
-    if (!grps[k]) grps[k]={rows:[],keyVal:resolveCol(gcol,r,aliases)};
-    grps[k].rows.push(r);
-  });
-  return Object.values(grps).map(g => {
-    const out = {};
-    exprs.forEach(e => {
-      if (e.star) {
-        // For GROUP BY with *, just include the group key
-        const gkey = gcol.includes('.')?gcol.split('.')[1]:gcol;
-        out[gkey]=g.keyVal;
-      } else if (!e.isAgg) {
-        if (e.fn==='ROUND') out[e.alias]=doRound(evalExpr(e.expr,g.rows[0],aliases),e.dec);
-        else if (e.fn==='COALESCE') out[e.alias]=doCoalesce(e.args.map(a=>resolveCol(a,g.rows[0],aliases)));
+function doGroup(rows,gcol,exprs,aliases){
+  const grps={};
+  rows.forEach(r=>{const v=resolveCol(gcol,r,aliases);const k=String(v??'__null__');if(!grps[k])grps[k]={rows:[],keyVal:v};grps[k].rows.push(r)});
+  return Object.values(grps).map(g=>{
+    const out={};
+    exprs.forEach(e=>{
+      if(e.star){const gkey=gcol.includes('.')?gcol.split('.')[1]:gcol;out[gkey]=g.keyVal}
+      else if(!e.isAgg){
+        if(e.fn==='ROUND')out[e.alias]=doRound(evalExpr(e.expr,g.rows[0],aliases),e.dec);
+        else if(e.fn==='COALESCE')out[e.alias]=doCoalesce(e.args.map(a=>resolveCol(a,g.rows[0],aliases)));
         else out[e.alias]=resolveCol(e.expr,g.rows[0],aliases)??g.rows[0][e.col];
-      } else {
-        out[e.alias]=calcAgg(e.fn,e.expr,g.rows,aliases);
-      }
+      } else out[e.alias]=calcAgg(e.fn,e.expr,g.rows,aliases);
     });
     return out;
   });
 }
 
-function doGlobalAgg(rows, exprs, aliases) {
-  const out={};
-  exprs.forEach(e=>{out[e.alias]=calcAgg(e.fn,e.expr,rows,aliases)});
-  return out;
-}
+function doGlobalAgg(rows,exprs,aliases){const out={};exprs.forEach(e=>{out[e.alias]=calcAgg(e.fn,e.expr,rows,aliases)});return out}
 
-function calcAgg(fn, expr, rows, aliases={}) {
-  if (fn==='COUNT') return rows.length;
-  const vals = rows.map(r => {
-    if (!expr||expr==='*') return NaN;
-    const v = evalExpr(expr,r,aliases); return parseFloat(v);
-  }).filter(v=>!isNaN(v));
-  if (fn==='SUM') return vals.length?+vals.reduce((a,b)=>a+b,0).toFixed(8):0;
-  if (fn==='AVG') return vals.length?+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(8):0;
-  if (fn==='MAX') return vals.length?Math.max(...vals):null;
-  if (fn==='MIN') return vals.length?Math.min(...vals):null;
+function calcAgg(fn,expr,rows,aliases={}){
+  if(fn==='COUNT')return rows.length;
+  const vals=rows.map(r=>{if(!expr||expr==='*')return NaN;const v=evalExpr(expr,r,aliases);return parseFloat(v)}).filter(v=>!isNaN(v));
+  if(fn==='SUM')return vals.length?+vals.reduce((a,b)=>a+b,0).toFixed(8):0;
+  if(fn==='AVG')return vals.length?+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(8):0;
+  if(fn==='MAX')return vals.length?Math.max(...vals):null;
+  if(fn==='MIN')return vals.length?Math.min(...vals):null;
   return null;
 }
 
 function doRound(v,dec){const n=parseFloat(v);return isNaN(n)?v:+n.toFixed(dec)}
 function doCoalesce(args){return args.find(a=>a!==null&&a!==undefined&&a!==''&&a!=='null')??null}
 
-function evalWhere(clause, row, aliases) {
-  try {
-    let e = clause.replace(/\bAND\b/gi,'&&').replace(/\bOR\b/gi,'||').replace(/\bNOT\b/gi,'!');
-    // LIKE
-    e = e.replace(/([\w.]+)\s+LIKE\s+'([^']+)'/gi, (_,c,p) => {
-      const val = String(resolveCol(c,row,aliases)??'');
-      const rx = new RegExp('^'+p.replace(/%/g,'.*').replace(/_/g,'.')+'$','i');
+function evalWhere(clause,row,aliases){
+  try{
+    let e=clause.replace(/\bAND\b/gi,'&&').replace(/\bOR\b/gi,'||').replace(/\bNOT\b/gi,'!');
+    e=e.replace(/([\w.]+)\s+LIKE\s+'([^']+)'/gi,(_,c,p)=>{
+      const val=String(resolveCol(c,row,aliases)??'');
+      const rx=new RegExp('^'+p.replace(/%/g,'.*').replace(/_/g,'.')+'$','i');
       return rx.test(val)?'true':'false';
     });
-    // IS NOT NULL / IS NULL
-    e = e.replace(/([\w.]+)\s+IS\s+NOT\s+NULL/gi,(_,c)=>{const v=resolveCol(c,row,aliases);return(v!==null&&v!==undefined&&v!=='')?'true':'false'});
-    e = e.replace(/([\w.]+)\s+IS\s+NULL/gi,(_,c)=>{const v=resolveCol(c,row,aliases);return(v===null||v===undefined||v==='')?'true':'false'});
-    // Replace column references
-    e = e.replace(/[\w]+\.[\w]+|[\w]+/g, m => {
-      if (['true','false','null','AND','OR','NOT'].includes(m.toUpperCase())) return m;
-      const v = resolveCol(m,row,aliases);
-      if (v !== undefined) {
-        if (typeof v==='string') return `"${v.replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"`;
-        return (v===null||v===undefined)?'null':v;
+    e=e.replace(/([\w.]+)\s+IS\s+NOT\s+NULL/gi,(_,c)=>{const v=resolveCol(c,row,aliases);return(v!==null&&v!==undefined&&v!=='')?'true':'false'});
+    e=e.replace(/([\w.]+)\s+IS\s+NULL/gi,(_,c)=>{const v=resolveCol(c,row,aliases);return(v===null||v===undefined||v==='')?'true':'false'});
+    e=e.replace(/[\w]+\.[\w]+|[\w]+/g,m=>{
+      if(['true','false','null','AND','OR','NOT'].includes(m.toUpperCase()))return m;
+      const v=resolveCol(m,row,aliases);
+      if(v!==undefined){
+        if(typeof v==='string')return`"${v.replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"`;
+        return(v===null||v===undefined)?'null':v;
       }
-      return `"${m}"`;
+      return`"${m}"`;
     });
-    return !!Function('"use strict";return ('+e+')')();
-  } catch { return true }
+    return!!Function('"use strict";return ('+e+')')();
+  }catch{return true}
 }
 
-function resolveOBKey(ob, rows, exprs, aliases) {
-  if (!rows.length) return ob;
-  if (ob in rows[0]) return ob;
-  // Try alias-qualified
-  const bare = ob.includes('.') ? ob.split('.')[1] : ob;
-  if (bare in rows[0]) return bare;
-  const qk = Object.keys(rows[0]).find(k=>k.endsWith('.'+bare));
-  if (qk) return qk;
-  // Try agg alias
-  const aggM = ob.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\w*.]+)\s*\)/i);
-  if (aggM) {
-    const fn=aggM[1].toUpperCase(),c=aggM[2];
-    const k=Object.keys(rows[0]).find(k=>k===`${fn}(${c})`||k.toUpperCase().startsWith(fn));
-    if(k)return k;
-  }
-  // Fall back to matching alias in exprs
-  const expr = exprs.find(e=>e.alias&&e.alias.toLowerCase()===ob.toLowerCase());
-  if (expr && expr.alias in rows[0]) return expr.alias;
+function resolveOBKey(ob,rows,exprs,aliases){
+  if(!rows.length)return ob;
+  if(ob in rows[0])return ob;
+  const bare=ob.includes('.')?ob.split('.')[1]:ob;
+  if(bare in rows[0])return bare;
+  const qk=Object.keys(rows[0]).find(k=>k.endsWith('.'+bare));
+  if(qk)return qk;
+  const aggM=ob.match(/^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([\w*.]+)\s*\)/i);
+  if(aggM){const fn=aggM[1].toUpperCase(),c=aggM[2];const k=Object.keys(rows[0]).find(k=>k===`${fn}(${c})`||k.toUpperCase().startsWith(fn));if(k)return k}
+  const expr=exprs.find(e=>e.alias&&e.alias.toLowerCase()===ob.toLowerCase());
+  if(expr&&expr.alias in rows[0])return expr.alias;
   return ob;
 }
 
-/* ── Viz Intelligence ──────────────────────────── */
-function autoChart(cols, rows) {
-  if (!rows.length||cols.length===0) return 'table';
-  if (cols.length===1) return 'table';
+/* ── Viz Intelligence ── */
+function autoChart(cols,rows){
+  if(!rows.length||cols.length===0)return'table';
+  if(cols.length===1)return'table';
   const nc=cols.filter(c=>rows.some(r=>!isNaN(parseFloat(r[c]))&&r[c]!==''&&r[c]!==null));
   const sc=cols.filter(c=>!nc.includes(c));
   const timeCol=cols.find(c=>/date|time|year|month|day|week|quarter/i.test(c));
-  if (timeCol&&nc.length>=1) return 'line';
-  if (nc.length>=2&&sc.length===0) return 'scatter';
-  if (sc.length>=1&&nc.length>=1&&rows.length<=8) return 'pie';
-  return 'bar';
+  if(timeCol&&nc.length>=1)return'line';
+  if(nc.length>=2&&sc.length===0)return'scatter';
+  if(sc.length>=1&&nc.length>=1&&rows.length<=8)return'pie';
+  return'bar';
 }
 
-/* ── Render Table ─────────────────────────────── */
-function renderTable(cols, rows) {
+/* ── Render Table ── */
+function renderTable(cols,rows){
   const inf=document.getElementById('result-info');
   if(inf)inf.innerHTML=`<span>${rows.length.toLocaleString()}</span> rows · <span>${cols.length}</span> cols`;
   const th=document.getElementById('rtbl-head'),tb=document.getElementById('rtbl-body');
@@ -1301,9 +1241,11 @@ function renderTable(cols, rows) {
   if(tb)tb.innerHTML=rows.slice(0,200).map(r=>`<tr>${cols.map(c=>`<td>${r[c]!==undefined&&r[c]!==null?r[c]:''}</td>`).join('')}</tr>`).join('');
 }
 
-/* ── Render Chart ─────────────────────────────── */
-function renderChart(cols, rows, type) {
-  const wrap=document.getElementById('chart-wrap'), canvas=document.getElementById('q-chart'), lbl=document.getElementById('chart-lbl');
+/* ── Render Chart ── */
+function renderChart(cols,rows,type){
+  const wrap=document.getElementById('chart-wrap');
+  const canvas=document.getElementById('q-chart');
+  const lbl=document.getElementById('chart-lbl');
   if(!wrap||!canvas)return;
   if(_chartInst){_chartInst.destroy();_chartInst=null}
   if(!rows.length||type==='table'){wrap.style.display='none';return}
@@ -1316,123 +1258,28 @@ function renderChart(cols, rows, type) {
   wrap.style.display='block';
   if(lbl)lbl.textContent=`◈ ${type.toUpperCase()} — ${xCol} vs ${yCol}`;
   const ctx=canvas.getContext('2d');
+  const TIP={backgroundColor:'rgba(5,5,16,0.94)',borderColor:'#00ffff',borderWidth:1,titleColor:'#00ffff',bodyColor:'#e0f7ff',padding:12};
   let cfg;
   if(type==='scatter'){
     const xC=nc[0]||cols[0],yC=nc[1]||cols[1]||cols[0];
     cfg={type:'scatter',data:{datasets:[{label:`${xC} vs ${yC}`,data:rows.map(r=>({x:parseFloat(r[xC])||0,y:parseFloat(r[yC])||0})),backgroundColor:'rgba(155,92,255,0.6)',borderColor:'#9b5cff',pointRadius:5,pointHoverRadius:8}]},
       options:{responsive:true,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{title:{display:true,text:xC,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}},y:{title:{display:true,text:yC,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},animation:{duration:900}}};
-  } else if(['pie','doughnut'].includes(type)){
+  } else if(['pie','doughnut','polarArea'].includes(type)){
     cfg={type,data:{labels,datasets:[{data:values,backgroundColor:CC,borderColor:'#050510',borderWidth:2,hoverOffset:6}]},
       options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'rgba(224,247,255,0.7)',padding:14,usePointStyle:true}},tooltip:TIP},...(type==='doughnut'?{cutout:'60%'}:{}),animation:{duration:900,easing:'easeInOutQuart'}}};
   } else if(type==='radar'){
-    cfg={type:'radar',data:{labels,datasets:[{label:yCol,data:values,fill:true,backgroundColor:'rgba(0,255,255,0.1)',borderColor:'#00ffff',borderWidth:2,pointBackgroundColor:'#00ffff',pointRadius:4}]},
+    cfg={type:'radar',data:{labels,datasets:[{label:yCol,data:values,fill:true,backgroundColor:'rgba(0,255,255,0.12)',borderColor:'#00ffff',borderWidth:2,pointBackgroundColor:'#00ffff',pointRadius:4}]},
       options:{responsive:true,scales:{r:{ticks:{color:'rgba(0,255,255,0.28)',backdropColor:'transparent'},grid:{color:'rgba(0,255,255,0.1)'},angleLines:{color:'rgba(0,255,255,0.1)'},pointLabels:{color:'rgba(224,247,255,0.8)',font:{size:10}}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900}}};
   } else {
     const g=ctx.createLinearGradient(0,0,0,260);
     g.addColorStop(0,'rgba(0,255,255,0.75)');g.addColorStop(1,'rgba(0,255,255,0.04)');
-    cfg={type,data:{labels,datasets:[{label:yCol,data:values,backgroundColor:type==='line'?'rgba(0,255,255,0.07)':g,borderColor:'#00ffff',borderWidth:2,fill:type==='line',tension:0.4,pointBackgroundColor:'#00ffff',pointRadius:type==='line'?4:0,borderRadius:type==='bar'?4:0}]},
+    cfg={type,data:{labels,datasets:[{label:yCol,data:values,backgroundColor:type==='line'?'rgba(0,255,255,0.08)':g,borderColor:'#00ffff',borderWidth:2,fill:type==='line',tension:0.4,pointBackgroundColor:'#00ffff',pointRadius:type==='line'?4:0,borderRadius:type==='bar'?4:0}]},
       options:{responsive:true,scales:{x:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)',maxTicksLimit:16},border:{color:'rgba(0,255,255,0.15)'}},y:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900,easing:'easeInOutQuart'}}};
   }
   _chartInst=new Chart(ctx,cfg);
 }
 
-/* ── Auto Analysis ─────────────────────────────── */
-function renderAutoAnalysis(tname) {
-  const t = _tables[tname];
-  if (!t) return;
-  document.getElementById('auto-analysis').style.display='block';
-
-  // Meta bar
-  const miss=t.rows.reduce((s,r)=>s+t.cols.filter(c=>r[c]===''||r[c]===null||r[c]===undefined).length,0);
-  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
-  const fmt=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?(n/1024).toFixed(1)+' KB':n+' B';
-  s('m-name',tname); s('m-rows',t.rows.length.toLocaleString()); s('m-cols',t.cols.length);
-  s('m-numcols',t.numCols.length); s('m-txtcols',t.strCols.length); s('m-missing',miss.toLocaleString());
-
-  // KPIs
-  const g=document.getElementById('kpi-grid');
-  if(g){
-    const cards=[];
-    cards.push({cls:'',icon:'◈',lbl:'TOTAL ROWS',val:fmtNum(t.rows.length),sub:`${t.cols.length} cols · ${t.numCols.length} numeric`});
-    if(t.numCols.length){
-      const col=t.numCols[0],vals=t.rows.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
-      if(vals.length){
-        cards.push({cls:'g',icon:'⌀',lbl:`AVG — ${col}`,val:fmtNum(vals.reduce((a,b)=>a+b,0)/vals.length),sub:`${vals.length} values`});
-        cards.push({cls:'p',icon:'▲',lbl:`MAX — ${col}`,val:fmtNum(Math.max(...vals)),sub:'column maximum'});
-        cards.push({cls:'pk',icon:'▼',lbl:`MIN — ${col}`,val:fmtNum(Math.min(...vals)),sub:'column minimum'});
-      }
-    }
-    cards.push({cls:miss>0?'a':'g',icon:miss>0?'⚠':'✓',lbl:'MISSING VALUES',val:miss.toLocaleString(),sub:miss>0?'across all cols':'complete dataset'});
-    if(t.strCols.length){const uc=new Set(t.rows.map(r=>r[t.strCols[0]])).size;cards.push({cls:'p',icon:'◉',lbl:`UNIQUE — ${t.strCols[0]}`,val:uc.toLocaleString(),sub:`of ${t.rows.length.toLocaleString()} rows`})}
-    g.innerHTML=cards.map(c=>`<div class="kpi-card ${c.cls}"><div class="kpi-icon">${c.icon}</div><div class="kpi-label">${c.lbl}</div><div class="kpi-val">${c.val}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
-  }
-
-  // Profile
-  const pb=document.getElementById('profile-body');
-  if(pb)pb.innerHTML=t.cols.map(col=>{
-    const isN=t.numCols.includes(col);
-    const vals=t.rows.map(r=>r[col]);
-    const noEmpty=vals.filter(v=>v!==''&&v!==null&&v!==undefined);
-    const miss2=vals.length-noEmpty.length;
-    const pct=((miss2/vals.length)*100).toFixed(1);
-    const uniq=new Set(vals).size;
-    const samp=[...new Set(noEmpty)].slice(0,3).join(', ');
-    let mn='—',mx='—';
-    if(isN){const nv=noEmpty.map(v=>parseFloat(v)).filter(v=>!isNaN(v));if(nv.length){mn=fmtNum(Math.min(...nv));mx=fmtNum(Math.max(...nv))}}
-    return `<tr><td>${col}</td><td><span class="${isN?'badge-n':'badge-t'}">${isN?'NUMERIC':'TEXT'}</span></td><td>${uniq.toLocaleString()}</td><td>${miss2>0?`<span class="miss-warn">${miss2}(${pct}%)</span>`:'<span class="miss-ok">0</span>'}</td><td style="color:var(--dim)">${mn}</td><td style="color:var(--dim)">${mx}</td><td style="color:var(--dim);max-width:180px;overflow:hidden;text-overflow:ellipsis">${samp}</td></tr>`;
-  }).join('');
-
-  // Stats
-  if(t.numCols.length){
-    const col=t.numCols[0];
-    const vals=t.rows.map(r=>parseFloat(r[col])).filter(v=>!isNaN(v));
-    if(vals.length){
-      const mean=vals.reduce((a,b)=>a+b,0)/vals.length;
-      const std=Math.sqrt(vals.reduce((a,b)=>a+(b-mean)**2,0)/vals.length);
-      const sorted=[...vals].sort((a,b)=>a-b);
-      const med=sorted.length%2===0?(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2:sorted[Math.floor(sorted.length/2)];
-      const stats=[{k:'COUNT',v:vals.length},{k:'MEAN',v:mean.toFixed(2)},{k:'STD',v:std.toFixed(2)},{k:'MEDIAN',v:med.toFixed(2)},{k:'MIN',v:Math.min(...vals).toFixed(2)},{k:'MAX',v:Math.max(...vals).toFixed(2)}];
-      const sg=document.getElementById('lab-stats');
-      if(sg)sg.innerHTML=stats.map(({k,v})=>`<div class="stat-card"><div class="stat-val">${v}</div><div class="stat-key">${k} · ${col}</div></div>`).join('');
-    }
-  }
-
-  // Charts
-  renderHistogram('lab-histogram', t.numCols[0], t.rows.map(r=>parseFloat(r[t.numCols[0]])).filter(v=>!isNaN(v)));
-  if(t.numCols.length>=2){
-    const c1=t.numCols[0],c2=t.numCols[1];
-    const v1=t.rows.map(r=>parseFloat(r[c1])).filter(v=>!isNaN(v));
-    const v2=t.rows.map(r=>parseFloat(r[c2])).filter(v=>!isNaN(v));
-    const len=Math.min(v1.length,v2.length,80);
-    renderScatter('lab-scatter',c1,c2,Array.from({length:len},(_,i)=>({x:v1[i],y:v2[i]})));
-  }
-}
-
-function renderHistogram(cid,label,values){
-  const canvas=document.getElementById(cid);if(!canvas||!values||!values.length)return;
-  destroyChart(cid);const ctx=canvas.getContext('2d');
-  const bins=12,min=Math.min(...values),max=Math.max(...values),binW=max===min?1:(max-min)/bins;
-  const counts=Array(bins).fill(0),labels=[];
-  for(let i=0;i<bins;i++){labels.push((min+i*binW).toFixed(1));values.forEach(v=>{const in2=i===bins-1?v>=min+i*binW&&v<=min+(i+1)*binW:v>=min+i*binW&&v<min+(i+1)*binW;if(in2)counts[i]++})}
-  const g=ctx.createLinearGradient(0,0,0,250);g.addColorStop(0,'rgba(0,255,255,0.8)');g.addColorStop(1,'rgba(0,255,255,0.1)');
-  regChart(cid,new Chart(ctx,{type:'bar',data:{labels,datasets:[{label,data:counts,backgroundColor:g,borderColor:'#00ffff',borderWidth:1,borderRadius:2}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)',maxTicksLimit:6},border:{color:'rgba(0,255,255,0.15)'}},y:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}}}}}));
-}
-
-function renderScatter(cid,xl,yl,pts){
-  const canvas=document.getElementById(cid);if(!canvas||!pts.length)return;
-  destroyChart(cid);const ctx=canvas.getContext('2d');
-  regChart(cid,new Chart(ctx,{type:'scatter',data:{datasets:[{label:`${xl} vs ${yl}`,data:pts,backgroundColor:'rgba(155,92,255,0.6)',borderColor:'#9b5cff',borderWidth:1,pointRadius:4,pointHoverRadius:7}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false},tooltip:{...TIP,borderColor:'#9b5cff',titleColor:'#9b5cff'}},scales:{x:{title:{display:true,text:xl,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}},y:{title:{display:true,text:yl,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}}}}));
-}
-
-function fmtNum(n){
-  if(typeof n!=='number'||isNaN(n))return String(n);
-  if(Math.abs(n)>=1e9)return(n/1e9).toFixed(2)+'B';
-  if(Math.abs(n)>=1e6)return(n/1e6).toFixed(2)+'M';
-  if(Math.abs(n)>=1000)return(n/1000).toFixed(1)+'K';
-  return Number.isInteger(n)?n.toString():n.toFixed(2);
-}
-
-/* ── Export ────────────────────────────────────── */
+/* ── Export ── */
 function exportCSV(){
   if(!_qRows.length){alert('Run a query first.');return}
   const hdr=_qCols.join(',');
@@ -1446,10 +1293,14 @@ function exportExcel(){
   if(!window.XLSX){alert('XLSX library not available.');return}
   try{
     const ws=XLSX.utils.json_to_sheet(_qRows,{header:_qCols});
-    const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Query Results');
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,'Query Results');
     XLSX.writeFile(wb,'query_results.xlsx');
   }catch(e){alert('Export failed: '+e.message)}
 }
+
+/* ── Keyboard ── */
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()}});
 </script>
 </body>
 </html>
