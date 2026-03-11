@@ -1208,34 +1208,38 @@ function evalExpr(s,row,aliases={}){
   return null;
 }
 
-function doGroup(rows,gcol,exprs,aliases){
-  const grps={};
-  rows.forEach(r=>{const v=resolveCol(gcol,r,aliases);const k=String(v??'__null__');if(!grps[k])grps[k]={rows:[],keyVal:v};grps[k].rows.push(r)});
-  // Bare label for the group key column header
-  // BEFORE (line already in your code — confirm it reads like this):
-const gcolBare = gcol.includes('.') ? gcol.split('.')[1] : gcol;
-  return Object.values(grps).map(g=>{
-    const out={};
-   exprs.forEach(e => {
-  if (e.star) {
-    out[gcolBare] = g.keyVal;
-  } else if (!e.isAgg) {
-    // If this expression IS the group key, use the resolved key value
-    const exprBare = e.expr && e.expr.includes('.') ? e.expr.split('.')[1] : e.expr;
-    if (exprBare === gcolBare || e.expr === gcol) {
-      out[e.alias] = g.keyVal;
-    } else if (e.fn === 'ROUND') {
-      out[e.alias] = doRound(evalExpr(e.expr, g.rows[0], aliases), e.dec);
-    } else if (e.fn === 'COALESCE') {
-      out[e.alias] = doCoalesce(e.args.map(a => resolveCol(a, g.rows[0], aliases)));
-    } else {
-      out[e.alias] = resolveCol(e.expr, g.rows[0], aliases) ?? g.rows[0][e.col];
-    }
-  } else {
-    out[e.alias] = calcAgg(e.fn, e.expr, g.rows, aliases);
-  }
-});
-
+function doGroup(rows, gcol, exprs, aliases) {
+  const grps = {};
+  rows.forEach(r => {
+    const v = resolveCol(gcol, r, aliases);
+    const k = String(v ?? '__null__');
+    if (!grps[k]) grps[k] = { rows: [], keyVal: v };
+    grps[k].rows.push(r);
+  });
+  const gcolBare = gcol.includes('.') ? gcol.split('.')[1] : gcol;
+  return Object.values(grps).map(g => {
+    const out = {};
+    exprs.forEach(e => {
+      if (e.star) {
+        out[gcolBare] = g.keyVal;
+      } else if (!e.isAgg) {
+        const exprBare = e.expr && e.expr.includes('.') ? e.expr.split('.')[1] : e.expr;
+        if (exprBare === gcolBare || e.expr === gcol) {
+          out[e.alias] = g.keyVal;
+        } else if (e.fn === 'ROUND') {
+          out[e.alias] = doRound(evalExpr(e.expr, g.rows[0], aliases), e.dec);
+        } else if (e.fn === 'COALESCE') {
+          out[e.alias] = doCoalesce(e.args.map(a => resolveCol(a, g.rows[0], aliases)));
+        } else {
+          out[e.alias] = resolveCol(e.expr, g.rows[0], aliases) ?? g.rows[0][e.col];
+        }
+      } else {
+        out[e.alias] = calcAgg(e.fn, e.expr, g.rows, aliases);
+      }
+    });
+    return out;  // ← this was missing
+  });             // ← this closing was missing
+}                 // ← this closing was missing
 function doGlobalAgg(rows,exprs,aliases){const out={};exprs.forEach(e=>{out[e.alias]=calcAgg(e.fn,e.expr,rows,aliases)});return out}
 
 function calcAgg(fn,expr,rows,aliases={}){
