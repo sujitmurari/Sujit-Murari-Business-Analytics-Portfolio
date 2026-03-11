@@ -433,7 +433,7 @@
           <div class="sugg-label">◈ SMART QUERY SUGGESTIONS — click to use:</div>
           <div class="sugg-tabs">
             <button class="sugg-tab act" onclick="showSuggTab('single',this)">SINGLE TABLE</button>
-            <button class="sugg-tab act-p" onclick="showSuggTab('join',this)">JOIN QUERIES</button>
+            <button class="sugg-tab" onclick="showSuggTab('join',this)">JOIN QUERIES</button>
           </div>
           <div class="sugg-list" id="sugg-list"></div>
 
@@ -584,10 +584,11 @@ const CC = ['rgba(0,255,255,0.75)','rgba(155,92,255,0.75)','rgba(255,45,120,0.65
 
 const TABLE_COLORS = ['var(--cyan)','var(--purple)','var(--pink)','var(--amber)','var(--green)'];
 
-/* ── Chart Registry ── */
-const _chartReg = {};
-function destroyChart(id){if(_chartReg[id]){_chartReg[id].destroy();delete _chartReg[id]}}
-function regChart(id,inst){_chartReg[id]=inst;return inst}
+/* ── Canvas chart instance tracker (prevents "Canvas already in use" on re-upload) ── */
+const _canvasCharts = {};
+function destroyCanvasChart(id){
+  if(_canvasCharts[id]){_canvasCharts[id].destroy();delete _canvasCharts[id];}
+}
 
 /* ── FILE LOAD ── */
 document.addEventListener('DOMContentLoaded',()=>{
@@ -603,7 +604,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   newDz.addEventListener('dragleave',()=>newDz.classList.remove('drag-over'));
   newDz.addEventListener('drop',e=>{e.preventDefault();newDz.classList.remove('drag-over');[...e.dataTransfer.files].forEach(loadFile)});
   fi.addEventListener('change',()=>{[...fi.files].forEach(loadFile);fi.value=''});
-  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()}});
 });
 
 function loadFile(file){
@@ -808,6 +808,9 @@ function renderPrimaryAnalysis(tname){
   renderKPIs(tname);
   renderProfile(tname);
   document.getElementById('sql-input').value=`SELECT * FROM ${tname} LIMIT 20`;
+  // Destroy existing lab charts before re-rendering
+  destroyCanvasChart('lab-histogram');
+  destroyCanvasChart('lab-scatter');
   if(window.renderLabCharts)renderLabCharts(t.rows,t.cols);
   renderStats(tname);
 }
@@ -934,24 +937,7 @@ function runSQL(){
   if(!Object.keys(_tables).length){showErr('No tables loaded. Upload CSV files first.');return}
   hideErr();
   document.getElementById('perf-strip').classList.remove('vis');
-  const t0 = performance.now();
-
-/* Browser Freeze Protection */
-const MAX_EXECUTION_TIME = 3000; // 3 seconds
-
-let res;
-
-try {
-  res = execSQL(raw);
-
-  if (performance.now() - t0 > MAX_EXECUTION_TIME) {
-    throw new Error("Query exceeded execution time limit (3s). Reduce dataset or optimize query.");
-  }
-
-} catch (e) {
-  showErr('SQL Error: ' + e.message);
-  return;
-}
+  const t0=performance.now();
   let res;
   try{res=execSQL(raw)}
   catch(e){showErr('SQL Error: '+e.message);return}
@@ -1024,7 +1010,17 @@ function execSQL(query){
     rows=rows.map(row=>{
       const out={};
       exprs.forEach(e=>{
-        if(e.star){Object.keys(row).forEach(k=>out[k]=row[k])}
+        if(e.star){
+          if(e.tablePrefix){
+            // Handle alias.* — only include columns from that aliased table
+            const prefix=e.tablePrefix+'.';
+            Object.keys(row).forEach(k=>{
+              if(k.startsWith(prefix))out[k.slice(prefix.length)]=row[k];
+            });
+          } else {
+            Object.keys(row).forEach(k=>out[k]=row[k]);
+          }
+        }
         else if(e.fn==='ROUND'){out[e.alias]=doRound(evalExpr(e.expr,row,aliases),e.dec)}
         else if(e.fn==='COALESCE'){out[e.alias]=doCoalesce(e.args.map(a=>resolveCol(a,row,aliases)))}
         else{const v=resolveCol(e.expr,row,aliases);out[e.alias]=v!==undefined?v:(evalExpr(e.expr,row,aliases)??e.col)}
@@ -1045,6 +1041,26 @@ function execSQL(query){
     });
   }
   if(lim<Infinity)rows=rows.slice(0,lim);
+  // Clean up output: when a SELECT * is used on JOIN rows, remove the internal
+  // alias-qualified keys (e.g. "s.id") if the bare key ("id") also exists,
+  // to avoid duplicated columns in the result table.
+  if(rows.length&&exprs.some(e=>e.star)){
+    rows=rows.map(row=>{
+      const allKeys=Object.keys(row);
+      const bareKeys=new Set(allKeys.filter(k=>!k.includes('.')));
+      const out={};
+      allKeys.forEach(k=>{
+        if(k.includes('.')){
+          const bare=k.split('.')[1];
+          // Only include qualified key if no bare key exists (avoids duplicates)
+          if(!bareKeys.has(bare))out[k]=row[k];
+        } else {
+          out[k]=row[k];
+        }
+      });
+      return out;
+    });
+  }
   const rcols=rows.length>0?Object.keys(rows[0]):(exprs[0]?.star?[]:exprs.map(e=>e.alias));
   return{rows,columns:rcols,wasJoin,joinType};
 }
@@ -1086,10 +1102,6 @@ function parseFrom(fromClause){
 }
 
 function execJoin(leftRows,rightRows,lkeyRaw,rkeyRaw,rAlias,jtype){
-  // Prevent extremely large joins that freeze browser
-if (leftRows.length * rightRows.length > 50000000) {
-  throw new Error("Join too large. Reduce dataset size.");
-}
   const rkname=rkeyRaw.includes('.')?rkeyRaw.split('.')[1]:rkeyRaw;
   const rightIndex={};
   rightRows.forEach(r=>{const kval=String(r[rkname]??'__null__');if(!rightIndex[kval])rightIndex[kval]=[];rightIndex[kval].push(r)});
@@ -1174,10 +1186,12 @@ function evalExpr(s,row,aliases={}){
 function doGroup(rows,gcol,exprs,aliases){
   const grps={};
   rows.forEach(r=>{const v=resolveCol(gcol,r,aliases);const k=String(v??'__null__');if(!grps[k])grps[k]={rows:[],keyVal:v};grps[k].rows.push(r)});
+  // Bare label for the group key column header
+  const gcolBare=gcol.includes('.')?gcol.split('.')[1]:gcol;
   return Object.values(grps).map(g=>{
     const out={};
     exprs.forEach(e=>{
-      if(e.star){const gkey=gcol.includes('.')?gcol.split('.')[1]:gcol;out[gkey]=g.keyVal}
+      if(e.star){out[gcolBare]=g.keyVal}
       else if(!e.isAgg){
         if(e.fn==='ROUND')out[e.alias]=doRound(evalExpr(e.expr,g.rows[0],aliases),e.dec);
         else if(e.fn==='COALESCE')out[e.alias]=doCoalesce(e.args.map(a=>resolveCol(a,g.rows[0],aliases)));
@@ -1213,13 +1227,18 @@ function evalWhere(clause,row,aliases){
     });
     e=e.replace(/([\w.]+)\s+IS\s+NOT\s+NULL/gi,(_,c)=>{const v=resolveCol(c,row,aliases);return(v!==null&&v!==undefined&&v!=='')?'true':'false'});
     e=e.replace(/([\w.]+)\s+IS\s+NULL/gi,(_,c)=>{const v=resolveCol(c,row,aliases);return(v===null||v===undefined||v==='')?'true':'false'});
-    e=e.replace(/[\w]+\.[\w]+|[\w]+/g,m=>{
-      if(['true','false','null','AND','OR','NOT'].includes(m.toUpperCase()))return m;
+    // Replace column references: skip pure numbers, booleans, and JS operators
+    e=e.replace(/[\w]+\.[\w]+|[A-Za-z_][\w]*/g,m=>{
+      const mu=m.toUpperCase();
+      if(['TRUE','FALSE','NULL','AND','OR','NOT','UNDEFINED'].includes(mu))return m;
+      // Don't touch things that are already JS keywords/values
       const v=resolveCol(m,row,aliases);
       if(v!==undefined){
+        if(v===null||v===undefined)return'null';
         if(typeof v==='string')return`"${v.replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"`;
-        return(v===null||v===undefined)?'null':v;
+        return String(v);
       }
+      // Try as a literal string fallback
       return`"${m}"`;
     });
     return!!Function('"use strict";return ('+e+')')();
@@ -1269,6 +1288,7 @@ function renderChart(cols,rows,type){
   const lbl=document.getElementById('chart-lbl');
   if(!wrap||!canvas)return;
   if(_chartInst){_chartInst.destroy();_chartInst=null}
+  destroyCanvasChart('q-chart');
   if(!rows.length||type==='table'){wrap.style.display='none';return}
   const nc=cols.filter(c=>rows.some(r=>!isNaN(parseFloat(r[c]))&&r[c]!==''&&r[c]!==null));
   const sc=cols.filter(c=>!nc.includes(c));
@@ -1298,6 +1318,7 @@ function renderChart(cols,rows,type){
       options:{responsive:true,scales:{x:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)',maxTicksLimit:16},border:{color:'rgba(0,255,255,0.15)'}},y:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900,easing:'easeInOutQuart'}}};
   }
   _chartInst=new Chart(ctx,cfg);
+  _canvasCharts['q-chart']=_chartInst;
 }
 
 /* ── Export ── */
@@ -1321,7 +1342,7 @@ function exportExcel(){
 }
 
 /* ── Keyboard ── */
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL() }});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL()}});
 </script>
 </body>
 </html>
