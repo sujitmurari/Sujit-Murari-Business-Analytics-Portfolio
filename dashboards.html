@@ -4,34 +4,234 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="google-site-verification" content="44tjBEMk739FBWKaSV65wHnllPRaCu5s9x8wffFD53A" />
-  <!-- Standard favicons -->
-  <link rel="icon" type="image/x-icon"          href="favicon.ico"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="icon" type="image/png" sizes="16x16"  href="favicon-16x16.png"/>
-  <link rel="icon" type="image/png" sizes="32x32"  href="favicon-32x32.png"/>
-
-  <!-- Apple Touch Icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-
-  <!-- Android / PWA -->
   <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png"/>
   <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png"/>
-
-  <!-- Web App Manifest -->
   <link rel="manifest" href="site.webmanifest"/>
-
-  <!-- Theme color (browser chrome on mobile) -->
   <meta name="theme-color" content="#050510"/>
-  <meta name="msapplication-TileColor" content="#050510"/>
-  <meta name="msapplication-TileImage" content="android-chrome-192x192.png"/>
-
-  <!-- Open Graph preview image -->
-  <meta property="og:image"        content="android-chrome-512x512.png"/>
-  <meta property="og:image:width"  content="512"/>
-  <meta property="og:image:height" content="512"/>
+  <meta property="og:image" content="android-chrome-512x512.png"/>
   <title>Dashboards — Sujit Murari | Business Analytics Portfolio</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <style>
+    /* ── Dashboard Selector ── */
+    .dash-selector-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .dash-tab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 4px;
+      background: rgba(5,5,16,0.8);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(224,247,255,0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .dash-tab:hover {
+      border-color: rgba(0,255,255,0.5);
+      color: rgba(224,247,255,0.8);
+      background: rgba(0,255,255,0.04);
+    }
+    .dash-tab.active {
+      border-color: #00ffff;
+      color: #00ffff;
+      background: rgba(0,255,255,0.08);
+      box-shadow: 0 0 12px rgba(0,255,255,0.15);
+    }
+    .dash-tab.purple { border-color: rgba(155,92,255,0.2); color: rgba(155,92,255,0.4); }
+    .dash-tab.purple:hover { border-color: rgba(155,92,255,0.5); color: rgba(155,92,255,0.8); background: rgba(155,92,255,0.04); }
+    .dash-tab.purple.active { border-color: #9b5cff; color: #9b5cff; background: rgba(155,92,255,0.08); box-shadow: 0 0 12px rgba(155,92,255,0.15); }
+    .dash-tab .tab-num {
+      font-size: 0.55rem;
+      opacity: 0.5;
+    }
+
+    /* ── Main layout: insights left, iframe right ── */
+    .dash-main {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .dash-main { grid-template-columns: 1fr; }
+    }
+
+    /* ── Insights Panel ── */
+    .insights-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .insight-header {
+      border: 1px solid rgba(0,255,255,0.15);
+      border-radius: 6px;
+      padding: 18px 20px;
+      background: rgba(5,5,16,0.9);
+    }
+    .insight-header.purple { border-color: rgba(155,92,255,0.15); }
+    .dash-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+    .dash-title-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      color: rgba(0,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .dash-title-label.purple { color: rgba(155,92,255,0.4); }
+    .dash-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.82rem;
+      color: #00ffff;
+      line-height: 1.4;
+    }
+    .dash-name.purple { color: #9b5cff; }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .stat-box {
+      border: 1px solid rgba(0,255,255,0.1);
+      border-radius: 5px;
+      padding: 12px 14px;
+      background: rgba(5,5,16,0.7);
+    }
+    .stat-box.purple { border-color: rgba(155,92,255,0.1); }
+    .stat-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.12em;
+      color: rgba(0,255,255,0.35);
+      margin-bottom: 4px;
+    }
+    .stat-label.purple { color: rgba(155,92,255,0.35); }
+    .stat-value {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1rem;
+      color: #00ffff;
+    }
+    .stat-value.purple { color: #9b5cff; }
+
+    /* Key insights list */
+    .key-insights {
+      border: 1px solid rgba(0,255,255,0.1);
+      border-radius: 6px;
+      padding: 16px 18px;
+      background: rgba(5,5,16,0.7);
+    }
+    .key-insights.purple { border-color: rgba(155,92,255,0.1); }
+    .ki-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      color: rgba(0,255,255,0.4);
+      margin-bottom: 12px;
+    }
+    .ki-title.purple { color: rgba(155,92,255,0.4); }
+    .ki-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(224,247,255,0.6);
+      line-height: 1.5;
+    }
+    .ki-item:last-child { margin-bottom: 0; }
+    .ki-arrow { color: #00ffff; flex-shrink: 0; }
+    .ki-arrow.purple { color: #9b5cff; }
+
+    /* Tags */
+    .tags-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* ── Iframe Panel ── */
+    .iframe-panel {
+      border: 1px solid rgba(0,255,255,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(5,5,16,0.5);
+    }
+    .iframe-panel.purple { border-color: rgba(155,92,255,0.15); }
+    .iframe-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(0,255,255,0.04);
+      border-bottom: 1px solid rgba(0,255,255,0.08);
+    }
+    .iframe-titlebar.purple { background: rgba(155,92,255,0.04); border-bottom-color: rgba(155,92,255,0.08); }
+    .iframe-dots { display: flex; gap: 6px; }
+    .iframe-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .iframe-url {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(224,247,255,0.25);
+    }
+    .iframe-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      color: #00ff88;
+    }
+    .iframe-status-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #00ff88;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .iframe-panel iframe {
+      width: 100%;
+      height: 580px;
+      border: none;
+      display: block;
+    }
+
+    /* ── Dashboard panel visibility ── */
+    .dash-panel { display: none; }
+    .dash-panel.active { display: block; }
+
+    /* ── Loading overlay ── */
+    .iframe-loading {
+      position: relative;
+    }
+    .iframe-loading::after {
+      content: 'LOADING DASHBOARD...';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(0,255,255,0.3);
+      background: rgba(5,5,16,0.9);
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
 <div class="grid-bg"></div>
@@ -63,114 +263,255 @@
       <div class="section-header" data-reveal>
         <h1>INTERACTIVE ANALYTICS <span class="text-cyan">DASHBOARDS</span></h1>
       </div>
-      <p data-reveal data-delay="100" style="max-width:640px;margin-bottom:40px;">Executive-grade Tableau dashboards built with real business datasets. Click any dashboard to interact, filter, and explore the data insights directly.</p>
+      <p data-reveal data-delay="100" style="max-width:640px;margin-bottom:32px;">
+        Executive-grade Tableau dashboards built with real business datasets. Select a dashboard below to explore insights and interact with live data.
+      </p>
     </div>
   </section>
 
-  <section class="section" style="padding-top:20px;">
+  <section class="section" style="padding-top:16px;">
     <div class="container">
 
-      <!-- Dashboard 1: Airline Revenue -->
-      <div style="margin-bottom:48px;" data-reveal data-delay="100">
-        <div class="cp-panel cp-corner" style="padding:24px 28px;margin-bottom:0;border-bottom:none;border-radius:4px 4px 0 0;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:16px;">
-              <span style="font-size:1.5rem;">✈️</span>
-              <div>
-                <div class="data-label mb-8">DASHBOARD_01 · TABLEAU</div>
-                <h3 class="text-cyan">Airline Revenue & Pricing Dashboard</h3>
+      <!-- ── Tab Selector ── -->
+      <div class="dash-selector-bar" data-reveal data-delay="50">
+        <button class="dash-tab active" data-target="dash-1" onclick="switchDash(this, 'dash-1')">
+          <span class="tab-num">01</span> ✈️ AIRLINE REVENUE
+        </button>
+        <button class="dash-tab purple" data-target="dash-2" onclick="switchDash(this, 'dash-2')">
+          <span class="tab-num">02</span> 🛒 E-COMMERCE
+        </button>
+        <button class="dash-tab" data-target="dash-3" onclick="switchDash(this, 'dash-3')">
+          <span class="tab-num">03</span> 💪 GYM ANALYTICS
+        </button>
+      </div>
+
+      <!-- ══ DASHBOARD 1: Airline ══ -->
+      <div id="dash-1" class="dash-panel active" data-reveal data-delay="100">
+        <div class="dash-main">
+
+          <!-- Insights Left -->
+          <div class="insights-panel">
+            <div class="insight-header">
+              <span class="dash-icon">✈️</span>
+              <div class="dash-title-label">DASHBOARD_01 · TABLEAU</div>
+              <div class="dash-name">Airline Revenue & Pricing Dashboard</div>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-box">
+                <div class="stat-label">ROWS</div>
+                <div class="stat-value">12K+</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">CHARTS</div>
+                <div class="stat-value">8</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">DATASET</div>
+                <div class="stat-value" style="font-size:0.72rem;">FLIGHTS</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">FILTERS</div>
+                <div class="stat-value" style="font-size:0.72rem;">3</div>
               </div>
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <span class="project-tag">Tableau Public</span>
-              <span class="project-tag">Interactive</span>
-              <span class="project-tag">Airline Analytics</span>
+
+            <div class="key-insights">
+              <div class="ki-title">◈ KEY INSIGHTS</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Business class yields 2.4× higher revenue per seat vs economy</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Peak season routes show 38% price premium over off-peak</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Top 3 routes account for 41% of total annual revenue</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Advance booking >30 days lowers avg ticket cost by 22%</div>
             </div>
+
+            <div class="key-insights">
+              <div class="ki-title">◈ FILTERS AVAILABLE</div>
+              <div class="tags-row">
+                <span class="project-tag">Route</span>
+                <span class="project-tag">Season</span>
+                <span class="project-tag">Class</span>
+                <span class="project-tag">Month</span>
+                <span class="project-tag">Airline</span>
+              </div>
+            </div>
+
+            <a href="https://public.tableau.com/views/FlightsDashboard_17704030931600/FlightsDashboard" target="_blank" class="btn-neon" style="font-size:0.6rem;padding:10px 16px;text-align:center;justify-content:center;">
+              ↗ OPEN FULL SCREEN
+            </a>
           </div>
-        </div>
-        <div class="dashboard-embed" style="border-top:1px solid rgba(0,255,255,0.08);border-radius:0 0 4px 4px;">
-          <iframe
-            src="https://public.tableau.com/views/FlightsDashboard_17704030931600/FlightsDashboard?:showVizHome=no&:embed=true"
-            style="width:100%;height:600px;border:none;"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="cp-panel" style="padding:16px 24px;border-top:none;border-radius:0 0 4px 4px;display:flex;gap:24px;flex-wrap:wrap;">
-          <div><span class="data-label">ROWS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">12,000+</span></div>
-          <div><span class="data-label">CHARTS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">8 Visualizations</span></div>
-          <div><span class="data-label">FILTERS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">Route · Season · Class</span></div>
+
+          <!-- Live Dashboard Right -->
+          <div class="iframe-panel">
+            <div class="iframe-titlebar">
+              <div class="iframe-dots">
+                <div class="iframe-dot" style="background:#ff5f57;"></div>
+                <div class="iframe-dot" style="background:#febc2e;"></div>
+                <div class="iframe-dot" style="background:#28c840;"></div>
+              </div>
+              <div class="iframe-url">public.tableau.com · FlightsDashboard</div>
+              <div class="iframe-status"><div class="iframe-status-dot"></div> LIVE</div>
+            </div>
+            <iframe
+              src="https://public.tableau.com/views/FlightsDashboard_17704030931600/FlightsDashboard?:showVizHome=no&:embed=true"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+
         </div>
       </div>
 
-      <!-- Dashboard 2: Flipkart -->
-      <div style="margin-bottom:48px;" data-reveal data-delay="150">
-        <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px 28px;margin-bottom:0;border-bottom:none;border-radius:4px 4px 0 0;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:16px;">
-              <span style="font-size:1.5rem;">🛒</span>
-              <div>
-                <div class="data-label mb-8" style="color:rgba(155,92,255,0.5);">DASHBOARD_02 · TABLEAU</div>
-                <h3 class="text-purple">Indian E-Commerce Pricing & Revenue Performance Dashboard</h3>
+      <!-- ══ DASHBOARD 2: Flipkart ══ -->
+      <div id="dash-2" class="dash-panel" data-reveal data-delay="100">
+        <div class="dash-main">
+
+          <div class="insights-panel">
+            <div class="insight-header purple">
+              <span class="dash-icon">🛒</span>
+              <div class="dash-title-label purple">DASHBOARD_02 · TABLEAU</div>
+              <div class="dash-name purple">Indian E-Commerce Pricing & Revenue Dashboard</div>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-box purple">
+                <div class="stat-label purple">ROWS</div>
+                <div class="stat-value purple">18K+</div>
+              </div>
+              <div class="stat-box purple">
+                <div class="stat-label purple">CHARTS</div>
+                <div class="stat-value purple">10</div>
+              </div>
+              <div class="stat-box purple">
+                <div class="stat-label purple">DATASET</div>
+                <div class="stat-value purple" style="font-size:0.72rem;">FLIPKART</div>
+              </div>
+              <div class="stat-box purple">
+                <div class="stat-label purple">FILTERS</div>
+                <div class="stat-value purple" style="font-size:0.72rem;">4</div>
               </div>
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <span class="project-tag">Tableau Public</span>
-              <span class="project-tag">Interactive</span>
-              <span class="project-tag">E-commerce</span>
+
+            <div class="key-insights purple">
+              <div class="ki-title purple">◈ KEY INSIGHTS</div>
+              <div class="ki-item"><span class="ki-arrow purple">▸</span> Electronics category drives 52% of total platform revenue</div>
+              <div class="ki-item"><span class="ki-arrow purple">▸</span> Discount >30% correlates with 3× higher conversion rate</div>
+              <div class="ki-item"><span class="ki-arrow purple">▸</span> Top 10 brands generate 67% of category-level sales volume</div>
+              <div class="ki-item"><span class="ki-arrow purple">▸</span> Mid-range ₹500–₹2000 price band has highest review density</div>
             </div>
+
+            <div class="key-insights purple">
+              <div class="ki-title purple">◈ FILTERS AVAILABLE</div>
+              <div class="tags-row">
+                <span class="project-tag">Category</span>
+                <span class="project-tag">Brand</span>
+                <span class="project-tag">Price Range</span>
+                <span class="project-tag">Rating</span>
+              </div>
+            </div>
+
+            <a href="https://public.tableau.com/views/IndianE-CommercePricingRevenuePerformanceDashboard/Dashboard1" target="_blank" class="btn-neon btn-neon-purple" style="font-size:0.6rem;padding:10px 16px;text-align:center;justify-content:center;">
+              ↗ OPEN FULL SCREEN
+            </a>
           </div>
-        </div>
-        <div class="dashboard-embed" style="border-top:1px solid rgba(155,92,255,0.08);border-radius:0 0 4px 4px;">
-          <iframe
-            src="https://public.tableau.com/views/IndianE-CommercePricingRevenuePerformanceDashboard/Dashboard1?:showVizHome=no&:embed=true"
-            style="width:100%;height:600px;border:none;"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="cp-panel" style="padding:16px 24px;border-top:none;border-radius:0 0 4px 4px;display:flex;gap:24px;flex-wrap:wrap;">
-          <div><span class="data-label">ROWS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#9b5cff;">18,000+</span></div>
-          <div><span class="data-label">CHARTS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#9b5cff;">10 Visualizations</span></div>
-          <div><span class="data-label">FILTERS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#9b5cff;">Category · Brand · Price Range</span></div>
+
+          <div class="iframe-panel purple">
+            <div class="iframe-titlebar purple">
+              <div class="iframe-dots">
+                <div class="iframe-dot" style="background:#ff5f57;"></div>
+                <div class="iframe-dot" style="background:#febc2e;"></div>
+                <div class="iframe-dot" style="background:#28c840;"></div>
+              </div>
+              <div class="iframe-url">public.tableau.com · E-Commerce Dashboard</div>
+              <div class="iframe-status" style="color:#9b5cff;"><div class="iframe-status-dot" style="background:#9b5cff;"></div> LIVE</div>
+            </div>
+            <iframe
+              src="https://public.tableau.com/views/IndianE-CommercePricingRevenuePerformanceDashboard/Dashboard1?:showVizHome=no&:embed=true"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+
         </div>
       </div>
 
-      <!-- Dashboard 3: Product Analytics -->
-      <div style="margin-bottom:48px;" data-reveal data-delay="200">
-        <div class="cp-panel cp-corner" style="padding:24px 28px;margin-bottom:0;border-bottom:none;border-radius:4px 4px 0 0;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:16px;">
-              <span style="font-size:1.5rem;">💪</span>
-              <div>
-                <div class="data-label mb-8">DASHBOARD_03 · TABLEAU</div>
-                <h3 class="text-cyan">Gym Performance Analytics Dashboard</h3>
+      <!-- ══ DASHBOARD 3: Gym ══ -->
+      <div id="dash-3" class="dash-panel" data-reveal data-delay="100">
+        <div class="dash-main">
+
+          <div class="insights-panel">
+            <div class="insight-header">
+              <span class="dash-icon">💪</span>
+              <div class="dash-title-label">DASHBOARD_03 · TABLEAU</div>
+              <div class="dash-name">Gym Performance Analytics Dashboard</div>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-box">
+                <div class="stat-label">ROWS</div>
+                <div class="stat-value">6K+</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">CHARTS</div>
+                <div class="stat-value">7</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">DATASET</div>
+                <div class="stat-value" style="font-size:0.72rem;">GYM</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">FILTERS</div>
+                <div class="stat-value" style="font-size:0.72rem;">3</div>
               </div>
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <span class="project-tag">Tableau Public</span>
-              <span class="project-tag">Interactive</span>
-              <span class="project-tag">Health Analytics</span>
+
+            <div class="key-insights">
+              <div class="ki-title">◈ KEY INSIGHTS</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Members aged 25–34 show highest workout consistency at 4.2×/week</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Weight loss goal members visit 31% more frequently than others</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Evening sessions (6–9 PM) account for 48% of all check-ins</div>
+              <div class="ki-item"><span class="ki-arrow">▸</span> Strength training members show highest 90-day retention rate</div>
             </div>
+
+            <div class="key-insights">
+              <div class="ki-title">◈ FILTERS AVAILABLE</div>
+              <div class="tags-row">
+                <span class="project-tag">Age Group</span>
+                <span class="project-tag">Goal</span>
+                <span class="project-tag">Frequency</span>
+                <span class="project-tag">Workout Type</span>
+              </div>
+            </div>
+
+            <a href="https://public.tableau.com/views/GymPerformanceWorkoutEfficiencyAnalyticsDashboard/GymPerformanceWorkoutEfficiencyAnalyticsDashboard" target="_blank" class="btn-neon" style="font-size:0.6rem;padding:10px 16px;text-align:center;justify-content:center;">
+              ↗ OPEN FULL SCREEN
+            </a>
           </div>
-        </div>
-        <div class="dashboard-embed" style="border-top:1px solid rgba(0,255,255,0.08);border-radius:0 0 4px 4px;">
-          <iframe
-            src="https://public.tableau.com/views/GymPerformanceWorkoutEfficiencyAnalyticsDashboard/GymPerformanceWorkoutEfficiencyAnalyticsDashboard?:showVizHome=no&:embed=true"
-            style="width:100%;height:600px;border:none;"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="cp-panel" style="padding:16px 24px;border-top:none;border-radius:0 0 4px 4px;display:flex;gap:24px;flex-wrap:wrap;">
-          <div><span class="data-label">ROWS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">6,000+</span></div>
-          <div><span class="data-label">CHARTS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">7 Visualizations</span></div>
-          <div><span class="data-label">FILTERS: </span><span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00ffff;">Age · Goal · Frequency</span></div>
+
+          <div class="iframe-panel">
+            <div class="iframe-titlebar">
+              <div class="iframe-dots">
+                <div class="iframe-dot" style="background:#ff5f57;"></div>
+                <div class="iframe-dot" style="background:#febc2e;"></div>
+                <div class="iframe-dot" style="background:#28c840;"></div>
+              </div>
+              <div class="iframe-url">public.tableau.com · GymPerformanceDashboard</div>
+              <div class="iframe-status"><div class="iframe-status-dot"></div> LIVE</div>
+            </div>
+            <iframe
+              src="https://public.tableau.com/views/GymPerformanceWorkoutEfficiencyAnalyticsDashboard/GymPerformanceWorkoutEfficiencyAnalyticsDashboard?:showVizHome=no&:embed=true"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+
         </div>
       </div>
 
       <!-- CTA -->
-      <div class="cp-panel cp-corner" style="padding:40px;text-align:center;" data-reveal>
+      <div class="cp-panel cp-corner" style="padding:40px;text-align:center;margin-top:48px;" data-reveal>
         <div class="data-label mb-16">◈ VIEW ALL DASHBOARDS ON TABLEAU PUBLIC</div>
         <h3 style="margin-bottom:16px;">Explore the full <span class="text-cyan">analytics portfolio</span> on Tableau Public</h3>
-        <p style="margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;">All dashboards are published on Tableau Public with full interactivity. Click filters, drill down, and explore the data.</p>
+        <p style="margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;">All dashboards are published with full interactivity. Click filters, drill down, and explore the data.</p>
         <a href="https://public.tableau.com/app/profile/sujit.murari" target="_blank" class="btn-neon btn-neon-solid">▸ Visit Tableau Public Profile</a>
       </div>
 
@@ -189,5 +530,16 @@
 <script src="js/animations.js"></script>
 <script src="js/script.js"></script>
 <script src="js/register-sw.js"></script>
+<script>
+function switchDash(btn, targetId) {
+  // Update tabs
+  document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Update panels
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(targetId).classList.add('active');
+}
+</script>
 </body>
 </html>
