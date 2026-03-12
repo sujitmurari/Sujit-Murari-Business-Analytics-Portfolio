@@ -95,17 +95,42 @@ function animateProgressBars() {
 // ── KPI Counter Init ──
 function initCounters() {
   const counters = document.querySelectorAll('[data-count]');
+  const fired = new WeakSet();
+
+  function fireCounter(el) {
+    if (fired.has(el)) return;
+    fired.add(el);
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    animateCounter(el, target, 1800, suffix);
+  }
+
+  // Use a low threshold and rootMargin to catch elements that start hidden
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const target = parseInt(entry.target.dataset.count);
-        const suffix = entry.target.dataset.suffix || '';
-        animateCounter(entry.target, target, 1800, suffix);
+        fireCounter(entry.target);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
-  counters.forEach(el => observer.observe(el));
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+  counters.forEach(el => {
+    // Set initial text to 0 so it never shows blank
+    el.textContent = '0';
+    observer.observe(el);
+  });
+
+  // Fallback: if any counter hasn't fired after 2.5s (e.g. reveal animation
+  // delayed visibility), fire any that are now in the viewport
+  setTimeout(() => {
+    counters.forEach(el => {
+      if (!fired.has(el)) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) fireCounter(el);
+      }
+    });
+  }, 2500);
 }
 
 // ── Particle / Grid Background ──
