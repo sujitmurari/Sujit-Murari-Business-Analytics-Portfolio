@@ -31,6 +31,8 @@
   <title>Contact — Sujit Murari | Business Analytics Portfolio</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     /* ── Terminal ── */
     .terminal-window {
@@ -235,11 +237,11 @@
           <div style="margin-top:32px;" data-reveal data-delay="200">
             <div class="data-label mb-16">◈ COMMUNICATION CHANNELS</div>
             <div class="social-links">
-              <a href="mailto:sujitmurari06@gmail.com" class="social-link">
+              <a href="/cdn-cgi/l/email-protection#c8bbbda2a1bca5bdbaa9baa1f8fe88afa5a9a1a4e6aba7a5" class="social-link">
                 <div class="icon">✉️</div>
                 <div class="info">
                   <span class="name">EMAIL</span>
-                  <span class="handle">sujitmurari06@gmail.com</span>
+                  <span class="handle"><span class="__cf_email__" data-cfemail="4e3d3b24273a233b3c2f3c277e780e29232f2722602d2123">[email&#160;protected]</span></span>
                 </div>
               </a>
               <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="social-link">
@@ -310,6 +312,20 @@
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
                 <textarea name="message" class="cyber-input" rows="5" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
+              </div>
+
+              <!-- Cloudflare Turnstile CAPTCHA -->
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);">SECURITY VERIFICATION</label>
+                <div class="cf-turnstile"
+                  data-sitekey="0x4AAAAAACpyW3lH-xZ9AeGe"
+                  data-theme="dark"
+                  data-size="normal"
+                  style="border-radius:4px;overflow:hidden;">
+                </div>
+                <div id="turnstile-error" style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#ff2d78;display:none;">
+                  ✗ Please complete the security check before submitting.
+                </div>
               </div>
 
               <button type="submit" id="submit-btn" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">▸ TRANSMIT MESSAGE</button>
@@ -395,7 +411,7 @@
   </div>
 </footer>
 
-<script src="js/animations.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/animations.js"></script>
 <script src="js/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -408,6 +424,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // ── Turnstile verification ──
+      const turnstileResponse = form.querySelector('[name="cf-turnstile-response"]')?.value
+        || document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]')?.value
+        || (typeof turnstile !== 'undefined' ? turnstile.getResponse() : null);
+
+      const turnstileErr = document.getElementById('turnstile-error');
+      if (!turnstileResponse) {
+        if (turnstileErr) { turnstileErr.style.display = 'block'; }
+        return;
+      }
+      if (turnstileErr) turnstileErr.style.display = 'none';
+
       const data = new FormData(form);
       submitBtn.textContent = '◈ TRANSMITTING...';
       submitBtn.disabled = true;
@@ -424,6 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
           statusEl.style.color = '#00ff88';
           statusEl.style.display = 'block';
           form.reset();
+          if (typeof turnstile !== 'undefined') turnstile.reset();
           submitBtn.textContent = '✓ SENT';
           submitBtn.style.borderColor = '#00ff88';
           submitBtn.style.color = '#00ff88';
@@ -443,6 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusEl.style.display = 'block';
         submitBtn.textContent = '▸ TRANSMIT MESSAGE';
         submitBtn.disabled = false;
+        if (typeof turnstile !== 'undefined') turnstile.reset();
       }
     });
   }
@@ -461,12 +492,4 @@ document.addEventListener('DOMContentLoaded', () => {
     { type: 'output', text: 'Communication channels ready.',                  delay: 200 },
     { type: 'output', text: 'Select a channel or use the form →',             delay: 100 },
     { type: 'output', text: '',                                                delay: 100 },
-    { type: 'prompt', text: '> await --response',                             delay: 400 },
-    { type: 'output', text: 'Ready. Awaiting your message...',                delay: 150 },
-  ]);
-
-});
-</script>
-<script src="js/register-sw.js"></script>
-</body>
-</html>
+    { type: 'prompt',
