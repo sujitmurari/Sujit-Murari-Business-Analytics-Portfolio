@@ -279,7 +279,7 @@
 
             <form id="contact-form" style="display:flex;flex-direction:column;gap:18px;">
 
-              <!-- Web3Forms -->
+              <!-- Web3Forms config -->
               <input type="hidden" name="access_key" value="0b97fb04-ebea-495a-a158-6543910fc60a"/>
               <input type="hidden" name="from_name" value="Sujit Murari Portfolio"/>
               <input type="checkbox" name="botcheck" style="display:none;"/>
@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: { 'Accept': 'application/json' }
         });
         const json = await res.json();
-        if (res.ok && json.success) {
+        if (json.success) {
           statusEl.textContent = '✓ MESSAGE TRANSMITTED SUCCESSFULLY';
           statusEl.style.color = '#00ff88';
           statusEl.style.display = 'block';
@@ -454,9 +454,9 @@ document.addEventListener('DOMContentLoaded', () => {
             statusEl.style.display = 'none';
           }, 4000);
         } else {
-          throw new Error(json.message || 'failed');
+          throw new Error(json.message || 'Submission failed');
         }
-      } catch {
+      } catch (err) {
         statusEl.textContent = '✗ TRANSMISSION FAILED — email sujitmurari06@gmail.com directly';
         statusEl.style.color = '#ff2d78';
         statusEl.style.display = 'block';
