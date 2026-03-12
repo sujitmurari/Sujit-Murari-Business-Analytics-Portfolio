@@ -3,231 +3,231 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="google-site-verification" content="44tjBEMk739FBWKaSV65wHnllPRaCu5s9x8wffFD53A" />
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png"/>
-  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png"/>
-  <link rel="manifest" href="site.webmanifest"/>
-  <meta name="theme-color" content="#050510"/>
-  <meta property="og:image" content="android-chrome-512x512.png"/>
-  <title>SQL Queries — Sujit Murari | Business Analytics Portfolio</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <title>SQL Lab — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <!-- Highlight.js for SQL syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/tomorrow-night.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js" defer></script>
   <style>
-    /* ── SQL Page Styles ── */
-    .sql-grid {
+    /* ── SQL Page Custom Styles ── */
+    .sql-hero-stats {
       display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 24px;
-      align-items: start;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
     }
-    @media (max-width: 900px) { .sql-grid { grid-template-columns: 1fr; } }
-
-    /* Sidebar nav */
-    .sql-sidebar {
-      position: sticky;
-      top: 110px;
+    .sql-stat-card {
+      padding: 20px 16px;
+      border: 1px solid rgba(0,255,255,0.15);
+      background: rgba(0,255,255,0.03);
+      border-radius: 3px;
+      text-align: center;
     }
-    .sql-nav-section {
-      border: 1px solid rgba(0,255,255,0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 16px;
+    .sql-stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff;
+      display: block;
     }
-    .sql-nav-header {
-      padding: 10px 14px;
-      background: rgba(0,255,255,0.04);
+    .sql-stat-num.purple { color: #9b5cff; text-shadow: 0 0 20px #9b5cff; }
+    .sql-stat-label {
       font-family: 'Orbitron', monospace;
       font-size: 0.55rem;
-      letter-spacing: 0.14em;
-      color: rgba(0,255,255,0.4);
-      border-bottom: 1px solid rgba(0,255,255,0.08);
-    }
-    .sql-nav-item {
-      display: block;
-      padding: 10px 14px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
-      color: rgba(224,247,255,0.5);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .sql-nav-item:last-child { border-bottom: none; }
-    .sql-nav-item:hover, .sql-nav-item.active {
-      color: #00ffff;
-      background: rgba(0,255,255,0.04);
-      padding-left: 18px;
-    }
-    .sql-nav-item span {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.5rem;
-      color: rgba(0,255,255,0.3);
-      display: block;
-      margin-top: 2px;
+      letter-spacing: 0.12em;
+      color: rgba(224,247,255,0.4);
+      margin-top: 6px;
     }
 
-    /* Query cards */
-    .query-section {
-      margin-bottom: 48px;
-    }
-    .qs-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.16em;
-      color: rgba(0,255,255,0.4);
-      margin-bottom: 6px;
-    }
-    .qs-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 1rem;
-      color: #00ffff;
-      margin-bottom: 20px;
+    /* Concept tabs */
+    .concept-tabs {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
     }
-    .qs-title-icon { font-size: 1.3rem; }
-
-    .query-card {
-      border: 1px solid rgba(0,255,255,0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      background: rgba(5,5,16,0.6);
-    }
-    .query-card.purple { border-color: rgba(155,92,255,0.1); }
-    .qc-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: rgba(0,255,255,0.04);
-      border-bottom: 1px solid rgba(0,255,255,0.08);
-    }
-    .query-card.purple .qc-header { background: rgba(155,92,255,0.04); border-bottom-color: rgba(155,92,255,0.08); }
-    .qc-title {
+    .concept-tab {
       font-family: 'Orbitron', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.1em;
-      color: rgba(0,255,255,0.6);
+      padding: 8px 16px;
+      border: 1px solid rgba(0,255,255,0.2);
+      background: transparent;
+      color: rgba(0,255,255,0.5);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
     }
-    .query-card.purple .qc-title { color: rgba(155,92,255,0.6); }
-    .qc-purpose {
-      font-family: 'Share Tech Mono', monospace;
+    .concept-tab:hover, .concept-tab.active {
+      background: rgba(0,255,255,0.08);
+      color: #00ffff;
+      border-color: rgba(0,255,255,0.5);
+    }
+    .concept-tab.purple { border-color: rgba(155,92,255,0.2); color: rgba(155,92,255,0.5); }
+    .concept-tab.purple:hover, .concept-tab.purple.active {
+      background: rgba(155,92,255,0.08);
+      color: #9b5cff;
+      border-color: rgba(155,92,255,0.5);
+    }
+
+    /* Query cards */
+    .query-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .query-grid { grid-template-columns: 1fr; }
+    }
+
+    .query-card {
+      background: rgba(5,5,20,0.8);
+      border: 1px solid rgba(0,255,255,0.12);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .query-card:hover { border-color: rgba(0,255,255,0.35); }
+    .query-card.purple { border-color: rgba(155,92,255,0.15); }
+    .query-card.purple:hover { border-color: rgba(155,92,255,0.4); }
+
+    .query-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: rgba(0,255,255,0.04);
+      border-bottom: 1px solid rgba(0,255,255,0.1);
+    }
+    .query-card.purple .query-card-header {
+      background: rgba(155,92,255,0.04);
+      border-bottom-color: rgba(155,92,255,0.1);
+    }
+
+    .query-card-title {
+      font-family: 'Orbitron', monospace;
       font-size: 0.65rem;
-      color: rgba(224,247,255,0.4);
+      color: #00ffff;
+      letter-spacing: 0.1em;
     }
+    .query-card.purple .query-card-title { color: #9b5cff; }
+
+    .query-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      padding: 3px 10px;
+      border-radius: 2px;
+      border: 1px solid rgba(0,255,255,0.2);
+      color: rgba(0,255,255,0.6);
+      background: rgba(0,255,255,0.04);
+    }
+    .query-badge.purple {
+      border-color: rgba(155,92,255,0.2);
+      color: rgba(155,92,255,0.6);
+      background: rgba(155,92,255,0.04);
+    }
+    .query-badge.green {
+      border-color: rgba(0,255,136,0.2);
+      color: rgba(0,255,136,0.7);
+      background: rgba(0,255,136,0.04);
+    }
+
+    .query-desc {
+      padding: 12px 18px 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(224,247,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* Code block override for cyberpunk */
+    .query-code {
+      margin: 0;
+      padding: 0;
+    }
+    .query-code pre {
+      margin: 0;
+      padding: 14px 18px 16px;
+      background: transparent !important;
+      font-size: 0.78rem;
+      line-height: 1.65;
+      overflow-x: auto;
+    }
+    .query-code code {
+      font-family: 'Share Tech Mono', monospace !important;
+      background: transparent !important;
+    }
+    /* Override hljs colors to match cyberpunk palette */
+    .hljs { background: transparent !important; }
+    .hljs-keyword { color: #00ffff !important; }
+    .hljs-built_in { color: #9b5cff !important; }
+    .hljs-string { color: #00ff88 !important; }
+    .hljs-number { color: #ff9f43 !important; }
+    .hljs-comment { color: rgba(224,247,255,0.3) !important; font-style: italic; }
+    .hljs-operator { color: rgba(0,255,255,0.6) !important; }
+
+    /* Concept section */
+    .concept-section { display: none; }
+    .concept-section.active { display: block; }
+
+    /* Schema block */
+    .schema-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .schema-table {
+      padding: 18px 20px;
+      border: 1px solid rgba(0,255,255,0.12);
+      background: rgba(0,255,255,0.02);
+      border-radius: 3px;
+    }
+    .schema-table.purple {
+      border-color: rgba(155,92,255,0.15);
+      background: rgba(155,92,255,0.02);
+    }
+    .schema-table-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.65rem;
+      color: #00ffff;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .schema-table.purple .schema-table-name { color: #9b5cff; }
+    .schema-field {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(224,247,255,0.45);
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      justify-content: space-between;
+    }
+    .schema-field .type { color: rgba(155,92,255,0.5); }
+    .schema-field .pk { color: #ff9f43; font-size: 0.6rem; }
+
+    /* Copy button */
     .copy-btn {
       font-family: 'Orbitron', monospace;
       font-size: 0.5rem;
       letter-spacing: 0.1em;
-      color: rgba(0,255,255,0.5);
+      padding: 4px 10px;
       border: 1px solid rgba(0,255,255,0.2);
-      border-radius: 3px;
-      padding: 3px 8px;
-      background: none;
+      background: transparent;
+      color: rgba(0,255,255,0.4);
       cursor: pointer;
+      border-radius: 2px;
       transition: all 0.2s;
     }
     .copy-btn:hover { color: #00ffff; border-color: rgba(0,255,255,0.5); }
     .copy-btn.copied { color: #00ff88; border-color: rgba(0,255,136,0.4); }
-
-    /* SQL code block */
-    .sql-code {
-      padding: 20px 20px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.8rem;
-      line-height: 1.8;
-      color: rgba(224,247,255,0.8);
-      overflow-x: auto;
-      white-space: pre;
-      background: rgba(5,5,16,0.3);
-    }
-    .sql-kw { color: #00ffff; font-weight: bold; }
-    .sql-fn { color: #9b5cff; }
-    .sql-str { color: #00ff88; }
-    .sql-num { color: #ff9f40; }
-    .sql-cmt { color: rgba(224,247,255,0.25); font-style: italic; }
-    .sql-tbl { color: #e0f7ff; }
-    .sql-col { color: rgba(224,247,255,0.7); }
-
-    /* Result preview */
-    .qc-result {
-      border-top: 1px solid rgba(0,255,255,0.06);
-      padding: 0;
-    }
-    .query-card.purple .qc-result { border-top-color: rgba(155,92,255,0.06); }
-    .qr-header {
-      padding: 8px 16px;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.5rem;
-      letter-spacing: 0.12em;
-      color: rgba(0,255,255,0.3);
-      background: rgba(0,255,255,0.02);
-      border-bottom: 1px solid rgba(0,255,255,0.05);
-    }
-    .query-card.purple .qr-header { color: rgba(155,92,255,0.3); background: rgba(155,92,255,0.02); border-bottom-color: rgba(155,92,255,0.05); }
-    .qr-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
-    }
-    .qr-table th {
-      padding: 6px 14px;
-      text-align: left;
-      color: rgba(0,255,255,0.5);
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      border-bottom: 1px solid rgba(0,255,255,0.06);
-    }
-    .query-card.purple .qr-table th { color: rgba(155,92,255,0.5); border-bottom-color: rgba(155,92,255,0.06); }
-    .qr-table td {
-      padding: 6px 14px;
-      color: rgba(224,247,255,0.55);
-      border-bottom: 1px solid rgba(255,255,255,0.02);
-    }
-    .qr-table tr:last-child td { border-bottom: none; }
-
-    /* Insight callout */
-    .sql-insight {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 12px 16px;
-      background: rgba(0,255,255,0.03);
-      border-left: 2px solid rgba(0,255,255,0.3);
-      margin-top: 12px;
-      border-radius: 0 4px 4px 0;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
-      color: rgba(224,247,255,0.6);
-      line-height: 1.5;
-    }
-    .sql-insight.purple { background: rgba(155,92,255,0.03); border-left-color: rgba(155,92,255,0.3); }
-    .sql-insight-icon { color: #00ffff; flex-shrink: 0; }
-    .sql-insight.purple .sql-insight-icon { color: #9b5cff; }
-
-    /* Skill pills */
-    .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill-pill {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      padding: 6px 12px;
-      border-radius: 3px;
-      border: 1px solid rgba(0,255,255,0.25);
-      color: #00ffff;
-      background: rgba(0,255,255,0.05);
-    }
-    .skill-pill.purple { border-color: rgba(155,92,255,0.25); color: #9b5cff; background: rgba(155,92,255,0.05); }
-    .skill-pill.green { border-color: rgba(0,255,136,0.25); color: #00ff88; background: rgba(0,255,136,0.05); }
   </style>
 </head>
 <body>
@@ -237,7 +237,10 @@
 
 <nav id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -250,429 +253,849 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
-    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <main class="page-content">
+
+  <!-- Page Hero -->
   <section class="page-hero section" style="padding-bottom:0;">
     <div class="container">
-      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; SQL QUERIES</div>
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; SQL LAB</div>
       <div class="section-header" data-reveal>
-        <h1>SQL <span class="text-cyan">QUERY LIBRARY</span></h1>
+        <h1>SQL <span class="text-cyan">QUERY LAB</span></h1>
       </div>
-      <p data-reveal data-delay="100" style="max-width:660px;margin-bottom:16px;">
-        Real SQL queries written for actual project analysis. Each query is annotated with its business purpose and the insight it generated. Database: MySQL · SQLite · PostgreSQL compatible.
+      <p data-reveal data-delay="80" style="max-width:620px;color:rgba(224,247,255,0.55);font-size:1rem;margin-bottom:0;">
+        Hands-on SQL written during Semester III — covering DDL, DML, multi-table JOINs, subqueries, window functions, and aggregation across real business datasets.
       </p>
-      <div data-reveal data-delay="150" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;">
-        <span class="skill-pill">SELECT / WHERE</span>
-        <span class="skill-pill">GROUP BY</span>
-        <span class="skill-pill">JOIN</span>
-        <span class="skill-pill">Subqueries</span>
-        <span class="skill-pill purple">Window Functions</span>
-        <span class="skill-pill purple">CTEs</span>
-        <span class="skill-pill green">Aggregations</span>
-        <span class="skill-pill green">CASE WHEN</span>
+
+      <!-- Stats strip -->
+      <div class="sql-hero-stats" data-reveal data-delay="150">
+        <div class="sql-stat-card">
+          <span class="sql-stat-num" data-count="100">0</span>
+          <div class="sql-stat-label">QUERIES WRITTEN</div>
+        </div>
+        <div class="sql-stat-card">
+          <span class="sql-stat-num purple" data-count="5">0</span>
+          <div class="sql-stat-label">DATABASES BUILT</div>
+        </div>
+        <div class="sql-stat-card">
+          <span class="sql-stat-num" data-count="6">0</span>
+          <div class="sql-stat-label">CONCEPTS COVERED</div>
+        </div>
+        <div class="sql-stat-card">
+          <span class="sql-stat-num purple" data-count="15">0</span>
+          <div class="sql-stat-label">TABLES DESIGNED</div>
+        </div>
+      </div>
+
+      <!-- GitHub CTA -->
+      <div data-reveal data-delay="200" style="margin-bottom:48px;display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" class="btn-neon btn-neon-solid">↗ Dataset on Kaggle</a>
+        <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-purple">↗ Source on GitHub</a>
+        <a href="projects.html" class="btn-neon" style="border-color:rgba(0,255,136,0.4);color:#00ff88;">▸ See Case Studies</a>
       </div>
     </div>
   </section>
 
-  <section class="section" style="padding-top:16px;">
+  <!-- Concept Filter Tabs -->
+  <section class="section" style="padding-top:0;">
     <div class="container">
-      <div class="sql-grid">
 
-        <!-- Sidebar -->
-        <div class="sql-sidebar" data-reveal data-delay="50">
-          <div class="sql-nav-section">
-            <div class="sql-nav-header">✈️ AIRLINE PROJECT</div>
-            <a class="sql-nav-item active" href="#airline-revenue">Revenue by Route<span>SUM · GROUP BY</span></a>
-            <a class="sql-nav-item" href="#airline-booking">Booking Window Analysis<span>CASE WHEN · AVG</span></a>
-            <a class="sql-nav-item" href="#airline-top">Top Revenue Routes<span>RANK · LIMIT</span></a>
-          </div>
-          <div class="sql-nav-section">
-            <div class="sql-nav-header" style="color:rgba(155,92,255,0.4);background:rgba(155,92,255,0.04);border-bottom-color:rgba(155,92,255,0.08);">🛒 ECOMMERCE PROJECT</div>
-            <a class="sql-nav-item" href="#ecom-revenue">Revenue by Category<span>SUM · ORDER BY</span></a>
-            <a class="sql-nav-item" href="#ecom-discount">Discount vs Rating<span>AVG · HAVING</span></a>
-            <a class="sql-nav-item" href="#ecom-brand">Brand Premium Index<span>Subquery · CTE</span></a>
-          </div>
-          <div class="sql-nav-section">
-            <div class="sql-nav-header">🤖 AI PRODUCTIVITY</div>
-            <a class="sql-nav-item" href="#ai-dept">Productivity by Dept<span>AVG · GROUP BY</span></a>
-            <a class="sql-nav-item" href="#ai-roi">ROI Calculation<span>CASE WHEN · CTE</span></a>
-          </div>
-          <div class="sql-nav-section">
-            <div class="sql-nav-header" style="color:rgba(155,92,255,0.4);background:rgba(155,92,255,0.04);border-bottom-color:rgba(155,92,255,0.08);">💪 GYM ANALYTICS</div>
-            <a class="sql-nav-item" href="#gym-retention">Retention by Workout<span>COUNT · FILTER</span></a>
-            <a class="sql-nav-item" href="#gym-peak">Peak Hour Analysis<span>Window Function</span></a>
-          </div>
-        </div>
+      <div class="data-label mb-16" data-reveal>◈ FILTER BY CONCEPT</div>
+      <div class="concept-tabs" data-reveal data-delay="80">
+        <button class="concept-tab active" onclick="showConcept('joins')">🔗 JOINs</button>
+        <button class="concept-tab purple" onclick="showConcept('window')">📊 Window Functions</button>
+        <button class="concept-tab" onclick="showConcept('subquery')">🔍 Subqueries</button>
+        <button class="concept-tab purple" onclick="showConcept('aggregation')">📐 Aggregation</button>
+        <button class="concept-tab" onclick="showConcept('revenue')">💰 Revenue Analytics</button>
+        <button class="concept-tab purple" onclick="showConcept('schema')">🗄️ Schema Design</button>
+      </div>
 
-        <!-- Main Content -->
-        <div>
+      <!-- ═══════════════════════════════════
+           SECTION 1: JOINs
+           ═══════════════════════════════════ -->
+      <div id="concept-joins" class="concept-section active">
+        <div class="data-label mb-24" style="color:rgba(0,255,255,0.4);">◈ JOIN OPERATIONS — Multi-table relationship queries</div>
+        <div class="query-grid">
 
-          <!-- ═══ AIRLINE QUERIES ═══ -->
-          <div class="query-section" id="airline-revenue" data-reveal data-delay="100">
-            <div class="qs-label">AIRLINE PRICING PROJECT · QUERIES 01–03</div>
-            <div class="qs-title"><span class="qs-title-icon">✈️</span> Airline Revenue Analysis</div>
-
-            <!-- Query 1 -->
-            <div class="query-card">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_01 — REVENUE BY ROUTE</div>
-                  <div class="qc-purpose">Which routes generate the most revenue?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q1')">COPY</button>
-              </div>
-              <div class="sql-code" id="q1"><span class="sql-cmt">-- Total revenue and average ticket price grouped by route</span>
-<span class="sql-kw">SELECT</span>
-    route,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> total_flights,
-    <span class="sql-fn">SUM</span>(ticket_price) <span class="sql-kw">AS</span> total_revenue,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(ticket_price), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_ticket_price,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(ticket_price) * <span class="sql-num">100.0</span> /
-        <span class="sql-fn">SUM</span>(<span class="sql-fn">SUM</span>(ticket_price)) <span class="sql-kw">OVER</span>(), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> revenue_share_pct
-<span class="sql-kw">FROM</span> flights
-<span class="sql-kw">WHERE</span> travel_class <span class="sql-kw">IS NOT NULL</span>
-<span class="sql-kw">GROUP BY</span> route
-<span class="sql-kw">ORDER BY</span> total_revenue <span class="sql-kw">DESC</span>
-<span class="sql-kw">LIMIT</span> <span class="sql-num">10</span>;</div>
-              <div class="qc-result">
-                <div class="qr-header">◈ SAMPLE RESULT (top 5 rows)</div>
-                <table class="qr-table">
-                  <thead><tr><th>route</th><th>total_flights</th><th>total_revenue</th><th>avg_ticket_price</th><th>revenue_share_pct</th></tr></thead>
-                  <tbody>
-                    <tr><td>DEL→BOM</td><td>1,842</td><td>₹98,420,000</td><td>₹5,343</td><td>18.2%</td></tr>
-                    <tr><td>DEL→BLR</td><td>1,621</td><td>₹84,150,000</td><td>₹5,191</td><td>15.6%</td></tr>
-                    <tr><td>BOM→HYD</td><td>1,104</td><td>₹38,900,000</td><td>₹3,524</td><td>7.2%</td></tr>
-                    <tr><td>BLR→MAA</td><td>980</td><td>₹29,400,000</td><td>₹3,000</td><td>5.4%</td></tr>
-                    <tr><td>DEL→CCU</td><td>876</td><td>₹25,100,000</td><td>₹2,866</td><td>4.6%</td></tr>
-                  </tbody>
-                </table>
+          <div class="query-card" data-reveal>
+            <div class="query-card-header">
+              <span class="query-card-title">INNER JOIN — Order + Customer + Product</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">3 TABLES</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
               </div>
             </div>
-            <div class="sql-insight">
-              <span class="sql-insight-icon">◈</span>
-              <span>This query revealed that top 3 routes (DEL→BOM, DEL→BLR, BOM→HYD) account for <strong style="color:#00ffff;">41% of total revenue</strong> — justifying dynamic pricing priority on these corridors.</span>
-            </div>
-
-            <!-- Query 2 -->
-            <div class="query-card" id="airline-booking" style="margin-top:20px;">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_02 — BOOKING WINDOW PRICE ANALYSIS</div>
-                  <div class="qc-purpose">How does advance booking affect ticket pricing?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q2')">COPY</button>
-              </div>
-              <div class="sql-code" id="q2"><span class="sql-cmt">-- Average price by booking window bucket using CASE WHEN</span>
-<span class="sql-kw">SELECT</span>
-    <span class="sql-kw">CASE</span>
-        <span class="sql-kw">WHEN</span> days_before_travel <span class="sql-kw">BETWEEN</span> <span class="sql-num">0</span> <span class="sql-kw">AND</span> <span class="sql-num">7</span>   <span class="sql-kw">THEN</span> <span class="sql-str">'0–7 days (Last Minute)'</span>
-        <span class="sql-kw">WHEN</span> days_before_travel <span class="sql-kw">BETWEEN</span> <span class="sql-num">8</span> <span class="sql-kw">AND</span> <span class="sql-num">14</span>  <span class="sql-kw">THEN</span> <span class="sql-str">'8–14 days'</span>
-        <span class="sql-kw">WHEN</span> days_before_travel <span class="sql-kw">BETWEEN</span> <span class="sql-num">15</span> <span class="sql-kw">AND</span> <span class="sql-num">30</span> <span class="sql-kw">THEN</span> <span class="sql-str">'15–30 days (Optimal)'</span>
-        <span class="sql-kw">ELSE</span> <span class="sql-str">'30+ days (Early Bird)'</span>
-    <span class="sql-kw">END</span> <span class="sql-kw">AS</span> booking_window,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> bookings,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(ticket_price), <span class="sql-num">0</span>) <span class="sql-kw">AS</span> avg_price,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(seat_availability_pct), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_seat_availability
-<span class="sql-kw">FROM</span> flights
-<span class="sql-kw">GROUP BY</span> booking_window
-<span class="sql-kw">ORDER BY</span> avg_price <span class="sql-kw">DESC</span>;</div>
-              <div class="qc-result">
-                <div class="qr-header">◈ SAMPLE RESULT</div>
-                <table class="qr-table">
-                  <thead><tr><th>booking_window</th><th>bookings</th><th>avg_price</th><th>avg_seat_availability</th></tr></thead>
-                  <tbody>
-                    <tr><td>0–7 days (Last Minute)</td><td>2,210</td><td>₹7,840</td><td>12.3%</td></tr>
-                    <tr><td>8–14 days</td><td>3,100</td><td>₹5,920</td><td>48.1%</td></tr>
-                    <tr><td>15–30 days (Optimal)</td><td>4,320</td><td>₹4,280</td><td>91.4%</td></tr>
-                    <tr><td>30+ days (Early Bird)</td><td>2,410</td><td>₹3,900</td><td>98.2%</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="sql-insight">
-              <span class="sql-insight-icon">◈</span>
-              <span>The 15–30 day window is optimal: <strong style="color:#00ffff;">23% lower prices with 91% seat availability</strong>. Last-minute fares are nearly 2× higher — confirming a dynamic pricing opportunity.</span>
-            </div>
-
-            <!-- Query 3 -->
-            <div class="query-card" id="airline-top" style="margin-top:20px;">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_03 — CLASS-WISE REVENUE BREAKDOWN</div>
-                  <div class="qc-purpose">Compare economy vs business class revenue contribution</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q3')">COPY</button>
-              </div>
-              <div class="sql-code" id="q3"><span class="sql-cmt">-- Revenue per class with proportion and yield per seat</span>
-<span class="sql-kw">WITH</span> class_revenue <span class="sql-kw">AS</span> (
-    <span class="sql-kw">SELECT</span>
-        travel_class,
-        <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> bookings,
-        <span class="sql-fn">SUM</span>(ticket_price) <span class="sql-kw">AS</span> total_revenue,
-        <span class="sql-fn">AVG</span>(ticket_price) <span class="sql-kw">AS</span> avg_price
-    <span class="sql-kw">FROM</span> flights
-    <span class="sql-kw">GROUP BY</span> travel_class
-),
-total <span class="sql-kw">AS</span> (
-    <span class="sql-kw">SELECT</span> <span class="sql-fn">SUM</span>(total_revenue) <span class="sql-kw">AS</span> grand_total <span class="sql-kw">FROM</span> class_revenue
-)
-<span class="sql-kw">SELECT</span>
-    cr.travel_class,
-    cr.bookings,
-    cr.total_revenue,
-    <span class="sql-fn">ROUND</span>(cr.total_revenue * <span class="sql-num">100.0</span> / t.grand_total, <span class="sql-num">1</span>) <span class="sql-kw">AS</span> revenue_pct,
-    <span class="sql-fn">ROUND</span>(cr.avg_price, <span class="sql-num">0</span>) <span class="sql-kw">AS</span> yield_per_seat
-<span class="sql-kw">FROM</span> class_revenue cr, total t
-<span class="sql-kw">ORDER BY</span> cr.total_revenue <span class="sql-kw">DESC</span>;</div>
+            <div class="query-desc">Full order details — customer name, product bought, quantity and total amount. Three-table JOIN from the e-commerce database.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT o.order_id,
+       c.full_name,
+       p.product_name,
+       oi.quantity,
+       (oi.quantity * oi.unit_price) AS amount
+FROM orders o
+JOIN customers c  ON o.customer_id = c.customer_id
+JOIN order_items oi ON o.order_id  = oi.order_id
+JOIN products p   ON oi.product_id = p.product_id;</code></pre>
             </div>
           </div>
 
-          <!-- ═══ ECOMMERCE QUERIES ═══ -->
-          <div class="query-section" id="ecom-revenue" data-reveal data-delay="150">
-            <div class="qs-label">E-COMMERCE PROJECT · QUERIES 04–06</div>
-            <div class="qs-title"><span class="qs-title-icon">🛒</span> Flipkart Revenue Analysis</div>
-
-            <div class="query-card purple">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_04 — REVENUE BY CATEGORY</div>
-                  <div class="qc-purpose">Which product categories drive platform revenue?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q4')">COPY</button>
-              </div>
-              <div class="sql-code" id="q4"><span class="sql-cmt">-- Revenue proxy: selling_price × estimated_sales volume</span>
-<span class="sql-kw">SELECT</span>
-    category,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> product_count,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(selling_price), <span class="sql-num">0</span>) <span class="sql-kw">AS</span> avg_price,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(discount_pct), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_discount_pct,
-    <span class="sql-fn">SUM</span>(selling_price * num_reviews * <span class="sql-num">10</span>) <span class="sql-kw">AS</span> revenue_proxy,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(rating), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_rating
-<span class="sql-kw">FROM</span> flipkart_products
-<span class="sql-kw">WHERE</span> selling_price <span class="sql-kw">IS NOT NULL</span>
-  <span class="sql-kw">AND</span> num_reviews <span class="sql-kw">></span> <span class="sql-num">0</span>
-<span class="sql-kw">GROUP BY</span> category
-<span class="sql-kw">ORDER BY</span> revenue_proxy <span class="sql-kw">DESC</span>;</div>
-              <div class="qc-result">
-                <div class="qr-header" style="color:rgba(155,92,255,0.3);background:rgba(155,92,255,0.02);border-bottom-color:rgba(155,92,255,0.05);">◈ SAMPLE RESULT</div>
-                <table class="qr-table">
-                  <thead><tr><th>category</th><th>product_count</th><th>avg_price</th><th>avg_discount</th><th>revenue_proxy</th><th>avg_rating</th></tr></thead>
-                  <tbody>
-                    <tr><td>Electronics</td><td>5,610</td><td>₹8,420</td><td>24.1%</td><td>₹4.8B</td><td>4.1</td></tr>
-                    <tr><td>Clothing</td><td>4,240</td><td>₹899</td><td>41.2%</td><td>₹1.2B</td><td>3.8</td></tr>
-                    <tr><td>Home Appliances</td><td>1,820</td><td>₹3,200</td><td>28.6%</td><td>₹980M</td><td>4.0</td></tr>
-                    <tr><td>Footwear</td><td>2,110</td><td>₹1,840</td><td>35.4%</td><td>₹720M</td><td>4.2</td></tr>
-                  </tbody>
-                </table>
+          <div class="query-card" data-reveal data-delay="80">
+            <div class="query-card-header">
+              <span class="query-card-title">LEFT JOIN — Customers with NO Orders</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">NULL FILTER</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
               </div>
             </div>
-            <div class="sql-insight purple">
-              <span class="sql-insight-icon">◈</span>
-              <span>Electronics drives <strong style="color:#9b5cff;">52% of estimated platform revenue</strong> despite 24% avg discount — lower discount rates in this category still yield the highest total revenue due to high ASP.</span>
-            </div>
-
-            <!-- Query 5 -->
-            <div class="query-card purple" id="ecom-discount" style="margin-top:20px;">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_05 — DISCOUNT vs RATING CORRELATION</div>
-                  <div class="qc-purpose">Does higher discount lead to lower product ratings?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q5')">COPY</button>
-              </div>
-              <div class="sql-code" id="q5"><span class="sql-cmt">-- Average rating per discount bucket — quality perception vs. discount depth</span>
-<span class="sql-kw">SELECT</span>
-    <span class="sql-kw">CASE</span>
-        <span class="sql-kw">WHEN</span> discount_pct <span class="sql-kw"><</span> <span class="sql-num">10</span>  <span class="sql-kw">THEN</span> <span class="sql-str">'&lt;10% (Premium Pricing)'</span>
-        <span class="sql-kw">WHEN</span> discount_pct <span class="sql-kw">BETWEEN</span> <span class="sql-num">10</span> <span class="sql-kw">AND</span> <span class="sql-num">30</span> <span class="sql-kw">THEN</span> <span class="sql-str">'10–30% (Moderate)'</span>
-        <span class="sql-kw">WHEN</span> discount_pct <span class="sql-kw">BETWEEN</span> <span class="sql-num">30</span> <span class="sql-kw">AND</span> <span class="sql-num">50</span> <span class="sql-kw">THEN</span> <span class="sql-str">'30–50% (Heavy Discount)'</span>
-        <span class="sql-kw">ELSE</span> <span class="sql-str">'50%+ (Clearance)'</span>
-    <span class="sql-kw">END</span> <span class="sql-kw">AS</span> discount_band,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> products,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(rating), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_rating,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(num_reviews), <span class="sql-num">0</span>) <span class="sql-kw">AS</span> avg_reviews
-<span class="sql-kw">FROM</span> flipkart_products
-<span class="sql-kw">WHERE</span> rating <span class="sql-kw">IS NOT NULL</span>
-  <span class="sql-kw">AND</span> discount_pct <span class="sql-kw">IS NOT NULL</span>
-<span class="sql-kw">GROUP BY</span> discount_band
-<span class="sql-kw">HAVING</span> <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">></span> <span class="sql-num">50</span>
-<span class="sql-kw">ORDER BY</span> avg_rating <span class="sql-kw">DESC</span>;</div>
-            </div>
-
-            <!-- Query 6: Brand Premium -->
-            <div class="query-card purple" id="ecom-brand" style="margin-top:20px;">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_06 — BRAND PREMIUM INDEX</div>
-                  <div class="qc-purpose">Which brands command a price premium over category average?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q6')">COPY</button>
-              </div>
-              <div class="sql-code" id="q6"><span class="sql-cmt">-- CTE to calculate brand premium vs category average price</span>
-<span class="sql-kw">WITH</span> category_avg <span class="sql-kw">AS</span> (
-    <span class="sql-kw">SELECT</span>
-        category,
-        <span class="sql-fn">AVG</span>(selling_price) <span class="sql-kw">AS</span> cat_avg_price
-    <span class="sql-kw">FROM</span> flipkart_products
-    <span class="sql-kw">GROUP BY</span> category
-),
-brand_avg <span class="sql-kw">AS</span> (
-    <span class="sql-kw">SELECT</span>
-        brand,
-        category,
-        <span class="sql-fn">AVG</span>(selling_price) <span class="sql-kw">AS</span> brand_avg_price,
-        <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> sku_count
-    <span class="sql-kw">FROM</span> flipkart_products
-    <span class="sql-kw">GROUP BY</span> brand, category
-    <span class="sql-kw">HAVING</span> <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">>=</span> <span class="sql-num">20</span>
-)
-<span class="sql-kw">SELECT</span>
-    b.brand,
-    b.category,
-    b.sku_count,
-    <span class="sql-fn">ROUND</span>(b.brand_avg_price, <span class="sql-num">0</span>) <span class="sql-kw">AS</span> brand_avg_price,
-    <span class="sql-fn">ROUND</span>(c.cat_avg_price, <span class="sql-num">0</span>) <span class="sql-kw">AS</span> category_avg_price,
-    <span class="sql-fn">ROUND</span>((b.brand_avg_price / c.cat_avg_price) * <span class="sql-num">100</span>, <span class="sql-num">1</span>) <span class="sql-kw">AS</span> premium_index
-<span class="sql-kw">FROM</span> brand_avg b
-<span class="sql-kw">JOIN</span> category_avg c <span class="sql-kw">ON</span> b.category <span class="sql-kw">=</span> c.category
-<span class="sql-kw">ORDER BY</span> premium_index <span class="sql-kw">DESC</span>
-<span class="sql-kw">LIMIT</span> <span class="sql-num">15</span>;</div>
+            <div class="query-desc">Identify customers who exist in the system but have never placed an order — useful for re-engagement campaigns.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT c.*
+FROM customers c
+LEFT JOIN orders o
+  ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;</code></pre>
             </div>
           </div>
 
-          <!-- ═══ GYM QUERIES ═══ -->
-          <div class="query-section" id="gym-retention" data-reveal data-delay="200">
-            <div class="qs-label">GYM ANALYTICS PROJECT · QUERIES 07–08</div>
-            <div class="qs-title"><span class="qs-title-icon">💪</span> Gym Member Retention Analysis</div>
-
-            <div class="query-card purple">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_07 — RETENTION RATE BY WORKOUT TYPE</div>
-                  <div class="qc-purpose">Which workout types lead to highest 90-day retention?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q7')">COPY</button>
-              </div>
-              <div class="sql-code" id="q7"><span class="sql-cmt">-- 90-day retention rate by workout type and session frequency</span>
-<span class="sql-kw">SELECT</span>
-    workout_type,
-    sessions_per_week,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> total_members,
-    <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> retention_days <span class="sql-kw">>=</span> <span class="sql-num">90</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> retained_90d,
-    <span class="sql-fn">ROUND</span>(
-        <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> retention_days <span class="sql-kw">>=</span> <span class="sql-num">90</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) * <span class="sql-num">100.0</span>
-        / <span class="sql-fn">COUNT</span>(*), <span class="sql-num">1</span>
-    ) <span class="sql-kw">AS</span> retention_rate_pct
-<span class="sql-kw">FROM</span> gym_members
-<span class="sql-kw">GROUP BY</span> workout_type, sessions_per_week
-<span class="sql-kw">ORDER BY</span> retention_rate_pct <span class="sql-kw">DESC</span>;</div>
-              <div class="qc-result">
-                <div class="qr-header" style="color:rgba(155,92,255,0.3);background:rgba(155,92,255,0.02);">◈ SAMPLE RESULT</div>
-                <table class="qr-table">
-                  <thead><tr><th>workout_type</th><th>sessions/wk</th><th>total_members</th><th>retained_90d</th><th>retention_rate</th></tr></thead>
-                  <tbody>
-                    <tr><td>Strength</td><td>3–4</td><td>820</td><td>664</td><td>81.0%</td></tr>
-                    <tr><td>HIIT</td><td>3–4</td><td>610</td><td>476</td><td>78.0%</td></tr>
-                    <tr><td>Yoga</td><td>2–3</td><td>430</td><td>319</td><td>74.2%</td></tr>
-                    <tr><td>Cardio</td><td>5–7</td><td>950</td><td>494</td><td>52.0%</td></tr>
-                  </tbody>
-                </table>
+          <div class="query-card purple" data-reveal data-delay="100">
+            <div class="query-card-header">
+              <span class="query-card-title">JOIN — Order Status vs Payment Status</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">RECONCILIATION</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
               </div>
             </div>
-            <div class="sql-insight purple">
-              <span class="sql-insight-icon">◈</span>
-              <span>Strength training at 3–4 sessions/week has <strong style="color:#9b5cff;">81% retention</strong> vs cardio at 5–7 sessions (52%). Over-exercising reduces retention — this shaped the gym's recommendation strategy.</span>
-            </div>
-
-            <!-- Query 8 -->
-            <div class="query-card" id="gym-peak" style="margin-top:20px;">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_08 — PEAK HOUR DISTRIBUTION</div>
-                  <div class="qc-purpose">When do members check in? Identify capacity bottlenecks.</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q8')">COPY</button>
-              </div>
-              <div class="sql-code" id="q8"><span class="sql-cmt">-- Check-in distribution by hour with running total (window function)</span>
-<span class="sql-kw">SELECT</span>
-    <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">AS</span> hour_of_day,
-    <span class="sql-kw">CASE</span>
-        <span class="sql-kw">WHEN</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">BETWEEN</span> <span class="sql-num">5</span> <span class="sql-kw">AND</span> <span class="sql-num">9</span>   <span class="sql-kw">THEN</span> <span class="sql-str">'Morning'</span>
-        <span class="sql-kw">WHEN</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">BETWEEN</span> <span class="sql-num">10</span> <span class="sql-kw">AND</span> <span class="sql-num">16</span> <span class="sql-kw">THEN</span> <span class="sql-str">'Afternoon'</span>
-        <span class="sql-kw">WHEN</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">BETWEEN</span> <span class="sql-num">17</span> <span class="sql-kw">AND</span> <span class="sql-num">21</span> <span class="sql-kw">THEN</span> <span class="sql-str">'Evening'</span>
-        <span class="sql-kw">ELSE</span> <span class="sql-str">'Night'</span>
-    <span class="sql-kw">END</span> <span class="sql-kw">AS</span> time_slot,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> checkins,
-    <span class="sql-fn">ROUND</span>(
-        <span class="sql-fn">COUNT</span>(*) * <span class="sql-num">100.0</span> / <span class="sql-fn">SUM</span>(<span class="sql-fn">COUNT</span>(*)) <span class="sql-kw">OVER</span>(), <span class="sql-num">1</span>
-    ) <span class="sql-kw">AS</span> pct_of_daily,
-    <span class="sql-fn">SUM</span>(<span class="sql-fn">COUNT</span>(*)) <span class="sql-kw">OVER</span> (<span class="sql-kw">ORDER BY</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time))
-        <span class="sql-kw">AS</span> running_total
-<span class="sql-kw">FROM</span> gym_checkins
-<span class="sql-kw">GROUP BY</span> hour_of_day, time_slot
-<span class="sql-kw">ORDER BY</span> hour_of_day;</div>
+            <div class="query-desc">Cross-check order fulfillment against payment status — spots mismatches like delivered orders with pending payments.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT o.order_id,
+       o.status       AS order_status,
+       p.status       AS payment_status
+FROM orders o
+LEFT JOIN payments p
+  ON o.order_id = p.order_id;</code></pre>
             </div>
           </div>
 
-          <!-- AI Productivity Query -->
-          <div class="query-section" id="ai-dept" data-reveal data-delay="250">
-            <div class="qs-label">AI PRODUCTIVITY PROJECT · QUERIES 09–10</div>
-            <div class="qs-title"><span class="qs-title-icon">🤖</span> AI Tools ROI Analysis</div>
-
-            <div class="query-card">
-              <div class="qc-header">
-                <div>
-                  <div class="qc-title">QUERY_09 — PRODUCTIVITY MULTIPLIER BY DEPARTMENT</div>
-                  <div class="qc-purpose">Which departments benefit most from AI tools?</div>
-                </div>
-                <button class="copy-btn" onclick="copyQuery(this, 'q9')">COPY</button>
-              </div>
-              <div class="sql-code" id="q9"><span class="sql-cmt">-- Average productivity multiplier and hours saved by department</span>
-<span class="sql-kw">SELECT</span>
-    department,
-    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> employees,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(productivity_multiplier), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_productivity_x,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(hours_saved_per_week), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_hours_saved,
-    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(adoption_score), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_adoption_score,
-    <span class="sql-fn">ROUND</span>(
-        <span class="sql-fn">AVG</span>(hours_saved_per_week) * <span class="sql-num">52</span> * <span class="sql-num">800</span> <span class="sql-cmt">-- ₹800/hr avg</span>
-        / <span class="sql-fn">NULLIF</span>(<span class="sql-fn">AVG</span>(training_investment), <span class="sql-num">0</span>)
-    , <span class="sql-num">1</span>) <span class="sql-kw">AS</span> annual_roi
-<span class="sql-kw">FROM</span> ai_productivity
-<span class="sql-kw">GROUP BY</span> department
-<span class="sql-kw">ORDER BY</span> avg_productivity_x <span class="sql-kw">DESC</span>;</div>
-              <div class="qc-result">
-                <div class="qr-header">◈ SAMPLE RESULT</div>
-                <table class="qr-table">
-                  <thead><tr><th>department</th><th>employees</th><th>avg_productivity_x</th><th>avg_hours_saved</th><th>annual_roi</th></tr></thead>
-                  <tbody>
-                    <tr><td>Marketing</td><td>340</td><td>3.2×</td><td>12.8 hrs</td><td>4.8×</td></tr>
-                    <tr><td>Finance</td><td>210</td><td>2.8×</td><td>9.4 hrs</td><td>3.9×</td></tr>
-                    <tr><td>HR</td><td>180</td><td>2.5×</td><td>8.1 hrs</td><td>3.2×</td></tr>
-                    <tr><td>Operations</td><td>420</td><td>1.8×</td><td>3.2 hrs</td><td>1.4×</td></tr>
-                  </tbody>
-                </table>
+          <div class="query-card" data-reveal data-delay="120">
+            <div class="query-card-header">
+              <span class="query-card-title">INNER JOIN — Student × Teacher (Specialization Match)</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">DOMAIN MATCH</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
               </div>
             </div>
-            <div class="sql-insight">
-              <span class="sql-insight-icon">◈</span>
-              <span>Marketing delivers <strong style="color:#00ffff;">4.8× annual ROI</strong> on AI investment vs Operations at 1.4× — this query directly informed the recommendation to prioritize Marketing AI deployment first.</span>
+            <div class="query-desc">Match students to teachers whose subject aligns with the student's specialization — from the University database.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT s.full_name  AS Student,
+       t.full_name  AS Teacher,
+       s.specialization
+FROM students s
+INNER JOIN teachers t
+  ON s.specialization = t.subject
+ORDER BY s.specialization;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="140">
+            <div class="query-card-header">
+              <span class="query-card-title">LEFT JOIN — All Staff Right Join Products by Category</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">RIGHT JOIN</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Show all products and any staff whose department matches the product category — ensures products without matching dept still appear.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT p.product_name,
+       p.category,
+       s.name,
+       s.department
+FROM staff s
+RIGHT JOIN products p
+  ON s.department = p.category;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="160">
+            <div class="query-card-header">
+              <span class="query-card-title">UNION — All Emails (Students + Teachers + Staff)</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">UNION</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Merge email lists from three separate tables into a single deduplicated contact list using UNION.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT email FROM students
+UNION
+SELECT email FROM teachers
+UNION
+SELECT email FROM staff;</code></pre>
             </div>
           </div>
 
         </div>
       </div>
+
+      <!-- ═══════════════════════════════════
+           SECTION 2: Window Functions
+           ═══════════════════════════════════ -->
+      <div id="concept-window" class="concept-section">
+        <div class="data-label mb-24" style="color:rgba(155,92,255,0.5);">◈ WINDOW FUNCTIONS — ROW_NUMBER · RANK · DENSE_RANK · PARTITION BY</div>
+        <div class="query-grid">
+
+          <div class="query-card purple" data-reveal>
+            <div class="query-card-header">
+              <span class="query-card-title">RANK vs DENSE_RANK vs ROW_NUMBER</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">COMPARISON</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Side-by-side comparison of all three ranking functions on the same salary dataset — shows exactly how they handle ties differently.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT employee_name,
+       department,
+       salary,
+       RANK()       OVER (ORDER BY salary DESC) AS rank_num,
+       DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank,
+       ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num
+FROM employees;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="80">
+            <div class="query-card-header">
+              <span class="query-card-title">PARTITION BY — Rank Within Department</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">PARTITION BY</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Rank employees by salary independently within each department — resets the rank counter for every department group.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT employee_name,
+       department,
+       salary,
+       ROW_NUMBER() OVER (
+         PARTITION BY department
+         ORDER BY salary DESC
+       ) AS dept_row_num
+FROM employees;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="100">
+            <div class="query-card-header">
+              <span class="query-card-title">Subquery — Get Employees at Rank #1 per Dept</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">TOP N</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Wrap a window function in a subquery to filter — returns the highest-paid employee in each department using DENSE_RANK.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT *
+FROM (
+  SELECT employee_name,
+         department,
+         salary,
+         DENSE_RANK() OVER (
+           PARTITION BY department
+           ORDER BY salary DESC
+         ) AS dept_rank
+  FROM employees
+) AS ranked
+WHERE dept_rank = 1;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="120">
+            <div class="query-card-header">
+              <span class="query-card-title">Running Total — Stock by Category</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">RUNNING TOTAL</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Cumulative running total of product stock within each category — useful for inventory analysis and reorder planning.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT product_name,
+       category,
+       stock,
+       SUM(stock) OVER (
+         PARTITION BY category
+         ORDER BY product_id
+       ) AS running_stock
+FROM products;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="140">
+            <div class="query-card-header">
+              <span class="query-card-title">ROW_NUMBER() — Sales Ranking with DENSE_RANK</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">SALES RANK</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Rank products by sales amount using DENSE_RANK — tied sales amounts receive the same rank with no gaps in numbering.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT ProductID,
+       ProductName,
+       Category,
+       SalesAmount,
+       DENSE_RANK() OVER (
+         ORDER BY SalesAmount DESC
+       ) AS DenseRankNum
+FROM Products_rank;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="160">
+            <div class="query-card-header">
+              <span class="query-card-title">Staff Salary Rank within Department</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">HR ANALYTICS</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Rank staff by salary within their department — practical for compensation benchmarking and identifying outliers per team.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT name,
+       department,
+       salary,
+       RANK() OVER (
+         PARTITION BY department
+         ORDER BY salary DESC
+       ) AS rank_no
+FROM staff;</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════
+           SECTION 3: Subqueries
+           ═══════════════════════════════════ -->
+      <div id="concept-subquery" class="concept-section">
+        <div class="data-label mb-24" style="color:rgba(0,255,255,0.4);">◈ SUBQUERIES — Nested logic for comparative analysis</div>
+        <div class="query-grid">
+
+          <div class="query-card" data-reveal>
+            <div class="query-card-header">
+              <span class="query-card-title">Products Above Average Price</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">AVG BENCHMARK</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Filter products priced above the platform average — the subquery dynamically computes the average so the threshold updates automatically.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT *
+FROM products
+WHERE price > (
+  SELECT AVG(price)
+  FROM products
+);</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="80">
+            <div class="query-card-header">
+              <span class="query-card-title">Highest-Paid Staff per Department</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">CORRELATED</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Correlated subquery — for each row, checks if the salary equals the max salary in the same department. Returns one top earner per dept.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT *
+FROM staff s
+WHERE salary = (
+  SELECT MAX(salary)
+  FROM staff
+  WHERE department = s.department
+);</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="100">
+            <div class="query-card-header">
+              <span class="query-card-title">Products Below Average Stock</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">INVENTORY ALERT</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Flag products with below-average stock — real inventory management use case for automated reorder triggers.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT product_name, stock
+FROM products
+WHERE stock < (
+  SELECT AVG(stock)
+  FROM products
+);</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="120">
+            <div class="query-card-header">
+              <span class="query-card-title">Staff Earning Above Chennai HR Salary</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">COMPARATIVE</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Use a specific row as a salary benchmark — anyone earning more than the Chennai HR employee, across all departments.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT *
+FROM staff
+WHERE salary > (
+  SELECT salary
+  FROM staff
+  WHERE department = 'HR'
+    AND city = 'Chennai'
+);</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="140">
+            <div class="query-card-header">
+              <span class="query-card-title">Products More Expensive than Furniture Average</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">CATEGORY BENCH</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Category-specific benchmark — compares each product's price against the average price within the Furniture category specifically.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT *
+FROM products
+WHERE price > (
+  SELECT AVG(price)
+  FROM products
+  WHERE category = 'Furniture'
+);</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="160">
+            <div class="query-card-header">
+              <span class="query-card-title">Products Never Ordered (NOT IN Subquery)</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">DEAD STOCK</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Identify products that have never appeared in any order — useful for detecting dead inventory or catalog cleanup.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT p.*
+FROM products p
+LEFT JOIN order_items oi
+  ON p.product_id = oi.product_id
+WHERE oi.order_item_id IS NULL;</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════
+           SECTION 4: Aggregation
+           ═══════════════════════════════════ -->
+      <div id="concept-aggregation" class="concept-section">
+        <div class="data-label mb-24" style="color:rgba(155,92,255,0.5);">◈ AGGREGATION — GROUP BY · HAVING · COUNT · AVG · SUM</div>
+        <div class="query-grid">
+
+          <div class="query-card purple" data-reveal>
+            <div class="query-card-header">
+              <span class="query-card-title">Department Average Salary — HAVING Filter</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">GROUP + HAVING</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Group by department and filter only those where average salary exceeds 50,000 — HAVING operates post-aggregation unlike WHERE.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT department,
+       AVG(salary) AS avg_salary
+FROM staff
+GROUP BY department
+HAVING AVG(salary) > 50000;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="80">
+            <div class="query-card-header">
+              <span class="query-card-title">Daily Revenue + Order Count</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">TIME SERIES</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Aggregate daily order volume and revenue — the foundation for time-series trend analysis and Tableau dashboard data feeds.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT DATE(o.order_date)        AS day,
+       COUNT(DISTINCT o.order_id) AS total_orders,
+       SUM(oi.quantity * oi.unit_price) AS total_revenue
+FROM orders o
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+GROUP BY DATE(o.order_date);</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="100">
+            <div class="query-card-header">
+              <span class="query-card-title">Orders by Status Count</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">STATUS DIST</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Distribution of order statuses — Delivered, Shipped, Pending, Cancelled. Useful KPI card data for operations dashboards.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT status,
+       COUNT(*) AS count_orders
+FROM orders
+GROUP BY status;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="120">
+            <div class="query-card-header">
+              <span class="query-card-title">Teachers: Min / Max / Avg Experience</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">DESCRIPTIVE STATS</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Single-row descriptive statistics across the teacher table — min, max, and average years of experience in one query.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT MIN(years_of_experience) AS min_exp,
+       MAX(years_of_experience) AS max_exp,
+       AVG(years_of_experience) AS avg_exp
+FROM university_teacher;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="140">
+            <div class="query-card-header">
+              <span class="query-card-title">Category Stock — HAVING Total &gt; 200</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">INVENTORY</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Find product categories with combined stock over 200 units — filters post-aggregation using HAVING to focus on well-stocked categories.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT category,
+       SUM(stock) AS total_stock
+FROM products
+GROUP BY category
+HAVING SUM(stock) > 200;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="160">
+            <div class="query-card-header">
+              <span class="query-card-title">Salary Gap — MAX minus MIN</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge">COMPENSATION</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Calculates the pay disparity within the teacher pool — the difference between highest and lowest salary in a single expression.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT MAX(salary) - MIN(salary)
+       AS salary_gap
+FROM university_teacher;</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════
+           SECTION 5: Revenue Analytics
+           ═══════════════════════════════════ -->
+      <div id="concept-revenue" class="concept-section">
+        <div class="data-label mb-24" style="color:rgba(0,255,255,0.4);">◈ REVENUE ANALYTICS — Business-grade queries from the E-Commerce database</div>
+        <div class="query-grid">
+
+          <div class="query-card" data-reveal>
+            <div class="query-card-header">
+              <span class="query-card-title">Top 3 Revenue Products</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge green">HIGH VALUE</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Revenue per product — sorted descending, limited to Top 3. Direct input for "Top Performing SKUs" KPI card in a dashboard.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT p.product_name,
+       SUM(oi.quantity * oi.unit_price) AS revenue
+FROM products p
+JOIN order_items oi
+  ON p.product_id = oi.product_id
+GROUP BY p.product_name
+ORDER BY revenue DESC
+LIMIT 3;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="80">
+            <div class="query-card-header">
+              <span class="query-card-title">Top Spending Customer</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge green">LTV</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Identify highest-value customer by total spend — three-table JOIN aggregated and ordered to return a single top spender.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT c.full_name,
+       SUM(oi.quantity * oi.unit_price) AS total_spent
+FROM customers c
+JOIN orders o
+  ON c.customer_id = o.customer_id
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+GROUP BY c.full_name
+ORDER BY total_spent DESC
+LIMIT 1;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="100">
+            <div class="query-card-header">
+              <span class="query-card-title">Revenue by Product Category</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">CATEGORY P&amp;L</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Total revenue grouped by category — the backbone of a category performance chart in a retail intelligence dashboard.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT p.category,
+       SUM(oi.quantity * oi.unit_price)
+         AS category_revenue
+FROM products p
+JOIN order_items oi
+  ON p.product_id = oi.product_id
+GROUP BY p.category;</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="120">
+            <div class="query-card-header">
+              <span class="query-card-title">Total Successful Payment Revenue</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge green">FINANCE KPI</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Sum of all confirmed (Success status) payments — used as the primary revenue KPI card value in finance dashboards.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT SUM(amount) AS total_success_amount
+FROM payments
+WHERE status = 'Success';</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card purple" data-reveal data-delay="140">
+            <div class="query-card-header">
+              <span class="query-card-title">Average Order Value (AOV)</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge purple">E-COMMERCE KPI</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Average transaction value for successful payments — AOV is a core e-commerce metric for pricing and promotional strategy.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT AVG(amount) AS avg_order_value
+FROM payments
+WHERE status = 'Success';</code></pre>
+            </div>
+          </div>
+
+          <div class="query-card" data-reveal data-delay="160">
+            <div class="query-card-header">
+              <span class="query-card-title">Orders by City (Geographic Distribution)</span>
+              <div style="display:flex;gap:8px;">
+                <span class="query-badge green">GEO ANALYTICS</span>
+                <button class="copy-btn" onclick="copyQuery(this)">COPY</button>
+              </div>
+            </div>
+            <div class="query-desc">Order volume by shipping city — geographic distribution data for a map chart or heat map in a logistics dashboard.</div>
+            <div class="query-code">
+              <pre><code class="language-sql">SELECT shipping_city,
+       COUNT(*) AS total_orders
+FROM orders
+GROUP BY shipping_city
+ORDER BY total_orders DESC;</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════
+           SECTION 6: Schema Design
+           ═══════════════════════════════════ -->
+      <div id="concept-schema" class="concept-section">
+        <div class="data-label mb-24" style="color:rgba(155,92,255,0.5);">◈ SCHEMA DESIGN — Databases designed, built from scratch, and published on <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" style="color:#9b5cff;text-decoration:underline;">Kaggle ↗</a></div>
+
+        <!-- E-Commerce Schema -->
+        <div class="cp-panel cp-corner" style="padding:28px;margin-bottom:24px;" data-reveal>
+          <div class="data-label mb-4">DATABASE 01</div>
+          <h3 class="text-cyan" style="margin-bottom:6px;">E-Commerce Database — ecommerce_db</h3>
+          <p style="color:rgba(224,247,255,0.45);font-size:0.9rem;margin-bottom:20px;">6-table relational schema with FK constraints: customers → orders → order_items → products, payments</p>
+          <div class="schema-grid">
+            <div class="schema-table">
+              <div class="schema-table-name">📦 orders</div>
+              <div class="schema-field"><span>order_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>customer_id <span class="pk">FK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>order_date</span><span class="type">DATETIME</span></div>
+              <div class="schema-field"><span>status</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>shipping_city</span><span class="type">VARCHAR</span></div>
+            </div>
+            <div class="schema-table purple">
+              <div class="schema-table-name">🛒 order_items</div>
+              <div class="schema-field"><span>order_item_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>order_id <span class="pk">FK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>product_id <span class="pk">FK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>quantity</span><span class="type">INT</span></div>
+              <div class="schema-field"><span>unit_price</span><span class="type">DECIMAL</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-name">💳 payments</div>
+              <div class="schema-field"><span>payment_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>order_id <span class="pk">FK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>amount</span><span class="type">DECIMAL</span></div>
+              <div class="schema-field"><span>method</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>status</span><span class="type">VARCHAR</span></div>
+            </div>
+            <div class="schema-table purple">
+              <div class="schema-table-name">🏷️ products</div>
+              <div class="schema-field"><span>product_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>product_name</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>category</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>unit_price</span><span class="type">DECIMAL</span></div>
+              <div class="schema-field"><span>stock_quantity</span><span class="type">INT</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- University Schema -->
+        <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:28px;margin-bottom:24px;" data-reveal data-delay="100">
+          <div class="data-label mb-4" style="color:rgba(155,92,255,0.5);">DATABASE 02</div>
+          <h3 class="text-purple" style="margin-bottom:6px;">University Database — devbhoomi_uttarakhand_university</h3>
+          <p style="color:rgba(224,247,255,0.45);font-size:0.9rem;margin-bottom:20px;">20-field tables modelling real university operations — students, teachers, staff with 20 queries each</p>
+          <div class="schema-grid">
+            <div class="schema-table purple">
+              <div class="schema-table-name">🎓 university_student</div>
+              <div class="schema-field"><span>student_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>program</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>department</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>cgpa</span><span class="type">DECIMAL(3,2)</span></div>
+              <div class="schema-field"><span>enrollment_status</span><span class="type">VARCHAR</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-name">👨‍🏫 university_teacher</div>
+              <div class="schema-field"><span>teacher_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>designation</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>specialization</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>salary</span><span class="type">DECIMAL(12,2)</span></div>
+              <div class="schema-field"><span>years_of_experience</span><span class="type">INT</span></div>
+            </div>
+            <div class="schema-table purple">
+              <div class="schema-table-name">👥 university_staff</div>
+              <div class="schema-field"><span>staff_id <span class="pk">PK</span></span><span class="type">INT</span></div>
+              <div class="schema-field"><span>position</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>salary</span><span class="type">DECIMAL(12,2)</span></div>
+              <div class="schema-field"><span>shift</span><span class="type">VARCHAR</span></div>
+              <div class="schema-field"><span>status</span><span class="type">VARCHAR</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All DBs summary -->
+        <div data-reveal data-delay="200">
+          <div class="data-label mb-16">◈ ALL DATABASES BUILT</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+            <div class="cp-panel" style="padding:16px 18px;">
+              <div style="font-family:'Orbitron',monospace;font-size:0.65rem;color:#00ffff;">ecommerce_db</div>
+              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">6 tables · 30 queries</div>
+            </div>
+            <div class="cp-panel cp-panel-purple" style="padding:16px 18px;">
+              <div style="font-family:'Orbitron',monospace;font-size:0.65rem;color:#9b5cff;">devbhoomi_university</div>
+              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">3 tables · 20 queries</div>
+            </div>
+            <div class="cp-panel" style="padding:16px 18px;">
+              <div style="font-family:'Orbitron',monospace;font-size:0.65rem;color:#00ffff;">SkyMartDB</div>
+              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">2 tables · 27 queries</div>
+            </div>
+            <div class="cp-panel cp-panel-purple" style="padding:16px 18px;">
+              <div style="font-family:'Orbitron',monospace;font-size:0.65rem;color:#9b5cff;">salariesdb</div>
+              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">1 table · Window Fns</div>
+            </div>
+            <div class="cp-panel" style="padding:16px 18px;">
+              <div style="font-family:'Orbitron',monospace;font-size:0.65rem;color:#00ffff;">SalesDB</div>
+              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">1 table · RANK focus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;">
+    <div class="container" data-reveal>
+      <div class="cp-panel" style="padding:48px 40px;max-width:700px;margin:0 auto;text-align:center;">
+        <div class="data-label mb-16">◈ FULL SOURCE CODE & DATASET</div>
+        <h2 style="margin-bottom:12px;">All <span class="text-cyan">SQL Files</span> — Open & Verified</h2>
+        <p style="margin-bottom:28px;color:rgba(224,247,255,0.5);">Complete .sql files published on Kaggle and GitHub — DDL, DML, all queries, and schema scripts available to view, download, and run.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" class="btn-neon btn-neon-solid">↗ Open on Kaggle</a>
+          <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-purple">↗ View on GitHub</a>
+        </div>
+
+        <!-- Kaggle badge strip -->
+        <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(0,255,255,0.1);display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:'Orbitron',monospace;font-size:0.55rem;color:rgba(0,255,255,0.35);letter-spacing:0.12em;margin-bottom:4px;">PUBLISHED ON</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:#00ffff;">KAGGLE</div>
+          </div>
+          <div style="width:1px;height:32px;background:rgba(0,255,255,0.1);"></div>
+          <div style="text-align:center;">
+            <div style="font-family:'Orbitron',monospace;font-size:0.55rem;color:rgba(0,255,255,0.35);letter-spacing:0.12em;margin-bottom:4px;">AUTHOR</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:#00ffff;">SUJIT MURARI</div>
+          </div>
+          <div style="width:1px;height:32px;background:rgba(0,255,255,0.1);"></div>
+          <div style="text-align:center;">
+            <div style="font-family:'Orbitron',monospace;font-size:0.55rem;color:rgba(0,255,255,0.35);letter-spacing:0.12em;margin-bottom:4px;">FORMAT</div>
+            <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:#9b5cff;">SQL FILES</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer id="footer">
   <div class="container">
     <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; DEV BHOOMI UTTARAKHAND UNIVERSITY · SEM IV · 2026
     </p>
   </div>
 </footer>
@@ -681,33 +1104,44 @@ brand_avg <span class="sql-kw">AS</span> (
 <script src="js/script.js"></script>
 <script src="js/register-sw.js"></script>
 <script>
-// Copy query to clipboard
-function copyQuery(btn, id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const text = el.innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'COPIED ✓';
-    btn.classList.add('copied');
+  // Init highlight.js after it loads
+  document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      btn.textContent = 'COPY';
-      btn.classList.remove('copied');
-    }, 2000);
+      if (window.hljs) {
+        hljs.highlightAll();
+      }
+    }, 300);
   });
-}
 
-// Sidebar active state on scroll
-const navItems = document.querySelectorAll('.sql-nav-item');
-const sections = document.querySelectorAll('.query-section');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 140) current = s.id;
-  });
-  navItems.forEach(item => {
-    item.classList.toggle('active', item.getAttribute('href') === '#' + current);
-  });
-});
+  // Concept tab switching
+  function showConcept(name) {
+    document.querySelectorAll('.concept-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.concept-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('concept-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
+    // Re-highlight any new code blocks
+    if (window.hljs) {
+      document.querySelectorAll('#concept-' + name + ' code').forEach(block => {
+        if (!block.classList.contains('hljs')) hljs.highlightElement(block);
+      });
+    }
+  }
+
+  // Copy query button
+  function copyQuery(btn) {
+    const code = btn.closest('.query-card').querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ COPIED';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
 </script>
+<style>
+  @media (max-width: 768px) {
+    .query-grid { grid-template-columns: 1fr !important; }
+    .sql-hero-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
 </body>
 </html>
