@@ -279,6 +279,11 @@
 
             <form id="contact-form" style="display:flex;flex-direction:column;gap:18px;">
 
+              <!-- Web3Forms -->
+              <input type="hidden" name="access_key" value="0b97fb04-ebea-495a-a158-6543910fc60a"/>
+              <input type="hidden" name="from_name" value="Sujit Murari Portfolio"/>
+              <input type="checkbox" name="botcheck" style="display:none;"/>
+
               <!-- Name + Email row -->
               <div class="cyber-form-row">
                 <div>
@@ -426,12 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
       statusEl.style.display = 'none';
 
       try {
-        const res = await fetch('https://formspree.io/f/xreybnby', {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           body: data,
           headers: { 'Accept': 'application/json' }
         });
-        if (res.ok) {
+        const json = await res.json();
+        if (res.ok && json.success) {
           statusEl.textContent = '✓ MESSAGE TRANSMITTED SUCCESSFULLY';
           statusEl.style.color = '#00ff88';
           statusEl.style.display = 'block';
@@ -448,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusEl.style.display = 'none';
           }, 4000);
         } else {
-          throw new Error('failed');
+          throw new Error(json.message || 'failed');
         }
       } catch {
         statusEl.textContent = '✗ TRANSMISSION FAILED — email sujitmurari06@gmail.com directly';
