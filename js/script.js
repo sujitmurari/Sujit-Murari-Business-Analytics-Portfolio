@@ -70,22 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function initLoader() {
   const loader = document.getElementById('loader');
   if (!loader) return;
-  let pct = 0;
+  // Fast load: fill bar quickly and dismiss within 600ms total
   const bar = loader.querySelector('.loader-bar-fill');
   const txt = loader.querySelector('.loader-pct');
-  const iv = setInterval(() => {
-    pct += Math.random() * 12;
-    if (pct >= 100) { pct = 100; clearInterval(iv); }
-    if (bar) bar.style.width = pct + '%';
-    if (txt) txt.textContent = Math.round(pct) + '%';
-    if (pct === 100) {
-      setTimeout(() => {
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.6s ease';
-        setTimeout(() => loader.remove(), 600);
-      }, 300);
-    }
-  }, 80);
+  if (bar) bar.style.transition = 'width 0.4s ease';
+  if (bar) bar.style.width = '100%';
+  if (txt) txt.textContent = '100%';
+  setTimeout(() => {
+    loader.style.opacity = '0';
+    loader.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => loader.remove(), 300);
+  }, 400);
 }
 
 // ── Live Clock ──

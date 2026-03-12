@@ -1,6 +1,6 @@
-# DataNexus — Personal Analytics Portfolio
+# Sujit Murari — Business Analytics Portfolio
 
-> **Live Site:** [sujitmurari.is-a.dev](https://sujit-murari-business-analytics-portfolio.pages.dev/)
+> **Live Site:** [sujitmurari.is-a.dev](https://sujitmurari.is-a.dev/)
 
 A data analytics portfolio built with a cyberpunk/terminal aesthetic, showcasing projects, skills, and interactive analytics tools.
 
@@ -32,10 +32,10 @@ A data analytics portfolio built with a cyberpunk/terminal aesthetic, showcasing
 
 ## License
 
-Copyright (c) 2025 Sujit Murari. All Rights Reserved.  
+Copyright (c) 2026 Sujit Murari. All Rights Reserved.  
 This repository is for portfolio display purposes only.  
 No part of this code may be copied or reused without explicit written permission.
 
 ---
 
-*Built by Sujit Murari — Student of Dev Bhoomi Uttarakhand University, Sem IV, 2025*
+*Built by Sujit Murari — Student of Dev Bhoomi Uttarakhand University, Sem IV, 2026*

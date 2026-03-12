@@ -104,7 +104,7 @@ function initCounters() {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.15 });
   counters.forEach(el => observer.observe(el));
 }
 
