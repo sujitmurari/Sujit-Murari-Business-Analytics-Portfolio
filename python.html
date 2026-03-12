@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <title>Python Lab — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/tomorrow-night.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js" defer></script>
+  <style>
+    /* ── Python Page Styles ── */
+    .py-hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+      margin: 28px 0 36px;
+    }
+    .py-stat-card {
+      padding: 18px 14px;
+      border: 1px solid rgba(0,255,255,0.15);
+      background: rgba(0,255,255,0.03);
+      border-radius: 3px;
+      text-align: center;
+    }
+    .py-stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff;
+      display: block;
+    }
+    .py-stat-num.purple { color: #9b5cff; text-shadow: 0 0 20px #9b5cff; }
+    .py-stat-num.green  { color: #00ff88; text-shadow: 0 0 20px #00ff88; }
+    .py-stat-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.12em;
+      color: rgba(224,247,255,0.4);
+      margin-top: 5px;
+    }
+
+    /* Project cards */
+    .project-card {
+      border: 1px solid rgba(0,255,255,0.13);
+      background: rgba(5,5,20,0.85);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      transition: border-color 0.25s;
+    }
+    .project-card:hover { border-color: rgba(0,255,255,0.35); }
+    .project-card.purple { border-color: rgba(155,92,255,0.15); }
+    .project-card.purple:hover { border-color: rgba(155,92,255,0.4); }
+    .project-card.green { border-color: rgba(0,255,136,0.15); }
+    .project-card.green:hover { border-color: rgba(0,255,136,0.35); }
+
+    .project-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px 16px;
+      background: rgba(0,255,255,0.03);
+      border-bottom: 1px solid rgba(0,255,255,0.08);
+      flex-wrap: wrap;
+    }
+    .project-card.purple .project-card-header {
+      background: rgba(155,92,255,0.03);
+      border-bottom-color: rgba(155,92,255,0.08);
+    }
+    .project-card.green .project-card-header {
+      background: rgba(0,255,136,0.03);
+      border-bottom-color: rgba(0,255,136,0.08);
+    }
+
+    .project-card-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      color: rgba(0,255,255,0.3);
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+    }
+    .project-card.purple .project-card-num { color: rgba(155,92,255,0.4); }
+    .project-card.green  .project-card-num { color: rgba(0,255,136,0.4); }
+
+    .project-card-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #e0f7ff;
+      margin-bottom: 8px;
+    }
+    .project-card-desc {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(224,247,255,0.55);
+      line-height: 1.6;
+      max-width: 580px;
+    }
+
+    .project-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+    .py-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+    .py-badge.cyan   { border: 1px solid rgba(0,255,255,0.25); color: rgba(0,255,255,0.7); background: rgba(0,255,255,0.05); }
+    .py-badge.purple { border: 1px solid rgba(155,92,255,0.25); color: rgba(155,92,255,0.8); background: rgba(155,92,255,0.05); }
+    .py-badge.green  { border: 1px solid rgba(0,255,136,0.25); color: rgba(0,255,136,0.8); background: rgba(0,255,136,0.05); }
+    .py-badge.orange { border: 1px solid rgba(255,159,67,0.25); color: rgba(255,159,67,0.8); background: rgba(255,159,67,0.05); }
+
+    /* Techniques list */
+    .techniques-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      padding: 16px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .technique-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      color: rgba(224,247,255,0.45);
+    }
+    .technique-item::before {
+      content: "▸";
+      color: rgba(0,255,255,0.4);
+      flex-shrink: 0;
+    }
+    .project-card.purple .technique-item::before { color: rgba(155,92,255,0.5); }
+    .project-card.green  .technique-item::before { color: rgba(0,255,136,0.5); }
+
+    /* Code block */
+    .code-block {
+      padding: 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      background: rgba(0,0,0,0.2);
+    }
+    .code-block-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.12em;
+      color: rgba(0,255,255,0.3);
+    }
+    .project-card.purple .code-block-label { color: rgba(155,92,255,0.4); }
+    .project-card.green  .code-block-label { color: rgba(0,255,136,0.4); }
+
+    .copy-btn {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border: 1px solid rgba(0,255,255,0.2);
+      background: transparent;
+      color: rgba(0,255,255,0.4);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { color: #00ffff; border-color: rgba(0,255,255,0.5); }
+    .copy-btn.copied { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+
+    .code-block pre {
+      margin: 0;
+      padding: 16px 20px;
+      background: transparent !important;
+      font-size: 0.77rem;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+    .code-block code { font-family: 'Share Tech Mono', monospace !important; background: transparent !important; }
+    .hljs { background: transparent !important; }
+    .hljs-keyword   { color: #00ffff !important; }
+    .hljs-built_in  { color: #9b5cff !important; }
+    .hljs-string    { color: #00ff88 !important; }
+    .hljs-number    { color: #ff9f43 !important; }
+    .hljs-comment   { color: rgba(224,247,255,0.3) !important; font-style: italic; }
+    .hljs-title     { color: #00ffff !important; }
+    .hljs-params    { color: #e0f7ff !important; }
+    .hljs-decorator { color: #ff9f43 !important; }
+
+    /* Library strip */
+    .lib-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .lib-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid rgba(0,255,255,0.12);
+      background: rgba(0,255,255,0.02);
+      border-radius: 3px;
+    }
+    .lib-item.purple { border-color: rgba(155,92,255,0.15); background: rgba(155,92,255,0.02); }
+    .lib-name { font-family: 'Orbitron', monospace; font-size: 0.65rem; color: #00ffff; }
+    .lib-item.purple .lib-name { color: #9b5cff; }
+    .lib-use  { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; color: rgba(224,247,255,0.35); margin-top: 2px; }
+
+    /* App showcase */
+    .app-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      padding: 16px 24px 20px;
+    }
+    .app-feature {
+      padding: 14px 16px;
+      border: 1px solid rgba(0,255,136,0.12);
+      background: rgba(0,255,136,0.02);
+      border-radius: 2px;
+    }
+    .app-feature-icon { font-size: 1.3rem; margin-bottom: 6px; }
+    .app-feature-title { font-family: 'Orbitron', monospace; font-size: 0.6rem; color: #00ff88; margin-bottom: 4px; letter-spacing: 0.1em; }
+    .app-feature-desc  { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: rgba(224,247,255,0.4); line-height: 1.5; }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="sql.html">SQL</a></li>
+      <li><a href="python.html" class="active">Python</a></li>
+      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="page-content">
+
+  <!-- Hero -->
+  <section class="page-hero section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; PYTHON LAB</div>
+      <div class="section-header" data-reveal>
+        <h1>PYTHON <span class="text-cyan">ANALYTICS LAB</span></h1>
+      </div>
+      <p data-reveal data-delay="80" style="max-width:640px;color:rgba(224,247,255,0.55);font-size:1rem;margin-bottom:0;">
+        Pandas, NumPy, Matplotlib, Seaborn, and Scikit-learn applied to real datasets — EDA, statistical analysis, machine learning, and a full Python desktop application built in Semester III.
+      </p>
+
+      <div class="py-hero-stats" data-reveal data-delay="120">
+        <div class="py-stat-card">
+          <span class="py-stat-num" data-count="5">0</span>
+          <div class="py-stat-label">PROJECTS</div>
+        </div>
+        <div class="py-stat-card">
+          <span class="py-stat-num purple" data-count="40">0</span>
+          <div class="py-stat-label">VISUALIZATIONS</div>
+        </div>
+        <div class="py-stat-card">
+          <span class="py-stat-num green" data-count="6">0</span>
+          <div class="py-stat-label">LIBRARIES USED</div>
+        </div>
+        <div class="py-stat-card">
+          <span class="py-stat-num" data-count="4">0</span>
+          <div class="py-stat-label">DATASETS ANALYZED</div>
+        </div>
+        <div class="py-stat-card">
+          <span class="py-stat-num purple" data-count="1">0</span>
+          <div class="py-stat-label">ML MODEL BUILT</div>
+        </div>
+      </div>
+
+      <!-- Library strip -->
+      <div data-reveal data-delay="160" style="margin-bottom:48px;">
+        <div class="data-label mb-16">◈ LIBRARIES USED ACROSS ALL PROJECTS</div>
+        <div class="lib-strip">
+          <div class="lib-item"><div><div class="lib-name">pandas</div><div class="lib-use">Data manipulation · cleaning · aggregation</div></div></div>
+          <div class="lib-item purple"><div><div class="lib-name" style="color:#9b5cff;">numpy</div><div class="lib-use">Numerical computation · arrays</div></div></div>
+          <div class="lib-item"><div><div class="lib-name">matplotlib</div><div class="lib-use">Charts · histograms · scatter plots</div></div></div>
+          <div class="lib-item purple"><div><div class="lib-name" style="color:#9b5cff;">seaborn</div><div class="lib-use">Statistical charts · heatmaps · boxplots</div></div></div>
+          <div class="lib-item"><div><div class="lib-name">scikit-learn</div><div class="lib-use">Logistic regression · PCA · train/test split</div></div></div>
+          <div class="lib-item purple"><div><div class="lib-name" style="color:#9b5cff;">tkinter + sqlite3</div><div class="lib-use">Desktop app · embedded database</div></div></div>
+        </div>
+      </div>
+
+      <div data-reveal data-delay="200" style="margin-bottom:48px;display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-solid">↗ View Code on GitHub</a>
+        <a href="projects.html" class="btn-neon btn-neon-purple">▸ See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2>PYTHON <span class="text-cyan">PROJECTS</span></h2>
+      </div>
+
+      <!-- ══════════════════════════════
+           PROJECT 01 — DS Jobs EDA
+           ══════════════════════════════ -->
+      <div class="project-card" data-reveal>
+        <div class="project-card-header">
+          <div>
+            <div class="project-card-num">PROJECT_01 · SEM III · EDA</div>
+            <div class="project-card-title">📊 Data Science Jobs Market — EDA</div>
+            <div class="project-card-desc">
+              Exploratory analysis of a real data science job postings dataset — uncovering salary distributions, in-demand skills, top hiring companies, and the relationship between company rating and compensation.
+            </div>
+            <div class="project-badges">
+              <span class="py-badge cyan">pandas</span>
+              <span class="py-badge cyan">seaborn</span>
+              <span class="py-badge cyan">matplotlib</span>
+              <span class="py-badge cyan">numpy</span>
+              <span class="py-badge orange">12 CHARTS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="techniques-grid">
+          <div class="technique-item">histplot — salary distribution</div>
+          <div class="technique-item">barplot — top 10 companies</div>
+          <div class="technique-item">boxplot — salary by job category</div>
+          <div class="technique-item">scatterplot — rating vs salary</div>
+          <div class="technique-item">countplot — skill demand (Python/R/AWS)</div>
+          <div class="technique-item">heatmap — correlation matrix</div>
+          <div class="technique-item">kde=True — density overlay</div>
+          <div class="technique-item">value_counts + head(10) — top filter</div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">◈ KEY SNIPPET — Correlation Heatmap + Skill Demand Chart</span>
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+          </div>
+          <pre><code class="language-python">import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("eda_data.csv")
+
+# Skill demand — Python, R, Spark, AWS, Excel
+skills = ['python_yn', 'R_yn', 'spark', 'aws', 'excel']
+skill_counts = df[skills].sum()
+sns.barplot(x=skill_counts.index, y=skill_counts.values)
+plt.title("Skill Demand in Data Science Job Postings")
+plt.show()
+
+# Correlation heatmap across all numeric variables
+plt.figure(figsize=(8, 6))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
+
+# Salary vs Company Rating — colored by job category
+sns.scatterplot(data=df, x="Rating", y="avg_salary", hue="job_simp")
+plt.title("Salary vs Company Rating by Job Category")
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PROJECT 02 — Stress EDA
+           ══════════════════════════════ -->
+      <div class="project-card purple" data-reveal data-delay="80">
+        <div class="project-card-header">
+          <div>
+            <div class="project-card-num">PROJECT_02 · SEM III · EDA ASSIGNMENT</div>
+            <div class="project-card-title">🧠 Student Stress Dataset — EDA</div>
+            <div class="project-card-desc">
+              Analyzed a survey dataset on student stress indicators — anxiety, sleep problems, concentration issues, and mood. Produced 14 visualizations mapping frequency distributions and correlations between stress symptoms.
+            </div>
+            <div class="project-badges">
+              <span class="py-badge purple">pandas</span>
+              <span class="py-badge purple">matplotlib</span>
+              <span class="py-badge purple">seaborn</span>
+              <span class="py-badge orange">14 CHARTS</span>
+              <span class="py-badge orange">SURVEY DATA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="techniques-grid">
+          <div class="technique-item">groupby + mean — anxiety by age</div>
+          <div class="technique-item">line plot — trend over age groups</div>
+          <div class="technique-item">countplot — stress distribution</div>
+          <div class="technique-item">pie chart — palpitations, loneliness</div>
+          <div class="technique-item">histogram — anxiety frequency bins</div>
+          <div class="technique-item">bar chart — sleep problems, headaches</div>
+          <div class="technique-item">scatter — age vs overwhelm</div>
+          <div class="technique-item">marker, linestyle, alpha — chart styling</div>
+        </div>
+
+        <div class="code-block" style="border-top:1px solid rgba(155,92,255,0.08);">
+          <div class="code-block-header">
+            <span class="code-block-label">◈ KEY SNIPPET — Anxiety by Age + Stress Distribution</span>
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+          </div>
+          <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv("Stress_Dataset.csv")
+
+# Line plot: Average anxiety level by age group
+avg_anxiety = df.groupby("Age")[
+    "Have you been dealing with anxiety or tension recently?"
+].mean()
+
+plt.figure(figsize=(8, 5))
+plt.plot(avg_anxiety.index, avg_anxiety.values,
+         marker="s", markersize=7, linestyle="--",
+         linewidth=2, color="g")
+plt.title("Anxiety Level by Age")
+plt.xlabel("Age")
+plt.ylabel("Average Anxiety Level")
+plt.grid(True, alpha=0.4)
+plt.show()
+
+# Countplot: Stress level distribution
+sns.countplot(
+    x="Have you recently experienced stress in your life?",
+    data=df, palette="Set2"
+)
+plt.title("Stress Level Distribution")
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PROJECT 03 — Digital Habits Survey
+           ══════════════════════════════ -->
+      <div class="project-card" data-reveal data-delay="100">
+        <div class="project-card-header">
+          <div>
+            <div class="project-card-num">PROJECT_03 · SEM III · END SEM ASSIGNMENT</div>
+            <div class="project-card-title">📱 Digital Habits Survey — Data Cleaning + EDA</div>
+            <div class="project-card-desc">
+              End-semester assignment analyzing a real survey on digital habits and environmental awareness. Full data cleaning pipeline followed by descriptive statistics and visualization — screen time vs environmental concern correlation.
+            </div>
+            <div class="project-badges">
+              <span class="py-badge cyan">pandas</span>
+              <span class="py-badge cyan">matplotlib</span>
+              <span class="py-badge orange">DATA CLEANING</span>
+              <span class="py-badge orange">SURVEY · 121 ROWS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="techniques-grid">
+          <div class="technique-item">fillna — handle missing Name values</div>
+          <div class="technique-item">drop_duplicates — remove dupes</div>
+          <div class="technique-item">str.strip — clean whitespace</div>
+          <div class="technique-item">isnull / df[df[col].isnull()] — audit</div>
+          <div class="technique-item">mean, median, mode, std — desc stats</div>
+          <div class="technique-item">min, max, range — spread analysis</div>
+          <div class="technique-item">pivot_table — age group aggregation</div>
+          <div class="technique-item">scatter — screen time vs env concern</div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">◈ KEY SNIPPET — Full Data Cleaning Pipeline</span>
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+          </div>
+          <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_excel("Your Digital Habits Survey.xlsx")
+
+# ── Data Cleaning Pipeline ──
+df["Name"] = df["Name"].fillna("Unknown")       # fill nulls
+df.drop_duplicates(inplace=True)                # remove dupes
+df["What is your age?"] = df["What is your age?"].str.strip()  # clean whitespace
+
+# ── Descriptive Statistics ──
+col = 'How concerned are you about environmental issues?'
+print(f"Mean:   {df[col].mean():.2f}")
+print(f"Median: {df[col].median()}")
+print(f"Std:    {df[col].std():.2f}")
+print(f"Range:  {df[col].max() - df[col].min()}")
+
+# ── Pivot: Average concern by age group ──
+pivot = df.pivot_table(values=col,
+                       index='What is your age?',
+                       aggfunc='mean')
+pivot.plot(kind='bar')
+plt.title("Environmental Concern by Age Group")
+plt.xticks(rotation=45)
+plt.show()</code></pre>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PROJECT 04 — Churn ML Model
+           ══════════════════════════════ -->
+      <div class="project-card purple" data-reveal data-delay="120">
+        <div class="project-card-header">
+          <div>
+            <div class="project-card-num">PROJECT_04 · KAGGLE COMPETITION · MACHINE LEARNING</div>
+            <div class="project-card-title">🤖 Customer Churn Prediction — Logistic Regression</div>
+            <div class="project-card-desc">
+              Kaggle Playground Series competition entry — built a churn prediction model using logistic regression. Full pipeline: combined train/test datasets, label-encoded all categorical features, trained a classifier, and generated probability predictions for submission.
+            </div>
+            <div class="project-badges">
+              <span class="py-badge purple">scikit-learn</span>
+              <span class="py-badge purple">pandas</span>
+              <span class="py-badge purple">LabelEncoder</span>
+              <span class="py-badge purple">LogisticRegression</span>
+              <span class="py-badge orange">KAGGLE COMPETITION</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="techniques-grid">
+          <div class="technique-item">LabelEncoder — encode categoricals</div>
+          <div class="technique-item">pd.concat — combine train + test</div>
+          <div class="technique-item">train_test_split — holdout set</div>
+          <div class="technique-item">LogisticRegression(max_iter=1000)</div>
+          <div class="technique-item">predict_proba — soft predictions</div>
+          <div class="technique-item">target mapping: Yes→1, No→0</div>
+          <div class="technique-item">submission CSV generation</div>
+          <div class="technique-item">select_dtypes — auto detect cols</div>
+        </div>
+
+        <div class="code-block" style="border-top:1px solid rgba(155,92,255,0.08);">
+          <div class="code-block-header">
+            <span class="code-block-label">◈ KEY SNIPPET — Full ML Pipeline</span>
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+          </div>
+          <pre><code class="language-python">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+
+train = pd.read_csv("train.csv")
+test  = pd.read_csv("test.csv")
+
+# Map target to binary
+train["Churn"] = train["Churn"].map({"Yes": 1, "No": 0})
+
+# Combine for consistent label encoding
+combined = pd.concat([train.drop("Churn", axis=1), test], axis=0)
+
+for col in combined.select_dtypes(include="object").columns:
+    if col != "id":
+        le = LabelEncoder()
+        combined[col] = le.fit_transform(combined[col].astype(str))
+
+# Split back into train / test
+X_train = combined.iloc[:len(train)]
+X_test  = combined.iloc[len(train):]
+y_train = train["Churn"]
+
+# Train and predict churn probabilities
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train.drop("id", axis=1), y_train)
+pred_prob = model.predict_proba(X_test.drop("id", axis=1))[:, 1]
+
+# Generate submission file
+pd.DataFrame({"id": test["id"], "Churn": pred_prob}).to_csv(
+    "submission.csv", index=False
+)</code></pre>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PROJECT 05 — Eco Monitor App
+           ══════════════════════════════ -->
+      <div class="project-card green" data-reveal data-delay="140">
+        <div class="project-card-header">
+          <div>
+            <div class="project-card-num">PROJECT_05 · PYTHON APPLICATION · MOST ADVANCED</div>
+            <div class="project-card-title">🌿 Eco Monitor — Desktop CO₂ Tracker App</div>
+            <div class="project-card-desc">
+              A fully functional desktop application that monitors real-time CPU and GPU usage, estimates CO₂ emissions per second, and stores daily history in SQLite. Features a live animated UI — a plant that wilts as emissions rise, or a city skyline whose sky darkens — built with Tkinter. Most advanced Python work in the portfolio.
+            </div>
+            <div class="project-badges">
+              <span class="py-badge green">tkinter</span>
+              <span class="py-badge green">sqlite3</span>
+              <span class="py-badge green">psutil</span>
+              <span class="py-badge green">threading</span>
+              <span class="py-badge green">GPUtil</span>
+              <span class="py-badge orange">FULL APP</span>
+              <span class="py-badge orange">LIVE UI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-feature-grid">
+          <div class="app-feature">
+            <div class="app-feature-icon">⚡</div>
+            <div class="app-feature-title">REAL-TIME MONITORING</div>
+            <div class="app-feature-desc">Reads CPU and GPU usage every second using psutil and GPUtil — converts watt consumption to CO₂ grams using gCO₂/kWh formula</div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon">🌱</div>
+            <div class="app-feature-title">ANIMATED PLANT UI</div>
+            <div class="app-feature-desc">Plant grows green when CO₂ is low, wilts brown as daily budget is exceeded — visual feedback using Canvas color interpolation</div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon">🏙️</div>
+            <div class="app-feature-title">CITY VIEW TOGGLE</div>
+            <div class="app-feature-desc">Switchable city skyline view — sky color fades from blue to grey as pollution rises, with animated building windows</div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon">🗄️</div>
+            <div class="app-feature-title">SQLITE DATABASE</div>
+            <div class="app-feature-desc">Every second of usage is written to SQLite — daily summaries tracked with INSERT OR REPLACE for anomaly detection</div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon">🧵</div>
+            <div class="app-feature-title">MULTI-THREADING</div>
+            <div class="app-feature-desc">Background daemon thread runs the monitoring loop — UI thread stays responsive while data collection runs continuously</div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon">🤖</div>
+            <div class="app-feature-title">AI USAGE DETECTION</div>
+            <div class="app-feature-desc">Detects browser + GPU usage spikes to estimate CO₂ from AI tool usage — flags sessions likely involving LLM inference</div>
+          </div>
+        </div>
+
+        <div class="code-block" style="border-top:1px solid rgba(0,255,136,0.08);">
+          <div class="code-block-header">
+            <span class="code-block-label">◈ KEY SNIPPET — CO₂ Calculation + SQLite Write</span>
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+          </div>
+          <pre><code class="language-python">import psutil, sqlite3, threading, time, json
+
+CPU_MAX_POWER_W   = 100
+GPU_MAX_POWER_W   = 200
+gCO2_per_kWh      = 700
+DAILY_BUDGET_G    = 200
+
+def update_metrics_loop(self):
+    while self.running:
+        cpu_pct   = psutil.cpu_percent(interval=1)
+        gpu_pct   = self.get_gpu_usage()
+
+        # Watts → CO₂ grams per second
+        power_cpu = CPU_MAX_POWER_W * (cpu_pct / 100.0)
+        co2_per_s = (power_cpu / 1000) * (gCO2_per_kWh / 3600)
+
+        self.cumulative_co2 += co2_per_s
+
+        # Persist to SQLite with daily summary rollover
+        conn = sqlite3.connect("sustainability_data.db")
+        conn.execute(
+            "INSERT INTO usage (cpu_percent, co2_grams) VALUES (?, ?)",
+            (cpu_pct, co2_per_s)
+        )
+        conn.execute(
+            "INSERT OR REPLACE INTO daily_summary (day, total_co2_grams) VALUES (?, ?)",
+            (date.today(), self.cumulative_co2)
+        )
+        conn.commit()
+        conn.close()
+
+        # Update UI — health_factor drives plant / city color
+        health = max(0, 1.0 - (self.cumulative_co2 / DAILY_BUDGET_G))
+        self.root.after(0, lambda h=health: self.update_visuals(h))
+        time.sleep(1)</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;">
+    <div class="container" data-reveal>
+      <div class="cp-panel" style="padding:48px 40px;max-width:700px;margin:0 auto;text-align:center;">
+        <div class="data-label mb-16">◈ FULL SOURCE CODE</div>
+        <h2 style="margin-bottom:12px;">All <span class="text-cyan">Python Files</span> on GitHub</h2>
+        <p style="margin-bottom:28px;color:rgba(224,247,255,0.5);">Complete Jupyter notebooks and .py scripts from Semester III — EDA, ML pipeline, and the full Eco Monitor application.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-solid">↗ View on GitHub</a>
+          <a href="projects.html" class="btn-neon btn-neon-purple">▸ See Analytics Projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; DEV BHOOMI UTTARAKHAND UNIVERSITY · SEM IV · 2026
+    </p>
+  </div>
+</footer>
+
+<script src="js/animations.js"></script>
+<script src="js/script.js"></script>
+<script src="js/register-sw.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => { if (window.hljs) hljs.highlightAll(); }, 300);
+  });
+
+  function copyCode(btn) {
+    const code = btn.closest('.project-card').querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ COPIED';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+<style>
+  @media (max-width: 768px) {
+    .py-hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .app-feature-grid { grid-template-columns: 1fr; }
+    .lib-strip { flex-direction: column; }
+  }
+</style>
+</body>
+</html>
