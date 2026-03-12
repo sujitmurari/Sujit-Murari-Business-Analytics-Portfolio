@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google-site-verification" content="44tjBEMk739FBWKaSV65wHnllPRaCu5s9x8wffFD53A" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png"/>
+  <link rel="manifest" href="site.webmanifest"/>
+  <meta name="theme-color" content="#050510"/>
+  <meta property="og:image" content="android-chrome-512x512.png"/>
+  <title>SQL Queries — Sujit Murari | Business Analytics Portfolio</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cyberpunk.css"/>
+  <style>
+    /* ── SQL Page Styles ── */
+    .sql-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .sql-grid { grid-template-columns: 1fr; } }
+
+    /* Sidebar nav */
+    .sql-sidebar {
+      position: sticky;
+      top: 110px;
+    }
+    .sql-nav-section {
+      border: 1px solid rgba(0,255,255,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .sql-nav-header {
+      padding: 10px 14px;
+      background: rgba(0,255,255,0.04);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      color: rgba(0,255,255,0.4);
+      border-bottom: 1px solid rgba(0,255,255,0.08);
+    }
+    .sql-nav-item {
+      display: block;
+      padding: 10px 14px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(224,247,255,0.5);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .sql-nav-item:last-child { border-bottom: none; }
+    .sql-nav-item:hover, .sql-nav-item.active {
+      color: #00ffff;
+      background: rgba(0,255,255,0.04);
+      padding-left: 18px;
+    }
+    .sql-nav-item span {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.5rem;
+      color: rgba(0,255,255,0.3);
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Query cards */
+    .query-section {
+      margin-bottom: 48px;
+    }
+    .qs-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.16em;
+      color: rgba(0,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .qs-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      color: #00ffff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qs-title-icon { font-size: 1.3rem; }
+
+    .query-card {
+      border: 1px solid rgba(0,255,255,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: rgba(5,5,16,0.6);
+    }
+    .query-card.purple { border-color: rgba(155,92,255,0.1); }
+    .qc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(0,255,255,0.04);
+      border-bottom: 1px solid rgba(0,255,255,0.08);
+    }
+    .query-card.purple .qc-header { background: rgba(155,92,255,0.04); border-bottom-color: rgba(155,92,255,0.08); }
+    .qc-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: rgba(0,255,255,0.6);
+    }
+    .query-card.purple .qc-title { color: rgba(155,92,255,0.6); }
+    .qc-purpose {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(224,247,255,0.4);
+    }
+    .copy-btn {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      color: rgba(0,255,255,0.5);
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 3px;
+      padding: 3px 8px;
+      background: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { color: #00ffff; border-color: rgba(0,255,255,0.5); }
+    .copy-btn.copied { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+
+    /* SQL code block */
+    .sql-code {
+      padding: 20px 20px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: rgba(224,247,255,0.8);
+      overflow-x: auto;
+      white-space: pre;
+      background: rgba(5,5,16,0.3);
+    }
+    .sql-kw { color: #00ffff; font-weight: bold; }
+    .sql-fn { color: #9b5cff; }
+    .sql-str { color: #00ff88; }
+    .sql-num { color: #ff9f40; }
+    .sql-cmt { color: rgba(224,247,255,0.25); font-style: italic; }
+    .sql-tbl { color: #e0f7ff; }
+    .sql-col { color: rgba(224,247,255,0.7); }
+
+    /* Result preview */
+    .qc-result {
+      border-top: 1px solid rgba(0,255,255,0.06);
+      padding: 0;
+    }
+    .query-card.purple .qc-result { border-top-color: rgba(155,92,255,0.06); }
+    .qr-header {
+      padding: 8px 16px;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.12em;
+      color: rgba(0,255,255,0.3);
+      background: rgba(0,255,255,0.02);
+      border-bottom: 1px solid rgba(0,255,255,0.05);
+    }
+    .query-card.purple .qr-header { color: rgba(155,92,255,0.3); background: rgba(155,92,255,0.02); border-bottom-color: rgba(155,92,255,0.05); }
+    .qr-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+    }
+    .qr-table th {
+      padding: 6px 14px;
+      text-align: left;
+      color: rgba(0,255,255,0.5);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid rgba(0,255,255,0.06);
+    }
+    .query-card.purple .qr-table th { color: rgba(155,92,255,0.5); border-bottom-color: rgba(155,92,255,0.06); }
+    .qr-table td {
+      padding: 6px 14px;
+      color: rgba(224,247,255,0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+    .qr-table tr:last-child td { border-bottom: none; }
+
+    /* Insight callout */
+    .sql-insight {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 16px;
+      background: rgba(0,255,255,0.03);
+      border-left: 2px solid rgba(0,255,255,0.3);
+      margin-top: 12px;
+      border-radius: 0 4px 4px 0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(224,247,255,0.6);
+      line-height: 1.5;
+    }
+    .sql-insight.purple { background: rgba(155,92,255,0.03); border-left-color: rgba(155,92,255,0.3); }
+    .sql-insight-icon { color: #00ffff; flex-shrink: 0; }
+    .sql-insight.purple .sql-insight-icon { color: #9b5cff; }
+
+    /* Skill pills */
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-pill {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      padding: 6px 12px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,255,255,0.25);
+      color: #00ffff;
+      background: rgba(0,255,255,0.05);
+    }
+    .skill-pill.purple { border-color: rgba(155,92,255,0.25); color: #9b5cff; background: rgba(155,92,255,0.05); }
+    .skill-pill.green { border-color: rgba(0,255,136,0.25); color: #00ff88; background: rgba(0,255,136,0.05); }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="scanlines"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="dashboards.html">Dashboards</a></li>
+      <li><a href="sql.html" class="active">SQL</a></li>
+      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="page-content">
+  <section class="page-hero section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; SQL QUERIES</div>
+      <div class="section-header" data-reveal>
+        <h1>SQL <span class="text-cyan">QUERY LIBRARY</span></h1>
+      </div>
+      <p data-reveal data-delay="100" style="max-width:660px;margin-bottom:16px;">
+        Real SQL queries written for actual project analysis. Each query is annotated with its business purpose and the insight it generated. Database: MySQL · SQLite · PostgreSQL compatible.
+      </p>
+      <div data-reveal data-delay="150" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;">
+        <span class="skill-pill">SELECT / WHERE</span>
+        <span class="skill-pill">GROUP BY</span>
+        <span class="skill-pill">JOIN</span>
+        <span class="skill-pill">Subqueries</span>
+        <span class="skill-pill purple">Window Functions</span>
+        <span class="skill-pill purple">CTEs</span>
+        <span class="skill-pill green">Aggregations</span>
+        <span class="skill-pill green">CASE WHEN</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:16px;">
+    <div class="container">
+      <div class="sql-grid">
+
+        <!-- Sidebar -->
+        <div class="sql-sidebar" data-reveal data-delay="50">
+          <div class="sql-nav-section">
+            <div class="sql-nav-header">✈️ AIRLINE PROJECT</div>
+            <a class="sql-nav-item active" href="#airline-revenue">Revenue by Route<span>SUM · GROUP BY</span></a>
+            <a class="sql-nav-item" href="#airline-booking">Booking Window Analysis<span>CASE WHEN · AVG</span></a>
+            <a class="sql-nav-item" href="#airline-top">Top Revenue Routes<span>RANK · LIMIT</span></a>
+          </div>
+          <div class="sql-nav-section">
+            <div class="sql-nav-header" style="color:rgba(155,92,255,0.4);background:rgba(155,92,255,0.04);border-bottom-color:rgba(155,92,255,0.08);">🛒 ECOMMERCE PROJECT</div>
+            <a class="sql-nav-item" href="#ecom-revenue">Revenue by Category<span>SUM · ORDER BY</span></a>
+            <a class="sql-nav-item" href="#ecom-discount">Discount vs Rating<span>AVG · HAVING</span></a>
+            <a class="sql-nav-item" href="#ecom-brand">Brand Premium Index<span>Subquery · CTE</span></a>
+          </div>
+          <div class="sql-nav-section">
+            <div class="sql-nav-header">🤖 AI PRODUCTIVITY</div>
+            <a class="sql-nav-item" href="#ai-dept">Productivity by Dept<span>AVG · GROUP BY</span></a>
+            <a class="sql-nav-item" href="#ai-roi">ROI Calculation<span>CASE WHEN · CTE</span></a>
+          </div>
+          <div class="sql-nav-section">
+            <div class="sql-nav-header" style="color:rgba(155,92,255,0.4);background:rgba(155,92,255,0.04);border-bottom-color:rgba(155,92,255,0.08);">💪 GYM ANALYTICS</div>
+            <a class="sql-nav-item" href="#gym-retention">Retention by Workout<span>COUNT · FILTER</span></a>
+            <a class="sql-nav-item" href="#gym-peak">Peak Hour Analysis<span>Window Function</span></a>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div>
+
+          <!-- ═══ AIRLINE QUERIES ═══ -->
+          <div class="query-section" id="airline-revenue" data-reveal data-delay="100">
+            <div class="qs-label">AIRLINE PRICING PROJECT · QUERIES 01–03</div>
+            <div class="qs-title"><span class="qs-title-icon">✈️</span> Airline Revenue Analysis</div>
+
+            <!-- Query 1 -->
+            <div class="query-card">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_01 — REVENUE BY ROUTE</div>
+                  <div class="qc-purpose">Which routes generate the most revenue?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q1')">COPY</button>
+              </div>
+              <div class="sql-code" id="q1"><span class="sql-cmt">-- Total revenue and average ticket price grouped by route</span>
+<span class="sql-kw">SELECT</span>
+    route,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> total_flights,
+    <span class="sql-fn">SUM</span>(ticket_price) <span class="sql-kw">AS</span> total_revenue,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(ticket_price), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_ticket_price,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(ticket_price) * <span class="sql-num">100.0</span> /
+        <span class="sql-fn">SUM</span>(<span class="sql-fn">SUM</span>(ticket_price)) <span class="sql-kw">OVER</span>(), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> revenue_share_pct
+<span class="sql-kw">FROM</span> flights
+<span class="sql-kw">WHERE</span> travel_class <span class="sql-kw">IS NOT NULL</span>
+<span class="sql-kw">GROUP BY</span> route
+<span class="sql-kw">ORDER BY</span> total_revenue <span class="sql-kw">DESC</span>
+<span class="sql-kw">LIMIT</span> <span class="sql-num">10</span>;</div>
+              <div class="qc-result">
+                <div class="qr-header">◈ SAMPLE RESULT (top 5 rows)</div>
+                <table class="qr-table">
+                  <thead><tr><th>route</th><th>total_flights</th><th>total_revenue</th><th>avg_ticket_price</th><th>revenue_share_pct</th></tr></thead>
+                  <tbody>
+                    <tr><td>DEL→BOM</td><td>1,842</td><td>₹98,420,000</td><td>₹5,343</td><td>18.2%</td></tr>
+                    <tr><td>DEL→BLR</td><td>1,621</td><td>₹84,150,000</td><td>₹5,191</td><td>15.6%</td></tr>
+                    <tr><td>BOM→HYD</td><td>1,104</td><td>₹38,900,000</td><td>₹3,524</td><td>7.2%</td></tr>
+                    <tr><td>BLR→MAA</td><td>980</td><td>₹29,400,000</td><td>₹3,000</td><td>5.4%</td></tr>
+                    <tr><td>DEL→CCU</td><td>876</td><td>₹25,100,000</td><td>₹2,866</td><td>4.6%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="sql-insight">
+              <span class="sql-insight-icon">◈</span>
+              <span>This query revealed that top 3 routes (DEL→BOM, DEL→BLR, BOM→HYD) account for <strong style="color:#00ffff;">41% of total revenue</strong> — justifying dynamic pricing priority on these corridors.</span>
+            </div>
+
+            <!-- Query 2 -->
+            <div class="query-card" id="airline-booking" style="margin-top:20px;">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_02 — BOOKING WINDOW PRICE ANALYSIS</div>
+                  <div class="qc-purpose">How does advance booking affect ticket pricing?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q2')">COPY</button>
+              </div>
+              <div class="sql-code" id="q2"><span class="sql-cmt">-- Average price by booking window bucket using CASE WHEN</span>
+<span class="sql-kw">SELECT</span>
+    <span class="sql-kw">CASE</span>
+        <span class="sql-kw">WHEN</span> days_before_travel <span class="sql-kw">BETWEEN</span> <span class="sql-num">0</span> <span class="sql-kw">AND</span> <span class="sql-num">7</span>   <span class="sql-kw">THEN</span> <span class="sql-str">'0–7 days (Last Minute)'</span>
+        <span class="sql-kw">WHEN</span> days_before_travel <span class="sql-kw">BETWEEN</span> <span class="sql-num">8</span> <span class="sql-kw">AND</span> <span class="sql-num">14</span>  <span class="sql-kw">THEN</span> <span class="sql-str">'8–14 days'</span>
+        <span class="sql-kw">WHEN</span> days_before_travel <span class="sql-kw">BETWEEN</span> <span class="sql-num">15</span> <span class="sql-kw">AND</span> <span class="sql-num">30</span> <span class="sql-kw">THEN</span> <span class="sql-str">'15–30 days (Optimal)'</span>
+        <span class="sql-kw">ELSE</span> <span class="sql-str">'30+ days (Early Bird)'</span>
+    <span class="sql-kw">END</span> <span class="sql-kw">AS</span> booking_window,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> bookings,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(ticket_price), <span class="sql-num">0</span>) <span class="sql-kw">AS</span> avg_price,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(seat_availability_pct), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_seat_availability
+<span class="sql-kw">FROM</span> flights
+<span class="sql-kw">GROUP BY</span> booking_window
+<span class="sql-kw">ORDER BY</span> avg_price <span class="sql-kw">DESC</span>;</div>
+              <div class="qc-result">
+                <div class="qr-header">◈ SAMPLE RESULT</div>
+                <table class="qr-table">
+                  <thead><tr><th>booking_window</th><th>bookings</th><th>avg_price</th><th>avg_seat_availability</th></tr></thead>
+                  <tbody>
+                    <tr><td>0–7 days (Last Minute)</td><td>2,210</td><td>₹7,840</td><td>12.3%</td></tr>
+                    <tr><td>8–14 days</td><td>3,100</td><td>₹5,920</td><td>48.1%</td></tr>
+                    <tr><td>15–30 days (Optimal)</td><td>4,320</td><td>₹4,280</td><td>91.4%</td></tr>
+                    <tr><td>30+ days (Early Bird)</td><td>2,410</td><td>₹3,900</td><td>98.2%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="sql-insight">
+              <span class="sql-insight-icon">◈</span>
+              <span>The 15–30 day window is optimal: <strong style="color:#00ffff;">23% lower prices with 91% seat availability</strong>. Last-minute fares are nearly 2× higher — confirming a dynamic pricing opportunity.</span>
+            </div>
+
+            <!-- Query 3 -->
+            <div class="query-card" id="airline-top" style="margin-top:20px;">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_03 — CLASS-WISE REVENUE BREAKDOWN</div>
+                  <div class="qc-purpose">Compare economy vs business class revenue contribution</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q3')">COPY</button>
+              </div>
+              <div class="sql-code" id="q3"><span class="sql-cmt">-- Revenue per class with proportion and yield per seat</span>
+<span class="sql-kw">WITH</span> class_revenue <span class="sql-kw">AS</span> (
+    <span class="sql-kw">SELECT</span>
+        travel_class,
+        <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> bookings,
+        <span class="sql-fn">SUM</span>(ticket_price) <span class="sql-kw">AS</span> total_revenue,
+        <span class="sql-fn">AVG</span>(ticket_price) <span class="sql-kw">AS</span> avg_price
+    <span class="sql-kw">FROM</span> flights
+    <span class="sql-kw">GROUP BY</span> travel_class
+),
+total <span class="sql-kw">AS</span> (
+    <span class="sql-kw">SELECT</span> <span class="sql-fn">SUM</span>(total_revenue) <span class="sql-kw">AS</span> grand_total <span class="sql-kw">FROM</span> class_revenue
+)
+<span class="sql-kw">SELECT</span>
+    cr.travel_class,
+    cr.bookings,
+    cr.total_revenue,
+    <span class="sql-fn">ROUND</span>(cr.total_revenue * <span class="sql-num">100.0</span> / t.grand_total, <span class="sql-num">1</span>) <span class="sql-kw">AS</span> revenue_pct,
+    <span class="sql-fn">ROUND</span>(cr.avg_price, <span class="sql-num">0</span>) <span class="sql-kw">AS</span> yield_per_seat
+<span class="sql-kw">FROM</span> class_revenue cr, total t
+<span class="sql-kw">ORDER BY</span> cr.total_revenue <span class="sql-kw">DESC</span>;</div>
+            </div>
+          </div>
+
+          <!-- ═══ ECOMMERCE QUERIES ═══ -->
+          <div class="query-section" id="ecom-revenue" data-reveal data-delay="150">
+            <div class="qs-label">E-COMMERCE PROJECT · QUERIES 04–06</div>
+            <div class="qs-title"><span class="qs-title-icon">🛒</span> Flipkart Revenue Analysis</div>
+
+            <div class="query-card purple">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_04 — REVENUE BY CATEGORY</div>
+                  <div class="qc-purpose">Which product categories drive platform revenue?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q4')">COPY</button>
+              </div>
+              <div class="sql-code" id="q4"><span class="sql-cmt">-- Revenue proxy: selling_price × estimated_sales volume</span>
+<span class="sql-kw">SELECT</span>
+    category,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> product_count,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(selling_price), <span class="sql-num">0</span>) <span class="sql-kw">AS</span> avg_price,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(discount_pct), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_discount_pct,
+    <span class="sql-fn">SUM</span>(selling_price * num_reviews * <span class="sql-num">10</span>) <span class="sql-kw">AS</span> revenue_proxy,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(rating), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_rating
+<span class="sql-kw">FROM</span> flipkart_products
+<span class="sql-kw">WHERE</span> selling_price <span class="sql-kw">IS NOT NULL</span>
+  <span class="sql-kw">AND</span> num_reviews <span class="sql-kw">></span> <span class="sql-num">0</span>
+<span class="sql-kw">GROUP BY</span> category
+<span class="sql-kw">ORDER BY</span> revenue_proxy <span class="sql-kw">DESC</span>;</div>
+              <div class="qc-result">
+                <div class="qr-header" style="color:rgba(155,92,255,0.3);background:rgba(155,92,255,0.02);border-bottom-color:rgba(155,92,255,0.05);">◈ SAMPLE RESULT</div>
+                <table class="qr-table">
+                  <thead><tr><th>category</th><th>product_count</th><th>avg_price</th><th>avg_discount</th><th>revenue_proxy</th><th>avg_rating</th></tr></thead>
+                  <tbody>
+                    <tr><td>Electronics</td><td>5,610</td><td>₹8,420</td><td>24.1%</td><td>₹4.8B</td><td>4.1</td></tr>
+                    <tr><td>Clothing</td><td>4,240</td><td>₹899</td><td>41.2%</td><td>₹1.2B</td><td>3.8</td></tr>
+                    <tr><td>Home Appliances</td><td>1,820</td><td>₹3,200</td><td>28.6%</td><td>₹980M</td><td>4.0</td></tr>
+                    <tr><td>Footwear</td><td>2,110</td><td>₹1,840</td><td>35.4%</td><td>₹720M</td><td>4.2</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="sql-insight purple">
+              <span class="sql-insight-icon">◈</span>
+              <span>Electronics drives <strong style="color:#9b5cff;">52% of estimated platform revenue</strong> despite 24% avg discount — lower discount rates in this category still yield the highest total revenue due to high ASP.</span>
+            </div>
+
+            <!-- Query 5 -->
+            <div class="query-card purple" id="ecom-discount" style="margin-top:20px;">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_05 — DISCOUNT vs RATING CORRELATION</div>
+                  <div class="qc-purpose">Does higher discount lead to lower product ratings?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q5')">COPY</button>
+              </div>
+              <div class="sql-code" id="q5"><span class="sql-cmt">-- Average rating per discount bucket — quality perception vs. discount depth</span>
+<span class="sql-kw">SELECT</span>
+    <span class="sql-kw">CASE</span>
+        <span class="sql-kw">WHEN</span> discount_pct <span class="sql-kw"><</span> <span class="sql-num">10</span>  <span class="sql-kw">THEN</span> <span class="sql-str">'&lt;10% (Premium Pricing)'</span>
+        <span class="sql-kw">WHEN</span> discount_pct <span class="sql-kw">BETWEEN</span> <span class="sql-num">10</span> <span class="sql-kw">AND</span> <span class="sql-num">30</span> <span class="sql-kw">THEN</span> <span class="sql-str">'10–30% (Moderate)'</span>
+        <span class="sql-kw">WHEN</span> discount_pct <span class="sql-kw">BETWEEN</span> <span class="sql-num">30</span> <span class="sql-kw">AND</span> <span class="sql-num">50</span> <span class="sql-kw">THEN</span> <span class="sql-str">'30–50% (Heavy Discount)'</span>
+        <span class="sql-kw">ELSE</span> <span class="sql-str">'50%+ (Clearance)'</span>
+    <span class="sql-kw">END</span> <span class="sql-kw">AS</span> discount_band,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> products,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(rating), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_rating,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(num_reviews), <span class="sql-num">0</span>) <span class="sql-kw">AS</span> avg_reviews
+<span class="sql-kw">FROM</span> flipkart_products
+<span class="sql-kw">WHERE</span> rating <span class="sql-kw">IS NOT NULL</span>
+  <span class="sql-kw">AND</span> discount_pct <span class="sql-kw">IS NOT NULL</span>
+<span class="sql-kw">GROUP BY</span> discount_band
+<span class="sql-kw">HAVING</span> <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">></span> <span class="sql-num">50</span>
+<span class="sql-kw">ORDER BY</span> avg_rating <span class="sql-kw">DESC</span>;</div>
+            </div>
+
+            <!-- Query 6: Brand Premium -->
+            <div class="query-card purple" id="ecom-brand" style="margin-top:20px;">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_06 — BRAND PREMIUM INDEX</div>
+                  <div class="qc-purpose">Which brands command a price premium over category average?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q6')">COPY</button>
+              </div>
+              <div class="sql-code" id="q6"><span class="sql-cmt">-- CTE to calculate brand premium vs category average price</span>
+<span class="sql-kw">WITH</span> category_avg <span class="sql-kw">AS</span> (
+    <span class="sql-kw">SELECT</span>
+        category,
+        <span class="sql-fn">AVG</span>(selling_price) <span class="sql-kw">AS</span> cat_avg_price
+    <span class="sql-kw">FROM</span> flipkart_products
+    <span class="sql-kw">GROUP BY</span> category
+),
+brand_avg <span class="sql-kw">AS</span> (
+    <span class="sql-kw">SELECT</span>
+        brand,
+        category,
+        <span class="sql-fn">AVG</span>(selling_price) <span class="sql-kw">AS</span> brand_avg_price,
+        <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> sku_count
+    <span class="sql-kw">FROM</span> flipkart_products
+    <span class="sql-kw">GROUP BY</span> brand, category
+    <span class="sql-kw">HAVING</span> <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">>=</span> <span class="sql-num">20</span>
+)
+<span class="sql-kw">SELECT</span>
+    b.brand,
+    b.category,
+    b.sku_count,
+    <span class="sql-fn">ROUND</span>(b.brand_avg_price, <span class="sql-num">0</span>) <span class="sql-kw">AS</span> brand_avg_price,
+    <span class="sql-fn">ROUND</span>(c.cat_avg_price, <span class="sql-num">0</span>) <span class="sql-kw">AS</span> category_avg_price,
+    <span class="sql-fn">ROUND</span>((b.brand_avg_price / c.cat_avg_price) * <span class="sql-num">100</span>, <span class="sql-num">1</span>) <span class="sql-kw">AS</span> premium_index
+<span class="sql-kw">FROM</span> brand_avg b
+<span class="sql-kw">JOIN</span> category_avg c <span class="sql-kw">ON</span> b.category <span class="sql-kw">=</span> c.category
+<span class="sql-kw">ORDER BY</span> premium_index <span class="sql-kw">DESC</span>
+<span class="sql-kw">LIMIT</span> <span class="sql-num">15</span>;</div>
+            </div>
+          </div>
+
+          <!-- ═══ GYM QUERIES ═══ -->
+          <div class="query-section" id="gym-retention" data-reveal data-delay="200">
+            <div class="qs-label">GYM ANALYTICS PROJECT · QUERIES 07–08</div>
+            <div class="qs-title"><span class="qs-title-icon">💪</span> Gym Member Retention Analysis</div>
+
+            <div class="query-card purple">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_07 — RETENTION RATE BY WORKOUT TYPE</div>
+                  <div class="qc-purpose">Which workout types lead to highest 90-day retention?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q7')">COPY</button>
+              </div>
+              <div class="sql-code" id="q7"><span class="sql-cmt">-- 90-day retention rate by workout type and session frequency</span>
+<span class="sql-kw">SELECT</span>
+    workout_type,
+    sessions_per_week,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> total_members,
+    <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> retention_days <span class="sql-kw">>=</span> <span class="sql-num">90</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> retained_90d,
+    <span class="sql-fn">ROUND</span>(
+        <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> retention_days <span class="sql-kw">>=</span> <span class="sql-num">90</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) * <span class="sql-num">100.0</span>
+        / <span class="sql-fn">COUNT</span>(*), <span class="sql-num">1</span>
+    ) <span class="sql-kw">AS</span> retention_rate_pct
+<span class="sql-kw">FROM</span> gym_members
+<span class="sql-kw">GROUP BY</span> workout_type, sessions_per_week
+<span class="sql-kw">ORDER BY</span> retention_rate_pct <span class="sql-kw">DESC</span>;</div>
+              <div class="qc-result">
+                <div class="qr-header" style="color:rgba(155,92,255,0.3);background:rgba(155,92,255,0.02);">◈ SAMPLE RESULT</div>
+                <table class="qr-table">
+                  <thead><tr><th>workout_type</th><th>sessions/wk</th><th>total_members</th><th>retained_90d</th><th>retention_rate</th></tr></thead>
+                  <tbody>
+                    <tr><td>Strength</td><td>3–4</td><td>820</td><td>664</td><td>81.0%</td></tr>
+                    <tr><td>HIIT</td><td>3–4</td><td>610</td><td>476</td><td>78.0%</td></tr>
+                    <tr><td>Yoga</td><td>2–3</td><td>430</td><td>319</td><td>74.2%</td></tr>
+                    <tr><td>Cardio</td><td>5–7</td><td>950</td><td>494</td><td>52.0%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="sql-insight purple">
+              <span class="sql-insight-icon">◈</span>
+              <span>Strength training at 3–4 sessions/week has <strong style="color:#9b5cff;">81% retention</strong> vs cardio at 5–7 sessions (52%). Over-exercising reduces retention — this shaped the gym's recommendation strategy.</span>
+            </div>
+
+            <!-- Query 8 -->
+            <div class="query-card" id="gym-peak" style="margin-top:20px;">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_08 — PEAK HOUR DISTRIBUTION</div>
+                  <div class="qc-purpose">When do members check in? Identify capacity bottlenecks.</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q8')">COPY</button>
+              </div>
+              <div class="sql-code" id="q8"><span class="sql-cmt">-- Check-in distribution by hour with running total (window function)</span>
+<span class="sql-kw">SELECT</span>
+    <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">AS</span> hour_of_day,
+    <span class="sql-kw">CASE</span>
+        <span class="sql-kw">WHEN</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">BETWEEN</span> <span class="sql-num">5</span> <span class="sql-kw">AND</span> <span class="sql-num">9</span>   <span class="sql-kw">THEN</span> <span class="sql-str">'Morning'</span>
+        <span class="sql-kw">WHEN</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">BETWEEN</span> <span class="sql-num">10</span> <span class="sql-kw">AND</span> <span class="sql-num">16</span> <span class="sql-kw">THEN</span> <span class="sql-str">'Afternoon'</span>
+        <span class="sql-kw">WHEN</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time) <span class="sql-kw">BETWEEN</span> <span class="sql-num">17</span> <span class="sql-kw">AND</span> <span class="sql-num">21</span> <span class="sql-kw">THEN</span> <span class="sql-str">'Evening'</span>
+        <span class="sql-kw">ELSE</span> <span class="sql-str">'Night'</span>
+    <span class="sql-kw">END</span> <span class="sql-kw">AS</span> time_slot,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> checkins,
+    <span class="sql-fn">ROUND</span>(
+        <span class="sql-fn">COUNT</span>(*) * <span class="sql-num">100.0</span> / <span class="sql-fn">SUM</span>(<span class="sql-fn">COUNT</span>(*)) <span class="sql-kw">OVER</span>(), <span class="sql-num">1</span>
+    ) <span class="sql-kw">AS</span> pct_of_daily,
+    <span class="sql-fn">SUM</span>(<span class="sql-fn">COUNT</span>(*)) <span class="sql-kw">OVER</span> (<span class="sql-kw">ORDER BY</span> <span class="sql-fn">EXTRACT</span>(HOUR <span class="sql-kw">FROM</span> check_in_time))
+        <span class="sql-kw">AS</span> running_total
+<span class="sql-kw">FROM</span> gym_checkins
+<span class="sql-kw">GROUP BY</span> hour_of_day, time_slot
+<span class="sql-kw">ORDER BY</span> hour_of_day;</div>
+            </div>
+          </div>
+
+          <!-- AI Productivity Query -->
+          <div class="query-section" id="ai-dept" data-reveal data-delay="250">
+            <div class="qs-label">AI PRODUCTIVITY PROJECT · QUERIES 09–10</div>
+            <div class="qs-title"><span class="qs-title-icon">🤖</span> AI Tools ROI Analysis</div>
+
+            <div class="query-card">
+              <div class="qc-header">
+                <div>
+                  <div class="qc-title">QUERY_09 — PRODUCTIVITY MULTIPLIER BY DEPARTMENT</div>
+                  <div class="qc-purpose">Which departments benefit most from AI tools?</div>
+                </div>
+                <button class="copy-btn" onclick="copyQuery(this, 'q9')">COPY</button>
+              </div>
+              <div class="sql-code" id="q9"><span class="sql-cmt">-- Average productivity multiplier and hours saved by department</span>
+<span class="sql-kw">SELECT</span>
+    department,
+    <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> employees,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(productivity_multiplier), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_productivity_x,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(hours_saved_per_week), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_hours_saved,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(adoption_score), <span class="sql-num">1</span>) <span class="sql-kw">AS</span> avg_adoption_score,
+    <span class="sql-fn">ROUND</span>(
+        <span class="sql-fn">AVG</span>(hours_saved_per_week) * <span class="sql-num">52</span> * <span class="sql-num">800</span> <span class="sql-cmt">-- ₹800/hr avg</span>
+        / <span class="sql-fn">NULLIF</span>(<span class="sql-fn">AVG</span>(training_investment), <span class="sql-num">0</span>)
+    , <span class="sql-num">1</span>) <span class="sql-kw">AS</span> annual_roi
+<span class="sql-kw">FROM</span> ai_productivity
+<span class="sql-kw">GROUP BY</span> department
+<span class="sql-kw">ORDER BY</span> avg_productivity_x <span class="sql-kw">DESC</span>;</div>
+              <div class="qc-result">
+                <div class="qr-header">◈ SAMPLE RESULT</div>
+                <table class="qr-table">
+                  <thead><tr><th>department</th><th>employees</th><th>avg_productivity_x</th><th>avg_hours_saved</th><th>annual_roi</th></tr></thead>
+                  <tbody>
+                    <tr><td>Marketing</td><td>340</td><td>3.2×</td><td>12.8 hrs</td><td>4.8×</td></tr>
+                    <tr><td>Finance</td><td>210</td><td>2.8×</td><td>9.4 hrs</td><td>3.9×</td></tr>
+                    <tr><td>HR</td><td>180</td><td>2.5×</td><td>8.1 hrs</td><td>3.2×</td></tr>
+                    <tr><td>Operations</td><td>420</td><td>1.8×</td><td>3.2 hrs</td><td>1.4×</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="sql-insight">
+              <span class="sql-insight-icon">◈</span>
+              <span>Marketing delivers <strong style="color:#00ffff;">4.8× annual ROI</strong> on AI investment vs Operations at 1.4× — this query directly informed the recommendation to prioritize Marketing AI deployment first.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026
+    </p>
+  </div>
+</footer>
+
+<script src="js/animations.js"></script>
+<script src="js/script.js"></script>
+<script src="js/register-sw.js"></script>
+<script>
+// Copy query to clipboard
+function copyQuery(btn, id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'COPY';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Sidebar active state on scroll
+const navItems = document.querySelectorAll('.sql-nav-item');
+const sections = document.querySelectorAll('.query-section');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 140) current = s.id;
+  });
+  navItems.forEach(item => {
+    item.classList.toggle('active', item.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
