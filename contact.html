@@ -32,8 +32,6 @@
   <title>Contact — Sujit Murari | Business Analytics Portfolio</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/cyberpunk.css"/>
-  <!-- Cloudflare Turnstile -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     /* ── Terminal ── */
     .terminal-window {
@@ -279,7 +277,7 @@
 
             <form id="contact-form" style="display:flex;flex-direction:column;gap:18px;">
 
-              <!-- Web3Forms config -->
+              <!-- Web3Forms -->
               <input type="hidden" name="access_key" value="0b97fb04-ebea-495a-a158-6543910fc60a"/>
               <input type="hidden" name="from_name" value="Sujit Murari Portfolio"/>
               <input type="checkbox" name="botcheck" style="display:none;"/>
@@ -319,20 +317,6 @@
               <div>
                 <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
                 <textarea name="message" class="cyber-input" rows="5" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
-              </div>
-
-              <!-- Cloudflare Turnstile CAPTCHA -->
-              <div style="display:flex;flex-direction:column;gap:6px;">
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);">SECURITY VERIFICATION</label>
-                <div class="cf-turnstile"
-                  data-sitekey="0x4AAAAAACpyW3lH-xZ9AeGe"
-                  data-theme="dark"
-                  data-size="normal"
-                  style="border-radius:4px;overflow:hidden;">
-                </div>
-                <div id="turnstile-error" style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#ff2d78;display:none;">
-                  ✗ Please complete the security check before submitting.
-                </div>
               </div>
 
               <button type="submit" id="submit-btn" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">▸ TRANSMIT MESSAGE</button>
@@ -404,7 +388,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Formspree ──
+  // ── Web3Forms ──
   const form      = document.getElementById('contact-form');
   const statusEl  = document.getElementById('form-status');
   const submitBtn = document.getElementById('submit-btn');
@@ -413,36 +397,24 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // ── Turnstile verification ──
-      const turnstileResponse = form.querySelector('[name="cf-turnstile-response"]')?.value
-        || document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]')?.value
-        || (typeof turnstile !== 'undefined' ? turnstile.getResponse() : null);
-
-      const turnstileErr = document.getElementById('turnstile-error');
-      if (!turnstileResponse) {
-        if (turnstileErr) { turnstileErr.style.display = 'block'; }
-        return;
-      }
-      if (turnstileErr) turnstileErr.style.display = 'none';
-
       const data = new FormData(form);
       submitBtn.textContent = '◈ TRANSMITTING...';
       submitBtn.disabled = true;
       statusEl.style.display = 'none';
 
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const res  = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           body: data,
           headers: { 'Accept': 'application/json' }
         });
         const json = await res.json();
+
         if (json.success) {
           statusEl.textContent = '✓ MESSAGE TRANSMITTED SUCCESSFULLY';
           statusEl.style.color = '#00ff88';
           statusEl.style.display = 'block';
           form.reset();
-          if (typeof turnstile !== 'undefined') turnstile.reset();
           submitBtn.textContent = '✓ SENT';
           submitBtn.style.borderColor = '#00ff88';
           submitBtn.style.color = '#00ff88';
@@ -454,15 +426,14 @@ document.addEventListener('DOMContentLoaded', () => {
             statusEl.style.display = 'none';
           }, 4000);
         } else {
-          throw new Error(json.message || 'Submission failed');
+          throw new Error(json.message || 'failed');
         }
       } catch (err) {
-        statusEl.textContent = '✗ TRANSMISSION FAILED — email sujitmurari06@gmail.com directly';
+        statusEl.textContent = '✗ FAILED: ' + (err.message || 'unknown error');
         statusEl.style.color = '#ff2d78';
         statusEl.style.display = 'block';
         submitBtn.textContent = '▸ TRANSMIT MESSAGE';
         submitBtn.disabled = false;
-        if (typeof turnstile !== 'undefined') turnstile.reset();
       }
     });
   }
