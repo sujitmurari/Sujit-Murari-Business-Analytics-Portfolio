@@ -1,6 +1,6 @@
 # DataNexus — Personal Analytics Portfolio
 
-> **Live Site:** [sujitmurari.is-a.dev](https://sujit-murari-business-analytics-portfolio.pages.dev/)
+> **Live Site:** [sujitmurari.is-a.dev](https://sujitmurari.is-a.dev/)
 
 A data analytics portfolio built with a cyberpunk/terminal aesthetic, showcasing projects, skills, and interactive analytics tools.
 
