@@ -127,9 +127,8 @@
         <div class="hero-content" data-reveal data-delay="200">
           <div class="hero-eyebrow">ANALYTICS COMMAND CENTER v2.0</div>
           <h1 class="hero-name glitch" data-text="SUJIT MURARI">SUJIT MURARI</h1>
-          <div class="hero-title">◈ <span id="hero-typing">Business Analytics</span>·</span>
-          <span id="hero-typing" class="hero-typing">Data Visualization</span>
-</div>
+          <div class="hero-title">◈ <span id="hero-typing" style="color:#00ffff;border-right:2px solid #00ffff;animation:cursorBlink 0.8s step-end infinite;padding-right:2px;">Business Analytics</span></div>
+          <style>@keyframes cursorBlink{0%,100%{border-color:#00ffff;}50%{border-color:transparent;}}</style>
           <p class="hero-subtitle">Transforming raw business data into strategic intelligence. Building executive-grade dashboards that power data-driven decisions.</p>
           <div class="hero-tags">
             <span class="hero-tag">Tableau</span>
@@ -432,7 +431,7 @@
 <footer id="footer">
   <div class="container">
     <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
+      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; DEV BHOOMI UTTARAKHAND UNIVERSITY · SEM IV · 2026
     </p>
   </div>
 </footer>
@@ -446,5 +445,35 @@
   }
 </style>
 <script src="js/register-sw.js"></script>
+  <script>
+  // ── Hero Typing Effect ──
+  (function(){
+    const el = document.getElementById('hero-typing');
+    if (!el) return;
+    const lines = [
+      'Business Analytics',
+      'Data Visualization',
+      'Business Intelligence',
+      'Decision Analytics',
+      'Tableau Dashboards',
+      'Statistical Analysis',
+      'SQL & Python',
+      'Pricing Analytics'
+    ];
+    let li=0, ci=0, del=false;
+    const run = () => {
+      const line = lines[li];
+      if (!del) {
+        el.textContent = line.slice(0, ++ci);
+        if (ci >= line.length) { del=true; setTimeout(run, 1800); return; }
+      } else {
+        el.textContent = line.slice(0, --ci);
+        if (ci === 0) { del=false; li=(li+1)%lines.length; setTimeout(run, 400); return; }
+      }
+      setTimeout(run, del ? 22 : 55);
+    };
+    run();
+  })();
+  </script>
 </body>
 </html>
