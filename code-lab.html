@@ -688,6 +688,18 @@ WHERE status = 'Success';</code></pre></div>
           </div>
         </div>
 
+        <!-- SQL Full Lab Embed -->
+        <div style="margin-top:40px;text-align:center;" data-reveal>
+          <button onclick="toggleEmbed('sql-embed', this)"
+            style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.15em;padding:12px 28px;border:1px solid rgba(0,255,255,0.4);background:rgba(0,255,255,0.05);color:#00ffff;cursor:pointer;border-radius:4px;transition:all 0.2s;"
+            onmouseover="this.style.background='rgba(0,255,255,0.12)'" onmouseout="this.style.background='rgba(0,255,255,0.05)'">
+            ▸ OPEN FULL SQL LAB
+          </button>
+          <div id="sql-embed" style="display:none;margin-top:20px;border:1px solid rgba(0,255,255,0.15);border-radius:6px;overflow:hidden;">
+            <iframe src="sql.html" width="100%" height="900px" style="border:none;display:block;" loading="lazy" title="SQL Lab"></iframe>
+          </div>
+        </div>
+
       </div><!-- /lang-sql -->
 
       <!-- ████████████████████████████████████
@@ -896,6 +908,18 @@ pd.DataFrame({"id": test["id"], "Churn": pred_prob}).to_csv("submission.csv", in
           </div>
         </div>
 
+        <!-- Python Full Lab Embed -->
+        <div style="margin-top:40px;text-align:center;" data-reveal>
+          <button onclick="toggleEmbed('py-embed', this)"
+            style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.15em;padding:12px 28px;border:1px solid rgba(155,92,255,0.4);background:rgba(155,92,255,0.05);color:#9b5cff;cursor:pointer;border-radius:4px;transition:all 0.2s;"
+            onmouseover="this.style.background='rgba(155,92,255,0.12)'" onmouseout="this.style.background='rgba(155,92,255,0.05)'">
+            ▸ OPEN FULL PYTHON LAB
+          </button>
+          <div id="py-embed" style="display:none;margin-top:20px;border:1px solid rgba(155,92,255,0.15);border-radius:6px;overflow:hidden;">
+            <iframe src="python.html" width="100%" height="900px" style="border:none;display:block;" loading="lazy" title="Python Lab"></iframe>
+          </div>
+        </div>
+
       </div><!-- /lang-py -->
 
     </div>
@@ -967,5 +991,16 @@ pd.DataFrame({"id": test["id"], "Churn": pred_prob}).to_csv("submission.csv", in
     });
   }
 </script>
+  <script>
+    function toggleEmbed(id, btn) {
+      const embed = document.getElementById(id);
+      const isOpen = embed.style.display !== 'none';
+      embed.style.display = isOpen ? 'none' : 'block';
+      const isSql = id === 'sql-embed';
+      const openText  = isSql ? '▸ OPEN FULL SQL LAB'    : '▸ OPEN FULL PYTHON LAB';
+      const closeText = isSql ? '✕ CLOSE SQL LAB'        : '✕ CLOSE PYTHON LAB';
+      btn.textContent = isOpen ? openText : closeText;
+    }
+  </script>
 </body>
 </html>
