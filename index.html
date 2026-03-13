@@ -502,33 +502,5 @@
 </style>
 <script src="js/register-sw.js"></script>
   <script>
-  // ── Hero Typing Effect ──
-  (function(){
-    const el = document.getElementById('hero-typing');
-    if (!el) return;
-    const lines = [
-      'Data Visualization',
-      'Business Intelligence',
-      'Decision Analytics',
-      'Tableau Dashboards',
-      'Statistical Analysis',
-      'SQL & Python',
-      'Pricing Analytics'
-    ];
-    let li=0, ci=0, del=false;
-    const run = () => {
-      const line = lines[li];
-      if (!del) {
-        el.textContent = line.slice(0, ++ci);
-        if (ci >= line.length) { del=true; setTimeout(run, 1800); return; }
-      } else {
-        el.textContent = line.slice(0, --ci);
-        if (ci === 0) { del=false; li=(li+1)%lines.length; setTimeout(run, 400); return; }
-      }
-      setTimeout(run, del ? 22 : 55);
-    };
-    run();
-  })();
-  </script>
 </body>
 </html>
