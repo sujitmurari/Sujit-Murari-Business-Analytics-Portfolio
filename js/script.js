@@ -146,18 +146,37 @@ document.addEventListener('DOMContentLoaded', () => {
 function initLoader() {
   const loader = document.getElementById('loader');
   if (!loader) return;
-  // Fast load: fill bar quickly and dismiss within 600ms total
   const bar = loader.querySelector('.loader-bar-fill');
   const txt = loader.querySelector('.loader-pct');
-  if (bar) bar.style.transition = 'width 0.4s ease';
-  if (bar) bar.style.width = '100%';
+
+  // Instantly jump to 100% then fade out
+  if (bar) { bar.style.transition = 'none'; bar.style.width = '100%'; }
   if (txt) txt.textContent = '100%';
-  setTimeout(() => {
+
+  // Fade out quickly
+  requestAnimationFrame(() => {
+    loader.style.transition = 'opacity 0.25s ease';
     loader.style.opacity = '0';
-    loader.style.transition = 'opacity 0.3s ease';
-    setTimeout(() => loader.remove(), 300);
-  }, 400);
+    loader.style.pointerEvents = 'none';
+    setTimeout(() => {
+      if (loader.parentNode) loader.remove();
+    }, 260);
+  });
 }
+
+// ── Safety net: remove loader even if JS errors occur ──
+// Runs independently so a broken script can't freeze the screen
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    if (loader) {
+      loader.style.transition = 'opacity 0.25s ease';
+      loader.style.opacity = '0';
+      loader.style.pointerEvents = 'none';
+      setTimeout(() => { if (loader.parentNode) loader.remove(); }, 260);
+    }
+  }, 800); // max wait = 800ms after full page load
+});
 
 // ── Live Clock ──
 function initClock() {
@@ -250,31 +269,3 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
-
-.hero-title{
-display:flex;
-align-items:center;
-gap:6px;
-font-family:'Orbitron',monospace;
-letter-spacing:0.08em;
-}
-
-.hero-role{
-color:#e0f7ff;
-}
-
-.hero-divider{
-color:rgba(0,255,255,0.4);
-}
-
-.hero-typing{
-color:#00ffff;
-border-right:2px solid #00ffff;
-padding-right:3px;
-animation:cursorBlink 0.8s step-end infinite;
-}
-
-@keyframes cursorBlink{
-0%,100%{border-color:#00ffff;}
-50%{border-color:transparent;}
-}
