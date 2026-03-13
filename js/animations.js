@@ -235,4 +235,23 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounters();
   initParticles();
   initPanelGlow();
+
+  // ── KPI Counter fix: re-check after loader is removed ──
+  // The loader div covers the viewport so IntersectionObserver never fires.
+  // Once the loader fades out, force-check any counters still showing 0.
+  const recheckCounters = () => {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      if (el.textContent === '0' || el.textContent === '') {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const target = parseInt(el.dataset.count);
+          const suffix = el.dataset.suffix || '';
+          animateCounter(el, target, 1800, suffix);
+        }
+      }
+    });
+  };
+  // Check at 500ms and 1200ms after load to catch both fast and slow loader dismissals
+  setTimeout(recheckCounters, 500);
+  setTimeout(recheckCounters, 1200);
 });
