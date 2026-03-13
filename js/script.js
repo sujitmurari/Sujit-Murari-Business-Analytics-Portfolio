@@ -7,20 +7,25 @@ const _dropStyle = document.createElement('style');
 _dropStyle.textContent = `
   .nav-dropdown { position: relative; }
   .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; }
-  .dropdown-arrow { font-size: 0.65rem; transition: transform 0.2s; display: inline-block; }
-  .nav-dropdown.open .dropdown-arrow { transform: rotate(180deg); }
+  .dropdown-arrow { font-size: 0.65rem; transition: transform 0.15s; display: inline-block; }
+  .nav-dropdown.open .dropdown-arrow,
+  .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
   .dropdown-menu {
     display: none;
     position: absolute;
-    top: calc(100% + 10px);
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
+    padding-top: 12px;
+    background: transparent;
+    z-index: 200;
+  }
+  .dropdown-menu-inner {
     background: rgba(5,5,16,0.97);
     border: 1px solid rgba(0,255,255,0.15);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
-    z-index: 200;
     box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 20px rgba(0,255,255,0.05);
   }
   .nav-dropdown:hover .dropdown-menu,
@@ -34,7 +39,7 @@ _dropStyle.textContent = `
     letter-spacing: 0.1em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
-    transition: color 0.15s, background 0.15s;
+    transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
@@ -42,17 +47,10 @@ _dropStyle.textContent = `
     color: #00ffff;
     background: rgba(0,255,255,0.06);
   }
-  /* Mobile: show as flat list inside hamburger menu */
+  /* Mobile */
   @media (max-width: 768px) {
-    .dropdown-menu {
-      position: static;
-      transform: none;
-      border: none;
-      background: transparent;
-      box-shadow: none;
-      padding: 0 0 0 16px;
-      display: none;
-    }
+    .dropdown-menu { position: static; transform: none; padding-top: 0; background: transparent; display: none; }
+    .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 16px; }
     .nav-dropdown.open .dropdown-menu { display: block; }
     .nav-dropdown:hover .dropdown-menu { display: none; }
     .nav-dropdown.open .dropdown-menu { display: block; }
