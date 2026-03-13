@@ -161,14 +161,23 @@
       <div class="rp-label rp-label-purple">CONTACT ME</div>
       <div class="contact-list">
 
-        <a href="/cdn-cgi/l/email-protection#3f4c4a55564b524a4d5e4d560f097f58525e5653115c5052" class="contact-item">
+        <a id="email-link" href="#" class="contact-item">
           <div class="contact-icon">✉️</div>
           <div class="contact-info">
             <span class="contact-platform">EMAIL</span>
-            <span class="contact-value"><span class="__cf_email__" data-cfemail="e39096898a978e969182918ad3d5a3848e828a8fcd808c8e">[email&#160;protected]</span></span>
+            <span class="contact-value" id="email-display"></span>
           </div>
           <span class="contact-arrow">›</span>
         </a>
+        <script>
+          (function() {
+            var u = 'sujitmurari06';
+            var d = 'gmail' + '.' + 'com';
+            var e = u + '@' + d;
+            document.getElementById('email-link').href = 'mail' + 'to:' + e;
+            document.getElementById('email-display').textContent = e;
+          })();
+        </script>
 
         <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="contact-item">
           <div class="contact-icon">💼</div>
