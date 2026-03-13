@@ -250,3 +250,31 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
+
+.hero-title{
+display:flex;
+align-items:center;
+gap:6px;
+font-family:'Orbitron',monospace;
+letter-spacing:0.08em;
+}
+
+.hero-role{
+color:#e0f7ff;
+}
+
+.hero-divider{
+color:rgba(0,255,255,0.4);
+}
+
+.hero-typing{
+color:#00ffff;
+border-right:2px solid #00ffff;
+padding-right:3px;
+animation:cursorBlink 0.8s step-end infinite;
+}
+
+@keyframes cursorBlink{
+0%,100%{border-color:#00ffff;}
+50%{border-color:transparent;}
+}
