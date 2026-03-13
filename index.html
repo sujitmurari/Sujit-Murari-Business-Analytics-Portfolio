@@ -127,12 +127,8 @@
         <div class="hero-content" data-reveal data-delay="200">
           <div class="hero-eyebrow">ANALYTICS COMMAND CENTER v2.0</div>
           <h1 class="hero-name glitch" data-text="SUJIT MURARI">SUJIT MURARI</h1>
-          <div class="hero-title" style="white-space:normal;word-break:break-word;line-height:1.5;">◈ Business Analytics Student <span style="color:rgba(0,255,255,0.4);">·</span> <span id="hero-typing" style="color:#00ffff;border-right:2px solid #00ffff;animation:cursorBlink 0.8s step-end infinite;padding-right:2px;">Data Visualization</span></div>
-          <style>
-            @keyframes cursorBlink{0%,100%{border-color:#00ffff;}50%{border-color:transparent;}}
-            .hero-title { white-space: normal !important; word-break: break-word; }
-            #hero-typing { display: inline; }
-          </style>
+          <div class="hero-title" style="white-space:normal;line-height:1.6;">◈ Business Analytics Student <span style="color:rgba(0,255,255,0.4);">·</span> <span id="hero-typing" style="color:#00ffff;border-right:2px solid #00ffff;animation:cursorBlink 0.8s step-end infinite;padding-right:2px;white-space:nowrap;display:inline-block;">Data Visualization</span></div>
+          <style>@keyframes cursorBlink{0%,100%{border-color:#00ffff;}50%{border-color:transparent;}}</style>
           <p class="hero-subtitle">Transforming raw business data into strategic intelligence. Building executive-grade dashboards that power data-driven decisions.</p>
           <div class="hero-tags">
             <span class="hero-tag">Tableau</span>
@@ -449,34 +445,5 @@
   }
 </style>
 <script src="js/register-sw.js"></script>
-  <script>
-  // ── Hero Typing Effect ──
-  (function(){
-    const el = document.getElementById('hero-typing');
-    if (!el) return;
-    const lines = [
-      'Data Visualization',
-      'Business Intelligence',
-      'Decision Analytics',
-      'Tableau Dashboards',
-      'Statistical Analysis',
-      'SQL & Python',
-      'Pricing Analytics'
-    ];
-    let li=0, ci=0, del=false;
-    const run = () => {
-      const line = lines[li];
-      if (!del) {
-        el.textContent = line.slice(0, ++ci);
-        if (ci >= line.length) { del=true; setTimeout(run, 1800); return; }
-      } else {
-        el.textContent = line.slice(0, --ci);
-        if (ci === 0) { del=false; li=(li+1)%lines.length; setTimeout(run, 400); return; }
-      }
-      setTimeout(run, del ? 22 : 55);
-    };
-    run();
-  })();
-  </script>
 </body>
 </html>

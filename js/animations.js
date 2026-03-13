@@ -3,41 +3,31 @@
    ═══════════════════════════════════════════════════ */
 
 // ── Typing Effect ──
-class TypingEffect {
-  constructor(element, lines, opts = {}) {
-    this.el = element;
-    this.lines = lines;
-    this.speed = opts.speed || 40;
-    this.delay = opts.delay || 1200;
-    this.loop = opts.loop !== undefined ? opts.loop : true;
-    this.lineIndex = 0;
-    this.charIndex = 0;
-    this.deleting = false;
-    this.timer = null;
-    this.run();
-  }
-  run() {
-    const line = this.lines[this.lineIndex];
-    if (!this.deleting) {
-      this.el.textContent = line.slice(0, this.charIndex + 1);
-      this.charIndex++;
-      if (this.charIndex > line.length) {
-        this.deleting = true;
-        this.timer = setTimeout(() => this.run(), this.delay);
-        return;
-      }
+function initTypingEffect() {
+  const el = document.getElementById('hero-typing');
+  if (!el) return;
+  const lines = [
+    'Data Visualization',
+    'Business Intelligence',
+    'Decision Analytics',
+    'Tableau Dashboards',
+    'Statistical Analysis',
+    'SQL & Python',
+    'Pricing Analytics'
+  ];
+  let li = 0, ci = 0, del = false;
+  const run = () => {
+    const line = lines[li];
+    if (!del) {
+      el.textContent = line.slice(0, ++ci);
+      if (ci >= line.length) { del = true; setTimeout(run, 1800); return; }
     } else {
-      this.el.textContent = line.slice(0, this.charIndex - 1);
-      this.charIndex--;
-      if (this.charIndex === 0) {
-        this.deleting = false;
-        this.lineIndex = (this.lineIndex + 1) % this.lines.length;
-        this.timer = setTimeout(() => this.run(), 500);
-        return;
-      }
+      el.textContent = line.slice(0, --ci);
+      if (ci === 0) { del = false; li = (li + 1) % lines.length; setTimeout(run, 400); return; }
     }
-    this.timer = setTimeout(() => this.run(), this.deleting ? 20 : this.speed);
-  }
+    setTimeout(run, del ? 22 : 55);
+  };
+  run();
 }
 
 // ── Counter Animation ──
@@ -239,6 +229,7 @@ function initTerminal(containerId, lines) {
 
 // ── Init all on DOMContentLoaded ──
 document.addEventListener('DOMContentLoaded', () => {
+  initTypingEffect();
   initRevealAnimations();
   animateProgressBars();
   initCounters();
