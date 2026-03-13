@@ -75,13 +75,19 @@
       <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
     </a>
     <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="skills.html">Skills</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="dashboards.html">Dashboards</a></li>
-      <li><a href="code-lab.html">Code Lab</a></li>
-      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li class="nav-dropdown">
+        <a href="code-lab.html" class="nav-dropdown-toggle" id="labs-toggle">Labs <span class="dropdown-arrow">▾</span></a>
+        <ul class="dropdown-menu" id="labs-menu">
+          <li><a href="sql.html">🗄️ SQL Lab</a></li>
+          <li><a href="python.html">🐍 Python Lab</a></li>
+          <li><a href="analytics-lab.html">📊 Analytics Lab</a></li>
+        </ul>
+      </li>
       <li><a href="resume.html">Resume</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -127,7 +133,7 @@
         <div class="hero-content" data-reveal data-delay="200">
           <div class="hero-eyebrow">ANALYTICS COMMAND CENTER v2.0</div>
           <h1 class="hero-name glitch" data-text="SUJIT MURARI">SUJIT MURARI</h1>
-          <div class="hero-title" style="white-space:normal;line-height:1.6;">◈ Business Analytics Student <span style="color:rgba(0,255,255,0.4);">·</span> <span id="hero-typing" style="color:#00ffff;border-right:2px solid #00ffff;animation:cursorBlink 0.8s step-end infinite;padding-right:2px;white-space:nowrap;display:inline-block;">Data Visualization</span></div>
+          <div class="hero-title">◈ Business Analytics Student <span style="color:rgba(0,255,255,0.4);">·</span> <span id="hero-typing" style="color:#00ffff;border-right:2px solid #00ffff;animation:cursorBlink 0.8s step-end infinite;padding-right:2px;">Data Visualization</span></div>
           <style>@keyframes cursorBlink{0%,100%{border-color:#00ffff;}50%{border-color:transparent;}}</style>
           <p class="hero-subtitle">Transforming raw business data into strategic intelligence. Building executive-grade dashboards that power data-driven decisions.</p>
           <div class="hero-tags">
@@ -445,5 +451,34 @@
   }
 </style>
 <script src="js/register-sw.js"></script>
+  <script>
+  // ── Hero Typing Effect ──
+  (function(){
+    const el = document.getElementById('hero-typing');
+    if (!el) return;
+    const lines = [
+      'Data Visualization',
+      'Business Intelligence',
+      'Decision Analytics',
+      'Tableau Dashboards',
+      'Statistical Analysis',
+      'SQL & Python',
+      'Pricing Analytics'
+    ];
+    let li=0, ci=0, del=false;
+    const run = () => {
+      const line = lines[li];
+      if (!del) {
+        el.textContent = line.slice(0, ++ci);
+        if (ci >= line.length) { del=true; setTimeout(run, 1800); return; }
+      } else {
+        el.textContent = line.slice(0, --ci);
+        if (ci === 0) { del=false; li=(li+1)%lines.length; setTimeout(run, 400); return; }
+      }
+      setTimeout(run, del ? 22 : 55);
+    };
+    run();
+  })();
+  </script>
 </body>
 </html>

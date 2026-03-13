@@ -2,8 +2,83 @@
    SCRIPT.JS — Navigation, UI Interactions, Lab Logic
    ═══════════════════════════════════════════════════ */
 
+/* ── Labs Dropdown Styles ── */
+const _dropStyle = document.createElement('style');
+_dropStyle.textContent = `
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+  .dropdown-arrow { font-size: 0.65rem; transition: transform 0.2s; display: inline-block; }
+  .nav-dropdown.open .dropdown-arrow { transform: rotate(180deg); }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(5,5,16,0.97);
+    border: 1px solid rgba(0,255,255,0.15);
+    border-radius: 6px;
+    min-width: 160px;
+    padding: 6px 0;
+    z-index: 200;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 20px rgba(0,255,255,0.05);
+  }
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown.open .dropdown-menu { display: block; }
+  .dropdown-menu li { list-style: none; }
+  .dropdown-menu a {
+    display: block;
+    padding: 9px 18px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: rgba(224,247,255,0.6);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+    white-space: nowrap;
+  }
+  .dropdown-menu a:hover,
+  .dropdown-menu a.active {
+    color: #00ffff;
+    background: rgba(0,255,255,0.06);
+  }
+  /* Mobile: show as flat list inside hamburger menu */
+  @media (max-width: 768px) {
+    .dropdown-menu {
+      position: static;
+      transform: none;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      padding: 0 0 0 16px;
+      display: none;
+    }
+    .nav-dropdown.open .dropdown-menu { display: block; }
+    .nav-dropdown:hover .dropdown-menu { display: none; }
+    .nav-dropdown.open .dropdown-menu { display: block; }
+    .dropdown-menu a { font-size: 0.7rem; padding: 7px 0; }
+  }
+`;
+document.head.appendChild(_dropStyle);
+
 // ── Navigation ──
 document.addEventListener('DOMContentLoaded', () => {
+  // Labs dropdown — click on mobile, hover on desktop
+  const dropdown = document.querySelector('.nav-dropdown');
+  const toggle   = document.getElementById('labs-toggle');
+  if (dropdown && toggle) {
+    toggle.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        dropdown.classList.toggle('open');
+      }
+    });
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
+    });
+  }
+
   // Active nav link
   const path = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(a => {
@@ -24,8 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     navLinks.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
+        // Don't close menu if clicking labs toggle on mobile
+        if (a.id === 'labs-toggle' && window.innerWidth <= 768) return;
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
+        if (dropdown) dropdown.classList.remove('open');
       });
     });
   }

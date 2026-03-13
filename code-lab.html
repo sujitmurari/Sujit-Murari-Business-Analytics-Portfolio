@@ -349,16 +349,27 @@
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="skills.html">Skills</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="dashboards.html">Dashboards</a></li>
-      <li><a href="code-lab.html" class="active">Code Lab</a></li>
-      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li class="nav-dropdown">
+        <a href="code-lab.html" class="nav-dropdown-toggle active" id="labs-toggle">Labs <span class="dropdown-arrow">▾</span></a>
+        <ul class="dropdown-menu" id="labs-menu">
+          <li><a href="sql.html">🗄️ SQL Lab</a></li>
+          <li><a href="python.html">🐍 Python Lab</a></li>
+          <li><a href="analytics-lab.html">📊 Analytics Lab</a></li>
+        </ul>
+      </li>
       <li><a href="resume.html">Resume</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span class="nav-status-text" id="live-clock">00:00:00</span>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -688,18 +699,6 @@ WHERE status = 'Success';</code></pre></div>
           </div>
         </div>
 
-        <!-- SQL Full Lab Embed -->
-        <div style="margin-top:40px;text-align:center;" data-reveal>
-          <button onclick="toggleEmbed('sql-embed', this)"
-            style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.15em;padding:12px 28px;border:1px solid rgba(0,255,255,0.4);background:rgba(0,255,255,0.05);color:#00ffff;cursor:pointer;border-radius:4px;transition:all 0.2s;"
-            onmouseover="this.style.background='rgba(0,255,255,0.12)'" onmouseout="this.style.background='rgba(0,255,255,0.05)'">
-            ▸ OPEN FULL SQL LAB
-          </button>
-          <div id="sql-embed" style="display:none;margin-top:20px;border:1px solid rgba(0,255,255,0.15);border-radius:6px;overflow:hidden;">
-            <iframe src="sql.html" width="100%" height="900px" style="border:none;display:block;" loading="lazy" title="SQL Lab"></iframe>
-          </div>
-        </div>
-
       </div><!-- /lang-sql -->
 
       <!-- ████████████████████████████████████
@@ -908,18 +907,6 @@ pd.DataFrame({"id": test["id"], "Churn": pred_prob}).to_csv("submission.csv", in
           </div>
         </div>
 
-        <!-- Python Full Lab Embed -->
-        <div style="margin-top:40px;text-align:center;" data-reveal>
-          <button onclick="toggleEmbed('py-embed', this)"
-            style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.15em;padding:12px 28px;border:1px solid rgba(155,92,255,0.4);background:rgba(155,92,255,0.05);color:#9b5cff;cursor:pointer;border-radius:4px;transition:all 0.2s;"
-            onmouseover="this.style.background='rgba(155,92,255,0.12)'" onmouseout="this.style.background='rgba(155,92,255,0.05)'">
-            ▸ OPEN FULL PYTHON LAB
-          </button>
-          <div id="py-embed" style="display:none;margin-top:20px;border:1px solid rgba(155,92,255,0.15);border-radius:6px;overflow:hidden;">
-            <iframe src="python.html" width="100%" height="900px" style="border:none;display:block;" loading="lazy" title="Python Lab"></iframe>
-          </div>
-        </div>
-
       </div><!-- /lang-py -->
 
     </div>
@@ -930,11 +917,11 @@ pd.DataFrame({"id": test["id"], "Churn": pred_prob}).to_csv("submission.csv", in
     <div class="container" data-reveal>
       <div class="cp-panel" style="padding:44px 36px;max-width:680px;margin:0 auto;text-align:center;">
         <div class="data-label mb-12">◈ FULL SOURCE CODE</div>
-        <h2 style="margin-bottom:10px;">All Code And Notebooks On <span class="text-cyan">GitHub</span></h2>
-        <p style="margin-bottom:24px;color:rgba(224,247,255,0.45);font-size:0.95rem;">SQL files and Python notebooks with scripts in the Kaggle datasets.</p>
+        <h2 style="margin-bottom:10px;">All Code on <span class="text-cyan">GitHub</span></h2>
+        <p style="margin-bottom:24px;color:rgba(224,247,255,0.45);font-size:0.95rem;">SQL files published on Kaggle. Python notebooks and scripts in the GitHub repo.</p>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
           <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" class="btn-neon btn-neon-solid">↗ SQL on Kaggle</a>
-          <a href="http://kaggle.com/datasets/sujitmurari/python-dataset" target="_blank" class="btn-neon btn-neon-purple">↗ PYTHON on Kaggle</a>
+          <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-purple">↗ View on GitHub</a>
         </div>
       </div>
     </div>
@@ -991,16 +978,5 @@ pd.DataFrame({"id": test["id"], "Churn": pred_prob}).to_csv("submission.csv", in
     });
   }
 </script>
-  <script>
-    function toggleEmbed(id, btn) {
-      const embed = document.getElementById(id);
-      const isOpen = embed.style.display !== 'none';
-      embed.style.display = isOpen ? 'none' : 'block';
-      const isSql = id === 'sql-embed';
-      const openText  = isSql ? '▸ OPEN FULL SQL LAB'    : '▸ OPEN FULL PYTHON LAB';
-      const closeText = isSql ? '✕ CLOSE SQL LAB'        : '✕ CLOSE PYTHON LAB';
-      btn.textContent = isOpen ? openText : closeText;
-    }
-  </script>
 </body>
 </html>

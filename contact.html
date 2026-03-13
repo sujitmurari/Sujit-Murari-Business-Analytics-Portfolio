@@ -190,20 +190,34 @@
 
 <nav id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">SM</div><span class="nav-logo-text">SUJIT<span>:</span>MURARI</span></a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">SM</div>
+      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
+    </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="skills.html">Skills</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="dashboards.html">Dashboards</a></li>
-      <li><a href="code-lab.html">Code Lab</a></li>
-      <li><a href="analytics-lab.html">Analytics Lab</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li class="nav-dropdown">
+        <a href="code-lab.html" class="nav-dropdown-toggle" id="labs-toggle">Labs <span class="dropdown-arrow">▾</span></a>
+        <ul class="dropdown-menu" id="labs-menu">
+          <li><a href="sql.html">🗄️ SQL Lab</a></li>
+          <li><a href="python.html">🐍 Python Lab</a></li>
+          <li><a href="analytics-lab.html">📊 Analytics Lab</a></li>
+        </ul>
+      </li>
       <li><a href="resume.html">Resume</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
-    <div class="nav-status"><div class="nav-status-dot"></div><span class="nav-status-text" id="live-clock">00:00:00</span></div>
-    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span class="nav-status-text" id="live-clock">00:00:00</span>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -239,22 +253,13 @@
           <div style="margin-top:32px;" data-reveal data-delay="200">
             <div class="data-label mb-16">◈ COMMUNICATION CHANNELS</div>
             <div class="social-links">
-              <a id="contact-email-link" href="#" class="social-link">
+              <a href="/cdn-cgi/l/email-protection#c8bbbda2a1bca5bdbaa9baa1f8fe88afa5a9a1a4e6aba7a5" class="social-link">
                 <div class="icon">✉️</div>
                 <div class="info">
                   <span class="name">EMAIL</span>
-                  <span class="handle" id="contact-email-display"></span>
+                  <span class="handle"><span class="__cf_email__" data-cfemail="4e3d3b24273a233b3c2f3c277e780e29232f2722602d2123">[email&#160;protected]</span></span>
                 </div>
               </a>
-              <script>
-                (function() {
-                  var u = 'sujitmurari06';
-                  var d = 'gmail' + '.' + 'com';
-                  var e = u + '@' + d;
-                  document.getElementById('contact-email-link').href = 'mail' + 'to:' + e;
-                  document.getElementById('contact-email-display').textContent = e;
-                })();
-              </script>
               <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="social-link">
                 <div class="icon">💼</div>
                 <div class="info">
