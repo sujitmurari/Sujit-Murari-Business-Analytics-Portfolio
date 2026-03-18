@@ -111,7 +111,7 @@
     .cat-card-caption {
       padding: 10px 14px;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.8rem;
       color: rgba(0,255,255,0.4);
       letter-spacing: 0.16em;
       border-top: 1px solid rgba(0,255,255,0.08);
@@ -171,7 +171,7 @@
     .cat-card-caption {
       padding: 8px 12px;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.8rem;
       color: rgba(0,255,255,0.4);
       letter-spacing: 0.14em;
       border-top: 1px solid rgba(0,255,255,0.08);
@@ -185,7 +185,7 @@
 <style id="nav-dropdown-css">
   .nav-dropdown { position: relative; }
   .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-  .dropdown-arrow { font-size: 0.65rem; transition: transform 0.15s; display: inline-block; }
+  .dropdown-arrow { font-size: 0.8rem; transition: transform 0.15s; display: inline-block; }
   .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
   .dropdown-menu {
     display: none;
@@ -211,7 +211,7 @@
     display: block;
     padding: 10px 18px;
     font-family: 'Orbitron', monospace;
-    font-size: 0.62rem;
+    font-size: 0.8rem;
     letter-spacing: 0.1em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
@@ -228,9 +228,7 @@
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
-<div class="scanlines"></div>
-<canvas id="particle-canvas"></canvas>
+
 
 <nav id="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -272,7 +270,7 @@
 <main class="page-content">
   <section class="page-hero section" style="padding-bottom:0;">
     <div class="container">
-      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; CONTACT</div>
+      <div class="page-hero-path">Portfolio / CONTACT</div>
       <div class="section-header" data-reveal>
         <h1>ESTABLISH <span class="text-cyan">CONNECTION</span></h1>
       </div>
@@ -344,18 +342,18 @@
               <!-- Name + Email row -->
               <div class="cyber-form-row">
                 <div>
-                  <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
+                  <label style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
                   <input type="text" name="name" class="cyber-input" placeholder="Full name" required/>
                 </div>
                 <div>
-                  <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL</label>
+                  <label style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL</label>
                   <input type="email" name="email" class="cyber-input" placeholder="you@email.com" required/>
                 </div>
               </div>
 
               <!-- Subject dropdown -->
               <div>
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">SUBJECT</label>
+                <label style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">SUBJECT</label>
                 <select name="subject" class="cyber-select" required>
                   <option value="" disabled selected>Select a subject...</option>
                   <option value="Internship Opportunity">Internship Opportunity</option>
@@ -368,19 +366,19 @@
 
               <!-- Organization -->
               <div>
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;">(optional)</span></label>
+                <label style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;">(optional)</span></label>
                 <input type="text" name="organization" class="cyber-input" placeholder="Company or university"/>
               </div>
 
               <!-- Message -->
               <div>
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
+                <label style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
                 <textarea name="message" class="cyber-input" rows="5" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
               </div>
 
               <!-- Cloudflare Turnstile CAPTCHA -->
               <div style="display:flex;flex-direction:column;gap:6px;">
-                <label style="font-family:'Orbitron',monospace;font-size:0.62rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);">SECURITY VERIFICATION</label>
+                <label style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.5);">SECURITY VERIFICATION</label>
                 <div class="cf-turnstile"
                   data-sitekey="0x4AAAAAACpyW3lH-xZ9AeGe"
                   data-theme="dark"
@@ -406,20 +404,20 @@
           <!-- Status Cards -->
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
             <div class="cp-panel" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size:0.55rem;">AVAILABILITY</div>
-              <div class="status-badge" style="font-size:0.6rem;"><div class="dot"></div>INTERN</div>
+              <div class="data-label mb-6" style="font-size: 0.8rem;">AVAILABILITY</div>
+              <div class="status-badge" style="font-size: 0.8rem;"><div class="dot"></div>INTERN</div>
             </div>
             <div class="cp-panel cp-panel-purple" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size:0.55rem;color:rgba(155,92,255,0.5);">RESPONSE</div>
+              <div class="data-label mb-6" style="font-size: 0.8rem;color:rgba(155,92,255,0.5);">RESPONSE</div>
               <div style="font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:#9b5cff;">~24 HRS</div>
             </div>
             <div class="cp-panel" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size:0.55rem;">LOCATION</div>
-              <div style="font-family:'Share Tech Mono',monospace;font-size:0.68rem;color:#00ffff;">UTTARAKHAND</div>
+              <div class="data-label mb-6" style="font-size: 0.8rem;">LOCATION</div>
+              <div style="font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:#00ffff;">UTTARAKHAND</div>
             </div>
             <div class="cp-panel cp-panel-purple" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size:0.55rem;color:rgba(155,92,255,0.5);">MODE</div>
-              <div style="font-family:'Share Tech Mono',monospace;font-size:0.68rem;color:#9b5cff;">REMOTE</div>
+              <div class="data-label mb-6" style="font-size: 0.8rem;color:rgba(155,92,255,0.5);">MODE</div>
+              <div style="font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:#9b5cff;">REMOTE</div>
             </div>
           </div>
 
@@ -450,7 +448,7 @@
 
 <footer id="footer">
   <div class="container">
-    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+    <p style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
       [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
     </p>
   </div>

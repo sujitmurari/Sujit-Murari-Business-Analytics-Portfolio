@@ -35,7 +35,7 @@
 <style id="nav-dropdown-css">
   .nav-dropdown { position: relative; }
   .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-  .dropdown-arrow { font-size: 0.65rem; transition: transform 0.15s; display: inline-block; }
+  .dropdown-arrow { font-size: 0.8rem; transition: transform 0.15s; display: inline-block; }
   .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
   .dropdown-menu {
     display: none;
@@ -61,7 +61,7 @@
     display: block;
     padding: 10px 18px;
     font-family: 'Orbitron', monospace;
-    font-size: 0.62rem;
+    font-size: 0.8rem;
     letter-spacing: 0.1em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
@@ -78,9 +78,7 @@
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
-<div class="scanlines"></div>
-<canvas id="particle-canvas"></canvas>
+
 
 <nav id="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -123,7 +121,7 @@
   <!-- Page Hero -->
   <section class="page-hero section" style="padding-bottom:0;">
     <div class="container">
-      <div class="page-hero-path">SYS:// &gt; SUJIT MURARI &gt; ABOUT</div>
+      <div class="page-hero-path">Portfolio / ABOUT</div>
       <div class="section-header" data-reveal>
         <h1>ABOUT <span class="text-cyan">THE ANALYST</span></h1>
       </div>
@@ -148,19 +146,19 @@
 
             <div style="display:flex;flex-direction:column;gap:14px;">
               <div style="display:flex;gap:16px;align-items:flex-start;">
-                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">PROGRAM</span>
+                <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">PROGRAM</span>
                 <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">BBA — Business Analytics</span>
               </div>
               <div style="display:flex;gap:16px;align-items:flex-start;">
-                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">UNIVERSITY</span>
+                <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">UNIVERSITY</span>
                 <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">Dev Bhoomi Uttarakhand University</span>
               </div>
               <div style="display:flex;gap:16px;align-items:flex-start;">
-                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">SEMESTER</span>
+                <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">SEMESTER</span>
                 <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">IV · 2026</span>
               </div>
               <div style="display:flex;gap:16px;align-items:flex-start;">
-                <span style="font-family:'Orbitron',monospace;font-size:0.58rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">FOCUS</span>
+                <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(0,255,255,0.45);width:80px;flex-shrink:0;padding-top:2px;">FOCUS</span>
                 <span style="font-family:'Rajdhani',sans-serif;font-size:1rem;color:#e0f7ff;">Data Visualization · BI · Analytics</span>
               </div>
             </div>
@@ -172,19 +170,19 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
               <div style="padding:14px;border:1px solid rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">📊</div>
-                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#9b5cff;letter-spacing:0.1em;">DATA VIZ</div>
+                <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#9b5cff;letter-spacing:0.1em;">DATA VIZ</div>
               </div>
               <div style="padding:14px;border:1px solid rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">📐</div>
-                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#00ffff;letter-spacing:0.1em;">STATISTICS</div>
+                <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#00ffff;letter-spacing:0.1em;">STATISTICS</div>
               </div>
               <div style="padding:14px;border:1px solid rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">💡</div>
-                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#00ffff;letter-spacing:0.1em;">BUSINESS INTEL</div>
+                <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#00ffff;letter-spacing:0.1em;">BUSINESS INTEL</div>
               </div>
               <div style="padding:14px;border:1px solid rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">🖥️</div>
-                <div style="font-family:'Orbitron',monospace;font-size:0.62rem;color:#9b5cff;letter-spacing:0.1em;">DASHBOARDS</div>
+                <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#9b5cff;letter-spacing:0.1em;">DASHBOARDS</div>
               </div>
             </div>
           </div>
@@ -222,22 +220,22 @@
               <!-- Timeline content -->
               <div style="flex:1;display:flex;flex-direction:column;gap:0;">
                 <div class="cp-panel" style="padding:16px 18px;margin-bottom:12px;">
-                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM I — FOUNDATION</div>
+                  <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM I — FOUNDATION</div>
                   <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">Data Fundamentals</div>
                   <p style="font-size:0.9rem;margin:0;">Introduced to Excel, basic statistics, and data cleaning methodologies. Built first data summary reports.</p>
                 </div>
                 <div class="cp-panel" style="padding:16px 18px;margin-bottom:12px;">
-                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM II — Learning advance tools</div>
+                  <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM II — Learning advance tools</div>
                   <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">R programming</div>
                   <p style="font-size:0.9rem;margin:0;">Learned first ever programming language R and started building my own projects.</p>
                 </div>
                 <div class="cp-panel cp-panel-purple" style="padding:16px 18px;margin-bottom:12px;">
-                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(155,92,255,0.5);margin-bottom:4px;">SEM III — Python</div>
+                  <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(155,92,255,0.5);margin-bottom:4px;">SEM III — Python</div>
                   <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">Python & numpy</div>
                   <p style="font-size:0.9rem;margin:0;">Introduced Python with Pandas for data manipulation. Applied statistical models to real business problems.</p>
                 </div>
                 <div class="cp-panel" style="padding:16px 18px;">
-                  <div style="font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM IV — CURRENT</div>
+                  <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM IV — CURRENT</div>
                   <div style="font-family:'Orbitron',monospace;font-size:0.8rem;color:#00ffff;margin-bottom:6px;">Tableau & SQL</div>
                   <p style="font-size:0.9rem;margin:0;">Building advanced analytics projects like dashboards using Tableau and SQL.</p>
                 </div>
@@ -252,7 +250,7 @@
 
 <footer id="footer">
   <div class="container">
-    <p style="font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
+    <p style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
       [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
     </p>
   </div>

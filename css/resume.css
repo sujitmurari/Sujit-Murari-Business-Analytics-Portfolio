@@ -136,7 +136,7 @@
    }
    .banner-seq-num {
      font-family: 'Share Tech Mono', monospace;
-     font-size: 0.6rem;
+     font-size: 0.8rem;
      color: var(--cyan-dim);
      writing-mode: vertical-rl;
      letter-spacing: 0.2em;
@@ -154,7 +154,7 @@
    .banner-sub {
      margin-top: 8px;
      font-family: 'Orbitron', monospace;
-     font-size: 0.6rem;
+     font-size: 0.8rem;
      letter-spacing: 0.22em;
      color: var(--cyan-dim);
      text-transform: uppercase;
@@ -177,7 +177,7 @@
    }
    .banner-role-item {
      font-family: 'Space Mono', monospace;
-     font-size: 0.65rem;
+     font-size: 0.8rem;
      letter-spacing: 0.1em;
      color: var(--text-lo);
      display: flex;
@@ -187,7 +187,7 @@
    .banner-role-item::before {
      content: '//';
      color: var(--purple-dim);
-     font-size: 0.6rem;
+     font-size: 0.8rem;
    }
    .banner-available {
      display: inline-flex;
@@ -197,7 +197,7 @@
      border: 1px solid rgba(0,255,255,0.3);
      background: rgba(0,255,255,0.05);
      font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-size: 0.8rem;
      letter-spacing: 0.18em;
      color: var(--cyan);
      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
@@ -235,7 +235,7 @@
    /* panel label */
    .rp-label {
      font-family: 'Orbitron', monospace;
-     font-size: 0.52rem;
+     font-size: 0.8rem;
      letter-spacing: 0.28em;
      color: var(--cyan-dim);
      text-transform: uppercase;
@@ -246,7 +246,7 @@
    }
    .rp-label::before {
      content: '◈';
-     font-size: 0.5rem;
+     font-size: 0.8rem;
      color: var(--cyan);
    }
    .rp-label-purple { color: var(--purple-dim); }
@@ -335,7 +335,7 @@
      border: 1px solid var(--cyan-faint);
      background: rgba(0,255,255,0.04);
      font-family: 'Orbitron', monospace;
-     font-size: 0.54rem;
+     font-size: 0.8rem;
      letter-spacing: 0.14em;
      color: var(--cyan-dim);
      clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
@@ -365,7 +365,7 @@
    }
    .avatar-label {
      font-family: 'Orbitron', monospace;
-     font-size: 0.5rem;
+     font-size: 0.8rem;
      letter-spacing: 0.18em;
      color: var(--cyan-dim);
      text-align: center;
@@ -409,7 +409,7 @@
    .contact-info { flex: 1; overflow: hidden; }
    .contact-platform {
      font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-size: 0.8rem;
      letter-spacing: 0.16em;
      color: var(--cyan-dim);
      display: block;
@@ -425,7 +425,7 @@
      display: block;
    }
    .contact-arrow {
-     font-size: 0.6rem;
+     font-size: 0.8rem;
      color: var(--cyan-dim);
      transition: transform 0.2s;
    }
@@ -465,7 +465,7 @@
    }
    .exp-year-sup {
      font-family: 'Orbitron', monospace;
-     font-size: 0.48rem;
+     font-size: 0.8rem;
      letter-spacing: 0.1em;
      color: var(--cyan-dim);
    }
@@ -526,7 +526,7 @@
    .edu-item:first-child { padding-top: 0; }
    .edu-index {
      font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-size: 0.8rem;
      color: var(--purple-dim);
      letter-spacing: 0.15em;
      flex-shrink: 0;
@@ -550,7 +550,7 @@
    }
    .edu-meta {
      font-family: 'Share Tech Mono', monospace;
-     font-size: 0.65rem;
+     font-size: 0.8rem;
      color: var(--text-lo);
      display: flex;
      gap: 10px;
@@ -562,7 +562,7 @@
      background: var(--purple-faint);
      border: 1px solid rgba(155,92,255,0.25);
      font-family: 'Orbitron', monospace;
-     font-size: 0.5rem;
+     font-size: 0.8rem;
      letter-spacing: 0.12em;
      color: var(--purple-dim);
      border-radius: 1px;
@@ -638,7 +638,7 @@
    .tool-card:hover .tool-icon { filter: saturate(1.2) drop-shadow(0 0 6px rgba(0,255,255,0.4)); }
    .tool-name {
      font-family: 'Orbitron', monospace;
-     font-size: 0.52rem;
+     font-size: 0.8rem;
      letter-spacing: 0.12em;
      color: var(--text-lo);
      text-align: center;
@@ -683,7 +683,7 @@
    }
    .lang-level-tag {
      font-family: 'Share Tech Mono', monospace;
-     font-size: 0.6rem;
+     font-size: 0.8rem;
      color: var(--cyan-dim);
    }
    .lang-dots {
@@ -765,7 +765,7 @@
    }
    .philo-badge-lbl {
      font-family: 'Orbitron', monospace;
-     font-size: 0.48rem;
+     font-size: 0.8rem;
      letter-spacing: 0.2em;
      color: var(--purple-dim);
      display: block;
@@ -798,20 +798,20 @@
    }
    .footer-id {
      font-family: 'Share Tech Mono', monospace;
-     font-size: 0.62rem;
+     font-size: 0.8rem;
      color: var(--text-lo);
      letter-spacing: 0.08em;
    }
    .footer-center {
      font-family: 'Orbitron', monospace;
-     font-size: 0.5rem;
+     font-size: 0.8rem;
      letter-spacing: 0.25em;
      color: var(--cyan-dim);
      text-align: center;
    }
    .footer-date {
      font-family: 'Share Tech Mono', monospace;
-     font-size: 0.62rem;
+     font-size: 0.8rem;
      color: var(--text-lo);
      letter-spacing: 0.08em;
    }
@@ -828,7 +828,7 @@
      border: 1px solid var(--cyan);
      color: var(--cyan);
      font-family: 'Orbitron', monospace;
-     font-size: 0.6rem;
+     font-size: 0.8rem;
      font-weight: 700;
      letter-spacing: 0.15em;
      cursor: pointer;

@@ -16,7 +16,7 @@
   font-display: swap;
 }
 
-   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
    /* ── Reset & Base ── */
    *, *::before, *::after {
@@ -26,13 +26,13 @@
    }
    
    :root {
-     --bg:         #050510;
-     --bg2:        #080820;
-     --bg3:        #0d0d2b;
-     --cyan:       #00ffff;
-     --cyan-dim:   rgba(0,255,255,0.5);
-     --purple:     #9b5cff;
-     --purple-dim: rgba(155,92,255,0.5);
+     --bg:         #0f172a;
+     --bg2:        #1e293b;
+     --bg3:        #334155;
+     --cyan:       #38bdf8;
+     --cyan-dim:   rgba(56, 189, 248, 0.5);
+     --purple:     #818cf8;
+     --purple-dim: rgba(129, 140, 248, 0.5);
      --pink:       #ff2d78;
      --blue:       #3a7bd5;
      --text-hi:    #e0f7ff;
@@ -49,7 +49,7 @@
    body {
      background-color: var(--bg);
      color: var(--text-hi);
-     font-family: 'Rajdhani', sans-serif;
+     font-family: 'Inter', sans-serif;
      font-size: 16px;
      line-height: 1.6;
      min-height: 100vh;
@@ -58,7 +58,7 @@
    
    /* ── Typography ── */
    h1, h2, h3, h4, h5, h6 {
-     font-family: 'Orbitron', monospace;
+     font-family: 'Inter', sans-serif;
      line-height: 1.1;
      letter-spacing: 0.05em;
    }
@@ -66,7 +66,7 @@
    h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; }
    h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 600; }
    h4 { font-size: 1rem; font-weight: 600; }
-   p  { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; color: var(--text-mid); }
+   p  { font-family: 'Inter', sans-serif; font-size: 1.05rem; color: var(--text-mid); }
    a  { color: var(--cyan); text-decoration: none; transition: color 0.2s; }
    a:hover { color: #fff; }
    
@@ -130,15 +130,15 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     font-family: 'Orbitron', monospace;
-     font-size: 0.65rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      font-weight: 700;
      color: var(--cyan);
      box-shadow: 0 0 10px rgba(0,255,255,0.3), inset 0 0 10px rgba(0,255,255,0.05);
      clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
    }
    .nav-logo-text {
-     font-family: 'Orbitron', monospace;
+     font-family: 'Inter', sans-serif;
      font-size: 0.9rem;
      font-weight: 700;
      color: var(--text-hi);
@@ -155,8 +155,8 @@
      display: flex;
      align-items: center;
      padding: 8px 14px;
-     font-family: 'Orbitron', monospace;
-     font-size: 0.65rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      font-weight: 600;
      letter-spacing: 0.12em;
      color: var(--text-lo);
@@ -168,7 +168,7 @@
    }
    .nav-links a::before {
      content: '◈ ';
-     font-size: 0.55rem;
+     font-size: 0.8rem;
      opacity: 0;
      transition: opacity 0.2s;
      color: var(--cyan);
@@ -196,8 +196,8 @@
      animation: blink 2s ease-in-out infinite;
    }
    .nav-status-text {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.15em;
      color: var(--cyan-dim);
    }
@@ -243,8 +243,8 @@
      padding: 60px 0;
    }
    .hero-eyebrow {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.65rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.3em;
      color: var(--cyan);
      text-transform: uppercase;
@@ -266,7 +266,7 @@
      display: inline-block;
    }
    .hero-title {
-     font-family: 'Orbitron', monospace;
+     font-family: 'Inter', sans-serif;
      font-size: clamp(1rem, 2.5vw, 1.4rem);
      font-weight: 400;
      color: var(--cyan);
@@ -289,8 +289,8 @@
    .hero-tag {
      padding: 5px 14px;
      border: 1px solid rgba(0,255,255,0.25);
-     font-family: 'Orbitron', monospace;
-     font-size: 0.6rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.15em;
      color: var(--cyan-dim);
      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
@@ -314,7 +314,7 @@
      text-align: center;
    }
    .kpi-value {
-     font-family: 'Orbitron', monospace;
+     font-family: 'Inter', sans-serif;
      font-size: 2.2rem;
      font-weight: 900;
      color: var(--cyan);
@@ -324,8 +324,8 @@
      margin-bottom: 6px;
    }
    .kpi-label {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.58rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.2em;
      color: var(--text-lo);
      text-transform: uppercase;
@@ -357,13 +357,13 @@
      flex-shrink: 0;
    }
    .stats-bar-item .key {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.2em;
      color: var(--cyan-dim);
    }
    .stats-bar-item .val {
-     font-family: 'Share Tech Mono', monospace;
+     font-family: monospace;
      font-size: 0.75rem;
      color: var(--cyan);
      text-shadow: 0 0 6px var(--cyan);
@@ -397,13 +397,13 @@
      margin-bottom: 8px;
    }
    .skill-name {
-     font-family: 'Orbitron', monospace;
+     font-family: 'Inter', sans-serif;
      font-size: 0.7rem;
      letter-spacing: 0.12em;
      color: var(--text-hi);
    }
    .skill-pct {
-     font-family: 'Share Tech Mono', monospace;
+     font-family: monospace;
      font-size: 0.75rem;
      color: var(--cyan);
    }
@@ -426,8 +426,8 @@
    .project-tag {
      padding: 3px 10px;
      border: 1px solid rgba(155,92,255,0.3);
-     font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.1em;
      color: var(--purple-dim);
      background: rgba(155,92,255,0.05);
@@ -441,8 +441,8 @@
      border-radius: 0 2px 2px 0;
    }
    .insight-label {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.15em;
      color: var(--cyan);
      margin-bottom: 4px;
@@ -499,7 +499,7 @@
    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
    .terminal-body {
      padding: 24px;
-     font-family: 'Share Tech Mono', monospace;
+     font-family: monospace;
      font-size: 0.85rem;
      line-height: 1.8;
      min-height: 300px;
@@ -554,14 +554,14 @@
      color: var(--cyan);
    }
    .social-link .info .name {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.65rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.1em;
      color: var(--text-hi);
      display: block;
    }
    .social-link .info .handle {
-     font-family: 'Share Tech Mono', monospace;
+     font-family: monospace;
      font-size: 0.75rem;
      color: var(--cyan-dim);
    }
@@ -589,13 +589,13 @@
      border-radius: 4px;
    }
    .stat-box .stat-value {
-     font-family: 'Share Tech Mono', monospace;
+     font-family: monospace;
      font-size: 1.3rem;
      color: var(--cyan);
    }
    .stat-box .stat-key {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.55rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      color: var(--text-lo);
      letter-spacing: 0.15em;
    }
@@ -624,8 +624,8 @@
      position: relative;
    }
    .page-hero-path {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.6rem;
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
      letter-spacing: 0.25em;
      color: var(--cyan-dim);
      margin-bottom: 16px;
