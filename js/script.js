@@ -132,8 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Analytics Lab
   initAnalyticsLab();
 
-  // Contact form
-  initContactForm();
+  // Contact form removed
 
   // Loading screen
   initLoader();
@@ -242,25 +241,7 @@ function handleCSV(file) {
   reader.readAsText(file);
 }
 
-// ── Contact Form ──
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('[type="submit"]');
-    const orig = btn.textContent;
-    btn.textContent = '◈ SENDING...';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = '✓ MESSAGE SENT';
-      btn.style.borderColor = '#00ff88';
-      btn.style.color = '#00ff88';
-      form.reset();
-      setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.borderColor = ''; btn.style.color = ''; }, 3000);
-    }, 1500);
-  });
-}
+
 
 // ── Smooth scroll for anchor links ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {
