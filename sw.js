@@ -31,7 +31,6 @@ const PRE_CACHE = [
   '/projects.html',
   '/dashboards.html',
   '/analytics-lab.html',
-  '/code-lab.html',
   '/sql.html',
   '/python.html',
   '/case-study.html',
