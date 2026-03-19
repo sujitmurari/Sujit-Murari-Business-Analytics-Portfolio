@@ -30,19 +30,14 @@
   <meta property="og:image"        content="android-chrome-512x512.png"/>
   <meta property="og:image:width"  content="512"/>
   <meta property="og:image:height" content="512"/>
-  <title>SUJIT MURARI — Analytics Command Center</title>
+  <title>Sujit Murari | Business Analytics Portfolio</title>
 
   <!-- ── LCP Fix: preconnect to font origins ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
   <!-- ── LCP Fix: preload critical CSS so render isn't blocked ── -->
-  <link rel="preload" href="css/style.css" as="style"/>
-  <link rel="preload" href="css/cyberpunk.css" as="style"/>
-
-  <!-- ── LCP Fix: preload Orbitron (hero h1 font) ── -->
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500&display=swap"/>
+  <!-- Standard fonts imported via style.css -->
 
   <link rel="stylesheet" href="css/style.css?v=3.0"/>
   
@@ -76,9 +71,10 @@
   .dropdown-menu a {
     display: block;
     padding: 10px 18px;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
@@ -97,12 +93,12 @@
 
 <!-- Loading Screen -->
 <div id="loader" style="position:fixed;inset:0;z-index:999;background:#050510;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
-  <div style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.4em;color:rgba(0,255,255,0.6);">BUSINESS ANALYTICS PORTFOLIO</div>
-  <div style="font-family:'Orbitron',monospace;font-size:2rem;font-weight:900;color:#00ffff;text-shadow:0 0 20px #00ffff;">SUJIT MURARI</div>
+  <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.2em;color:rgba(0,255,255,0.6);">BUSINESS ANALYTICS PORTFOLIO</div>
+  <div style="font-family:'Inter', sans-serif;font-size:2rem;font-weight:900;color:#00ffff;">SUJIT MURARI</div>
   <div style="width:300px;height:3px;background:rgba(0,255,255,0.1);border-radius:2px;overflow:hidden;">
-    <div class="loader-bar-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#00ffff,#9b5cff);transition:width 0.1s;box-shadow:0 0 10px #00ffff;"></div>
+    <div class="loader-bar-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#00ffff,#38bdf8);transition:width 0.1s;"></div>
   </div>
-  <div style="font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:rgba(0,255,255,0.5);">INITIALIZING SYSTEM — <span class="loader-pct">0%</span></div>
+  <div style="font-family:'Inter', sans-serif;font-size:0.75rem;color:rgba(0,255,255,0.5);">INITIALIZING — <span class="loader-pct">0%</span></div>
 </div>
 
 <!-- Background -->
@@ -142,29 +138,11 @@
 </nav>
 <script>(function(){var t=document.getElementById('labs-toggle'),d=document.getElementById('nav-labs');if(t&&d){t.addEventListener('click',function(e){if(window.innerWidth<=768){e.preventDefault();d.classList.toggle('open');}});document.addEventListener('click',function(e){if(!d.contains(e.target))d.classList.remove('open');});}})()</script>
 
-<!-- Stats Ticker -->
-<div class="stats-bar" style="position:absolute;top:64px;left:0;right:0;z-index:99;background:#0f172a;">
-  <div class="stats-bar-inner">
-    <div class="stats-bar-item"><span class="key">STATUS</span><span class="val">ONLINE</span></div>
-    <div class="stats-bar-item"><span class="key">ANALYST</span><span class="val">SUJIT MURARI</span></div>
-    <div class="stats-bar-item"><span class="key">TOOLS</span><span class="val">TABLEAU · SQL · PYTHON · EXCEL</span></div>
-    <div class="stats-bar-item"><span class="key">UNIVERSITY</span><span class="val">DEV BHOOMI UTTARAKHAND</span></div>
-    <div class="stats-bar-item"><span class="key">SEMESTER</span><span class="val">IV · 2026</span></div>
-    <div class="stats-bar-item"><span class="key">INTERNSHIP</span><span class="val">OPEN TO OPPORTUNITIES</span></div>
-    <div class="stats-bar-item"><span class="key">SPECIALIZATION</span><span class="val">BUSINESS ANALYTICS</span></div>
-    <!-- Duplicate for seamless loop -->
-    <div class="stats-bar-item"><span class="key">STATUS</span><span class="val">ONLINE</span></div>
-    <div class="stats-bar-item"><span class="key">ANALYST</span><span class="val">SUJIT MURARI</span></div>
-    <div class="stats-bar-item"><span class="key">TOOLS</span><span class="val">TABLEAU · SQL · PYTHON · EXCEL</span></div>
-    <div class="stats-bar-item"><span class="key">UNIVERSITY</span><span class="val">DEV BHOOMI UTTARAKHAND</span></div>
-    <div class="stats-bar-item"><span class="key">SEMESTER</span><span class="val">IV · 2026</span></div>
-    <div class="stats-bar-item"><span class="key">INTERNSHIP</span><span class="val">OPEN TO OPPORTUNITIES</span></div>
-    <div class="stats-bar-item"><span class="key">SPECIALIZATION</span><span class="val">BUSINESS ANALYTICS</span></div>
-  </div>
-</div>
+    <!-- Removed Specialty Bar -->
+    <div style="height:20px;"></div>
 
 <!-- Main Content -->
-<main class="page-content" style="padding-top: calc(64px + 60px);">
+<main class="page-content">
 
   <!-- HERO -->
   <section class="hero">
@@ -172,10 +150,10 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:520px;" class="hero-grid">
         <!-- Left: Text -->
         <div class="hero-content" data-reveal data-delay="200">
-          <div class="hero-eyebrow">BUSINESS ANALYTICS PORTFOLIO v2.0</div>
-          <h1 class="hero-name " data-text="SUJIT MURARI">SUJIT MURARI</h1>
+          <div class="hero-eyebrow">BUSINESS ANALYTICS PORTFOLIO</div>
+          <h1 class="hero-name" data-text="SUJIT MURARI">SUJIT MURARI</h1>
           <div class="hero-title">
-  <span class="hero-role">◈ Business Analytics Student</span>
+  <span class="hero-role">• Business Analytics Student</span>
   <span class="hero-divider">·</span>
   <span id="hero-typing" class="hero-typing">Data Visualization</span>
 </div>
@@ -190,30 +168,30 @@
             <span class="hero-tag">Statistics</span>
           </div>
           <div class="hero-btns">
-            <a href="projects.html" class="btn-neon btn-neon-solid">▸ Explore Projects</a>
-            <a href="dashboards.html" class="btn-neon btn-neon-purple">▸ View Dashboards</a>
-            <a href="resume.html" class="btn-neon" style="border-color:rgba(0,255,136,0.4);color:#00ff88;">↓ Download Resume</a>
+            <a href="projects.html" class="btn-neon btn-neon-solid">Explore Projects →</a>
+            <a href="dashboards.html" class="btn-neon btn-neon-purple">View Dashboards →</a>
+            <a href="resume.html" class="btn-neon" style="border-color:rgba(0,255,136,0.4);color:#00ff88;">Download Resume ↓</a>
           </div>
         </div>
 
         <!-- Right: Visual Panel -->
         <div data-reveal data-delay="400" style="min-height:520px;contain:layout;">
           <div class="cp-panel cp-corner" style="padding:28px;">
-            <div class="data-label mb-16">◈ ANALYST PROFILE — ACTIVE</div>
+            <div class="data-label mb-16">• PROFESSIONAL PROFILE</div>
 
             <!-- Profile vitals -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
               <div class="cp-panel cp-panel-purple" style="padding:16px 14px;">
                 <div class="data-label">SPECIALIZATION</div>
-                <div style="font-family:'Orbitron',monospace;font-size:0.7rem;color:#00ffff;margin-top:4px;">Business Analytics</div>
+                <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color:#38bdf8;margin-top:4px;">Business Analytics</div>
               </div>
               <div class="cp-panel" style="padding:16px 14px;">
                 <div class="data-label">UNIVERSITY</div>
-                <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#e0f7ff;margin-top:4px;">Dev Bhoomi Uttarakhand University</div>
+                <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#e0f7ff;margin-top:4px;">Dev Bhoomi Uttarakhand</div>
               </div>
               <div class="cp-panel" style="padding:16px 14px;">
                 <div class="data-label">PROGRAM</div>
-                <div style="font-family:'Orbitron',monospace;font-size:0.7rem;color:#9b5cff;margin-top:4px;">BBA — Analytics</div>
+                <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color:#818cf8;margin-top:4px;">BBA — Analytics</div>
               </div>
               <div class="cp-panel cp-corner-purple" style="padding:16px 14px;">
                 <div class="data-label">STATUS</div>
@@ -222,44 +200,43 @@
             </div>
 
             <!-- Mini skill bars -->
-                        <div class="data-label mb-16">CORE COMPETENCIES</div>
+            <div class="data-label mb-16">CORE COMPETENCIES</div>
             <div style="display:flex;flex-direction:column;gap:12px;">
-              <ul style="list-style:none;padding:0;margin:0;font-family:monospace;font-size:0.8rem;color:#38bdf8;">
-                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">▸ Tableau:</span> Interactive Dashboards, LODs, KPI Cards</li>
-                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">▸ Excel:</span> Pivot Tables, Advanced Charts, VLOOKUP/Index-Match</li>
-                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">▸ SQL:</span> Joins, Window Functions, Data Aggregation</li>
-                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">▸ Python:</span> Pandas, Multi-variate Analysis, Cleaning</li>
-                <li style="margin-bottom:0;"><span style="color:#e0f7ff;">▸ R Programming:</span> Statistical modeling, Data mapping</li>
+              <ul style="list-style:none;padding:0;margin:0;font-family:'Inter', sans-serif;font-size:0.85rem;color:#38bdf8;">
+                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">• Tableau:</span> Interactive Dashboards, LODs, KPI Cards</li>
+                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">• Excel:</span> Pivot Tables, Advanced Charts, VLOOKUP/Index-Match</li>
+                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">• SQL:</span> Joins, Window Functions, Data Aggregation</li>
+                <li style="margin-bottom:8px;"><span style="color:#e0f7ff;">• Python:</span> Pandas, Multi-variate Analysis, Cleaning</li>
+                <li style="margin-bottom:0;"><span style="color:#e0f7ff;">• R Programming:</span> Statistical modeling, Data mapping</li>
               </ul>
             </div>
-          </div>
               <div>
                 <div class="skill-header" style="margin-bottom:5px;">
-                  <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#e0f7ff;">Excel</span>
-                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#00ffff;">90%</span>
+                  <span style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;color:#e0f7ff;">Excel</span>
+                  <span style="font-family:ui-monospace, monospace;font-size:0.75rem;color:#38bdf8;">90%</span>
                 </div>
                 <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="90"></div></div>
               </div>
               <div>
                 <div class="skill-header" style="margin-bottom:5px;">
-                  <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#e0f7ff;">R Programming</span>
-                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#1cbb5e;">66%</span>
+                  <span style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;color:#e0f7ff;">R Programming</span>
+                  <span style="font-family:ui-monospace, monospace;font-size:0.75rem;color:#1cbb5e;">66%</span>
                 </div>
                 <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="66"></div></div>
               </div>
               <div>
                 <div class="skill-header" style="margin-bottom:5px;">
-                  <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#e0f7ff;">SQL</span>
-                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#00ffff;">78%</span>
+                  <span style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;color:#e0f7ff;">SQL</span>
+                  <span style="font-family:ui-monospace, monospace;font-size:0.75rem;color:#38bdf8;">78%</span>
                 </div>
                 <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="78"></div></div>
               </div>
               <div>
                 <div class="skill-header" style="margin-bottom:5px;">
-                  <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:#e0f7ff;">Python</span>
-                  <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:#9b5cff;">72%</span>
+                  <span style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;color:#e0f7ff;">Python</span>
+                  <span style="font-family:ui-monospace, monospace;font-size:0.75rem;color:#818cf8;">72%</span>
                 </div>
-                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#9b5cff,#00ffff);box-shadow:0 0 10px #9b5cff;"></div></div>
+                <div class="neon-progress-wrap"><div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#818cf8,#38bdf8);"></div></div>
               </div>
             </div>
           </div>
@@ -269,26 +246,26 @@
       <!-- KPI Cards -->
       <div class="kpi-grid mt-60" data-reveal data-delay="600">
         <div class="holo-card cp-corner kpi-card">
-          <div class="data-label mb-8">◈ PROJECTS</div>
+          <div class="data-label mb-8">• PROJECTS</div>
           <span class="kpi-value" data-count="8">0</span>
           <div class="kpi-label">Projects Completed</div>
           <div class="kpi-sublabel">Analytics & Dashboard Projects</div>
         </div>
         <div class="holo-card cp-corner-purple kpi-card">
-          <div class="data-label mb-8">◈ DATASETS</div>
-          <span class="kpi-value" style="color:#9b5cff;text-shadow:0 0 20px #9b5cff;" data-count="15">0</span>
+          <div class="data-label mb-8">• DATASETS</div>
+          <span class="kpi-value" style="color:#818cf8;" data-count="15">0</span>
           <div class="kpi-label">Datasets Analyzed</div>
           <div class="kpi-sublabel">Real Business Datasets</div>
         </div>
         <div class="holo-card cp-corner kpi-card">
-          <div class="data-label mb-8">◈ DASHBOARDS</div>
+          <div class="data-label mb-8">• DASHBOARDS</div>
           <span class="kpi-value" data-count="6">0</span>
           <div class="kpi-label">Dashboards Built</div>
           <div class="kpi-sublabel">Tableau & Power BI Dashboards</div>
         </div>
         <div class="holo-card cp-corner-purple kpi-card">
-          <div class="data-label mb-8">◈ TOOLS</div>
-          <span class="kpi-value" style="color:#9b5cff;text-shadow:0 0 20px #9b5cff;" data-count="7">0</span>
+          <div class="data-label mb-8">• TOOLS</div>
+          <span class="kpi-value" style="color:#818cf8;" data-count="7">0</span>
           <div class="kpi-label">Tools Mastered</div>
           <div class="kpi-sublabel">Analytics & BI Tools</div>
         </div>
@@ -305,15 +282,15 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
         <div class="cp-panel cp-corner holo-card" style="padding:32px;" data-reveal data-delay="100">
           <div style="font-size:2rem;margin-bottom:16px;">📊</div>
-          <div class="data-label mb-8">DOMAIN_01</div>
+          <div class="data-label mb-8">ANALYTICS AREA</div>
           <h3 class="text-cyan mb-16">Data Visualization</h3>
           <p>Building executive-grade Tableau dashboards with KPI cards, dual-axis charts, and interactive filters that communicate business insights with precision.</p>
-          <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
+          <div class="cyber-divider" style="margin:20px 0;"><span>CAPABILITIES</span></div>
           <div class="hero-tags"><span class="hero-tag">Tableau</span><span class="hero-tag">Power BI</span><span class="hero-tag">Excel</span><span class="hero-tag">R Programming</span></div>
         </div>
         <div class="cp-panel cp-panel-purple cp-corner-purple holo-card" style="padding:32px;" data-reveal data-delay="200">
           <div style="font-size:2rem;margin-bottom:16px;">📈</div>
-          <div class="data-label mb-8" style="color:rgba(155,92,255,0.5);">DOMAIN_02</div>
+          <div class="data-label mb-8" style="color:rgba(129,140,248,0.5);">ADVANCED ANALYTICS</div>
           <h3 class="text-purple mb-16">Statistical Analytics</h3>
           <p>Applying regression, correlation analysis, hypothesis testing, and distribution modeling to derive statistically sound business recommendations.</p>
           <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
@@ -321,7 +298,7 @@
         </div>
         <div class="cp-panel cp-corner holo-card" style="padding:32px;" data-reveal data-delay="300">
           <div style="font-size:2rem;margin-bottom:16px;">💡</div>
-          <div class="data-label mb-8">DOMAIN_03</div>
+          <div class="data-label mb-8">STRATEGIC INSIGHTS</div>
           <h3 class="text-cyan mb-16">Business Intelligence</h3>
           <p>Translating raw operational data into pricing, revenue, and customer segmentation insights aligned with strategic business objectives.</p>
           <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
@@ -346,8 +323,7 @@
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
             <span style="font-size:1.4rem;">🐍</span>
             <div>
-              <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(0,255,255,0.45);letter-spacing:0.12em;">CATEGORY 01</div>
-              <div style="font-family:'Orbitron',monospace;font-size:0.78rem;color:#00ffff;">Data Analysis</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#38bdf8;">Data Analysis</div>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:7px;">
@@ -358,8 +334,8 @@
             <span class="hero-tag" style="font-size: 0.8rem;">Data Cleaning</span>
             <span class="hero-tag" style="font-size: 0.8rem;">Feature Engineering</span>
           </div>
-          <div style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:rgba(224,247,255,0.3);line-height:1.6;">
-            Missing value handling · outlier removal · data type conversion · aggregation
+            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
+            Missing value handling • outlier removal • data type conversion • aggregation
           </div>
         </div>
 
@@ -368,8 +344,7 @@
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
             <span style="font-size:1.4rem;">📊</span>
             <div>
-              <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(155,92,255,0.45);letter-spacing:0.12em;">CATEGORY 02</div>
-              <div style="font-family:'Orbitron',monospace;font-size:0.78rem;color:#9b5cff;">Data Visualization</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#818cf8;">Data Visualization</div>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:7px;">
@@ -380,8 +355,8 @@
             <span class="hero-tag" style="font-size: 0.8rem;">KPI Dashboards</span>
             <span class="hero-tag" style="font-size: 0.8rem;">LOD Expressions</span>
           </div>
-          <div style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:rgba(224,247,255,0.3);line-height:1.6;">
-            Interactive filters · dual-axis charts · drill-down · executive dashboards
+            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
+            Interactive filters • dual-axis charts • drill-down • executive dashboards
           </div>
         </div>
 
@@ -390,8 +365,7 @@
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
             <span style="font-size:1.4rem;">🗄️</span>
             <div>
-              <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(0,255,255,0.45);letter-spacing:0.12em;">CATEGORY 03</div>
-              <div style="font-family:'Orbitron',monospace;font-size:0.78rem;color:#00ffff;">Database & SQL</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#38bdf8;">Database & SQL</div>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:7px;">
@@ -402,8 +376,8 @@
             <span class="hero-tag" style="font-size: 0.8rem;">CTEs</span>
             <span class="hero-tag" style="font-size: 0.8rem;">Window Functions</span>
           </div>
-          <div style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:rgba(224,247,255,0.3);line-height:1.6;">
-            Revenue aggregation · customer segmentation · subqueries · CASE WHEN
+            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
+            Revenue aggregation • customer segmentation • subqueries • CASE WHEN
           </div>
         </div>
 
@@ -412,8 +386,7 @@
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
             <span style="font-size:1.4rem;">📐</span>
             <div>
-              <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(155,92,255,0.45);letter-spacing:0.12em;">CATEGORY 04</div>
-              <div style="font-family:'Orbitron',monospace;font-size:0.78rem;color:#9b5cff;">Statistical Methods</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#818cf8;">Statistical Methods</div>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:7px;">
@@ -424,8 +397,8 @@
             <span class="hero-tag" style="font-size: 0.8rem;">Descriptive Stats</span>
             <span class="hero-tag" style="font-size: 0.8rem;">Hypothesis Testing</span>
           </div>
-          <div style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:rgba(224,247,255,0.3);line-height:1.6;">
-            Pearson/Spearman · linear regression · p-value interpretation · outlier detection
+            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
+            Pearson/Spearman • linear regression • p-value interpretation • outlier detection
           </div>
         </div>
 
@@ -433,8 +406,8 @@
 
       <!-- Analytical workflow strip -->
       <div class="cp-panel" style="padding:20px 24px;margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;" data-reveal data-delay="200">
-        <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;color:rgba(0,255,255,0.35);letter-spacing:0.14em;flex-shrink:0;">◈ HOW I WORK</div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'Share Tech Mono',monospace;font-size:0.72rem;">
+        <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:rgba(0,255,255,0.35);letter-spacing:0.05em;flex-shrink:0;">• ANALYTICAL WORKFLOW</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'Inter', sans-serif;font-weight:600;font-size:0.75rem;">
           <span style="color:#00ffff;border:1px solid rgba(0,255,255,0.2);padding:5px 12px;border-radius:3px;background:rgba(0,255,255,0.05);">Business Problem</span>
           <span style="color:rgba(0,255,255,0.3);">→</span>
           <span style="color:rgba(224,247,255,0.5);border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:3px;">Data Collection</span>
@@ -442,8 +415,7 @@
           <span style="color:rgba(224,247,255,0.5);border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:3px;">Cleaning & EDA</span>
           <span style="color:rgba(0,255,255,0.3);">→</span>
           <span style="color:rgba(224,247,255,0.5);border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:3px;">Statistical Analysis</span>
-          <span style="color:rgba(0,255,255,0.3);">→</span>
-          <span style="color:#9b5cff;border:1px solid rgba(155,92,255,0.2);padding:5px 12px;border-radius:3px;background:rgba(155,92,255,0.05);">Key Insights</span>
+          <span style="color:#818cf8;border:1px solid rgba(129,140,248,0.2);padding:5px 12px;border-radius:3px;background:rgba(129,140,248,0.05);">Key Insights</span>
           <span style="color:rgba(0,255,255,0.3);">→</span>
           <span style="color:#00ff88;border:1px solid rgba(0,255,136,0.2);padding:5px 12px;border-radius:3px;background:rgba(0,255,136,0.05);">Recommendation</span>
         </div>
@@ -452,11 +424,11 @@
       <!-- Flagship case study CTA -->
       <div class="cp-panel cp-corner" style="padding:28px 32px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;" data-reveal data-delay="250">
         <div>
-          <div class="data-label mb-8">◈ FEATURED · FULL ANALYTICS WORKFLOW</div>
-          <h3 style="margin:0;font-size:1rem;">Airline Pricing Intelligence — <span class="text-cyan">Complete Case Study</span></h3>
+          <div class="data-label mb-8">• FEATURED CASE STUDY</div>
+          <h3 style="margin:0;font-size:1rem;">Zomato Growth Intelligence — <span class="text-cyan">Complete Case Study</span></h3>
           <p style="margin:6px 0 0;font-size:0.9rem;color:rgba(224,247,255,0.5);">EDA · Regression · SQL · Tableau · Recommendations — all in one report.</p>
         </div>
-        <a href="projects.html" class="btn-neon btn-neon-solid" style="white-space:nowrap;">▸ View Projects</a>
+        <a href="projects.html" class="btn-neon btn-neon-solid" style="white-space:nowrap;">View Projects →</a>
       </div>
 
     </div>
@@ -466,12 +438,12 @@
   <section class="section" style="padding-top:0;">
     <div class="container" style="text-align:center;" data-reveal>
       <div class="cp-panel" style="padding:60px 40px;max-width:700px;margin:0 auto;">
-        <div class="data-label mb-16">◈ READY TO COLLABORATE</div>
+        <div class="data-label mb-16">• READY TO COLLABORATE</div>
         <h2 style="margin-bottom:16px;">Let's Build Something <span class="text-cyan">Intelligence-Driven</span></h2>
         <p style="margin-bottom:32px;">Open to analytics internships, collaborative projects, and data-driven challenges. Let's turn your data into decisions.</p>
         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-          <a href="contact.html" class="btn-neon btn-neon-solid">▸ Get In Touch</a>
-          <a href="about.html" class="btn-neon btn-neon-purple">▸ Know More</a>
+          <a href="contact.html" class="btn-neon btn-neon-solid">Get In Touch →</a>
+          <a href="about.html" class="btn-neon btn-neon-purple">Know More →</a>
         </div>
       </div>
     </div>
@@ -482,8 +454,8 @@
 <!-- Footer -->
 <footer id="footer">
   <div class="container">
-    <p style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
+    <p style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.1em;color:rgba(0,255,255,0.4);">
+      SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>
 </footer>

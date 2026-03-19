@@ -3,18 +3,7 @@
    ═══════════════════════════════════════════════════ */
 
 /* ── LCP Fix: ensure Google Fonts use swap to avoid invisible text ── */
-@font-face {
-  font-family: 'Orbitron';
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Share Tech Mono';
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Rajdhani';
-  font-display: swap;
-}
+/* Inter font is already imported */
 
    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -124,19 +113,18 @@
      text-decoration: none;
      flex-shrink: 0;
    }
-   .nav-logo-mark {
-     width: 36px; height: 36px;
-     border: 1px solid var(--cyan);
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     font-family: 'Inter', sans-serif;
-     font-size: 0.8rem;
-     font-weight: 700;
-     color: var(--cyan);
-     box-shadow: 0 0 10px rgba(0,255,255,0.3), inset 0 0 10px rgba(0,255,255,0.05);
-     clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
-   }
+    .nav-logo-mark {
+      width: 36px; height: 36px;
+      border: 1px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+      border-radius: 4px;
+    }
    .nav-logo-text {
      font-family: 'Inter', sans-serif;
      font-size: 0.9rem;
@@ -166,19 +154,18 @@
      position: relative;
      border-bottom: 2px solid transparent;
    }
-   .nav-links a::before {
-     content: '◈ ';
-     font-size: 0.8rem;
-     opacity: 0;
-     transition: opacity 0.2s;
-     color: var(--cyan);
-   }
-   .nav-links a:hover,
-   .nav-links a.active {
-     color: var(--cyan);
-     text-shadow: 0 0 8px var(--cyan);
-     border-bottom-color: var(--cyan);
-   }
+    .nav-links a::before {
+      content: '• ';
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+      color: var(--cyan);
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
    .nav-links a:hover::before,
    .nav-links a.active::before { opacity: 1; }
    
@@ -188,13 +175,12 @@
      gap: 8px;
      flex-shrink: 0;
    }
-   .nav-status-dot {
-     width: 6px; height: 6px;
-     background: var(--cyan);
-     border-radius: 50%;
-     box-shadow: 0 0 6px var(--cyan);
-     animation: blink 2s ease-in-out infinite;
-   }
+    .nav-status-dot {
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
    .nav-status-text {
      font-family: 'Inter', sans-serif;
      font-size: 0.8rem;
@@ -253,12 +239,11 @@
      align-items: center;
      gap: 12px;
    }
-   .hero-eyebrow::before {
-     content: '';
-     width: 30px; height: 1px;
-     background: var(--cyan);
-     box-shadow: 0 0 6px var(--cyan);
-   }
+    .hero-eyebrow::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--cyan);
+    }
    .hero-name {
      color: var(--text-hi);
      margin-bottom: 8px;
@@ -286,16 +271,16 @@
      gap: 8px;
      margin-bottom: 40px;
    }
-   .hero-tag {
-     padding: 5px 14px;
-     border: 1px solid rgba(0,255,255,0.25);
-     font-family: 'Inter', sans-serif;
-     font-size: 0.8rem;
-     letter-spacing: 0.15em;
-     color: var(--cyan-dim);
-     clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-     background: rgba(0,255,255,0.04);
-   }
+    .hero-tag {
+      padding: 5px 14px;
+      border: 1px solid rgba(0,255,255,0.25);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--cyan-dim);
+      border-radius: 4px;
+      background: rgba(0,255,255,0.04);
+    }
    .hero-btns {
      display: flex;
      flex-wrap: wrap;
@@ -313,22 +298,20 @@
      padding: 24px 20px;
      text-align: center;
    }
-   .kpi-value {
-     font-family: 'Inter', sans-serif;
-     font-size: 2.2rem;
-     font-weight: 900;
-     color: var(--cyan);
-     text-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(0,255,255,0.5);
-     display: block;
-     line-height: 1;
-     margin-bottom: 6px;
-   }
+    .kpi-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--cyan);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
    .kpi-label {
      font-family: 'Inter', sans-serif;
      font-size: 0.8rem;
      letter-spacing: 0.2em;
      color: var(--text-lo);
-     text-transform: uppercase;
    }
    .kpi-sublabel {
      font-size: 0.75rem;
@@ -362,12 +345,11 @@
      letter-spacing: 0.2em;
      color: var(--cyan-dim);
    }
-   .stats-bar-item .val {
-     font-family: monospace;
-     font-size: 0.75rem;
-     color: var(--cyan);
-     text-shadow: 0 0 6px var(--cyan);
-   }
+    .stats-bar-item .val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      color: var(--cyan);
+    }
    @keyframes marquee {
      from { transform: translateX(0); }
      to   { transform: translateX(-50%); }
@@ -497,13 +479,13 @@
      gap: 8px;
    }
    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-   .terminal-body {
-     padding: 24px;
-     font-family: monospace;
-     font-size: 0.85rem;
-     line-height: 1.8;
-     min-height: 300px;
-   }
+    .terminal-body {
+      padding: 24px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      min-height: 300px;
+    }
    .t-prompt { color: var(--cyan); }
    .t-cmd    { color: var(--text-hi); }
    .t-output { color: var(--purple); }
@@ -560,11 +542,11 @@
      color: var(--text-hi);
      display: block;
    }
-   .social-link .info .handle {
-     font-family: monospace;
-     font-size: 0.75rem;
-     color: var(--cyan-dim);
-   }
+    .social-link .info .handle {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      color: var(--cyan-dim);
+    }
    
    /* ── Lab Upload ── */
    .lab-drop-zone {
@@ -588,11 +570,11 @@
      border: 1px solid rgba(0,255,255,0.12);
      border-radius: 4px;
    }
-   .stat-box .stat-value {
-     font-family: monospace;
-     font-size: 1.3rem;
-     color: var(--cyan);
-   }
+    .stat-box .stat-value {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 1.3rem;
+      color: var(--cyan);
+    }
    .stat-box .stat-key {
      font-family: 'Inter', sans-serif;
      font-size: 0.8rem;
@@ -609,14 +591,13 @@
      position: relative;
      z-index: 2;
    }
-   #footer::before {
-     content: '';
-     position: absolute;
-     top: 0; left: 20%; right: 20%;
-     height: 1px;
-     background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-     box-shadow: 0 0 10px var(--cyan);
-   }
+    #footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
    
    /* ── Page Hero Banner ── */
    .page-hero {

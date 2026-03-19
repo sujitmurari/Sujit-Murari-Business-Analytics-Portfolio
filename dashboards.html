@@ -33,9 +33,9 @@
       border: 1px solid rgba(0,255,255,0.2);
       border-radius: 4px;
       background: rgba(5,5,16,0.8);
-      font-family: 'Orbitron', monospace;
+      font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
       color: rgba(224,247,255,0.4);
       cursor: pointer;
       transition: all 0.2s;
@@ -50,11 +50,10 @@
       border-color: #00ffff;
       color: #00ffff;
       background: rgba(0,255,255,0.08);
-      box-shadow: 0 0 12px rgba(0,255,255,0.15);
     }
     .dash-tab.purple { border-color: rgba(155,92,255,0.2); color: rgba(155,92,255,0.4); }
     .dash-tab.purple:hover { border-color: rgba(155,92,255,0.5); color: rgba(155,92,255,0.8); background: rgba(155,92,255,0.04); }
-    .dash-tab.purple.active { border-color: #9b5cff; color: #9b5cff; background: rgba(155,92,255,0.08); box-shadow: 0 0 12px rgba(155,92,255,0.15); }
+    .dash-tab.purple.active { border-color: #818cf8; color: #818cf8; background: rgba(129,140,248,0.08); }
     .dash-tab .tab-num {
       font-size: 0.8rem;
       opacity: 0.5;
@@ -86,20 +85,22 @@
     .insight-header.purple { border-color: rgba(155,92,255,0.15); }
     .dash-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
     .dash-title-label {
-      font-family: 'Orbitron', monospace;
+      font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
-      letter-spacing: 0.14em;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       color: rgba(0,255,255,0.4);
       margin-bottom: 6px;
     }
-    .dash-title-label.purple { color: rgba(155,92,255,0.4); }
+    .dash-title-label.purple { color: rgba(129,140,248,0.4); }
     .dash-name {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
       color: #00ffff;
       line-height: 1.4;
     }
-    .dash-name.purple { color: #9b5cff; }
+    .dash-name.purple { color: #818cf8; }
 
     /* Stats row */
     .stats-row {
@@ -115,19 +116,20 @@
     }
     .stat-box.purple { border-color: rgba(155,92,255,0.1); }
     .stat-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       color: rgba(0,255,255,0.35);
       margin-bottom: 4px;
     }
-    .stat-label.purple { color: rgba(155,92,255,0.35); }
+    .stat-label.purple { color: rgba(129,140,248,0.35); }
     .stat-value {
-      font-family: 'Share Tech Mono', monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 1rem;
       color: #00ffff;
     }
-    .stat-value.purple { color: #9b5cff; }
+    .stat-value.purple { color: #818cf8; }
 
     /* Key insights list */
     .key-insights {
@@ -138,25 +140,26 @@
     }
     .key-insights.purple { border-color: rgba(155,92,255,0.1); }
     .ki-title {
-      font-family: 'Orbitron', monospace;
+      font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
-      letter-spacing: 0.14em;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       color: rgba(0,255,255,0.4);
       margin-bottom: 12px;
     }
-    .ki-title.purple { color: rgba(155,92,255,0.4); }
+    .ki-title.purple { color: rgba(129,140,248,0.4); }
     .ki-item {
       display: flex;
       gap: 10px;
       margin-bottom: 10px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
       color: rgba(224,247,255,0.6);
       line-height: 1.5;
     }
     .ki-item:last-child { margin-bottom: 0; }
     .ki-arrow { color: #00ffff; flex-shrink: 0; }
-    .ki-arrow.purple { color: #9b5cff; }
+    .ki-arrow.purple { color: #818cf8; }
 
     /* Tags */
     .tags-row { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -165,9 +168,8 @@
     .iframe-panel {
       border: 1px solid rgba(0,255,255,0.15);
       border-radius: 6px;
-      overflow-x: auto;
-      overflow-y: hidden;
       background: rgba(5,5,16,0.5);
+      overflow: hidden;
     }
     .iframe-panel.purple { border-color: rgba(155,92,255,0.15); }
     .iframe-titlebar {
@@ -182,7 +184,7 @@
     .iframe-dots { display: flex; gap: 6px; }
     .iframe-dot { width: 10px; height: 10px; border-radius: 50%; }
     .iframe-url {
-      font-family: 'Share Tech Mono', monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.8rem;
       color: rgba(224,247,255,0.25);
     }
@@ -190,7 +192,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-family: 'Share Tech Mono', monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.8rem;
       color: #00ff88;
     }
@@ -203,8 +205,7 @@
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
     .iframe-panel iframe {
       width: 100%;
-      min-width: 1050px;
-      height: 650px;
+      height: 800px;
       border: none;
       display: block;
     }
@@ -224,9 +225,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', monospace;
+      font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
-      letter-spacing: 0.2em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       color: rgba(0,255,255,0.3);
       background: rgba(5,5,16,0.9);
       pointer-events: none;
@@ -261,9 +263,10 @@
   .dropdown-menu a {
     display: block;
     padding: 10px 18px;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
@@ -375,17 +378,17 @@
             </div>
 
             <div class="key-insights">
-              <div class="ki-title">◈ KEY INSIGHTS</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Strong Price Segmentation by Travel Class</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Prices Increase as Departure Date Approaches</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Duration Has Weak Influence on Price</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Flights with One Stop Show Higher Median Prices</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Airline Pricing Strategy Differences</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Certain Routes Have Consistently Higher Prices</div>
+              <div class="ki-title">• KEY INSIGHTS</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Strong Price Segmentation by Travel Class</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Prices Increase as Departure Date Approaches</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Duration Has Weak Influence on Price</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Flights with One Stop Show Higher Median Prices</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Airline Pricing Strategy Differences</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Certain Routes Have Consistently Higher Prices</div>
             </div>
 
             <div class="key-insights">
-              <div class="ki-title">◈ FILTERS AVAILABLE</div>
+              <div class="ki-title">• FILTERS AVAILABLE</div>
               <div class="tags-row">
                 <span class="project-tag">Route</span>
                 <span class="project-tag">Season</span>
@@ -452,15 +455,15 @@
             </div>
 
             <div class="key-insights purple">
-              <div class="ki-title purple">◈ KEY INSIGHTS</div>
-              <div class="ki-item"><span class="ki-arrow purple">▸</span> Electronics category drives 52% of total platform revenue</div>
-              <div class="ki-item"><span class="ki-arrow purple">▸</span> Discount >30% correlates with 3× higher conversion rate</div>
-              <div class="ki-item"><span class="ki-arrow purple">▸</span> Top 10 brands generate 67% of category-level sales volume</div>
-              <div class="ki-item"><span class="ki-arrow purple">▸</span> Mid-range ₹500–₹2000 price band has highest review density</div>
+              <div class="ki-title purple">• KEY INSIGHTS</div>
+              <div class="ki-item"><span class="ki-arrow purple">•</span> Electronics category drives 52% of total platform revenue</div>
+              <div class="ki-item"><span class="ki-arrow purple">•</span> Discount >30% correlates with 3× higher conversion rate</div>
+              <div class="ki-item"><span class="ki-arrow purple">•</span> Top 10 brands generate 67% of category-level sales volume</div>
+              <div class="ki-item"><span class="ki-arrow purple">•</span> Mid-range ₹500–₹2000 price band has highest review density</div>
             </div>
 
             <div class="key-insights purple">
-              <div class="ki-title purple">◈ FILTERS AVAILABLE</div>
+              <div class="ki-title purple">• FILTERS AVAILABLE</div>
               <div class="tags-row">
                 <span class="project-tag">Category</span>
                 <span class="project-tag">Brand</span>
@@ -525,15 +528,15 @@
             </div>
 
             <div class="key-insights">
-              <div class="ki-title">◈ KEY INSIGHTS</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Members aged 25–34 show highest workout consistency at 4.2×/week</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Weight loss goal members visit 31% more frequently than others</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Evening sessions (6–9 PM) account for 48% of all check-ins</div>
-              <div class="ki-item"><span class="ki-arrow">▸</span> Strength training members show highest 90-day retention rate</div>
+              <div class="ki-title">• KEY INSIGHTS</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Members aged 25–34 show highest workout consistency at 4.2×/week</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Weight loss goal members visit 31% more frequently than others</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Evening sessions (6–9 PM) account for 48% of all check-ins</div>
+              <div class="ki-item"><span class="ki-arrow">•</span> Strength training members show highest 90-day retention rate</div>
             </div>
 
             <div class="key-insights">
-              <div class="ki-title">◈ FILTERS AVAILABLE</div>
+              <div class="ki-title">• FILTERS AVAILABLE</div>
               <div class="tags-row">
                 <span class="project-tag">Age Group</span>
                 <span class="project-tag">Goal</span>
@@ -569,10 +572,10 @@
 
       <!-- CTA -->
       <div class="cp-panel cp-corner" style="padding:40px;text-align:center;margin-top:48px;" data-reveal>
-        <div class="data-label mb-16">◈ VIEW ALL DASHBOARDS ON TABLEAU PUBLIC</div>
+        <div class="data-label mb-16">• VIEW ALL DASHBOARDS ON TABLEAU PUBLIC</div>
         <h3 style="margin-bottom:16px;">Explore the full <span class="text-cyan">analytics portfolio</span> on Tableau Public</h3>
         <p style="margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;">All dashboards are published with full interactivity. Click filters, drill down, and explore the data.</p>
-        <a href="https://public.tableau.com/app/profile/sujit.murari" target="_blank" class="btn-neon btn-neon-solid">▸ Visit Tableau Public Profile</a>
+        <a href="https://public.tableau.com/app/profile/sujit.murari" target="_blank" class="btn-neon btn-neon-solid">Visit Tableau Public Profile →</a>
       </div>
 
     </div>
@@ -581,8 +584,8 @@
 
 <footer id="footer">
   <div class="container" style="max-width: 1600px;">
-    <p style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
+    <p style="font-family:'Inter', sans-serif;font-size: 0.8rem;font-weight:600;letter-spacing:0.1em;color:rgba(0,255,255,0.4);">
+      SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>
 </footer>

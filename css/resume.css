@@ -3,7 +3,7 @@
    Sujit Murari · DataNexus Analytics Portfolio
    ═══════════════════════════════════════════════════════════════ */
 
-   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
    /* ── CSS Variables ── */
    :root {
@@ -27,7 +27,7 @@
      --border:      rgba(0,255,255,0.14);
      --border-mid:  rgba(0,255,255,0.22);
      --border-hi:   rgba(0,255,255,0.45);
-     --dot-col:     rgba(0,255,255,0.18);
+     --dot-col:     rgba(0,255,255,0.1);
    }
    
    /* ── Reset ── */
@@ -36,7 +36,7 @@
    body {
      background: var(--bg);
      color: var(--text-hi);
-     font-family: 'Rajdhani', sans-serif;
+     font-family: 'Inter', sans-serif;
      font-size: 15px;
      line-height: 1.5;
      min-height: 100vh;
@@ -59,6 +59,9 @@
      z-index: 0;
      pointer-events: none;
    }
+   .bg-grid, .bg-noise, .bg-scanlines {
+      display: none;
+    }
    .bg-grid {
      background-image:
        linear-gradient(rgba(0,255,255,0.035) 1px, transparent 1px),
@@ -135,30 +138,31 @@
      background: linear-gradient(180deg, transparent, var(--cyan));
    }
    .banner-seq-num {
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.8rem;
-     color: var(--cyan-dim);
-     writing-mode: vertical-rl;
-     letter-spacing: 0.2em;
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.7rem;
+      color: var(--cyan-dim);
+      writing-mode: vertical-rl;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
    .banner-label {
-     font-family: 'Orbitron', monospace;
-     font-size: clamp(1.6rem, 4vw, 2.8rem);
-     font-weight: 900;
-     letter-spacing: 0.04em;
-     color: var(--text-hi);
-     line-height: 1;
-     text-shadow: 0 0 40px rgba(0,255,255,0.15);
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-hi);
+      line-height: 1;
+    }
    .banner-label span { color: var(--cyan); }
    .banner-sub {
-     margin-top: 8px;
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.22em;
-     color: var(--cyan-dim);
-     text-transform: uppercase;
-   }
+      margin-top: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--cyan-dim);
+      text-transform: uppercase;
+    }
    .banner-right {
      display: flex;
      flex-direction: column;
@@ -176,14 +180,14 @@
      gap: 5px;
    }
    .banner-role-item {
-     font-family: 'Space Mono', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.1em;
-     color: var(--text-lo);
-     display: flex;
-     align-items: center;
-     gap: 8px;
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      color: var(--text-lo);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
    .banner-role-item::before {
      content: '//';
      color: var(--purple-dim);
@@ -195,11 +199,12 @@
      gap: 7px;
      padding: 6px 14px;
      border: 1px solid rgba(0,255,255,0.3);
-     background: rgba(0,255,255,0.05);
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.18em;
-     color: var(--cyan);
+      background: rgba(0,255,255,0.05);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
    }
    .banner-available .dot {
@@ -234,21 +239,22 @@
    
    /* panel label */
    .rp-label {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.28em;
-     color: var(--cyan-dim);
-     text-transform: uppercase;
-     margin-bottom: 14px;
-     display: flex;
-     align-items: center;
-     gap: 8px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--cyan-dim);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
    .rp-label::before {
-     content: '◈';
-     font-size: 0.8rem;
-     color: var(--cyan);
-   }
+      content: '•';
+      font-size: 1rem;
+      color: var(--cyan);
+    }
    .rp-label-purple { color: var(--purple-dim); }
    .rp-label-purple::before { color: var(--purple); }
    
@@ -292,25 +298,25 @@
    }
    .profile-text { flex: 1; }
    .profile-intro-big {
-     font-family: 'Orbitron', monospace;
-     font-size: clamp(1.2rem, 2.5vw, 1.9rem);
-     font-weight: 900;
-     line-height: 1.15;
-     color: var(--text-hi);
-     margin-bottom: 10px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-hi);
+      margin-bottom: 10px;
+    }
    .profile-intro-big em {
      font-style: normal;
      color: var(--cyan);
      text-shadow: 0 0 20px rgba(0,255,255,0.4);
    }
    .profile-name-line {
-     font-family: 'Space Mono', monospace;
-     font-size: 0.78rem;
-     color: var(--text-mid);
-     letter-spacing: 0.05em;
-     margin-bottom: 18px;
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: var(--text-mid);
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
    .profile-name-line strong {
      color: var(--purple);
      font-weight: 700;
@@ -333,13 +339,14 @@
    .profile-tag {
      padding: 4px 12px;
      border: 1px solid var(--cyan-faint);
-     background: rgba(0,255,255,0.04);
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.14em;
-     color: var(--cyan-dim);
-     clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
-   }
+      background: rgba(0,255,255,0.04);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      color: var(--cyan-dim);
+      clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+    }
    
    /* Avatar */
    .profile-avatar {
@@ -364,13 +371,14 @@
      display: block;
    }
    .avatar-label {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.18em;
-     color: var(--cyan-dim);
-     text-align: center;
-     margin-top: 8px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--cyan-dim);
+      text-align: center;
+      margin-top: 8px;
+    }
    
    /* ══════════════════════
       CONTACT PANEL
@@ -408,17 +416,18 @@
    }
    .contact-info { flex: 1; overflow: hidden; }
    .contact-platform {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.16em;
-     color: var(--cyan-dim);
-     display: block;
-     margin-bottom: 1px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      color: var(--cyan-dim);
+      display: block;
+      margin-bottom: 1px;
+    }
    .contact-value {
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.7rem;
-     color: var(--text-hi);
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: var(--text-hi);
      white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
@@ -456,33 +465,34 @@
      z-index: -1;
    }
    .exp-year-num {
-     font-family: 'Orbitron', monospace;
-     font-size: 1.5rem;
-     font-weight: 900;
-     color: var(--cyan);
-     text-shadow: 0 0 15px rgba(0,255,255,0.6);
-     line-height: 1;
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--cyan);
+      text-shadow: 0 0 15px rgba(0,255,255,0.3);
+      line-height: 1;
+    }
    .exp-year-sup {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.1em;
-     color: var(--cyan-dim);
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--cyan-dim);
+    }
    .exp-title {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.78rem;
-     font-weight: 700;
-     color: var(--text-hi);
-     letter-spacing: 0.06em;
-     margin-bottom: 6px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-hi);
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
    .exp-sub {
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.7rem;
-     color: var(--cyan-dim);
-     margin-bottom: 16px;
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: var(--cyan-dim);
+      margin-bottom: 16px;
+    }
    .exp-points {
      list-style: none;
      display: flex;
@@ -498,13 +508,13 @@
      line-height: 1.4;
    }
    .exp-points li::before {
-     content: '▸';
-     position: absolute;
-     left: 0;
-     color: var(--cyan);
-     font-size: 0.7rem;
-     top: 2px;
-   }
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 0.9rem;
+      top: 0px;
+    }
    
    /* ══════════════════════
       EDUCATION PANEL
@@ -525,23 +535,24 @@
    .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
    .edu-item:first-child { padding-top: 0; }
    .edu-index {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     color: var(--purple-dim);
-     letter-spacing: 0.15em;
-     flex-shrink: 0;
-     padding-top: 3px;
-     width: 32px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: var(--purple-dim);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+      padding-top: 3px;
+      width: 32px;
+    }
    .edu-body { flex: 1; }
    .edu-degree {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.75rem;
-     font-weight: 700;
-     color: var(--text-hi);
-     letter-spacing: 0.06em;
-     margin-bottom: 3px;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: var(--text-hi);
+      letter-spacing: 0.02em;
+      margin-bottom: 3px;
+    }
    .edu-school {
      font-family: 'Rajdhani', sans-serif;
      font-size: 0.95rem;
@@ -549,24 +560,25 @@
      margin-bottom: 4px;
    }
    .edu-meta {
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.8rem;
-     color: var(--text-lo);
-     display: flex;
-     gap: 10px;
-     flex-wrap: wrap;
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: var(--text-lo);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
    .edu-badge {
-     display: inline-block;
-     padding: 3px 10px;
-     background: var(--purple-faint);
-     border: 1px solid rgba(155,92,255,0.25);
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.12em;
-     color: var(--purple-dim);
-     border-radius: 1px;
-   }
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--purple-faint);
+      border: 1px solid rgba(155,92,255,0.25);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--purple-dim);
+      border-radius: 1px;
+    }
    .edu-timeline-dot {
      width: 10px; height: 10px;
      border: 1px solid var(--purple);
@@ -637,13 +649,14 @@
    }
    .tool-card:hover .tool-icon { filter: saturate(1.2) drop-shadow(0 0 6px rgba(0,255,255,0.4)); }
    .tool-name {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.12em;
-     color: var(--text-lo);
-     text-align: center;
-     transition: color 0.3s;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--text-lo);
+      text-align: center;
+      transition: color 0.3s;
+    }
    .tool-card:hover .tool-name { color: var(--cyan); }
    .tool-level {
      width: 100%;
@@ -675,17 +688,18 @@
      margin-bottom: 7px;
    }
    .lang-name {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.72rem;
-     font-weight: 700;
-     letter-spacing: 0.1em;
-     color: var(--text-hi);
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--text-hi);
+    }
    .lang-level-tag {
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.8rem;
-     color: var(--cyan-dim);
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: var(--cyan-dim);
+      font-weight: 700;
+    }
    .lang-dots {
      display: flex;
      gap: 5px;
@@ -717,35 +731,35 @@
      gap: 40px;
    }
    .philo-quote-mark {
-     font-family: 'Orbitron', monospace;
-     font-size: 5rem;
-     font-weight: 900;
-     color: rgba(0,255,255,0.08);
-     line-height: 0.8;
-     flex-shrink: 0;
-     user-select: none;
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(0,255,255,0.08);
+      line-height: 0.8;
+      flex-shrink: 0;
+      user-select: none;
+    }
    .philo-text-wrap { flex: 1; }
    .philo-statement {
-     font-family: 'Orbitron', monospace;
-     font-size: clamp(1rem, 2.5vw, 1.45rem);
-     font-weight: 700;
-     line-height: 1.35;
-     color: var(--text-hi);
-     letter-spacing: 0.04em;
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.45rem);
+      font-weight: 800;
+      line-height: 1.35;
+      color: var(--text-hi);
+      letter-spacing: -0.01em;
+    }
    .philo-statement em {
      font-style: normal;
      color: var(--cyan);
      text-shadow: 0 0 20px rgba(0,255,255,0.35);
    }
    .philo-sub {
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.72rem;
-     color: var(--text-lo);
-     margin-top: 12px;
-     letter-spacing: 0.05em;
-   }
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: var(--text-lo);
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
    .philo-badge {
      flex-shrink: 0;
      padding: 20px 28px;
@@ -755,23 +769,24 @@
      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
    }
    .philo-badge-num {
-     font-family: 'Orbitron', monospace;
-     font-size: 1.8rem;
-     font-weight: 900;
-     color: var(--purple);
-     text-shadow: 0 0 20px rgba(155,92,255,0.6);
-     line-height: 1;
-     display: block;
-   }
+      font-family: 'Inter', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--purple);
+      text-shadow: 0 0 20px rgba(155,92,255,0.3);
+      line-height: 1;
+      display: block;
+    }
    .philo-badge-lbl {
-     font-family: 'Orbitron', monospace;
-     font-size: 0.8rem;
-     letter-spacing: 0.2em;
-     color: var(--purple-dim);
-     display: block;
-     margin-top: 4px;
-     white-space: nowrap;
-   }
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--purple-dim);
+      display: block;
+      margin-top: 4px;
+      white-space: nowrap;
+    }
    
    /* ══════════════════════
       BOTTOM BAR

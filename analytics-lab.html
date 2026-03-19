@@ -40,7 +40,7 @@
       --teal:#00c8a0;
       --bg:#050510; --border:rgba(0,255,255,0.15); --border-p:rgba(155,92,255,0.18);
       --text:rgba(224,247,255,0.85); --dim:rgba(224,247,255,0.45);
-      --mono:'Share Tech Mono',monospace; --orb:'Orbitron',monospace;
+      --mono:ui-monospace, monospace; --orb:'Inter', sans-serif;
     }
     ::-webkit-scrollbar{width:6px;height:6px}
     ::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
@@ -63,8 +63,8 @@
       flex:1;min-width:110px;
     }
     .meta-item:last-child{border-right:none}
-    .meta-label{font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.18em;color:var(--dim)}
-    .meta-val{font-family:var(--mono);font-size:0.88rem;color:var(--cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .meta-label{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--dim)}
+    .meta-val{font-family:var(--mono);font-size:0.85rem;color:var(--cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .meta-val.p{color:var(--purple)} .meta-val.g{color:var(--green)} .meta-val.a{color:var(--amber)}
 
     /* ── Table Registry ── */
@@ -87,8 +87,8 @@
     .table-card:nth-child(5) .tc-name{color:var(--green)}
     .tc-meta{font-family:var(--mono);font-size: 0.8rem;color:var(--dim);margin-top:3px}
     .tc-cols{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-    .col-tag-n{font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.08em;padding:2px 7px;border-radius:2px;background:rgba(0,255,255,0.07);color:var(--cyan);border:1px solid rgba(0,255,255,0.18)}
-    .col-tag-t{font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.08em;padding:2px 7px;border-radius:2px;background:rgba(155,92,255,0.07);color:var(--purple);border:1px solid rgba(155,92,255,0.18)}
+    .col-tag-n{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background:rgba(0,255,255,0.07);color:var(--cyan);border:1px solid rgba(0,255,255,0.18)}
+    .col-tag-t{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background:rgba(155,92,255,0.07);color:var(--purple);border:1px solid rgba(155,92,255,0.18)}
     .tc-remove{background:none;border:none;color:rgba(255,45,120,0.4);cursor:pointer;font-size:1rem;padding:4px 8px;border-radius:3px;transition:all .15s;font-family:var(--mono);margin-left:auto}
     .tc-remove:hover{color:var(--pink);background:rgba(255,45,120,0.08)}
 
@@ -97,15 +97,15 @@
       background:rgba(0,5,15,0.7);border:1px solid rgba(155,92,255,0.2);
       border-radius:6px;padding:18px 20px;margin-bottom:24px;
     }
-    .rel-title{font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.18em;color:rgba(155,92,255,0.6);margin-bottom:14px}
+    .rel-title{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(155,92,255,0.6);margin-bottom:14px}
     .rel-item{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:0.72rem;margin-bottom:7px}
     .rel-from{color:var(--cyan);font-weight:600}
     .rel-arrow{color:rgba(155,92,255,0.5)}
     .rel-to{color:var(--purple);font-weight:600}
-    .rel-conf-badge{padding:2px 8px;border-radius:2px;font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;margin-left:auto}
+    .rel-conf-badge{padding:2px 8px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;margin-left:auto}
     .conf-high{background:rgba(0,255,136,0.08);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
     .conf-med{background:rgba(255,180,0,0.08);color:var(--amber);border:1px solid rgba(255,180,0,0.2)}
-    .rel-empty{font-family:var(--mono);font-size:0.72rem;color:var(--dim)}
+    .rel-empty{font-family:var(--mono);font-size:0.75rem;color:var(--dim)}
 
     /* ── KPI Cards ── */
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:32px}
@@ -126,11 +126,11 @@
     .kpi-card.pk:hover{box-shadow:0 0 22px rgba(255,45,120,0.1)}
     .kpi-card.a::before{background:linear-gradient(90deg,var(--amber),transparent 80%)}
     .kpi-icon{font-size:1.2rem;margin-bottom:9px;opacity:0.55}
-    .kpi-label{font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.18em;color:var(--dim);margin-bottom:5px}
-    .kpi-val{font-family:var(--orb);font-size:1.55rem;font-weight:900;color:var(--cyan);line-height:1}
+    .kpi-label{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--dim);margin-bottom:5px}
+    .kpi-val{font-family:var(--orb);font-size:1.55rem;font-weight:800;color:var(--cyan);line-height:1}
     .kpi-card.p .kpi-val{color:var(--purple)} .kpi-card.g .kpi-val{color:var(--green)}
     .kpi-card.pk .kpi-val{color:var(--pink)}  .kpi-card.a .kpi-val{color:var(--amber)}
-    .kpi-sub{font-family:var(--mono);font-size: 0.8rem;color:var(--dim);margin-top:7px;line-height:1.4}
+    .kpi-sub{font-family:var(--mono);font-size: 0.75rem;color:var(--dim);margin-top:7px;line-height:1.4}
 
     /* ── Profiling Table ── */
     .profile-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:6px;margin-bottom:32px}
@@ -138,15 +138,15 @@
     .profile-tbl thead th{
       background:rgba(0,255,255,0.07);color:var(--cyan);padding:10px 15px;
       text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
-      font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.12em;
+      font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;
       white-space:nowrap;position:sticky;top:0;
     }
     .profile-tbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
     .profile-tbl tbody tr:hover{background:rgba(0,255,255,0.03)}
     .profile-tbl td{padding:8px 15px;color:var(--text);white-space:nowrap}
     .profile-tbl td:first-child{color:var(--cyan);font-weight:600}
-    .badge-num{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;background:rgba(0,255,255,0.08);color:var(--cyan);border:1px solid rgba(0,255,255,0.2)}
-    .badge-txt{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;background:rgba(155,92,255,0.08);color:var(--purple);border:1px solid rgba(155,92,255,0.2)}
+    .badge-num{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;background:rgba(0,255,255,0.08);color:var(--cyan);border:1px solid rgba(0,255,255,0.2)}
+    .badge-txt{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;background:rgba(155,92,255,0.08);color:var(--purple);border:1px solid rgba(155,92,255,0.2)}
     .miss-ok{color:var(--green)} .miss-warn{color:var(--pink)}
 
     /* ── SQL Panel ── */
@@ -160,7 +160,7 @@
       position:absolute;left:0;top:0;bottom:0;width:44px;
       background:rgba(0,255,255,0.03);border-right:1px solid rgba(0,255,255,0.08);
       display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:20px;
-      font-family:var(--mono);font-size:0.7rem;color:rgba(0,255,255,0.22);
+      font-family:var(--mono);font-size:0.65rem;color:rgba(0,255,255,0.22);
       pointer-events:none;border-radius:4px 0 0 4px;user-select:none;
     }
     #sql-input{
@@ -217,7 +217,7 @@
     /* Buttons */
     .btn-run{
       display:inline-flex;align-items:center;gap:8px;
-      font-family:var(--orb);font-size:0.7rem;letter-spacing:0.12em;font-weight:700;
+      font-family:var(--orb);font-size:0.7rem;letter-spacing:0.05em;font-weight:700;
       color:#050510;background:var(--cyan);border:none;border-radius:3px;
       padding:11px 26px;cursor:pointer;transition:all .2s;
     }
@@ -240,13 +240,13 @@
     .perf-strip.vis{display:flex;animation:fadeSlideUp .3s ease both}
     .perf-cell{display:flex;flex-direction:column;gap:3px;padding:10px 18px;border-right:1px solid rgba(0,255,136,0.09)}
     .perf-cell:last-child{border-right:none}
-    .perf-lbl{font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.17em;color:rgba(0,255,136,0.42)}
-    .perf-v{font-family:var(--mono);font-size:0.82rem;color:var(--green)}
-    .cx-badge{display:inline-block;font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;padding:1px 7px;border-radius:2px}
+    .perf-lbl{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(0,255,136,0.42)}
+    .perf-v{font-family:var(--mono);font-size:0.75rem;color:var(--green)}
+    .cx-badge{display:inline-block;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;padding:1px 7px;border-radius:2px}
     .cx-low{color:var(--green);background:rgba(0,255,136,0.09);border:1px solid rgba(0,255,136,0.22)}
     .cx-med{color:var(--amber);background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.22)}
     .cx-high{color:var(--pink);background:rgba(255,45,120,0.07);border:1px solid rgba(255,45,120,0.18)}
-    .join-badge{background:rgba(0,200,160,0.08);color:var(--teal);border:1px solid rgba(0,200,160,0.2);font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;padding:1px 7px;border-radius:2px}
+    .join-badge{background:rgba(0,200,160,0.08);color:var(--teal);border:1px solid rgba(0,200,160,0.2);font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;padding:1px 7px;border-radius:2px}
 
     .sql-err{
       font-family:var(--mono);font-size:0.8rem;color:var(--pink);
@@ -263,7 +263,7 @@
     .result-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
     .result-meta-info{font-family:var(--mono);font-size:0.77rem;color:var(--dim)}
     .result-meta-info span{color:var(--cyan)}
-    .join-result-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;color:var(--teal);background:rgba(0,200,160,0.06);border:1px solid rgba(0,200,160,0.18);border-radius:3px;padding:3px 10px}
+    .join-result-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;color:var(--teal);background:rgba(0,200,160,0.06);border:1px solid rgba(0,200,160,0.18);border-radius:3px;padding:3px 10px}
     .export-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
     .exp-btn{
       display:inline-flex;align-items:center;gap:6px;
@@ -283,7 +283,7 @@
     .rtbl thead th{
       background:rgba(0,255,255,0.08);color:var(--cyan);padding:10px 14px;
       text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
-      font-family:var(--orb);font-size: 0.8rem;letter-spacing:0.1em;
+      font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;
       white-space:nowrap;position:sticky;top:0;
     }
     .rtbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
@@ -329,9 +329,10 @@
   .dropdown-menu a {
     display: block;
     padding: 10px 18px;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
@@ -399,15 +400,15 @@
 
       <!-- UPLOAD -->
       <div class="cp-panel cp-corner" style="padding:32px;margin-bottom:32px;" data-reveal>
-        <div class="data-label mb-16">◈ DATA INGESTION MODULE — MULTI-TABLE UPLOAD</div>
+        <div class="data-label mb-16">• DATA INGESTION MODULE — MULTI-TABLE UPLOAD</div>
         <div class="lab-drop-zone" id="drop-zone">
           <input type="file" id="file-input" accept=".csv" multiple style="display:none;"/>
           <div style="font-size:3rem;margin-bottom:16px;opacity:0.5;">📦</div>
-          <div style="font-family:'Orbitron',monospace;font-size:0.8rem;letter-spacing:0.15em;color:rgba(0,255,255,0.7);margin-bottom:8px;">DROP MULTIPLE CSV FILES HERE</div>
-          <div style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:rgba(224,247,255,0.4);">Each file becomes a named SQL table &nbsp;·&nbsp; click to browse</div>
-          <div style="margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:rgba(0,255,255,0.35);">
-            sales.csv → <span style="color:var(--green)">sales</span> &nbsp;·&nbsp;
-            products.csv → <span style="color:var(--green)">products</span> &nbsp;·&nbsp;
+          <div style="font-family:'Inter', sans-serif; font-weight:800; font-size:0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.7);margin-bottom:8px;">DROP MULTIPLE CSV FILES HERE</div>
+          <div style="font-family:ui-monospace, monospace;font-size:0.75rem;color:rgba(224,247,255,0.4);">Each file becomes a named SQL table • click to browse</div>
+          <div style="margin-top:12px;font-family:ui-monospace, monospace;font-size:0.7rem;color:rgba(0,255,255,0.35);">
+            sales.csv → <span style="color:var(--green)">sales</span> •
+            products.csv → <span style="color:var(--green)">products</span> •
             stores.csv → <span style="color:var(--green)">stores</span>
           </div>
           <div style="margin-top:20px;">
@@ -422,12 +423,12 @@
       <div id="lab-results" style="display:none;">
 
         <!-- Table Registry -->
-        <div class="data-label mb-12">◈ TABLE REGISTRY</div>
+        <div class="data-label mb-12">• TABLE REGISTRY</div>
         <div id="table-registry" class="table-registry"></div>
 
         <!-- Relationship Explorer -->
         <div class="rel-explorer panel-enter">
-          <div class="rel-title">◈ AUTO-DETECTED RELATIONSHIPS — potential JOIN keys</div>
+          <div class="rel-title">• AUTO-DETECTED RELATIONSHIPS — potential JOIN keys</div>
           <div id="rel-grid"><div class="rel-empty">Upload multiple tables to discover relationships…</div></div>
         </div>
 
@@ -443,16 +444,16 @@
 
         <!-- Columns list -->
         <div class="cp-panel" style="padding:16px 22px;margin-bottom:24px;">
-          <div class="data-label mb-10">◈ DETECTED COLUMNS — PRIMARY TABLE</div>
+          <div class="data-label mb-10">• DETECTED COLUMNS — PRIMARY TABLE</div>
           <div id="lab-columns" style="display:flex;flex-wrap:wrap;gap:7px;"></div>
         </div>
 
         <!-- 2. KPI Dashboard -->
-        <div class="data-label mb-12">◈ KPI DASHBOARD</div>
+        <div class="data-label mb-12">• KPI DASHBOARD</div>
         <div class="kpi-grid" id="kpi-grid"></div>
 
         <!-- 3. Data Profiling -->
-        <div class="data-label mb-12">◈ DATA PROFILING</div>
+        <div class="data-label mb-12">• DATA PROFILING</div>
         <div class="profile-wrap panel-enter">
           <table class="profile-tbl">
             <thead>
@@ -468,7 +469,7 @@
         <!-- SQL ENGINE -->
         <div class="sql-panel panel-enter" data-reveal>
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
-            <div class="data-label" style="margin:0;">◈ SQL QUERY ENGINE — RELATIONAL MODE</div>
+            <div class="data-label" style="margin:0;">• SQL QUERY ENGINE — RELATIONAL MODE</div>
             <div class="sql-status-row" id="sql-status">
               <div class="dot-r" id="sql-dot"></div>
               <span id="sql-txt">NO DATA LOADED</span>
@@ -510,7 +511,7 @@
           </div>
 
           <!-- Smart suggestions -->
-          <div class="sugg-label">◈ SMART QUERY SUGGESTIONS — click to use:</div>
+          <div class="sugg-label">• SMART QUERY SUGGESTIONS — click to use:</div>
           <div class="sugg-tabs">
             <button class="sugg-tab act" onclick="showSuggTab('single',this)">SINGLE TABLE</button>
             <button class="sugg-tab" onclick="showSuggTab('join',this)">JOIN QUERIES</button>
@@ -518,7 +519,7 @@
           <div class="sugg-list" id="sugg-list"></div>
 
           <!-- Chart type -->
-          <div style="font-family:var(--mono);font-size: 0.8rem;color:var(--dim);margin-bottom:7px;">◈ VISUALIZATION TYPE:</div>
+          <div style="font-family:var(--mono);font-size: 0.75rem;color:var(--dim);margin-bottom:7px;">• VISUALIZATION TYPE:</div>
           <div class="ct-bar" id="ct-bar">
             <button class="ct-btn act" onclick="selChart('auto',this)">⚡ AUTO</button>
             <button class="ct-btn" onclick="selChart('bar',this)">▬ BAR</button>
@@ -552,7 +553,7 @@
         <!-- Results -->
         <div class="result-section" id="result-section">
           <div class="result-meta">
-            <div class="data-label" style="margin:0;">◈ QUERY RESULTS</div>
+            <div class="data-label" style="margin:0;">• QUERY RESULTS</div>
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
               <div class="result-meta-info" id="result-info"></div>
               <div class="join-result-badge" id="join-badge" style="display:none;">⟵⟶ JOIN RESULT</div>
@@ -566,32 +567,32 @@
             <button class="exp-btn xl" onclick="exportExcel()">⬇ EXPORT EXCEL</button>
           </div>
           <div class="chart-wrap" id="chart-wrap">
-            <div class="data-label mb-14" id="chart-lbl">◈ VISUALIZATION</div>
+            <div class="data-label mb-14" id="chart-lbl">• VISUALIZATION</div>
             <canvas id="q-chart" height="220"></canvas>
           </div>
         </div>
 
         <!-- Auto-analysis -->
         <div style="margin:44px 0 28px;padding-top:36px;border-top:1px solid rgba(0,255,255,0.08);">
-          <div class="data-label mb-16">◈ AUTO ANALYSIS — PRIMARY TABLE</div>
+          <div class="data-label mb-16">• AUTO ANALYSIS — PRIMARY TABLE</div>
         </div>
         <div style="margin-bottom:40px;">
-          <div class="data-label mb-16">◈ SUMMARY STATISTICS</div>
+          <div class="data-label mb-16">• SUMMARY STATISTICS</div>
           <div id="lab-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;" id="lab-charts-row">
           <div class="cp-panel cp-corner" style="padding:24px;">
-            <div class="data-label mb-16">◈ HISTOGRAM</div>
+            <div class="data-label mb-16">• HISTOGRAM</div>
             <canvas id="lab-histogram" height="200"></canvas>
           </div>
           <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px;">
-            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">◈ SCATTER PLOT</div>
+            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">• SCATTER PLOT</div>
             <canvas id="lab-scatter" height="200"></canvas>
           </div>
         </div>
         <div class="cp-panel" style="padding:24px;margin-bottom:40px;">
-          <div class="data-label mb-16">◈ AUTOMATED ANALYSIS NOTES</div>
-          <div id="lab-notes" style="font-family:'Share Tech Mono',monospace;font-size:0.82rem;line-height:2;color:rgba(224,247,255,0.7);">
+          <div class="data-label mb-16">• AUTOMATED ANALYSIS NOTES</div>
+          <div id="lab-notes" style="font-family:ui-monospace, monospace;font-size:0.75rem;line-height:2;color:rgba(224,247,255,0.7);">
             <div style="color:#00ffff;">// Analysis ready. Scroll up to review statistics and charts.</div>
             <div style="color:rgba(0,255,255,0.4);">// Numeric columns detected and plotted automatically.</div>
             <div style="color:rgba(0,255,255,0.4);">// Upload multiple tables, then use JOIN queries in the SQL engine above.</div>
@@ -601,25 +602,25 @@
 
       <!-- Instructions -->
       <div id="lab-instructions" data-reveal>
-        <div class="data-label mb-24">◈ HOW TO USE THE ANALYTICS LAB</div>
+        <div class="data-label mb-24">• HOW TO USE THE ANALYTICS LAB</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
           <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">01</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">01</div>
             <h4 class="text-cyan mb-8">Upload CSVs</h4>
-            <p style="font-size:0.9rem;">Drag & drop multiple CSVs at once. Each file becomes a named SQL table — sales.csv → <strong style="color:var(--green)">sales</strong>. Instant profiling &amp; KPIs.</p>
+            <p style="font-size:0.9rem;">Drag & drop multiple CSVs at once. Each file becomes a named SQL table • sales.csv → <strong style="color:var(--green)">sales</strong>. Instant profiling & KPIs.</p>
           </div>
           <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">02</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">02</div>
             <h4 class="text-purple mb-8">Detect Relationships</h4>
             <p style="font-size:0.9rem;">Auto-detected JOIN keys shown before you write a query. Matching column names scored HIGH / MEDIUM confidence.</p>
           </div>
           <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">03</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">03</div>
             <h4 class="text-cyan mb-8">Write SQL JOINs</h4>
             <p style="font-size:0.9rem;">INNER JOIN, LEFT JOIN with table aliases. Full GROUP BY, HAVING, ORDER BY, LIMIT — COUNT, SUM, AVG, MIN, MAX, ROUND, DISTINCT, COALESCE.</p>
           </div>
           <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Orbitron',monospace;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">04</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">04</div>
             <h4 class="text-purple mb-8">Visualize &amp; Export</h4>
             <p style="font-size:0.9rem;">Intelligent chart auto-selection. 7 chart types. Export JOIN results as CSV or Excel in one click. All data stays in your browser.</p>
           </div>
@@ -630,10 +631,10 @@
   </section>
 </main>
 
-<footer id="footer">
+  <footer id="footer">
   <div class="container">
-    <p style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
+    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color:rgba(224,247,255,0.3);">
+      SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>
 </footer>

@@ -45,18 +45,19 @@
       text-align: center;
     }
     .stat-chip-val {
-      font-family: 'Orbitron', monospace;
+      font-family: 'Inter', sans-serif;
       font-size: 1.8rem;
-      font-weight: 700;
+      font-weight: 800;
       color: #00ffff;
       line-height: 1;
       margin-bottom: 6px;
     }
     .stat-chip-val.purple { color: #9b5cff; }
     .stat-chip-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.18em;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
       color: rgba(224,247,255,0.4);
       text-transform: uppercase;
     }
@@ -82,20 +83,21 @@
       align-items: center;
     }
     .skill-name {
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       color: rgba(224,247,255,0.9);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
     }
     .skill-pct {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: #00ffff;
     }
     .skill-sub {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.78rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
       color: rgba(224,247,255,0.35);
       margin-top: 2px;
     }
@@ -117,20 +119,20 @@
     }
     .cat-card { padding: 22px; }
     .cat-tag {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
       margin-bottom: 10px;
     }
     .cat-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
       margin-bottom: 8px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
     }
     .cat-body {
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.88rem;
       color: rgba(224,247,255,0.5);
       line-height: 1.6;
@@ -164,9 +166,10 @@
   .dropdown-menu a {
     display: block;
     padding: 10px 18px;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     color: rgba(224,247,255,0.6);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
@@ -257,7 +260,7 @@
 
         <!-- LEFT: Progress Bars -->
         <div class="cp-panel cp-corner" style="padding:28px;" data-reveal data-delay="100">
-          <div class="data-label mb-24">◈ PROFICIENCY LEVELS</div>
+          <div class="data-label mb-24">• PROFICIENCY LEVELS</div>
           <div class="skill-bar-block">
 
             <div class="skill-row">
@@ -308,10 +311,10 @@
             <div class="skill-row">
               <div class="skill-header">
                 <span class="skill-name">🐍 &nbsp;Python</span>
-                <span class="skill-pct" style="color:#9b5cff;">72%</span>
+                <span class="skill-pct" style="color:#818cf8;">72%</span>
               </div>
               <div class="neon-progress-wrap">
-                <div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#9b5cff,#00ffff);box-shadow:0 0 10px #9b5cff;"></div>
+                <div class="neon-progress-bar" data-pct="72" style="background:linear-gradient(90deg,#818cf8,#38bdf8);box-shadow:0 0 10px rgba(129,140,248,0.3);"></div>
               </div>
               <div class="skill-sub">Pandas · NumPy · Matplotlib · Data Wrangling</div>
             </div>
@@ -319,10 +322,10 @@
             <div class="skill-row">
               <div class="skill-header">
                 <span class="skill-name">📋 &nbsp;Power BI</span>
-                <span class="skill-pct" style="color:#9b5cff;">70%</span>
+                <span class="skill-pct" style="color:#818cf8;">70%</span>
               </div>
               <div class="neon-progress-wrap">
-                <div class="neon-progress-bar" data-pct="70" style="background:linear-gradient(90deg,#9b5cff,#ff2d78);box-shadow:0 0 10px #9b5cff;"></div>
+                <div class="neon-progress-bar" data-pct="70" style="background:linear-gradient(90deg,#818cf8,#ff2d78);box-shadow:0 0 10px rgba(129,140,248,0.3);"></div>
               </div>
               <div class="skill-sub">DAX · Power Query · Report Design</div>
             </div>
@@ -343,12 +346,12 @@
         <div class="charts-col">
 
           <div class="cp-panel cp-panel-purple cp-corner-purple chart-box" data-reveal data-delay="200">
-            <div class="data-label mb-16" style="color:rgba(155,92,255,0.6);">◈ SKILLS RADAR</div>
+            <div class="data-label mb-16" style="color:rgba(129,140,248,0.6);">• SKILLS RADAR</div>
             <canvas id="radar-chart"></canvas>
           </div>
 
           <div class="cp-panel cp-corner chart-box" data-reveal data-delay="300">
-            <div class="data-label mb-16">◈ DOMAIN FOCUS DISTRIBUTION</div>
+            <div class="data-label mb-16">• DOMAIN FOCUS DISTRIBUTION</div>
             <canvas id="doughnut-chart"></canvas>
           </div>
 
@@ -357,7 +360,7 @@
 
       <!-- Category Cards -->
       <div data-reveal data-delay="200">
-        <div class="data-label mb-16" style="margin-top:40px;">◈ SKILL CATEGORIES</div>
+        <div class="data-label mb-16" style="margin-top:40px;">• SKILL CATEGORIES</div>
         <div class="cat-grid">
 
           <div class="cat-card holo-card cp-corner">
@@ -393,8 +396,8 @@
 
 <footer id="footer">
   <div class="container">
-    <p style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.2em;color:rgba(0,255,255,0.4);">
-      [SM] SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;◈&nbsp; 2026 &nbsp;◈&nbsp; All rights reserved ©️ Sujit Murari
+    <p style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.1em;color:rgba(0,255,255,0.4);">
+      SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>
 </footer>
@@ -428,14 +431,14 @@
           ticks: {
             stepSize: 25,
             color: 'rgba(224,247,255,0.25)',
-            font: { family: 'Orbitron', size: 8 },
+            font: { family: 'Inter', size: 9, weight: '600' },
             backdropColor: 'transparent'
           },
           grid: { color: 'rgba(0,255,255,0.1)' },
           angleLines: { color: 'rgba(0,255,255,0.1)' },
           pointLabels: {
             color: 'rgba(224,247,255,0.7)',
-            font: { family: 'Rajdhani', size: 11, weight: '600' }
+            font: { family: 'Inter', size: 11, weight: '700' }
           }
         }
       },
@@ -467,7 +470,7 @@
           position: 'right',
           labels: {
             color: 'rgba(224,247,255,0.65)',
-            font: { family: 'Rajdhani', size: 12 },
+            font: { family: 'Inter', size: 12, weight: '600' },
             boxWidth: 12,
             padding: 14
           }
