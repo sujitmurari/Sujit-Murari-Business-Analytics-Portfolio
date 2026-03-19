@@ -702,7 +702,8 @@
               <div class="cs-block">
                 <div class="cs-block-title">BUSINESS PROBLEM</div>
                 <p class="cs-problem">
-                  Airlines struggle with <strong>dynamic pricing and seat occupancy optimization</strong> across seasonal
+                  Airlines struggle with <strong>dynamic pricing and seat occupancy optimization</strong> across
+                  seasonal
                   fluctuations. Key question: <strong>How do booking lead times and seasonal trends impact fare
                     yield and revenue per available seat?</strong>
                 </p>
@@ -720,9 +721,12 @@
                   </div>
                 </div>
                 <div style="margin-top:12px;">
-                  <div class="step-item"><span class="step-bullet">•</span> Booking history, flight schedules, pricing tiers</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Origin-destination pairs, seat classes, seasonal flag</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Competitor pricing indices, holiday calendars, fuel surcharges</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Booking history, flight schedules, pricing
+                    tiers</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Origin-destination pairs, seat classes,
+                    seasonal flag</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Competitor pricing indices, holiday
+                    calendars, fuel surcharges</div>
                 </div>
               </div>
             </div>
@@ -732,11 +736,16 @@
               <div class="cs-block">
                 <div class="cs-block-title">DATA PREPARATION</div>
                 <div class="step-list">
-                  <div class="step-item"><span class="step-bullet">•</span> Cleaned time-series data and handled 12% null values in competitor indices</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Engineered "days_before_departure" and "booking_velocity" metrics</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Applied log-transformation to fares to reduce variance in regression</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Normalized seasonal demand indices across 3 fiscal years</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Categorized routes into Hub-Hub, Regional, and Holiday segments</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Cleaned time-series data and handled 12%
+                    null values in competitor indices</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Engineered "days_before_departure" and
+                    "booking_velocity" metrics</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Applied log-transformation to fares to
+                    reduce variance in regression</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Normalized seasonal demand indices across 3
+                    fiscal years</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Categorized routes into Hub-Hub, Regional,
+                    and Holiday segments</div>
                 </div>
               </div>
 
@@ -752,9 +761,12 @@
                   <span class="method-tag">Elasticity Modeling</span>
                 </div>
                 <div class="step-list" style="margin-top:12px;">
-                  <div class="step-item"><span class="step-bullet">•</span> Pearson correlation: Lead time vs. Fare Yield (r = 0.72)</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Revenue aggregation by route-class clusters</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Logistic regression: Occupancy probability ~ Price + Season</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Pearson correlation: Lead time vs. Fare
+                    Yield (r = 0.72)</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Revenue aggregation by route-class clusters
+                  </div>
+                  <div class="step-item"><span class="step-bullet">•</span> Logistic regression: Occupancy probability ~
+                    Price + Season</div>
                 </div>
               </div>
             </div>
@@ -788,7 +800,9 @@
             <div class="recommendation-box">
               <div class="rec-label">• BUSINESS RECOMMENDATION</div>
               <div class="rec-text">
-                Implement a <strong>tiered dynamic pricing model</strong> that triggers price resets based on 7-day rolling load factor thresholds rather than fixed date-based increments. Hub-Hub routes should be prioritized for <strong>premium inventory expansion</strong> given their high yield consistency.
+                Implement a <strong>tiered dynamic pricing model</strong> that triggers price resets based on 7-day
+                rolling load factor thresholds rather than fixed date-based increments. Hub-Hub routes should be
+                prioritized for <strong>premium inventory expansion</strong> given their high yield consistency.
               </div>
             </div>
 
