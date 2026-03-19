@@ -670,10 +670,10 @@
           <div class="cs-header">
             <div class="cs-title-block">
               <span class="cs-num">01</span>
-              <span class="cs-icon">🛵</span>
+              <span class="cs-icon">✈️</span>
               <div>
                 <div class="cs-label">CASE STUDY · TABLEAU · SQL · REGRESSION</div>
-                <div class="cs-title">Aeroplane Growth & Performance Intelligence</div>
+                <div class="cs-title">Airlines Pricing & Yield Management Intelligence</div>
               </div>
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -702,9 +702,9 @@
               <div class="cs-block">
                 <div class="cs-block-title">BUSINESS PROBLEM</div>
                 <p class="cs-problem">
-                  Zomato needs to identify <strong>underperforming metropolitan segments</strong> and optimize delivery
-                  partner density to reduce churn. Key question: <strong>How do traffic patterns and restaurant ratings
-                    impact order cancellation rates?</strong>
+                  Airlines struggle with <strong>dynamic pricing and seat occupancy optimization</strong> across seasonal
+                  fluctuations. Key question: <strong>How do booking lead times and seasonal trends impact fare
+                    yield and revenue per available seat?</strong>
                 </p>
               </div>
 
@@ -712,20 +712,17 @@
               <div class="cs-block">
                 <div class="cs-block-title">DATASET INFORMATION</div>
                 <div class="dataset-stats">
-                  <div class="ds-stat"><span class="ds-stat-val">50,000+</span><span class="ds-stat-label">ROWS</span>
+                  <div class="ds-stat"><span class="ds-stat-val">100,000+</span><span class="ds-stat-label">ROWS</span>
                   </div>
-                  <div class="ds-stat"><span class="ds-stat-val">18</span><span class="ds-stat-label">COLUMNS</span>
+                  <div class="ds-stat"><span class="ds-stat-val">12</span><span class="ds-stat-label">COLUMNS</span>
                   </div>
                   <div class="ds-stat"><span class="ds-stat-val">Kaggle</span><span class="ds-stat-label">SOURCE</span>
                   </div>
                 </div>
                 <div style="margin-top:12px;">
-                  <div class="step-item"><span class="step-bullet">•</span> Order density, pickup latency, delivery
-                    duration</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Restaurant ratings, cuisine type, active
-                    promotions</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Delivery partner availability, traffic
-                    zones, weather data</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Booking history, flight schedules, pricing tiers</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Origin-destination pairs, seat classes, seasonal flag</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Competitor pricing indices, holiday calendars, fuel surcharges</div>
                 </div>
               </div>
             </div>
@@ -735,16 +732,11 @@
               <div class="cs-block">
                 <div class="cs-block-title">DATA PREPARATION</div>
                 <div class="step-list">
-                  <div class="step-item"><span class="step-bullet">•</span> Joined 3 separate SQL tables: Orders,
-                    Partners, and Restaurants</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Handled 5% missing "pickup_time" using KNN
-                    imputation</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Engineered "peak_hour_flag" and
-                    "weather_severity" index</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Normalized distance metrics to account for
-                    metropolitan density</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Segmented restaurants by "Affordable",
-                    "Mid-range", and "Premium"</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Cleaned time-series data and handled 12% null values in competitor indices</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Engineered "days_before_departure" and "booking_velocity" metrics</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Applied log-transformation to fares to reduce variance in regression</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Normalized seasonal demand indices across 3 fiscal years</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Categorized routes into Hub-Hub, Regional, and Holiday segments</div>
                 </div>
               </div>
 
@@ -755,17 +747,14 @@
                   <span class="method-tag">Linear Regression</span>
                   <span class="method-tag">Correlation Matrix</span>
                   <span class="method-tag">Descriptive Stats</span>
-                  <span class="method-tag">Aggregation</span>
+                  <span class="method-tag">Time-Series Forecast</span>
                   <span class="method-tag">Segmentation</span>
-                  <span class="method-tag">Trend Analysis</span>
+                  <span class="method-tag">Elasticity Modeling</span>
                 </div>
                 <div class="step-list" style="margin-top:12px;">
-                  <div class="step-item"><span class="step-bullet">•</span> Pearson correlation: Prep time vs. Customer
-                    satisfaction (r = -0.65)</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Order volume aggregation by time-of-day and
-                    geo-zone</div>
-                  <div class="step-item"><span class="step-bullet">•</span> Logistic regression: Cancellation
-                    probability ~ Traffic + Weather + Distance</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Pearson correlation: Lead time vs. Fare Yield (r = 0.72)</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Revenue aggregation by route-class clusters</div>
+                  <div class="step-item"><span class="step-bullet">•</span> Logistic regression: Occupancy probability ~ Price + Season</div>
                 </div>
               </div>
             </div>
@@ -799,30 +788,28 @@
             <div class="recommendation-box">
               <div class="rec-label">• BUSINESS RECOMMENDATION</div>
               <div class="rec-text">
-                Zomato should implement <strong>predictive partner relocation</strong> during forecasted peak hours (6
-                PM – 9 PM) in high-volume clusters. Restaurants with ratings below 3.5 should be flagged for "Quality
-                Improvement Programs" as they account for 45% of customer churn regardless of delivery speed.
+                Implement a <strong>tiered dynamic pricing model</strong> that triggers price resets based on 7-day rolling load factor thresholds rather than fixed date-based increments. Hub-Hub routes should be prioritized for <strong>premium inventory expansion</strong> given their high yield consistency.
               </div>
             </div>
 
             <!-- Dataset Viewer -->
             <div class="dataset-viewer">
               <div class="dv-header">
-                <span class="dv-title">• DATASET PREVIEW — zomato_orders_v2.csv</span>
-                <a href="https://www.kaggle.com/datasets/himanshupoddar/zomato-bangalore-restaurants" target="_blank"
+                <span class="dv-title">• DATASET PREVIEW — airline_booking_data.csv</span>
+                <a href="https://www.kaggle.com/datasets/shubhambathwal/flight-price-prediction" target="_blank"
                   class="dv-btn">↗ VIEW ON KAGGLE</a>
               </div>
               <div class="dv-table-wrap">
                 <table class="dv-table">
                   <thead>
                     <tr>
-                      <th>order_id</th>
-                      <th>zone</th>
-                      <th>cuisine</th>
-                      <th>wait_time</th>
-                      <th>rating</th>
-                      <th>traffic</th>
-                      <th>status</th>
+                      <th>airline</th>
+                      <th>route</th>
+                      <th>class</th>
+                      <th>lead_time</th>
+                      <th>season</th>
+                      <th>stops</th>
+                      <th>price (₹)</th>
                     </tr>
                   </thead>
                   <tbody>
