@@ -147,32 +147,33 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:520px;" class="hero-grid">
-        <!-- Left: Text -->
-        <div class="hero-content" data-reveal data-delay="200">
-          <div class="hero-eyebrow">BUSINESS ANALYTICS PORTFOLIO</div>
-          <h1 class="hero-name" data-text="SUJIT MURARI">SUJIT MURARI</h1>
-          <div class="hero-title">
-  <span class="hero-role">• Business Analytics Student</span>
-  <span class="hero-divider">·</span>
-  <span id="hero-typing" class="hero-typing">Data Visualization</span>
-</div>
-          <p class="hero-subtitle">Transforming raw business data into strategic intelligence. Building executive-grade dashboards that power data-driven decisions.</p>
-          <div class="hero-tags">
-            <span class="hero-tag">Tableau</span>
-            <span class="hero-tag">Excel</span>
-            <span class="hero-tag">SQL</span>
-            <span class="hero-tag">Python</span>
-            <span class="hero-tag">Pandas</span>
-            <span class="hero-tag">Power BI</span>
-            <span class="hero-tag">Statistics</span>
-          </div>
-          <div class="hero-btns">
-            <a href="projects.html" class="btn-neon btn-neon-solid">Explore Projects →</a>
-            <a href="dashboards.html" class="btn-neon btn-neon-purple">View Dashboards →</a>
-            <a href="resume.html" class="btn-neon" style="border-color:rgba(0,255,136,0.4);color:#00ff88;">Download Resume ↓</a>
-          </div>
+      <div class="hero-content" data-reveal>
+        <div class="hero-eyebrow">STRATEGIC BUSINESS INTELLIGENCE</div>
+        <h1 class="hero-name" style="margin-bottom:12px;">SUJIT <span class="text-gradient">MURARI</span></h1>
+        <div class="hero-title" style="font-size:1.5rem;font-weight:500;margin-bottom:32px;">
+          Business Analytics Student <span style="color:rgba(255,255,255,0.2);">|</span> <span id="hero-typing" class="text-cyan">Statistical Modeling</span>
         </div>
+        <p class="hero-subtitle" style="font-size:1.2rem;max-width:650px;margin-bottom:48px;">Bridging the gap between raw data and executive decisions. Specializing in high-impact visualizations and predictive analytics for modern businesses.</p>
+        
+        <div class="hero-btns" style="display:flex;gap:16px;">
+          <a href="projects.html" class="btn-premium">Explore Portfolio →</a>
+          <a href="dashboards.html" class="btn-premium outline">View Dashboards</a>
+          <a href="resume.html" style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:0.95rem;color:var(--text-mid);margin-left:8px;transition:color 0.2s;" onmouseover="this.style.color='var(--text-hi)'" onmouseout="this.style.color='var(--text-mid)'">
+            Download Resume <span style="font-size:1.1rem;">↓</span>
+          </a>
+        </div>
+
+        <div class="hero-tags" style="margin-top:64px;opacity:0.6;">
+          <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;color:var(--text-lo);margin-right:16px;text-transform:uppercase;">TECH STACK</span>
+          <span class="hero-tag">Tableau</span>
+          <span class="hero-tag">SQL</span>
+          <span class="hero-tag">Python</span>
+          <span class="hero-tag">Power BI</span>
+          <span class="hero-tag">Statistics</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
         <!-- Right: Visual Panel -->
         <div data-reveal data-delay="400" style="min-height:520px;contain:layout;">
@@ -276,33 +277,44 @@
   <!-- DOMAINS -->
   <section class="section">
     <div class="container">
-      <div class="section-header" data-reveal>
-        <h2>SPECIALIZATION <span class="text-cyan">DOMAINS</span></h2>
+      <div class="section-header-premium" data-reveal>
+        <div class="badge-premium mb-16">Areas of Expertise</div>
+        <h2>Specialization <span class="text-gradient">Domains</span></h2>
+        <p>Combining technical proficiency with business acumen to deliver actionable intelligence.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
-        <div class="cp-panel cp-corner holo-card" style="padding:32px;" data-reveal data-delay="100">
-          <div style="font-size:2rem;margin-bottom:16px;">📊</div>
-          <div class="data-label mb-8">ANALYTICS AREA</div>
-          <h3 class="text-cyan mb-16">Data Visualization</h3>
-          <p>Building executive-grade Tableau dashboards with KPI cards, dual-axis charts, and interactive filters that communicate business insights with precision.</p>
-          <div class="cyber-divider" style="margin:20px 0;"><span>CAPABILITIES</span></div>
-          <div class="hero-tags"><span class="hero-tag">Tableau</span><span class="hero-tag">Power BI</span><span class="hero-tag">Excel</span><span class="hero-tag">R Programming</span></div>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+        <div class="card-premium" data-reveal>
+          <div style="font-size:2rem;margin-bottom:20px;">📊</div>
+          <h3 class="mb-12">Data Visualization</h3>
+          <p class="mb-24">Building executive-grade BI solutions that transform complex data into clear, actionable visual narratives for decision-makers.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="hero-tag">Tableau</span>
+            <span class="hero-tag">Power BI</span>
+            <span class="hero-tag">D3.js</span>
+          </div>
         </div>
-        <div class="cp-panel cp-panel-purple cp-corner-purple holo-card" style="padding:32px;" data-reveal data-delay="200">
-          <div style="font-size:2rem;margin-bottom:16px;">📈</div>
-          <div class="data-label mb-8" style="color:rgba(129,140,248,0.5);">ADVANCED ANALYTICS</div>
-          <h3 class="text-purple mb-16">Statistical Analytics</h3>
-          <p>Applying regression, correlation analysis, hypothesis testing, and distribution modeling to derive statistically sound business recommendations.</p>
-          <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
-          <div class="hero-tags"><span class="hero-tag">Python</span><span class="hero-tag">Pandas</span><span class="hero-tag">Statistics</span></div>
+        
+        <div class="card-premium" data-reveal data-delay="100">
+          <div style="font-size:2rem;margin-bottom:20px;">🧪</div>
+          <h3 class="mb-12">Statistical Analysis</h3>
+          <p class="mb-24">Leveraging rigorous statistical methods—regression, hypothesis testing, and forecasting—to validate business assumptions with data.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="hero-tag">Python</span>
+            <span class="hero-tag">R</span>
+            <span class="hero-tag">SciPy</span>
+          </div>
         </div>
-        <div class="cp-panel cp-corner holo-card" style="padding:32px;" data-reveal data-delay="300">
-          <div style="font-size:2rem;margin-bottom:16px;">💡</div>
-          <div class="data-label mb-8">STRATEGIC INSIGHTS</div>
-          <h3 class="text-cyan mb-16">Business Intelligence</h3>
-          <p>Translating raw operational data into pricing, revenue, and customer segmentation insights aligned with strategic business objectives.</p>
-          <div class="cyber-divider" style="margin:20px 0;"><span>TOOLS</span></div>
-          <div class="hero-tags"><span class="hero-tag">SQL</span><span class="hero-tag">Excel</span><span class="hero-tag">Tableau</span></div>
+
+        <div class="card-premium" data-reveal data-delay="200">
+          <div style="font-size:2rem;margin-bottom:20px;">🛡️</div>
+          <h3 class="mb-12">Business Strategy</h3>
+          <p class="mb-24">Interpreting analytical outputs through a strategic lens to solve real-world problems in operations, finance, and marketing.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="hero-tag">SQL</span>
+            <span class="hero-tag">Excel</span>
+            <span class="hero-tag">Analytics</span>
+          </div>
         </div>
       </div>
     </div>
@@ -311,139 +323,101 @@
   <!-- ANALYTICS SKILLS -->
   <section class="section" style="padding-top:0;">
     <div class="container">
-      <div class="section-header" data-reveal>
-        <h2>ANALYTICS <span class="text-cyan">SKILLS</span></h2>
+      <div class="section-header-premium" data-reveal>
+        <div class="badge-premium mb-16">Technical Stack</div>
+        <h2>Professional <span class="text-gradient">Capabilities</span></h2>
+        <p>A comprehensive toolkit for full-cycle data analysis, from extraction to executive insight.</p>
       </div>
-      <p data-reveal data-delay="80" style="max-width:580px;margin-bottom:36px;color:rgba(224,247,255,0.55);font-size:0.95rem;">Tools and techniques applied across real business datasets — from raw data extraction to executive-ready dashboards.</p>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;" data-reveal data-delay="100">
-
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;" data-reveal>
         <!-- Data Analysis -->
-        <div class="cp-panel cp-corner" style="padding:24px 26px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            <span style="font-size:1.4rem;">🐍</span>
-            <div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#38bdf8;">Data Analysis</div>
-            </div>
+        <div class="card-premium">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+            <span style="font-size:1.8rem;">🐍</span>
+            <h4 style="margin:0;">Data Analysis</h4>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;">
-            <span class="hero-tag" style="font-size: 0.8rem;">Python</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Pandas</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">NumPy</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">EDA</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Data Cleaning</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Feature Engineering</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+            <span class="hero-tag">Python</span><span class="hero-tag">Pandas</span><span class="hero-tag">NumPy</span><span class="hero-tag">EDA</span>
           </div>
-            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
-            Missing value handling • outlier removal • data type conversion • aggregation
-          </div>
+          <p style="font-size:0.9rem;color:var(--text-lo);">Specializing in missing value treatment, outlier detection, and feature engineering for predictive modeling.</p>
         </div>
 
-        <!-- Data Visualization -->
-        <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px 26px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            <span style="font-size:1.4rem;">📊</span>
-            <div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#818cf8;">Data Visualization</div>
-            </div>
+        <!-- Visualization -->
+        <div class="card-premium">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+            <span style="font-size:1.8rem;">📊</span>
+            <h4 style="margin:0;">BI & Visualization</h4>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;">
-            <span class="hero-tag" style="font-size: 0.8rem;">Tableau</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Excel Charts</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Power BI</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Matplotlib</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">KPI Dashboards</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">LOD Expressions</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+            <span class="hero-tag">Tableau</span><span class="hero-tag">Power BI</span><span class="hero-tag">KPI Charts</span><span class="hero-tag">LODs</span>
           </div>
-            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
-            Interactive filters • dual-axis charts • drill-down • executive dashboards
-          </div>
+          <p style="font-size:0.9rem;color:var(--text-lo);">Creating interactive executive dashboards that highlight key performance indicators and trends.</p>
         </div>
 
-        <!-- Database / SQL -->
-        <div class="cp-panel cp-corner" style="padding:24px 26px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            <span style="font-size:1.4rem;">🗄️</span>
-            <div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#38bdf8;">Database & SQL</div>
-            </div>
+        <!-- Database -->
+        <div class="card-premium">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+            <span style="font-size:1.8rem;">🗄️</span>
+            <h4 style="margin:0;">Database & SQL</h4>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;">
-            <span class="hero-tag" style="font-size: 0.8rem;">SQL</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">MySQL</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">GROUP BY</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">JOINs</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">CTEs</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Window Functions</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+            <span class="hero-tag">MySQL</span><span class="hero-tag">CTEs</span><span class="hero-tag">Joins</span><span class="hero-tag">Windows</span>
           </div>
-            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
-            Revenue aggregation • customer segmentation • subqueries • CASE WHEN
-          </div>
+          <p style="font-size:0.9rem;color:var(--text-lo);">Efficient data extraction and transformation using advanced SQL techniques for large-scale datasets.</p>
         </div>
-
-        <!-- Statistical Methods -->
-        <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px 26px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            <span style="font-size:1.4rem;">📐</span>
-            <div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.78rem;color:#818cf8;">Statistical Methods</div>
-            </div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;">
-            <span class="hero-tag" style="font-size: 0.8rem;">Correlation</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Regression</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Distribution Analysis</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">ANOVA</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Descriptive Stats</span>
-            <span class="hero-tag" style="font-size: 0.8rem;">Hypothesis Testing</span>
-          </div>
-            <div style="margin-top:14px;font-family:'Inter', sans-serif;font-weight:500;font-size: 0.8rem;color:rgba(224,247,255,0.45);line-height:1.6;">
-            Pearson/Spearman • linear regression • p-value interpretation • outlier detection
-          </div>
-        </div>
-
       </div>
 
       <!-- Analytical workflow strip -->
-      <div class="cp-panel" style="padding:20px 24px;margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;" data-reveal data-delay="200">
-        <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:rgba(0,255,255,0.35);letter-spacing:0.05em;flex-shrink:0;">• ANALYTICAL WORKFLOW</div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'Inter', sans-serif;font-weight:600;font-size:0.75rem;">
-          <span style="color:#00ffff;border:1px solid rgba(0,255,255,0.2);padding:5px 12px;border-radius:3px;background:rgba(0,255,255,0.05);">Business Problem</span>
-          <span style="color:rgba(0,255,255,0.3);">→</span>
-          <span style="color:rgba(224,247,255,0.5);border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:3px;">Data Collection</span>
-          <span style="color:rgba(0,255,255,0.3);">→</span>
-          <span style="color:rgba(224,247,255,0.5);border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:3px;">Cleaning & EDA</span>
-          <span style="color:rgba(0,255,255,0.3);">→</span>
-          <span style="color:rgba(224,247,255,0.5);border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:3px;">Statistical Analysis</span>
-          <span style="color:#818cf8;border:1px solid rgba(129,140,248,0.2);padding:5px 12px;border-radius:3px;background:rgba(129,140,248,0.05);">Key Insights</span>
-          <span style="color:rgba(0,255,255,0.3);">→</span>
-          <span style="color:#00ff88;border:1px solid rgba(0,255,136,0.2);padding:5px 12px;border-radius:3px;background:rgba(0,255,136,0.05);">Recommendation</span>
+      <div class="card-premium" style="margin-top:24px;padding:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;" data-reveal>
+        <div style="font-size:0.75rem;font-weight:800;color:var(--cyan);letter-spacing:0.1em;text-transform:uppercase;">Workflow</div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:600;font-size:0.85rem;color:var(--text-mid);">
+          <span>Problem Discovery</span> <span style="color:var(--text-lo);">→</span>
+          <span>Data Ingestion</span> <span style="color:var(--text-lo);">→</span>
+          <span>Exploratory Analysis</span> <span style="color:var(--text-lo);">→</span>
+          <span style="color:var(--cyan);">Informed Recommendations</span>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Flagship case study CTA -->
-      <div class="cp-panel cp-corner" style="padding:28px 32px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;" data-reveal data-delay="250">
+  <!-- FEATURED WORK -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header-premium" data-reveal>
+        <div class="badge-premium mb-16">Case Study Highlight</div>
+        <h2>Enterprise <span class="text-gradient">Solutions</span></h2>
+      </div>
+      
+      <div class="card-premium" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:64px;" data-reveal>
+        <div class="case-study-visual" style="aspect-ratio:4/3;background:rgba(255,255,255,0.01);border-radius:16px;border:1px solid var(--glass-border);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(45,212,191,0.1) 0%, transparent 70%);"></div>
+          <div style="text-align:center;z-index:2;">
+            <div style="font-size:4rem;margin-bottom:16px;">📈</div>
+            <div style="font-family:ui-monospace,monospace;font-size:0.85rem;color:var(--cyan);letter-spacing:0.2em;font-weight:700;">ANALYTIC_PREVIEW_3.0</div>
+          </div>
+        </div>
         <div>
-          <div class="data-label mb-8">• FEATURED CASE STUDY</div>
-          <h3 style="margin:0;font-size:1rem;">Zomato Growth Intelligence — <span class="text-cyan">Complete Case Study</span></h3>
-          <p style="margin:6px 0 0;font-size:0.9rem;color:rgba(224,247,255,0.5);">EDA · Regression · SQL · Tableau · Recommendations — all in one report.</p>
+          <h3 style="font-size:2.4rem;margin-bottom:24px;line-height:1.2;">Zomato Insights & Growth Recommendation</h3>
+          <p class="mb-40" style="font-size:1.15rem;color:var(--text-mid);">A deep dive into restaurant marketplace dynamics, identifying core growth pillars and predictive churn factors using statistical regression and comprehensive EDA.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:48px;">
+            <span class="hero-tag">SQL</span><span class="hero-tag">Python</span><span class="hero-tag">EDA</span><span class="hero-tag">Statistical Modeling</span>
+          </div>
+          <a href="case-study.html" class="btn-premium">Read Full Case Study →</a>
         </div>
-        <a href="projects.html" class="btn-neon btn-neon-solid" style="white-space:nowrap;">View Projects →</a>
       </div>
-
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="section" style="padding-top:0;">
+  <section class="section">
     <div class="container" style="text-align:center;" data-reveal>
-      <div class="cp-panel" style="padding:60px 40px;max-width:700px;margin:0 auto;">
-        <div class="data-label mb-16">• READY TO COLLABORATE</div>
-        <h2 style="margin-bottom:16px;">Let's Build Something <span class="text-cyan">Intelligence-Driven</span></h2>
-        <p style="margin-bottom:32px;">Open to analytics internships, collaborative projects, and data-driven challenges. Let's turn your data into decisions.</p>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-          <a href="contact.html" class="btn-neon btn-neon-solid">Get In Touch →</a>
-          <a href="about.html" class="btn-neon btn-neon-purple">Know More →</a>
+      <div class="card-premium" style="padding:100px 48px;max-width:900px;margin:0 auto;background:radial-gradient(circle at top right, rgba(129,140,248,0.05), transparent 60%);">
+        <div class="badge-premium mb-24">Contact & Collaboration</div>
+        <h2 style="font-size:3.5rem;margin-bottom:24px;line-height:1.1;">Translating Data into <span class="text-gradient">Action</span></h2>
+        <p style="font-size:1.25rem;max-width:600px;margin:0 auto 48px;color:var(--text-mid);">Ready to bring analytical precision to your next business challenge. Open to internships, collaborative projects, and data consulting opportunities.</p>
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn-premium">Get In Touch →</a>
+          <a href="about.html" class="btn-premium outline">Learn More About Sujit</a>
         </div>
       </div>
     </div>
