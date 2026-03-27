@@ -276,13 +276,13 @@
    }
     .hero-tag {
       padding: 5px 14px;
-      border: 1px solid rgba(0,255,255,0.25);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
       letter-spacing: 0.15em;
-      color: var(--cyan-dim);
+      color: var(--cyan);
       border-radius: 4px;
-      background: rgba(0,255,255,0.04);
+      background: rgba(2, 132, 199, 0.05);
     }
    .hero-btns {
      flex-wrap: wrap;
@@ -419,16 +419,16 @@
      gap: 6px;
      margin-top: 16px;
    }
-   .project-tag {
-     padding: 3px 10px;
-     border: 1px solid rgba(51, 65, 85, 0.3);
-     font-family: 'Inter', sans-serif;
-     font-size: 0.8rem;
-     letter-spacing: 0.1em;
-     color: var(--purple-dim);
-     background: rgba(51, 65, 85, 0.05);
-     border-radius: 4px;
-   }
+    .project-tag {
+      padding: 3px 10px;
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      background: rgba(2, 132, 199, 0.05);
+      border-radius: 4px;
+    }
    .insight-box {
      margin-top: 20px;
      padding: 14px 16px;
