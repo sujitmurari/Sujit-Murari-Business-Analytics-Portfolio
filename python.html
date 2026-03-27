@@ -21,8 +21,8 @@
     }
     .py-stat-card {
       padding: 18px 14px;
-      border: 1px solid rgba(0,255,255,0.15);
-      background: rgba(0,255,255,0.03);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      background: rgba(2, 132, 199, 0.05);
       border-radius: 3px;
       text-align: center;
     }
@@ -30,35 +30,35 @@
       font-family: 'Inter', sans-serif;
       font-size: 1.8rem;
       font-weight: 800;
-      color: #00ffff;
-      text-shadow: 0 0 20px rgba(0,255,255,0.3);
+      color: var(--cyan);
+      text-shadow: none;
       display: block;
     }
-    .py-stat-num.purple { color: #9b5cff; text-shadow: 0 0 20px rgba(155,92,255,0.3); }
-    .py-stat-num.green  { color: #00ff88; text-shadow: 0 0 20px rgba(0,255,136,0.3); }
+    .py-stat-num.purple { color: var(--purple); text-shadow: none; }
+    .py-stat-num.green  { color: var(--cyan); text-shadow: 0 0 20px rgba(0,255,136,0.3); }
     .py-stat-label {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.75rem;
       letter-spacing: 0.05em;
-      color: rgba(224,247,255,0.4);
+      color: var(--text-lo);
       margin-top: 5px;
     }
 
     /* Project cards */
     .project-card {
-      border: 1px solid rgba(0,255,255,0.13);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       background: rgba(5,5,20,0.85);
       border-radius: 3px;
       overflow: hidden;
       margin-bottom: 28px;
       transition: border-color 0.25s;
     }
-    .project-card:hover { border-color: rgba(0,255,255,0.35); }
-    .project-card.purple { border-color: rgba(155,92,255,0.15); }
-    .project-card.purple:hover { border-color: rgba(155,92,255,0.4); }
-    .project-card.green { border-color: rgba(0,255,136,0.15); }
-    .project-card.green:hover { border-color: rgba(0,255,136,0.35); }
+    .project-card:hover { border-color: var(--text-lo); }
+    .project-card.purple { border-color: var(--text-lo); }
+    .project-card.purple:hover { border-color: var(--text-lo); }
+    .project-card.green { border-color: var(--cyan); }
+    .project-card.green:hover { border-color: var(--cyan); }
 
     .project-card-header {
       display: flex;
@@ -66,41 +66,41 @@
       justify-content: space-between;
       gap: 16px;
       padding: 22px 24px 16px;
-      background: rgba(0,255,255,0.03);
+      background: rgba(2, 132, 199, 0.05);
       border-bottom: 1px solid rgba(0,255,255,0.08);
       flex-wrap: wrap;
     }
     .project-card.purple .project-card-header {
-      background: rgba(155,92,255,0.03);
+      background: rgba(51, 65, 85, 0.05);
       border-bottom-color: rgba(155,92,255,0.08);
     }
     .project-card.green .project-card-header {
       background: rgba(0,255,136,0.03);
-      border-bottom-color: rgba(0,255,136,0.08);
+      border-bottom-color: var(--cyan);
     }
 
     .project-card-num {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.72rem;
-      color: rgba(0,255,255,0.3);
+      color: var(--text-lo);
       letter-spacing: 0.05em;
       margin-bottom: 6px;
     }
-    .project-card.purple .project-card-num { color: rgba(155,92,255,0.4); }
-    .project-card.green  .project-card-num { color: rgba(0,255,136,0.4); }
+    .project-card.purple .project-card-num { color: var(--text-lo); }
+    .project-card.green  .project-card-num { color: var(--cyan); }
 
     .project-card-title {
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
       font-weight: 800;
-      color: #e0f7ff;
+      color: var(--text-hi);
       margin-bottom: 8px;
     }
     .project-card-desc {
       font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
-      color: rgba(224,247,255,0.55);
+      color: var(--text-lo);
       line-height: 1.6;
       max-width: 580px;
     }
@@ -117,9 +117,9 @@
       padding: 4px 10px;
       border-radius: 2px;
     }
-    .py-badge.cyan   { border: 1px solid rgba(0,255,255,0.25); color: rgba(0,255,255,0.7); background: rgba(0,255,255,0.05); }
-    .py-badge.purple { border: 1px solid rgba(155,92,255,0.25); color: rgba(155,92,255,0.8); background: rgba(155,92,255,0.05); }
-    .py-badge.green  { border: 1px solid rgba(0,255,136,0.25); color: rgba(0,255,136,0.8); background: rgba(0,255,136,0.05); }
+    .py-badge.cyan   { border: 1px solid rgba(2, 132, 199, 0.2); color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
+    .py-badge.purple { border: 1px solid rgba(51, 65, 85, 0.2); color: var(--purple); background: rgba(51, 65, 85, 0.05); }
+    .py-badge.green  { border: 1px solid rgba(0,255,136,0.25); color: var(--cyan); background: rgba(0,255,136,0.05); }
     .py-badge.orange { border: 1px solid rgba(255,159,67,0.25); color: rgba(255,159,67,0.8); background: rgba(255,159,67,0.05); }
 
     /* Techniques list */
@@ -136,15 +136,15 @@
       gap: 8px;
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      color: rgba(224,247,255,0.45);
+      color: var(--text-lo);
     }
     .technique-item::before {
       content: "•";
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       flex-shrink: 0;
     }
-    .project-card.purple .technique-item::before { color: rgba(155,92,255,0.5); }
-    .project-card.green  .technique-item::before { color: rgba(0,255,136,0.5); }
+    .project-card.purple .technique-item::before { color: var(--text-lo); }
+    .project-card.green  .technique-item::before { color: var(--cyan); }
 
     /* Code block */
     .code-block {
@@ -163,10 +163,10 @@
       font-weight: 700;
       font-size: 0.75rem;
       letter-spacing: 0.05em;
-      color: rgba(0,255,255,0.3);
+      color: var(--text-lo);
     }
-    .project-card.purple .code-block-label { color: rgba(155,92,255,0.4); }
-    .project-card.green  .code-block-label { color: rgba(0,255,136,0.4); }
+    .project-card.purple .code-block-label { color: var(--text-lo); }
+    .project-card.green  .code-block-label { color: var(--cyan); }
 
     .copy-btn {
       font-family: 'Inter', sans-serif;
@@ -174,15 +174,15 @@
       font-size: 0.7rem;
       letter-spacing: 0.05em;
       padding: 4px 10px;
-      border: 1px solid rgba(0,255,255,0.2);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       background: transparent;
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       cursor: pointer;
       border-radius: 2px;
       transition: all 0.2s;
     }
-    .copy-btn:hover { color: #00ffff; border-color: rgba(0,255,255,0.5); }
-    .copy-btn.copied { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+    .copy-btn:hover { color: var(--cyan); border-color: var(--text-lo); }
+    .copy-btn.copied { color: var(--cyan); border-color: var(--cyan); }
 
     .code-block pre {
       margin: 0;
@@ -194,13 +194,13 @@
     }
     .code-block code { font-family: ui-monospace, monospace !important; background: transparent !important; }
     .hljs { background: transparent !important; }
-    .hljs-keyword   { color: #00ffff !important; }
-    .hljs-built_in  { color: #9b5cff !important; }
-    .hljs-string    { color: #00ff88 !important; }
+    .hljs-keyword   { color: var(--cyan) !important; }
+    .hljs-built_in  { color: var(--purple) !important; }
+    .hljs-string    { color: var(--cyan) !important; }
     .hljs-number    { color: #ff9f43 !important; }
-    .hljs-comment   { color: rgba(224,247,255,0.3) !important; font-style: italic; }
-    .hljs-title     { color: #00ffff !important; }
-    .hljs-params    { color: #e0f7ff !important; }
+    .hljs-comment   { color: var(--text-lo) !important; font-style: italic; }
+    .hljs-title     { color: var(--cyan) !important; }
+    .hljs-params    { color: var(--text-hi) !important; }
     .hljs-decorator { color: #ff9f43 !important; }
 
     /* Library strip */
@@ -215,14 +215,14 @@
       align-items: center;
       gap: 8px;
       padding: 10px 16px;
-      border: 1px solid rgba(0,255,255,0.12);
-      background: rgba(0,255,255,0.02);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      background: rgba(2, 132, 199, 0.05);
       border-radius: 3px;
     }
-    .lib-item.purple { border-color: rgba(155,92,255,0.15); background: rgba(155,92,255,0.02); }
-    .lib-name { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.85rem; color: #00ffff; }
-    .lib-item.purple .lib-name { color: #9b5cff; }
-    .lib-use  { font-family: ui-monospace, monospace; font-size: 0.72rem; color: rgba(224,247,255,0.35); margin-top: 2px; }
+    .lib-item.purple { border-color: var(--text-lo); background: rgba(51, 65, 85, 0.05); }
+    .lib-name { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--cyan); }
+    .lib-item.purple .lib-name { color: var(--purple); }
+    .lib-use  { font-family: ui-monospace, monospace; font-size: 0.72rem; color: var(--text-lo); margin-top: 2px; }
 
     /* App showcase */
     .app-feature-grid {
@@ -238,8 +238,8 @@
       border-radius: 2px;
     }
     .app-feature-icon { font-size: 1.3rem; margin-bottom: 6px; }
-    .app-feature-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; color: #00ff88; margin-bottom: 4px; letter-spacing: 0.05em; }
-    .app-feature-desc  { font-family: ui-monospace, monospace; font-size: 0.7rem; color: rgba(224,247,255,0.4); line-height: 1.5; }
+    .app-feature-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--cyan); margin-bottom: 4px; letter-spacing: 0.05em; }
+    .app-feature-desc  { font-family: ui-monospace, monospace; font-size: 0.7rem; color: var(--text-lo); line-height: 1.5; }
   </style>
 <style id="nav-dropdown-css">
   .nav-dropdown { position: relative; }
@@ -258,8 +258,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -273,13 +273,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -332,7 +332,7 @@
       <div class="section-header" data-reveal>
         <h1>PYTHON <span class="text-cyan">ANALYTICS LAB</span></h1>
       </div>
-      <p data-reveal data-delay="80" style="max-width:640px;color:rgba(224,247,255,0.55);font-size:1rem;margin-bottom:0;">
+      <p data-reveal data-delay="80" style="max-width:640px;color: var(--text-lo);font-size:1rem;margin-bottom:0;">
         Pandas, NumPy, Matplotlib, Seaborn, and Scikit-learn applied to real datasets — EDA, statistical analysis, machine learning, and a full Python desktop application built in Semester III.
       </p>
 
@@ -364,11 +364,11 @@
         <div class="data-label mb-16">• LIBRARIES USED ACROSS ALL PROJECTS</div>
         <div class="lib-strip">
           <div class="lib-item"><div><div class="lib-name">pandas</div><div class="lib-use">Data manipulation • cleaning • aggregation</div></div></div>
-          <div class="lib-item purple"><div><div class="lib-name" style="color:#9b5cff;">numpy</div><div class="lib-use">Numerical computation • arrays</div></div></div>
+          <div class="lib-item purple"><div><div class="lib-name" style="color: var(--purple);">numpy</div><div class="lib-use">Numerical computation • arrays</div></div></div>
           <div class="lib-item"><div><div class="lib-name">matplotlib</div><div class="lib-use">Charts • histograms • scatter plots</div></div></div>
-          <div class="lib-item purple"><div><div class="lib-name" style="color:#9b5cff;">seaborn</div><div class="lib-use">Statistical charts • heatmaps • boxplots</div></div></div>
+          <div class="lib-item purple"><div><div class="lib-name" style="color: var(--purple);">seaborn</div><div class="lib-use">Statistical charts • heatmaps • boxplots</div></div></div>
           <div class="lib-item"><div><div class="lib-name">scikit-learn</div><div class="lib-use">Logistic regression • PCA • train/test split</div></div></div>
-          <div class="lib-item purple"><div><div class="lib-name" style="color:#9b5cff;">tkinter + sqlite3</div><div class="lib-use">Desktop app • embedded database</div></div></div>
+          <div class="lib-item purple"><div><div class="lib-name" style="color: var(--purple);">tkinter + sqlite3</div><div class="lib-use">Desktop app • embedded database</div></div></div>
         </div>
       </div>
 
@@ -762,7 +762,7 @@ def update_metrics_loop(self):
       <div class="cp-panel" style="padding:48px 40px;max-width:700px;margin:0 auto;text-align:center;">
         <div class="data-label mb-16">• FULL SOURCE CODE</div>
         <h2 style="margin-bottom:12px;">All <span class="text-cyan">Python Files</span> on GitHub</h2>
-        <p style="margin-bottom:28px;color:rgba(224,247,255,0.5);">Complete Jupyter notebooks and .py scripts from Semester III — EDA, ML pipeline, and the full Eco Monitor application.</p>
+        <p style="margin-bottom:28px;color: var(--text-lo);">Complete Jupyter notebooks and .py scripts from Semester III — EDA, ML pipeline, and the full Eco Monitor application.</p>
         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
           <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-solid">↗ View on GitHub</a>
           <a href="projects.html" class="btn-neon btn-neon-purple">• See Analytics Projects</a>
@@ -775,7 +775,7 @@ def update_metrics_loop(self):
 
   <footer id="footer">
   <div class="container">
-    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color:rgba(224,247,255,0.3);">
+    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color: var(--text-lo);">
       SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>

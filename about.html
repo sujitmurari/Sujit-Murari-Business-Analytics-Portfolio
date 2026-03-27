@@ -48,8 +48,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -62,13 +62,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -161,23 +161,23 @@
 
           <!-- Interests -->
           <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:32px;margin-top:24px;" data-reveal data-delay="200">
-            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">• INTERESTS & FOCUS AREAS</div>
+            <div class="data-label mb-16" style="color: var(--text-lo);">• INTERESTS & FOCUS AREAS</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div style="padding:14px;border:1px solid rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);border-radius:2px;">
+              <div style="padding:14px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">📊</div>
-                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:#818cf8;letter-spacing:0.05em;">DATA VIZ</div>
+                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--purple);letter-spacing:0.05em;">DATA VIZ</div>
               </div>
-              <div style="padding:14px;border:1px solid rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);border-radius:2px;">
+              <div style="padding:14px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">📐</div>
-                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:#00ffff;letter-spacing:0.05em;">STATISTICS</div>
+                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--cyan);letter-spacing:0.05em;">STATISTICS</div>
               </div>
-              <div style="padding:14px;border:1px solid rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);border-radius:2px;">
+              <div style="padding:14px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">💡</div>
-                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:#00ffff;letter-spacing:0.05em;">BUSINESS INTEL</div>
+                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--cyan);letter-spacing:0.05em;">BUSINESS INTEL</div>
               </div>
-              <div style="padding:14px;border:1px solid rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);border-radius:2px;">
+              <div style="padding:14px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);border-radius:2px;">
                 <div style="font-size:1.2rem;margin-bottom:6px;">🖥️</div>
-                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:#818cf8;letter-spacing:0.05em;">DASHBOARDS</div>
+                <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--purple);letter-spacing:0.05em;">DASHBOARDS</div>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@
         <div>
           <div data-reveal data-delay="100">
             <div class="data-label mb-16">• ANALYST OVERVIEW</div>
-            <p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px;">I am <strong style="color:#00ffff;">Sujit Murari</strong>, a Business Analytics professional with a passion for transforming complex datasets into clear, actionable business intelligence. I specialize in building data pipelines and visualization systems that help organizations make faster, smarter decisions.</p>
+            <p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px;">I am <strong style="color: var(--cyan);">Sujit Murari</strong>, a Business Analytics professional with a passion for transforming complex datasets into clear, actionable business intelligence. I specialize in building data pipelines and visualization systems that help organizations make faster, smarter decisions.</p>
             <p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px;">My academic journey at Dev Bhoomi Uttarakhand University has equipped me with a strong foundation in statistical analysis, database management, and executive-grade dashboard design using tools like Tableau, Excel, SQL, and Python.</p>
             <p style="font-size:1.1rem;line-height:1.8;margin-bottom:32px;">I approach every dataset as a story waiting to be told — finding patterns, correlations, and anomalies that reveal the business narrative hidden within the numbers.</p>
           </div>
@@ -222,23 +222,23 @@
               <!-- Timeline content -->
               <div style="flex:1;display:flex;flex-direction:column;gap:0;">
                 <div class="cp-panel" style="padding:16px 18px;margin-bottom:12px;">
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM I — FOUNDATION</div>
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">Data Fundamentals</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--text-lo);margin-bottom:4px;">SEM I — FOUNDATION</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color: var(--text-hi);margin-bottom:6px;">Data Fundamentals</div>
                   <p style="font-size:0.9rem;margin:0;">Introduced to Excel, basic statistics, and data cleaning methodologies. Built first data summary reports.</p>
                 </div>
                 <div class="cp-panel" style="padding:16px 18px;margin-bottom:12px;">
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM II — ADVANCED TOOLS</div>
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">R Programming</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--text-lo);margin-bottom:4px;">SEM II — ADVANCED TOOLS</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color: var(--text-hi);margin-bottom:6px;">R Programming</div>
                   <p style="font-size:0.9rem;margin:0;">Mastered R for statistical computing and started building independent projects.</p>
                 </div>
                 <div class="cp-panel cp-panel-purple" style="padding:16px 18px;margin-bottom:12px;">
                   <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:rgba(129,140,248,0.5);margin-bottom:4px;">SEM III — PYTHON</div>
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color:#e0f7ff;margin-bottom:6px;">Python & Data Science</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color: var(--text-hi);margin-bottom:6px;">Python & Data Science</div>
                   <p style="font-size:0.9rem;margin:0;">Introduced Python with Pandas for data manipulation. Applied statistical models to real business problems.</p>
                 </div>
                 <div class="cp-panel" style="padding:16px 18px;">
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color:rgba(0,255,255,0.4);margin-bottom:4px;">SEM IV — CURRENT</div>
-                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color:#00ffff;margin-bottom:6px;">Tableau & SQL Mastery</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;color: var(--text-lo);margin-bottom:4px;">SEM IV — CURRENT</div>
+                  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color: var(--cyan);margin-bottom:6px;">Tableau & SQL Mastery</div>
                   <p style="font-size:0.9rem;margin:0;">Building advanced analytics projects like dashboards using Tableau and SQL.</p>
                 </div>
               </div>

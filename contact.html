@@ -34,9 +34,9 @@
     <style>
     /* ── Terminal ── */
     .terminal-window {
-      border: 1px solid rgba(0,255,255,0.15);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 8px;
-      background: rgba(5,5,16,0.95);
+      background: var(--bg);
       overflow: hidden;
     }
     .terminal-titlebar {
@@ -44,7 +44,7 @@
       align-items: center;
       gap: 6px;
       padding: 10px 16px;
-      background: rgba(0,255,255,0.04);
+      background: rgba(2, 132, 199, 0.05);
       border-bottom: 1px solid rgba(0,255,255,0.1);
     }
     .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
@@ -54,11 +54,11 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.85rem;
       line-height: 1.8;
-      color: rgba(224,247,255,0.75);
+      color: var(--text-lo);
     }
-    .t-prompt { color: #38bdf8; display: block; }
-    .t-output  { color: rgba(224,247,255,0.5); display: block; padding-left: 12px; }
-    .t-cmd     { color: #00ff88; display: block; }
+    .t-prompt { color: var(--cyan); display: block; }
+    .t-output  { color: var(--text-lo); display: block; padding-left: 12px; }
+    .t-cmd     { color: var(--cyan); display: block; }
 
     /* ── Form row: 2 columns for name+email ── */
     .cyber-form-row {
@@ -73,9 +73,9 @@
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 0.85rem;
-      color: rgba(224,247,255,0.85);
-      background: rgba(5,5,16,0.9);
-      border: 1px solid rgba(0,255,255,0.2);
+      color: var(--text-hi);
+      background: var(--bg);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 4px;
       padding: 10px 14px;
       outline: none;
@@ -89,16 +89,16 @@
       background-position: right 14px center;
       padding-right: 36px;
     }
-    .cyber-select:focus { border-color: rgba(0,255,255,0.6); box-shadow: 0 0 0 2px rgba(0,255,255,0.08); }
-    .cyber-select option { background: #050510; color: rgba(224,247,255,0.85); }
+    .cyber-select:focus { border-color: var(--text-lo); box-shadow: 0 0 0 2px rgba(0,255,255,0.08); }
+    .cyber-select option { background: var(--bg); color: var(--text-hi); }
 
     /* ── Cat card ── */
     .cat-card {
       margin-top: 20px;
-      border: 1px solid rgba(0,255,255,0.12);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 10px;
       overflow: hidden;
-      background: rgba(5,5,16,0.6);
+      background: var(--bg);
     }
     .cat-card img {
       width: 100%;
@@ -111,7 +111,7 @@
       padding: 10px 14px;
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.8rem;
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       letter-spacing: 0.16em;
       border-top: 1px solid rgba(0,255,255,0.08);
       display: flex;
@@ -125,11 +125,11 @@
       flex-shrink: 0;
       animation: catpulse 2.4s ease-in-out infinite;
     }
-    @keyframes catpulse { 0%,100%{opacity:1;box-shadow:0 0 4px #00ffff} 50%{opacity:0.3;box-shadow:none} }
+    @keyframes catpulse { 0%,100%{opacity:1;box-shadow: none} 50%{opacity:0.3;box-shadow:none} }
 
     /* ── Open To list ── */
     .open-to-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-    .open-to-item { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; color: rgba(224,247,255,0.55); }
+    .open-to-item { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; color: var(--text-lo); }
 
     /* ── 2-column layout ── */
     .contact-grid {
@@ -164,7 +164,7 @@
       color: #94a3b8;
     }
     .contact-input-white:focus {
-      border-color: #0ea5e9;
+      border-color: var(--cyan);
       box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
     }
 
@@ -195,10 +195,10 @@
 
     /* ── Cat card — constrained height ── */
     .cat-card {
-      border: 1px solid rgba(0,255,255,0.12);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 10px;
       overflow: hidden;
-      background: rgba(5,5,16,0.6);
+      background: var(--bg);
       margin-top: 0;
     }
     .cat-card img {
@@ -215,7 +215,7 @@
       padding: 8px 12px;
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.8rem;
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       letter-spacing: 0.14em;
       border-top: 1px solid rgba(0,255,255,0.08);
       display: flex;
@@ -223,7 +223,7 @@
       gap: 7px;
     }
     .cat-pulse { width: 5px; height: 5px; border-radius: 50%; background: #00ffff; flex-shrink: 0; animation: catpulse 2.4s ease-in-out infinite; }
-    @keyframes catpulse { 0%,100%{opacity:1;box-shadow:0 0 4px #00ffff} 50%{opacity:0.3;box-shadow:none} }
+    @keyframes catpulse { 0%,100%{opacity:1;box-shadow: none} 50%{opacity:0.3;box-shadow:none} }
   </style>
 <style id="nav-dropdown-css">
   .nav-dropdown { position: relative; }
@@ -242,8 +242,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -257,13 +257,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -330,17 +330,17 @@
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
               <div>
-                <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">YOUR NAME</label>
+                <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color: var(--cyan);display:block;margin-bottom:8px;">YOUR NAME</label>
                 <input type="text" name="name" class="contact-input-white" placeholder="Full name" required/>
               </div>
               <div>
-                <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">EMAIL</label>
+                <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color: var(--cyan);display:block;margin-bottom:8px;">EMAIL</label>
                 <input type="email" name="email" class="contact-input-white" placeholder="you@email.com" required/>
               </div>
             </div>
 
             <div>
-              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">SUBJECT</label>
+              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color: var(--cyan);display:block;margin-bottom:8px;">SUBJECT</label>
               <select name="subject" class="cyber-select" required>
                 <option value="" disabled selected>Select a subject...</option>
                 <option value="Internship Opportunity">Internship Opportunity</option>
@@ -352,12 +352,12 @@
             </div>
 
             <div>
-              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;font-weight:400;">(optional)</span></label>
+              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color: var(--cyan);display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;font-weight:400;">(optional)</span></label>
               <input type="text" name="organization" class="contact-input-white" placeholder="Company or university"/>
             </div>
 
             <div>
-              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">MESSAGE</label>
+              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color: var(--cyan);display:block;margin-bottom:8px;">MESSAGE</label>
               <textarea name="message" class="contact-input-white" rows="4" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
             </div>
 

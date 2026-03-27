@@ -44,7 +44,7 @@
     }
     ::-webkit-scrollbar{width:6px;height:6px}
     ::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
-    ::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.2);border-radius:3px}
+    ::-webkit-scrollbar-thumb{background: rgba(2, 132, 199, 0.1);border-radius:3px}
 
     @keyframes fadeSlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
     .panel-enter{animation:fadeSlideUp 0.38s ease both}
@@ -71,7 +71,7 @@
     .table-registry{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
     .table-card{
       display:flex;align-items:center;gap:14px;
-      background:rgba(0,8,18,0.9);border:1px solid rgba(0,255,255,0.12);
+      background:rgba(0,8,18,0.9);border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius:6px;padding:13px 18px;
       animation:fadeSlideUp .35s ease both;position:relative;overflow:hidden;
     }
@@ -87,20 +87,20 @@
     .table-card:nth-child(5) .tc-name{color:var(--green)}
     .tc-meta{font-family:var(--mono);font-size: 0.8rem;color:var(--dim);margin-top:3px}
     .tc-cols{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-    .col-tag-n{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background:rgba(0,255,255,0.07);color:var(--cyan);border:1px solid rgba(0,255,255,0.18)}
-    .col-tag-t{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background:rgba(155,92,255,0.07);color:var(--purple);border:1px solid rgba(155,92,255,0.18)}
+    .col-tag-n{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background: rgba(2, 132, 199, 0.05);color:var(--cyan);border: 1px solid rgba(2, 132, 199, 0.2)}
+    .col-tag-t{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background: rgba(51, 65, 85, 0.05);color:var(--purple);border: 1px solid rgba(51, 65, 85, 0.2)}
     .tc-remove{background:none;border:none;color:rgba(255,45,120,0.4);cursor:pointer;font-size:1rem;padding:4px 8px;border-radius:3px;transition:all .15s;font-family:var(--mono);margin-left:auto}
     .tc-remove:hover{color:var(--pink);background:rgba(255,45,120,0.08)}
 
     /* ── Relationship Explorer ── */
     .rel-explorer{
-      background:rgba(0,5,15,0.7);border:1px solid rgba(155,92,255,0.2);
+      background:rgba(0,5,15,0.7);border: 1px solid rgba(51, 65, 85, 0.2);
       border-radius:6px;padding:18px 20px;margin-bottom:24px;
     }
-    .rel-title{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(155,92,255,0.6);margin-bottom:14px}
+    .rel-title{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);margin-bottom:14px}
     .rel-item{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:0.72rem;margin-bottom:7px}
     .rel-from{color:var(--cyan);font-weight:600}
-    .rel-arrow{color:rgba(155,92,255,0.5)}
+    .rel-arrow{color: var(--text-lo)}
     .rel-to{color:var(--purple);font-weight:600}
     .rel-conf-badge{padding:2px 8px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;margin-left:auto}
     .conf-high{background:rgba(0,255,136,0.08);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
@@ -116,7 +116,7 @@
     }
     .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent 80%)}
     .kpi-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(0,255,255,0.04),transparent 65%);pointer-events:none}
-    .kpi-card:hover{box-shadow:0 0 22px rgba(0,255,255,0.1);transform:translateY(-2px)}
+    .kpi-card:hover{box-shadow: none;transform:translateY(-2px)}
     .kpi-card.p::before{background:linear-gradient(90deg,var(--purple),transparent 80%)}
     .kpi-card.p::after{background:radial-gradient(ellipse at top left,rgba(155,92,255,0.05),transparent 65%)}
     .kpi-card.p:hover{box-shadow:0 0 22px rgba(155,92,255,0.12)}
@@ -136,17 +136,17 @@
     .profile-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:6px;margin-bottom:32px}
     .profile-tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.76rem}
     .profile-tbl thead th{
-      background:rgba(0,255,255,0.07);color:var(--cyan);padding:10px 15px;
+      background: rgba(2, 132, 199, 0.05);color:var(--cyan);padding:10px 15px;
       text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
       font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;
       white-space:nowrap;position:sticky;top:0;
     }
     .profile-tbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
-    .profile-tbl tbody tr:hover{background:rgba(0,255,255,0.03)}
+    .profile-tbl tbody tr:hover{background: rgba(2, 132, 199, 0.05)}
     .profile-tbl td{padding:8px 15px;color:var(--text);white-space:nowrap}
     .profile-tbl td:first-child{color:var(--cyan);font-weight:600}
-    .badge-num{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;background:rgba(0,255,255,0.08);color:var(--cyan);border:1px solid rgba(0,255,255,0.2)}
-    .badge-txt{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;background:rgba(155,92,255,0.08);color:var(--purple);border:1px solid rgba(155,92,255,0.2)}
+    .badge-num{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;background: rgba(2, 132, 199, 0.05);color:var(--cyan);border: 1px solid rgba(2, 132, 199, 0.2)}
+    .badge-txt{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;background: rgba(51, 65, 85, 0.05);color:var(--purple);border: 1px solid rgba(51, 65, 85, 0.2)}
     .miss-ok{color:var(--green)} .miss-warn{color:var(--pink)}
 
     /* ── SQL Panel ── */
@@ -158,46 +158,46 @@
     .sql-editor-wrap{position:relative}
     .sql-gutter{
       position:absolute;left:0;top:0;bottom:0;width:44px;
-      background:rgba(0,255,255,0.03);border-right:1px solid rgba(0,255,255,0.08);
+      background: rgba(2, 132, 199, 0.05);border-right:1px solid rgba(0,255,255,0.08);
       display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:20px;
-      font-family:var(--mono);font-size:0.65rem;color:rgba(0,255,255,0.22);
+      font-family:var(--mono);font-size:0.65rem;color: var(--text-lo);
       pointer-events:none;border-radius:4px 0 0 4px;user-select:none;
     }
     #sql-input{
       width:100%;min-height:140px;background:rgba(0,5,15,0.8);
       border:1px solid var(--border);border-radius:4px;
-      color:#e0f7ff;font-family:var(--mono);font-size:0.9rem;line-height:1.8;
+      color: var(--text-hi);font-family:var(--mono);font-size:0.9rem;line-height:1.8;
       padding:14px 16px 14px 52px;resize:vertical;outline:none;
       caret-color:var(--cyan);transition:border-color .2s,box-shadow .2s;box-sizing:border-box;
     }
     #sql-input:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,255,255,0.1),0 0 16px rgba(0,255,255,0.05)}
-    #sql-input::placeholder{color:rgba(0,255,255,0.2)}
+    #sql-input::placeholder{color: var(--text-lo)}
 
     .sql-kw-row{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
     .sql-kw{
       font-family:var(--mono);font-size:0.7rem;color:var(--cyan);
-      background:rgba(0,255,255,0.06);border:1px solid rgba(0,255,255,0.14);
+      background: rgba(2, 132, 199, 0.05);border: 1px solid rgba(2, 132, 199, 0.2);
       padding:3px 9px;border-radius:2px;cursor:pointer;transition:background .14s;white-space:nowrap;
     }
-    .sql-kw:hover{background:rgba(0,255,255,0.14);box-shadow:0 0 7px rgba(0,255,255,0.12)}
-    .sql-kw.join{color:var(--purple);background:rgba(155,92,255,0.06);border-color:rgba(155,92,255,0.18)}
-    .sql-kw.join:hover{background:rgba(155,92,255,0.14)}
+    .sql-kw:hover{background: rgba(2, 132, 199, 0.1);box-shadow: none}
+    .sql-kw.join{color:var(--purple);background: rgba(51, 65, 85, 0.05);border-color: var(--text-lo)}
+    .sql-kw.join:hover{background: rgba(51, 65, 85, 0.1)}
 
     /* Smart suggestions */
     .sugg-label{font-family:var(--mono);font-size: 0.8rem;color:var(--dim);letter-spacing:0.1em;margin-bottom:7px}
     .sugg-tabs{display:flex;gap:5px;margin-bottom:8px}
-    .sugg-tab{font-family:var(--mono);font-size: 0.8rem;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,255,255,0.1);background:transparent;color:var(--dim);cursor:pointer;transition:all .14s}
-    .sugg-tab.act{background:rgba(0,255,255,0.1);border-color:var(--cyan);color:var(--cyan)}
-    .sugg-tab.act-p{background:rgba(155,92,255,0.1);border-color:var(--purple);color:var(--purple)}
+    .sugg-tab{font-family:var(--mono);font-size: 0.8rem;padding:4px 10px;border-radius:3px;border: 1px solid rgba(2, 132, 199, 0.2);background:transparent;color:var(--dim);cursor:pointer;transition:all .14s}
+    .sugg-tab.act{background: rgba(2, 132, 199, 0.1);border-color:var(--cyan);color:var(--cyan)}
+    .sugg-tab.act-p{background: rgba(51, 65, 85, 0.1);border-color:var(--purple);color:var(--purple)}
     .sugg-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
     .sugg-chip{
       font-family:var(--mono);font-size: 0.8rem;
-      color:rgba(155,92,255,0.8);background:rgba(155,92,255,0.05);
-      border:1px solid rgba(155,92,255,0.16);border-radius:3px;
+      color: var(--purple);background: rgba(51, 65, 85, 0.05);
+      border: 1px solid rgba(51, 65, 85, 0.2);border-radius:3px;
       padding:4px 10px;cursor:pointer;transition:all .14s;
       white-space:nowrap;max-width:420px;overflow:hidden;text-overflow:ellipsis;
     }
-    .sugg-chip:hover{background:rgba(155,92,255,0.12);color:var(--purple);border-color:var(--purple);box-shadow:0 0 8px rgba(155,92,255,0.14)}
+    .sugg-chip:hover{background: rgba(51, 65, 85, 0.1);color:var(--purple);border-color:var(--purple);box-shadow:0 0 8px rgba(155,92,255,0.14)}
     .sugg-chip.join-q{color:rgba(0,200,160,0.8);background:rgba(0,200,160,0.04);border-color:rgba(0,200,160,0.15)}
     .sugg-chip.join-q:hover{background:rgba(0,200,160,0.12);color:var(--teal);border-color:var(--teal)}
 
@@ -206,13 +206,13 @@
     .ct-btn{
       display:inline-flex;align-items:center;gap:5px;
       font-family:var(--mono);font-size:0.7rem;letter-spacing:0.05em;
-      color:var(--dim);background:rgba(0,255,255,0.02);
-      border:1px solid rgba(0,255,255,0.1);border-radius:3px;
+      color:var(--dim);background: rgba(2, 132, 199, 0.05);
+      border: 1px solid rgba(2, 132, 199, 0.2);border-radius:3px;
       padding:6px 12px;cursor:pointer;transition:all .14s;
     }
-    .ct-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.06)}
-    .ct-btn.act{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,0.11);box-shadow:0 0 9px rgba(0,255,255,0.13)}
-    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background:rgba(155,92,255,0.09);box-shadow:0 0 9px rgba(155,92,255,0.13)}
+    .ct-btn:hover{border-color:var(--cyan);color:var(--cyan);background: rgba(2, 132, 199, 0.05)}
+    .ct-btn.act{border-color:var(--cyan);color:var(--cyan);background: rgba(2, 132, 199, 0.1);box-shadow: none}
+    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background: rgba(51, 65, 85, 0.05);box-shadow:0 0 9px rgba(155,92,255,0.13)}
 
     /* Buttons */
     .btn-run{
@@ -221,7 +221,7 @@
       color:#050510;background:var(--cyan);border:none;border-radius:3px;
       padding:11px 26px;cursor:pointer;transition:all .2s;
     }
-    .btn-run:hover{background:#33ffff;box-shadow:0 0 24px rgba(0,255,255,0.4);transform:translateY(-1px)}
+    .btn-run:hover{background:#33ffff;box-shadow: none;transform:translateY(-1px)}
     .btn-run:disabled{opacity:.4;cursor:not-allowed;transform:none}
     .btn-clr{
       display:inline-flex;align-items:center;gap:6px;
@@ -240,7 +240,7 @@
     .perf-strip.vis{display:flex;animation:fadeSlideUp .3s ease both}
     .perf-cell{display:flex;flex-direction:column;gap:3px;padding:10px 18px;border-right:1px solid rgba(0,255,136,0.09)}
     .perf-cell:last-child{border-right:none}
-    .perf-lbl{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(0,255,136,0.42)}
+    .perf-lbl{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color: var(--cyan)}
     .perf-v{font-family:var(--mono);font-size:0.75rem;color:var(--green)}
     .cx-badge{display:inline-block;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;padding:1px 7px;border-radius:2px}
     .cx-low{color:var(--green);background:rgba(0,255,136,0.09);border:1px solid rgba(0,255,136,0.22)}
@@ -273,23 +273,23 @@
       padding:8px 15px;cursor:pointer;transition:all .2s;
     }
     .exp-btn:hover{background:rgba(0,255,136,0.1);border-color:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.16);transform:translateY(-1px)}
-    .exp-btn.xl{color:var(--purple);background:rgba(155,92,255,0.05);border-color:rgba(155,92,255,0.2)}
-    .exp-btn.xl:hover{background:rgba(155,92,255,0.1);border-color:var(--purple);box-shadow:0 0 12px rgba(155,92,255,0.16)}
+    .exp-btn.xl{color:var(--purple);background: rgba(51, 65, 85, 0.05);border-color: var(--text-lo)}
+    .exp-btn.xl:hover{background: rgba(51, 65, 85, 0.1);border-color:var(--purple);box-shadow:0 0 12px rgba(155,92,255,0.16)}
 
     .rtbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:6px;max-height:320px}
     .rtbl-wrap::-webkit-scrollbar{width:5px;height:5px}
-    .rtbl-wrap::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.2);border-radius:3px}
+    .rtbl-wrap::-webkit-scrollbar-thumb{background: rgba(2, 132, 199, 0.1);border-radius:3px}
     .rtbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.77rem}
     .rtbl thead th{
-      background:rgba(0,255,255,0.08);color:var(--cyan);padding:10px 14px;
+      background: rgba(2, 132, 199, 0.05);color:var(--cyan);padding:10px 14px;
       text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
       font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;
       white-space:nowrap;position:sticky;top:0;
     }
     .rtbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
-    .rtbl tbody tr:hover{background:rgba(0,255,255,0.04)}
+    .rtbl tbody tr:hover{background: rgba(2, 132, 199, 0.05)}
     .rtbl tbody td{padding:8px 14px;color:var(--text);white-space:nowrap}
-    .rtbl tbody td:first-child{color:rgba(0,255,255,0.65)}
+    .rtbl tbody td:first-child{color: var(--text-lo)}
 
     .chart-wrap{background:rgba(0,5,15,0.6);border:1px solid var(--border);border-radius:6px;padding:24px;margin-top:22px;display:none}
 
@@ -318,8 +318,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -333,13 +333,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -404,9 +404,9 @@
         <div class="lab-drop-zone" id="drop-zone">
           <input type="file" id="file-input" accept=".csv" multiple style="display:none;"/>
           <div style="font-size:3rem;margin-bottom:16px;opacity:0.5;">📦</div>
-          <div style="font-family:'Inter', sans-serif; font-weight:800; font-size:0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.7);margin-bottom:8px;">DROP MULTIPLE CSV FILES HERE</div>
-          <div style="font-family:ui-monospace, monospace;font-size:0.75rem;color:rgba(224,247,255,0.4);">Each file becomes a named SQL table • click to browse</div>
-          <div style="margin-top:12px;font-family:ui-monospace, monospace;font-size:0.7rem;color:rgba(0,255,255,0.35);">
+          <div style="font-family:'Inter', sans-serif; font-weight:800; font-size:0.8rem;letter-spacing:0.05em;color: var(--cyan);margin-bottom:8px;">DROP MULTIPLE CSV FILES HERE</div>
+          <div style="font-family:ui-monospace, monospace;font-size:0.75rem;color: var(--text-lo);">Each file becomes a named SQL table • click to browse</div>
+          <div style="margin-top:12px;font-family:ui-monospace, monospace;font-size:0.7rem;color: var(--text-lo);">
             sales.csv → <span style="color:var(--green)">sales</span> •
             products.csv → <span style="color:var(--green)">products</span> •
             stores.csv → <span style="color:var(--green)">stores</span>
@@ -495,7 +495,7 @@
             <span class="sql-kw" onclick="insertKw('COALESCE(, 0)')">COALESCE</span>
           </div>
           <div class="sql-kw-row">
-            <span style="font-family:var(--mono);font-size: 0.8rem;color:rgba(155,92,255,0.5);margin-right:3px;">JOIN:</span>
+            <span style="font-family:var(--mono);font-size: 0.8rem;color: var(--text-lo);margin-right:3px;">JOIN:</span>
             <span class="sql-kw join" onclick="insertKw('\nJOIN  ON .')">JOIN</span>
             <span class="sql-kw join" onclick="insertKw('\nINNER JOIN  ON .')">INNER JOIN</span>
             <span class="sql-kw join" onclick="insertKw('\nLEFT JOIN  ON .')">LEFT JOIN</span>
@@ -586,16 +586,16 @@
             <canvas id="lab-histogram" height="200"></canvas>
           </div>
           <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:24px;">
-            <div class="data-label mb-16" style="color:rgba(155,92,255,0.5);">• SCATTER PLOT</div>
+            <div class="data-label mb-16" style="color: var(--text-lo);">• SCATTER PLOT</div>
             <canvas id="lab-scatter" height="200"></canvas>
           </div>
         </div>
         <div class="cp-panel" style="padding:24px;margin-bottom:40px;">
           <div class="data-label mb-16">• AUTOMATED ANALYSIS NOTES</div>
-          <div id="lab-notes" style="font-family:ui-monospace, monospace;font-size:0.75rem;line-height:2;color:rgba(224,247,255,0.7);">
-            <div style="color:#00ffff;">// Analysis ready. Scroll up to review statistics and charts.</div>
-            <div style="color:rgba(0,255,255,0.4);">// Numeric columns detected and plotted automatically.</div>
-            <div style="color:rgba(0,255,255,0.4);">// Upload multiple tables, then use JOIN queries in the SQL engine above.</div>
+          <div id="lab-notes" style="font-family:ui-monospace, monospace;font-size:0.75rem;line-height:2;color: var(--text-lo);">
+            <div style="color: var(--cyan);">// Analysis ready. Scroll up to review statistics and charts.</div>
+            <div style="color: var(--text-lo);">// Numeric columns detected and plotted automatically.</div>
+            <div style="color: var(--text-lo);">// Upload multiple tables, then use JOIN queries in the SQL engine above.</div>
           </div>
         </div>
       </div>
@@ -605,22 +605,22 @@
         <div class="data-label mb-24">• HOW TO USE THE ANALYTICS LAB</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
           <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">01</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color: var(--text-lo);margin-bottom:12px;">01</div>
             <h4 class="text-cyan mb-8">Upload CSVs</h4>
             <p style="font-size:0.9rem;">Drag & drop multiple CSVs at once. Each file becomes a named SQL table • sales.csv → <strong style="color:var(--green)">sales</strong>. Instant profiling & KPIs.</p>
           </div>
           <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">02</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color: var(--text-lo);margin-bottom:12px;">02</div>
             <h4 class="text-purple mb-8">Detect Relationships</h4>
             <p style="font-size:0.9rem;">Auto-detected JOIN keys shown before you write a query. Matching column names scored HIGH / MEDIUM confidence.</p>
           </div>
           <div class="holo-card cp-corner" style="padding:24px;">
-            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(0,255,255,0.15);margin-bottom:12px;">03</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color: var(--text-lo);margin-bottom:12px;">03</div>
             <h4 class="text-cyan mb-8">Write SQL JOINs</h4>
             <p style="font-size:0.9rem;">INNER JOIN, LEFT JOIN with table aliases. Full GROUP BY, HAVING, ORDER BY, LIMIT — COUNT, SUM, AVG, MIN, MAX, ROUND, DISTINCT, COALESCE.</p>
           </div>
           <div class="holo-card cp-corner-purple" style="padding:24px;">
-            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color:rgba(155,92,255,0.15);margin-bottom:12px;">04</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:800;font-size:1.5rem;color: var(--text-lo);margin-bottom:12px;">04</div>
             <h4 class="text-purple mb-8">Visualize &amp; Export</h4>
             <p style="font-size:0.9rem;">Intelligent chart auto-selection. 7 chart types. Export JOIN results as CSV or Excel in one click. All data stays in your browser.</p>
           </div>
@@ -633,7 +633,7 @@
 
   <footer id="footer">
   <div class="container">
-    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color:rgba(224,247,255,0.3);">
+    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color: var(--text-lo);">
       SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>
@@ -884,7 +884,7 @@ function renderPrimaryAnalysis(tname){
   const cl=document.getElementById('lab-columns');
   if(cl)cl.innerHTML=t.cols.map(h=>{
     const n=t.numCols.includes(h);
-    return `<span class="project-tag" style="${n?'border-color:rgba(0,255,255,0.3)':'border-color:rgba(155,92,255,0.3)'}">${h}<sup style="font-size:0.55em;opacity:0.55;margin-left:3px">${n?'N':'T'}</sup></span>`;
+    return `<span class="project-tag" style="${n?'border-color: var(--text-lo)':'border-color: var(--text-lo)'}">${h}<sup style="font-size:0.55em;opacity:0.55;margin-left:3px">${n?'N':'T'}</sup></span>`;
   }).join('');
   renderKPIs(tname);
   renderProfile(tname);
@@ -975,10 +975,10 @@ function renderStats(tname){
   const stats=[{k:'COUNT',v:vals.length},{k:'MEAN',v:mean.toFixed(2)},{k:'STD',v:std.toFixed(2)},{k:'MEDIAN',v:med.toFixed(2)},{k:'MIN',v:Math.min(...vals).toFixed(2)},{k:'MAX',v:Math.max(...vals).toFixed(2)}];
   const sg=document.getElementById('lab-stats');
   if(sg)sg.innerHTML=stats.map(({k,v})=>`
-    <div style="background:rgba(0,8,18,0.75);border:1px solid rgba(0,255,255,0.15);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden;">
+    <div style="background:rgba(0,8,18,0.75);border: 1px solid rgba(2, 132, 199, 0.2);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00ffff,transparent 80%);"></div>
-      <div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:#00ffff;line-height:1;margin-bottom:8px;">${v}</div>
-      <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.18em;color:rgba(224,247,255,0.4);">${k} · ${col}</div>
+      <div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color: var(--cyan);line-height:1;margin-bottom:8px;">${v}</div>
+      <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.18em;color: var(--text-lo);">${k} · ${col}</div>
     </div>`).join('');
 }
 

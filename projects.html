@@ -22,20 +22,20 @@
     /* ── Case Study Layout ── */
     .case-study {
       margin-bottom: 72px;
-      border: 1px solid rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 8px;
       overflow: hidden;
-      background: rgba(5, 5, 16, 0.6);
+      background: var(--bg);
     }
 
     .case-study.purple {
-      border-color: rgba(155, 92, 255, 0.1);
+      border-color: var(--text-lo);
     }
 
     /* Header bar */
     .cs-header {
       padding: 24px 32px;
-      background: rgba(0, 255, 255, 0.04);
+      background: rgba(2, 132, 199, 0.05);
       border-bottom: 1px solid rgba(0, 255, 255, 0.1);
       display: flex;
       align-items: center;
@@ -45,8 +45,8 @@
     }
 
     .case-study.purple .cs-header {
-      background: rgba(155, 92, 255, 0.04);
-      border-bottom-color: rgba(155, 92, 255, 0.1);
+      background: rgba(51, 65, 85, 0.05);
+      border-bottom-color: var(--text-lo);
     }
 
     .cs-num {
@@ -77,23 +77,23 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(0, 255, 255, 0.4);
+      color: var(--text-lo);
       margin-bottom: 4px;
     }
 
     .case-study.purple .cs-label {
-      color: rgba(155, 92, 255, 0.4);
+      color: var(--text-lo);
     }
 
     .cs-title {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 1rem;
-      color: #00ffff;
+      color: var(--cyan);
     }
 
     .case-study.purple .cs-title {
-      color: #818cf8;
+      color: var(--purple);
     }
 
     /* Body grid */
@@ -135,14 +135,14 @@
 
     /* Section blocks */
     .cs-block {
-      border: 1px solid rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
       padding: 20px 22px;
-      background: rgba(5, 5, 16, 0.5);
+      background: var(--bg);
     }
 
     .case-study.purple .cs-block {
-      border-color: rgba(155, 92, 255, 0.1);
+      border-color: var(--text-lo);
     }
 
     .cs-block-title {
@@ -150,7 +150,7 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(0, 255, 255, 0.45);
+      color: var(--text-lo);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -158,7 +158,7 @@
     }
 
     .case-study.purple .cs-block-title {
-      color: rgba(155, 92, 255, 0.45);
+      color: var(--text-lo);
     }
 
     .cs-block-title::before {
@@ -178,15 +178,15 @@
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
       line-height: 1.7;
-      color: rgba(224, 247, 255, 0.85);
+      color: var(--text-hi);
     }
 
     .cs-problem strong {
-      color: #00ffff;
+      color: var(--cyan);
     }
 
     .case-study.purple .cs-problem strong {
-      color: #818cf8;
+      color: var(--purple);
     }
 
     /* Dataset info */
@@ -206,11 +206,11 @@
     .ds-stat-val {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 1.1rem;
-      color: #00ffff;
+      color: var(--cyan);
     }
 
     .case-study.purple .ds-stat-val {
-      color: #818cf8;
+      color: var(--purple);
     }
 
     .ds-stat-label {
@@ -218,7 +218,7 @@
       font-weight: 700;
       font-size: 0.75rem;
       letter-spacing: 0.05em;
-      color: rgba(224, 247, 255, 0.35);
+      color: var(--text-lo);
     }
 
     /* Step list */
@@ -235,18 +235,18 @@
       align-items: flex-start;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.75rem;
-      color: rgba(224, 247, 255, 0.65);
+      color: var(--text-lo);
       line-height: 1.5;
     }
 
     .step-bullet {
-      color: #00ffff;
+      color: var(--cyan);
       flex-shrink: 0;
       margin-top: 1px;
     }
 
     .case-study.purple .step-bullet {
-      color: #818cf8;
+      color: var(--purple);
     }
 
     /* Method tags */
@@ -260,15 +260,15 @@
     .method-tag {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.8rem;
-      color: #00ffff;
-      border: 1px solid rgba(0, 255, 255, 0.3);
+      color: var(--cyan);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 3px;
       padding: 4px 10px;
-      background: rgba(0, 255, 255, 0.05);
+      background: rgba(2, 132, 199, 0.05);
     }
 
     .case-study.purple .method-tag {
-      color: #818cf8;
+      color: var(--purple);
       border-color: rgba(129, 140, 248, 0.3);
       background: rgba(129, 140, 248, 0.05);
     }
@@ -284,12 +284,12 @@
     .insight-card {
       border-left: 2px solid #00ffff;
       padding: 10px 14px;
-      background: rgba(0, 255, 255, 0.03);
+      background: rgba(2, 132, 199, 0.05);
       border-radius: 0 4px 4px 0;
     }
 
     .case-study.purple .insight-card {
-      border-left-color: #818cf8;
+      border-left-color: var(--purple);
       background: rgba(129, 140, 248, 0.03);
     }
 
@@ -298,7 +298,7 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(0, 255, 255, 0.4);
+      color: var(--text-lo);
       margin-bottom: 4px;
     }
 
@@ -309,31 +309,31 @@
     .insight-card-text {
       font-family: 'Inter', sans-serif;
       font-size: 0.92rem;
-      color: rgba(224, 247, 255, 0.85);
+      color: var(--text-hi);
       line-height: 1.5;
     }
 
     .insight-highlight {
-      color: #00ffff;
+      color: var(--cyan);
       font-weight: 600;
     }
 
     .case-study.purple .insight-highlight {
-      color: #818cf8;
+      color: var(--purple);
     }
 
     /* Recommendation */
     .recommendation-box {
-      border: 1px solid rgba(0, 255, 255, 0.2);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
       padding: 20px 24px;
-      background: rgba(0, 255, 255, 0.04);
+      background: rgba(2, 132, 199, 0.05);
       margin-top: 20px;
     }
 
     .case-study.purple .recommendation-box {
-      border-color: rgba(155, 92, 255, 0.2);
-      background: rgba(155, 92, 255, 0.04);
+      border-color: var(--text-lo);
+      background: rgba(51, 65, 85, 0.05);
     }
 
     .rec-label {
@@ -341,7 +341,7 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(0, 255, 255, 0.5);
+      color: var(--text-lo);
       margin-bottom: 10px;
       display: flex;
       align-items: center;
@@ -349,26 +349,26 @@
     }
 
     .case-study.purple .rec-label {
-      color: rgba(155, 92, 255, 0.5);
+      color: var(--text-lo);
     }
 
     .rec-text {
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
-      color: rgba(224, 247, 255, 0.8);
+      color: var(--text-hi);
       line-height: 1.7;
     }
 
     /* Dataset Viewer */
     .dataset-viewer {
       margin-top: 20px;
-      border: 1px solid rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
       overflow: hidden;
     }
 
     .case-study.purple .dataset-viewer {
-      border-color: rgba(155, 92, 255, 0.1);
+      border-color: var(--text-lo);
     }
 
     .dv-header {
@@ -376,14 +376,14 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      background: rgba(0, 255, 255, 0.04);
+      background: rgba(2, 132, 199, 0.05);
       border-bottom: 1px solid rgba(0, 255, 255, 0.08);
       flex-wrap: wrap;
       gap: 8px;
     }
 
     .case-study.purple .dv-header {
-      background: rgba(155, 92, 255, 0.04);
+      background: rgba(51, 65, 85, 0.05);
       border-bottom-color: rgba(155, 92, 255, 0.08);
     }
 
@@ -392,11 +392,11 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(0, 255, 255, 0.5);
+      color: var(--text-lo);
     }
 
     .case-study.purple .dv-title {
-      color: rgba(155, 92, 255, 0.5);
+      color: var(--text-lo);
     }
 
     .dv-btn {
@@ -404,24 +404,24 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: #00ffff;
-      border: 1px solid rgba(0, 255, 255, 0.3);
+      color: var(--cyan);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 3px;
       padding: 4px 10px;
-      background: rgba(0, 255, 255, 0.05);
+      background: rgba(2, 132, 199, 0.05);
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s;
     }
 
     .case-study.purple .dv-btn {
-      color: #818cf8;
+      color: var(--purple);
       border-color: rgba(129, 140, 248, 0.3);
       background: rgba(129, 140, 248, 0.05);
     }
 
     .dv-btn:hover {
-      background: rgba(0, 255, 255, 0.12);
+      background: rgba(2, 132, 199, 0.1);
     }
 
     .dv-table-wrap {
@@ -438,8 +438,8 @@
     .dv-table th {
       padding: 8px 14px;
       text-align: left;
-      background: rgba(0, 255, 255, 0.05);
-      color: rgba(0, 255, 255, 0.6);
+      background: rgba(2, 132, 199, 0.05);
+      color: var(--text-lo);
       font-size: 0.8rem;
       letter-spacing: 0.1em;
       border-bottom: 1px solid rgba(0, 255, 255, 0.08);
@@ -447,14 +447,14 @@
     }
 
     .case-study.purple .dv-table th {
-      background: rgba(155, 92, 255, 0.05);
-      color: rgba(155, 92, 255, 0.6);
+      background: rgba(51, 65, 85, 0.05);
+      color: var(--text-lo);
       border-bottom-color: rgba(155, 92, 255, 0.08);
     }
 
     .dv-table td {
       padding: 7px 14px;
-      color: rgba(224, 247, 255, 0.6);
+      color: var(--text-lo);
       border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       white-space: nowrap;
     }
@@ -471,9 +471,9 @@
       flex-wrap: wrap;
       margin-bottom: 28px;
       padding: 16px 20px;
-      border: 1px solid rgba(0, 255, 255, 0.08);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
-      background: rgba(5, 5, 16, 0.4);
+      background: var(--bg);
     }
 
     .flow-step {
@@ -481,26 +481,26 @@
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(224, 247, 255, 0.5);
+      color: var(--text-lo);
       padding: 5px 10px;
-      border: 1px solid rgba(0, 255, 255, 0.15);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 3px;
     }
 
     .flow-step.active {
-      color: #00ffff;
-      border-color: rgba(0, 255, 255, 0.4);
-      background: rgba(0, 255, 255, 0.06);
+      color: var(--cyan);
+      border-color: var(--text-lo);
+      background: rgba(2, 132, 199, 0.05);
     }
 
     .case-study.purple .flow-step.active {
-      color: #818cf8;
+      color: var(--purple);
       border-color: rgba(129, 140, 248, 0.4);
       background: rgba(129, 140, 248, 0.06);
     }
 
     .flow-arrow {
-      color: rgba(0, 255, 255, 0.3);
+      color: var(--text-lo);
       font-size: 0.7rem;
     }
   </style>
@@ -543,8 +543,8 @@
     }
 
     .dropdown-menu-inner {
-      background: rgba(5, 5, 16, 0.98);
-      border: 1px solid rgba(0, 255, 255, 0.2);
+      background: var(--bg);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
       min-width: 160px;
       padding: 6px 0;
@@ -562,7 +562,7 @@
       font-weight: 600;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(224, 247, 255, 0.6);
+      color: var(--text-lo);
       text-decoration: none;
       transition: color 0.1s, background 0.1s;
       white-space: nowrap;
@@ -570,8 +570,8 @@
 
     .dropdown-menu a:hover,
     .dropdown-menu a.active {
-      color: #00ffff;
-      background: rgba(0, 255, 255, 0.07);
+      color: var(--cyan);
+      background: rgba(2, 132, 199, 0.05);
     }
 
     @media (max-width: 768px) {
@@ -646,16 +646,16 @@
         </p>
         <!-- Analytics skills badges -->
         <div data-reveal data-delay="150" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;">
-          <span class="method-tag" style="border-color:rgba(0,255,255,0.4);color:#00ffff;">SQL</span>
-          <span class="method-tag" style="border-color:rgba(0,255,255,0.4);color:#00ffff;">Python</span>
-          <span class="method-tag" style="border-color:rgba(0,255,255,0.4);color:#00ffff;">Pandas</span>
-          <span class="method-tag" style="border-color:rgba(0,255,255,0.4);color:#00ffff;">Tableau</span>
-          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color:#818cf8;">Excel</span>
-          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color:#818cf8;">Statistics</span>
-          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color:#818cf8;">Regression</span>
-          <span class="method-tag" style="border-color:rgba(0,255,255,0.4);color:#00ffff;">Data Cleaning</span>
-          <span class="method-tag" style="border-color:rgba(0,255,255,0.4);color:#00ffff;">EDA</span>
-          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color:#818cf8;">Dashboard Dev</span>
+          <span class="method-tag" style="border-color: var(--text-lo);color: var(--cyan);">SQL</span>
+          <span class="method-tag" style="border-color: var(--text-lo);color: var(--cyan);">Python</span>
+          <span class="method-tag" style="border-color: var(--text-lo);color: var(--cyan);">Pandas</span>
+          <span class="method-tag" style="border-color: var(--text-lo);color: var(--cyan);">Tableau</span>
+          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color: var(--purple);">Excel</span>
+          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color: var(--purple);">Statistics</span>
+          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color: var(--purple);">Regression</span>
+          <span class="method-tag" style="border-color: var(--text-lo);color: var(--cyan);">Data Cleaning</span>
+          <span class="method-tag" style="border-color: var(--text-lo);color: var(--cyan);">EDA</span>
+          <span class="method-tag" style="border-color:rgba(129,140,248,0.4);color: var(--purple);">Dashboard Dev</span>
         </div>
       </div>
     </section>
@@ -908,7 +908,7 @@
           </div>
 
           <div class="cs-body">
-            <div class="analysis-flow" style="border-color:rgba(155,92,255,0.08);">
+            <div class="analysis-flow" style="border-color: rgba(51, 65, 85, 0.2);">
               <span class="flow-step active">BUSINESS PROBLEM</span>
               <span class="flow-arrow">→</span>
               <span class="flow-step active">DATA PREP</span>
@@ -932,19 +932,19 @@
               <div class="cs-block">
                 <div class="cs-block-title">DATASET INFORMATION</div>
                 <div class="dataset-stats">
-                  <div class="ds-stat"><span class="ds-stat-val" style="color:#818cf8;">18,000+</span><span
+                  <div class="ds-stat"><span class="ds-stat-val" style="color: var(--purple);">18,000+</span><span
                       class="ds-stat-label">ROWS</span></div>
-                  <div class="ds-stat"><span class="ds-stat-val" style="color:#818cf8;">16</span><span
+                  <div class="ds-stat"><span class="ds-stat-val" style="color: var(--purple);">16</span><span
                       class="ds-stat-label">COLUMNS</span></div>
-                  <div class="ds-stat"><span class="ds-stat-val" style="color:#818cf8;">Kaggle</span><span
+                  <div class="ds-stat"><span class="ds-stat-val" style="color: var(--purple);">Kaggle</span><span
                       class="ds-stat-label">SOURCE</span></div>
                 </div>
                 <div style="margin-top:12px;">
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Product name,
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Product name,
                     category, brand, MRP, selling price</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Discount %, customer
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Discount %, customer
                     rating, number of reviews</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Stock status, seller
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Stock status, seller
                     name, product description</div>
                 </div>
               </div>
@@ -954,15 +954,15 @@
               <div class="cs-block">
                 <div class="cs-block-title">DATA PREPARATION</div>
                 <div class="step-list">
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Dropped 820 rows with
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Dropped 820 rows with
                     missing selling price or MRP values</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Calculated
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Calculated
                     discount_pct = (MRP - selling_price) / MRP × 100</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Created price_band
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Created price_band
                     feature: Budget (<₹500), Mid (₹500–₹2000), Premium (>₹2000)</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Standardized category
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Standardized category
                     names — merged 47 sub-categories into 8 main categories</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Converted rating
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Converted rating
                     column from string "4.2 out of 5" to float 4.2</div>
                 </div>
               </div>
@@ -976,11 +976,11 @@
                   <span class="method-tag">Review Density</span>
                 </div>
                 <div class="step-list" style="margin-top:12px;">
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Correlation:
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Correlation:
                     discount_pct vs. rating (Pearson r = -0.31)</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Revenue proxy =
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Revenue proxy =
                     selling_price × estimated_sales (reviews × 10)</div>
-                  <div class="step-item"><span class="step-bullet" style="color:#818cf8;">•</span> Brand premium index:
+                  <div class="step-item"><span class="step-bullet" style="color: var(--purple);">•</span> Brand premium index:
                     avg_price / category_avg_price × 100</div>
                 </div>
               </div>
@@ -989,28 +989,28 @@
             <div class="cs-block" style="margin-bottom:20px;">
               <div class="cs-block-title">KEY INSIGHTS</div>
               <div class="insight-cards">
-                <div class="insight-card" style="border-left-color:#9b5cff;background:rgba(155,92,255,0.03);">
-                  <div class="insight-card-num" style="color:rgba(155,92,255,0.4);">INSIGHT 01</div>
+                <div class="insight-card" style="border-left-color: var(--purple);background: rgba(51, 65, 85, 0.05);">
+                  <div class="insight-card-num" style="color: var(--text-lo);">INSIGHT 01</div>
                   <div class="insight-card-text">Electronics category drives <span class="insight-highlight"
-                      style="color:#9b5cff;">52% of total platform revenue</span> while representing only 31% of product
+                      style="color: var(--purple);">52% of total platform revenue</span> while representing only 31% of product
                     listings — indicating higher average order values and stronger purchase intent.</div>
                 </div>
-                <div class="insight-card" style="border-left-color:#9b5cff;background:rgba(155,92,255,0.03);">
-                  <div class="insight-card-num" style="color:rgba(155,92,255,0.4);">INSIGHT 02</div>
+                <div class="insight-card" style="border-left-color: var(--purple);background: rgba(51, 65, 85, 0.05);">
+                  <div class="insight-card-num" style="color: var(--text-lo);">INSIGHT 02</div>
                   <div class="insight-card-text">Discounts above 30% correlate with <span class="insight-highlight"
-                      style="color:#9b5cff;">3× higher review volume</span> (proxy for conversions), but products with
+                      style="color: var(--purple);">3× higher review volume</span> (proxy for conversions), but products with
                     &gt;50% discount have 0.4 lower average ratings — suggesting quality perception erosion.</div>
                 </div>
-                <div class="insight-card" style="border-left-color:#9b5cff;background:rgba(155,92,255,0.03);">
-                  <div class="insight-card-num" style="color:rgba(155,92,255,0.4);">INSIGHT 03</div>
+                <div class="insight-card" style="border-left-color: var(--purple);background: rgba(51, 65, 85, 0.05);">
+                  <div class="insight-card-num" style="color: var(--text-lo);">INSIGHT 03</div>
                   <div class="insight-card-text">The ₹500–₹2,000 mid-range price band has the <span
-                      class="insight-highlight" style="color:#9b5cff;">highest review density (4.3 avg rating, 287 avg
+                      class="insight-highlight" style="color: var(--purple);">highest review density (4.3 avg rating, 287 avg
                       reviews)</span> — indicating the sweet spot for consumer satisfaction and volume.</div>
                 </div>
               </div>
             </div>
 
-            <div class="recommendation-box" style="border-color:rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);">
+            <div class="recommendation-box" style="border-color: var(--text-lo);background: rgba(51, 65, 85, 0.05);">
               <div class="rec-label" style="color:rgba(129,140,248,0.5);">• BUSINESS RECOMMENDATION</div>
               <div class="rec-text">
                 Flipkart should cap promotional discounts at <strong>35–40% maximum</strong> to avoid perceived quality
@@ -1019,13 +1019,13 @@
               </div>
             </div>
 
-            <div class="dataset-viewer" style="border-color:rgba(155,92,255,0.1);">
+            <div class="dataset-viewer" style="border-color: var(--text-lo);">
               <div class="dv-header"
-                style="background:rgba(155,92,255,0.04);border-bottom-color:rgba(155,92,255,0.08);">
+                style="background: rgba(51, 65, 85, 0.05);border-bottom-color:rgba(155,92,255,0.08);">
                 <span class="dv-title" style="color:rgba(129,140,248,0.5);">• DATASET PREVIEW —
                   flipkart_products.csv</span>
                 <a href="https://www.kaggle.com/datasets/PromptCloudHQ/flipkart-products" target="_blank" class="dv-btn"
-                  style="color:#818cf8;border-color:rgba(129,140,248,0.3);">↗ VIEW ON KAGGLE</a>
+                  style="color: var(--purple);border-color:rgba(129,140,248,0.3);">↗ VIEW ON KAGGLE</a>
               </div>
               <div class="dv-table-wrap">
                 <table class="dv-table">
@@ -1320,7 +1320,7 @@
             </div>
 
             <div class="cs-body">
-              <div class="analysis-flow" style="border-color:rgba(155,92,255,0.08);">
+              <div class="analysis-flow" style="border-color: rgba(51, 65, 85, 0.2);">
                 <span class="flow-step active">BUSINESS PROBLEM</span>
                 <span class="flow-arrow">→</span>
                 <span class="flow-step active">DATA PREP</span>
@@ -1344,19 +1344,19 @@
                 <div class="cs-block">
                   <div class="cs-block-title">DATASET INFORMATION</div>
                   <div class="dataset-stats">
-                    <div class="ds-stat"><span class="ds-stat-val" style="color:#9b5cff;">6,000+</span><span
+                    <div class="ds-stat"><span class="ds-stat-val" style="color: var(--purple);">6,000+</span><span
                         class="ds-stat-label">ROWS</span></div>
-                    <div class="ds-stat"><span class="ds-stat-val" style="color:#9b5cff;">13</span><span
+                    <div class="ds-stat"><span class="ds-stat-val" style="color: var(--purple);">13</span><span
                         class="ds-stat-label">COLUMNS</span></div>
-                    <div class="ds-stat"><span class="ds-stat-val" style="color:#9b5cff;">Kaggle</span><span
+                    <div class="ds-stat"><span class="ds-stat-val" style="color: var(--purple);">Kaggle</span><span
                         class="ds-stat-label">SOURCE</span></div>
                   </div>
                   <div style="margin-top:12px;">
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Member ID, age,
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Member ID, age,
                       gender, BMI, membership type</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Workout type,
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Workout type,
                       sessions/week, avg session duration</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Check-in time,
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Check-in time,
                       membership duration, churn status</div>
                   </div>
                 </div>
@@ -1366,15 +1366,15 @@
                 <div class="cs-block">
                   <div class="cs-block-title">DATA PREPARATION</div>
                   <div class="step-list">
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Filled 89 null BMI
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Filled 89 null BMI
                       values with age-gender group median</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Created age_group
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Created age_group
                       buckets: 18–24, 25–34, 35–44, 45+</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Engineered
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Engineered
                       check_in_hour → time_slot: Morning/Afternoon/Evening/Night</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Calculated
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Calculated
                       sessions_consistency_score = sessions_attended / sessions_scheduled</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Flagged churned
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Flagged churned
                       members (no check-in for 60+ days) as churn = 1</div>
                   </div>
                 </div>
@@ -1388,11 +1388,11 @@
                     <span class="method-tag">Churn Prediction</span>
                   </div>
                   <div class="step-list" style="margin-top:12px;">
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> 90-day retention
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> 90-day retention
                       rate by workout type and sessions/week</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Peak hour analysis:
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Peak hour analysis:
                       check-in counts by hour and day of week</div>
-                    <div class="step-item"><span class="step-bullet" style="color:#9b5cff;">▸</span> Logistic
+                    <div class="step-item"><span class="step-bullet" style="color: var(--purple);">▸</span> Logistic
                       regression: churn ~ frequency + workout_type + BMI + age</div>
                   </div>
                 </div>
@@ -1401,22 +1401,22 @@
               <div class="cs-block" style="margin-bottom:20px;">
                 <div class="cs-block-title">KEY INSIGHTS</div>
                 <div class="insight-cards">
-                  <div class="insight-card" style="border-left-color:#9b5cff;background:rgba(155,92,255,0.03);">
-                    <div class="insight-card-num" style="color:rgba(155,92,255,0.4);">INSIGHT 01</div>
+                  <div class="insight-card" style="border-left-color: var(--purple);background: rgba(51, 65, 85, 0.05);">
+                    <div class="insight-card-num" style="color: var(--text-lo);">INSIGHT 01</div>
                     <div class="insight-card-text">Members attending <span class="insight-highlight"
-                        style="color:#9b5cff;">3–4 sessions per week</span> show 68% higher 6-month retention compared
+                        style="color: var(--purple);">3–4 sessions per week</span> show 68% higher 6-month retention compared
                       to daily users, who burn out 40% faster — suggesting over-training contributes to dropout.</div>
                   </div>
-                  <div class="insight-card" style="border-left-color:#9b5cff;background:rgba(155,92,255,0.03);">
-                    <div class="insight-card-num" style="color:rgba(155,92,255,0.4);">INSIGHT 02</div>
+                  <div class="insight-card" style="border-left-color: var(--purple);background: rgba(51, 65, 85, 0.05);">
+                    <div class="insight-card-num" style="color: var(--text-lo);">INSIGHT 02</div>
                     <div class="insight-card-text">Evening sessions (6–9 PM) account for <span class="insight-highlight"
-                        style="color:#9b5cff;">48% of all check-ins</span> but only 32% of equipment capacity —
+                        style="color: var(--purple);">48% of all check-ins</span> but only 32% of equipment capacity —
                       indicating peak-hour bottlenecks that reduce satisfaction and drive churn.</div>
                   </div>
-                  <div class="insight-card" style="border-left-color:#9b5cff;background:rgba(155,92,255,0.03);">
-                    <div class="insight-card-num" style="color:rgba(155,92,255,0.4);">INSIGHT 03</div>
+                  <div class="insight-card" style="border-left-color: var(--purple);background: rgba(51, 65, 85, 0.05);">
+                    <div class="insight-card-num" style="color: var(--text-lo);">INSIGHT 03</div>
                     <div class="insight-card-text">Strength training members have the <span class="insight-highlight"
-                        style="color:#9b5cff;">highest 90-day retention (81%)</span> versus cardio-only members (52%) —
+                        style="color: var(--purple);">highest 90-day retention (81%)</span> versus cardio-only members (52%) —
                       goal-oriented training with measurable progression correlates strongly with membership
                       persistence.</div>
                   </div>
@@ -1424,8 +1424,8 @@
               </div>
 
               <div class="recommendation-box"
-                style="border-color:rgba(155,92,255,0.2);background:rgba(155,92,255,0.04);">
-                <div class="rec-label" style="color:rgba(155,92,255,0.5);">◈ BUSINESS RECOMMENDATION</div>
+                style="border-color: var(--text-lo);background: rgba(51, 65, 85, 0.05);">
+                <div class="rec-label" style="color: var(--text-lo);">◈ BUSINESS RECOMMENDATION</div>
                 <div class="rec-text">
                   The gym should introduce a <strong>"Smart Scheduling" feature</strong> that recommends off-peak slots
                   to members and offers 15% fee discounts for morning bookings to redistribute load. A <strong>3–4
@@ -1435,13 +1435,13 @@
                 </div>
               </div>
 
-              <div class="dataset-viewer" style="border-color:rgba(155,92,255,0.1);">
+              <div class="dataset-viewer" style="border-color: var(--text-lo);">
                 <div class="dv-header"
-                  style="background:rgba(155,92,255,0.04);border-bottom-color:rgba(155,92,255,0.08);">
-                  <span class="dv-title" style="color:rgba(155,92,255,0.5);">◈ DATASET PREVIEW —
+                  style="background: rgba(51, 65, 85, 0.05);border-bottom-color:rgba(155,92,255,0.08);">
+                  <span class="dv-title" style="color: var(--text-lo);">◈ DATASET PREVIEW —
                     gym_members_exercise.csv</span>
                   <a href="https://www.kaggle.com/datasets/valakhorasani/gym-members-exercise-dataset" target="_blank"
-                    class="dv-btn" style="color:#9b5cff;border-color:rgba(155,92,255,0.3);">↗ VIEW ON KAGGLE</a>
+                    class="dv-btn" style="color: var(--purple);border-color: var(--text-lo);">↗ VIEW ON KAGGLE</a>
                 </div>
                 <div class="dv-table-wrap">
                   <table class="dv-table">

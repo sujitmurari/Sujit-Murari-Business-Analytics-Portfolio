@@ -30,30 +30,30 @@
       align-items: center;
       gap: 10px;
       padding: 10px 20px;
-      border: 1px solid rgba(0,255,255,0.2);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 4px;
-      background: rgba(5,5,16,0.8);
+      background: var(--bg);
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
-      color: rgba(224,247,255,0.4);
+      color: var(--text-lo);
       cursor: pointer;
       transition: all 0.2s;
       user-select: none;
     }
     .dash-tab:hover {
-      border-color: rgba(0,255,255,0.5);
-      color: rgba(224,247,255,0.8);
-      background: rgba(0,255,255,0.04);
+      border-color: var(--text-lo);
+      color: var(--text-hi);
+      background: rgba(2, 132, 199, 0.05);
     }
     .dash-tab.active {
-      border-color: #00ffff;
-      color: #00ffff;
-      background: rgba(0,255,255,0.08);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: rgba(2, 132, 199, 0.05);
     }
-    .dash-tab.purple { border-color: rgba(155,92,255,0.2); color: rgba(155,92,255,0.4); }
-    .dash-tab.purple:hover { border-color: rgba(155,92,255,0.5); color: rgba(155,92,255,0.8); background: rgba(155,92,255,0.04); }
-    .dash-tab.purple.active { border-color: #818cf8; color: #818cf8; background: rgba(129,140,248,0.08); }
+    .dash-tab.purple { border-color: var(--text-lo); color: var(--text-lo); }
+    .dash-tab.purple:hover { border-color: var(--text-lo); color: var(--purple); background: rgba(51, 65, 85, 0.05); }
+    .dash-tab.purple.active { border-color: var(--purple); color: var(--purple); background: rgba(129,140,248,0.08); }
     .dash-tab .tab-num {
       font-size: 0.8rem;
       opacity: 0.5;
@@ -77,19 +77,19 @@
       gap: 14px;
     }
     .insight-header {
-      border: 1px solid rgba(0,255,255,0.15);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
       padding: 18px 20px;
-      background: rgba(5,5,16,0.9);
+      background: var(--bg);
     }
-    .insight-header.purple { border-color: rgba(155,92,255,0.15); }
+    .insight-header.purple { border-color: var(--text-lo); }
     .dash-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
     .dash-title-label {
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.05em;
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       margin-bottom: 6px;
     }
     .dash-title-label.purple { color: rgba(129,140,248,0.4); }
@@ -97,10 +97,10 @@
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       font-weight: 700;
-      color: #00ffff;
+      color: var(--cyan);
       line-height: 1.4;
     }
-    .dash-name.purple { color: #818cf8; }
+    .dash-name.purple { color: var(--purple); }
 
     /* Stats row */
     .stats-row {
@@ -109,42 +109,42 @@
       gap: 10px;
     }
     .stat-box {
-      border: 1px solid rgba(0,255,255,0.1);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 5px;
       padding: 12px 14px;
-      background: rgba(5,5,16,0.7);
+      background: var(--bg);
     }
-    .stat-box.purple { border-color: rgba(155,92,255,0.1); }
+    .stat-box.purple { border-color: var(--text-lo); }
     .stat-label {
       font-family: 'Inter', sans-serif;
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.05em;
-      color: rgba(0,255,255,0.35);
+      color: var(--text-lo);
       margin-bottom: 4px;
     }
     .stat-label.purple { color: rgba(129,140,248,0.35); }
     .stat-value {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 1rem;
-      color: #00ffff;
+      color: var(--cyan);
     }
-    .stat-value.purple { color: #818cf8; }
+    .stat-value.purple { color: var(--purple); }
 
     /* Key insights list */
     .key-insights {
-      border: 1px solid rgba(0,255,255,0.1);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
       padding: 16px 18px;
-      background: rgba(5,5,16,0.7);
+      background: var(--bg);
     }
-    .key-insights.purple { border-color: rgba(155,92,255,0.1); }
+    .key-insights.purple { border-color: var(--text-lo); }
     .ki-title {
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.05em;
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       margin-bottom: 12px;
     }
     .ki-title.purple { color: rgba(129,140,248,0.4); }
@@ -154,39 +154,39 @@
       margin-bottom: 10px;
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
-      color: rgba(224,247,255,0.6);
+      color: var(--text-lo);
       line-height: 1.5;
     }
     .ki-item:last-child { margin-bottom: 0; }
-    .ki-arrow { color: #00ffff; flex-shrink: 0; }
-    .ki-arrow.purple { color: #818cf8; }
+    .ki-arrow { color: var(--cyan); flex-shrink: 0; }
+    .ki-arrow.purple { color: var(--purple); }
 
     /* Tags */
     .tags-row { display: flex; flex-wrap: wrap; gap: 6px; }
 
     /* ── Iframe Panel ── */
     .iframe-panel {
-      border: 1px solid rgba(0,255,255,0.15);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 6px;
-      background: rgba(5,5,16,0.5);
+      background: var(--bg);
       overflow: hidden;
     }
-    .iframe-panel.purple { border-color: rgba(155,92,255,0.15); }
+    .iframe-panel.purple { border-color: var(--text-lo); }
     .iframe-titlebar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      background: rgba(0,255,255,0.04);
+      background: rgba(2, 132, 199, 0.05);
       border-bottom: 1px solid rgba(0,255,255,0.08);
     }
-    .iframe-titlebar.purple { background: rgba(155,92,255,0.04); border-bottom-color: rgba(155,92,255,0.08); }
+    .iframe-titlebar.purple { background: rgba(51, 65, 85, 0.05); border-bottom-color: rgba(155,92,255,0.08); }
     .iframe-dots { display: flex; gap: 6px; }
     .iframe-dot { width: 10px; height: 10px; border-radius: 50%; }
     .iframe-url {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.8rem;
-      color: rgba(224,247,255,0.25);
+      color: var(--text-lo);
     }
     .iframe-status {
       display: flex;
@@ -194,7 +194,7 @@
       gap: 6px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.8rem;
-      color: #00ff88;
+      color: var(--cyan);
     }
     .iframe-status-dot {
       width: 5px; height: 5px;
@@ -229,8 +229,8 @@
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.1em;
-      color: rgba(0,255,255,0.3);
-      background: rgba(5,5,16,0.9);
+      color: var(--text-lo);
+      background: var(--bg);
       pointer-events: none;
       z-index: 1;
     }
@@ -252,8 +252,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -267,13 +267,13 @@
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -485,7 +485,7 @@
                 <div class="iframe-dot" style="background:#28c840;"></div>
               </div>
               <div class="iframe-url">public.tableau.com · E-Commerce Dashboard</div>
-              <div class="iframe-status" style="color:#9b5cff;"><div class="iframe-status-dot" style="background:#9b5cff;"></div> LIVE</div>
+              <div class="iframe-status" style="color: var(--purple);"><div class="iframe-status-dot" style="background:#9b5cff;"></div> LIVE</div>
             </div>
             <iframe
               src="https://public.tableau.com/views/IndianE-CommercePricingRevenuePerformanceDashboard/Dashboard1?:showVizHome=no&:embed=true"
@@ -584,7 +584,7 @@
 
 <footer id="footer">
   <div class="container" style="max-width: 1600px;">
-    <p style="font-family:'Inter', sans-serif;font-size: 0.8rem;font-weight:600;letter-spacing:0.1em;color:rgba(0,255,255,0.4);">
+    <p style="font-family:'Inter', sans-serif;font-size: 0.8rem;font-weight:600;letter-spacing:0.1em;color: var(--text-lo);">
       SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>

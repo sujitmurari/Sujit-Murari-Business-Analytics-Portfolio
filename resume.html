@@ -50,8 +50,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -65,13 +65,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -138,7 +138,7 @@
       <div>
       <div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
-          <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.1em;color:rgba(0,255,255,0.4);">SUJIT MURARI — PROFESSIONAL RÉSUMÉ</span>
+          <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.1em;color: var(--text-lo);">SUJIT MURARI — PROFESSIONAL RÉSUMÉ</span>
         </div>
         <div class="banner-label -text">RÉSUMÉ<span>.</span></div>
         <div class="banner-sub">Business Analytics · Data Intelligence · Visualization · BI</div>
@@ -286,20 +286,20 @@
       <div style="margin-top:24px;padding-top:20px;border-top:1px dotted rgba(0,255,255,0.12);">
         <div class="rp-label" style="margin-bottom:12px;">STATUS METRICS</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.02);">
-            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--cyan);text-shadow:0 0 12px rgba(0,255,255,0.5);" data-count="8">0</div>
+          <div style="text-align:center;padding:12px 6px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);">
+            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--cyan);text-shadow: none;" data-count="8">0</div>
             <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--text-lo);margin-top:2px;">PROJECTS</div>
           </div>
-          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
-            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--purple);text-shadow:0 0 12px rgba(155,92,255,0.5);" data-count="7">0</div>
+          <div style="text-align:center;padding:12px 6px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);">
+            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--purple);text-shadow: none;" data-count="7">0</div>
             <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--text-lo);margin-top:2px;">TOOLS</div>
           </div>
-          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.02);">
-            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--cyan);text-shadow:0 0 12px rgba(0,255,255,0.5);" data-count="15">0</div>
+          <div style="text-align:center;padding:12px 6px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);">
+            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--cyan);text-shadow: none;" data-count="15">0</div>
             <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--text-lo);margin-top:2px;">DATASETS</div>
           </div>
-          <div style="text-align:center;padding:12px 6px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
-            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--purple);text-shadow:0 0 12px rgba(155,92,255,0.5);" data-count="6">0</div>
+          <div style="text-align:center;padding:12px 6px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);">
+            <div style="font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:900;color:var(--purple);text-shadow: none;" data-count="6">0</div>
             <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--text-lo);margin-top:2px;">DASHBOARDS</div>
           </div>
         </div>
@@ -329,14 +329,14 @@
               </div>
               <span class="edu-badge">CURRENT</span>
             </div>
-            <div style="margin-top:10px;padding:10px 12px;background:rgba(155,92,255,0.04);border:1px solid rgba(155,92,255,0.12);border-radius:2px;">
+            <div style="margin-top:10px;padding:10px 12px;background: rgba(51, 65, 85, 0.05);border: 1px solid rgba(51, 65, 85, 0.2);border-radius:2px;">
               <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--purple-dim);margin-bottom:6px;">CORE SUBJECTS</div>
               <div style="display:flex;flex-wrap:wrap;gap:5px;">
-                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Business Statistics</span>
-                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Data Visualization</span>
-                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Database Management</span>
-                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Business Intelligence</span>
-                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color:rgba(224,247,255,0.5);padding:2px 8px;border:1px solid rgba(155,92,255,0.15);border-radius:1px;">Operations Research</span>
+                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color: var(--text-lo);padding:2px 8px;border: 1px solid rgba(51, 65, 85, 0.2);border-radius:1px;">Business Statistics</span>
+                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color: var(--text-lo);padding:2px 8px;border: 1px solid rgba(51, 65, 85, 0.2);border-radius:1px;">Data Visualization</span>
+                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color: var(--text-lo);padding:2px 8px;border: 1px solid rgba(51, 65, 85, 0.2);border-radius:1px;">Database Management</span>
+                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color: var(--text-lo);padding:2px 8px;border: 1px solid rgba(51, 65, 85, 0.2);border-radius:1px;">Business Intelligence</span>
+                <span style="font-family:ui-monospace, monospace;font-size: 0.75rem;color: var(--text-lo);padding:2px 8px;border: 1px solid rgba(51, 65, 85, 0.2);border-radius:1px;">Operations Research</span>
               </div>
             </div>
           </div>
@@ -344,7 +344,7 @@
 
         <!-- HSC -->
         <div class="edu-item">
-          <div class="edu-timeline-dot" style="border-color:rgba(0,255,255,0.4);box-shadow:0 0 8px rgba(0,255,255,0.3);">
+          <div class="edu-timeline-dot" style="border-color: var(--text-lo);box-shadow: none;">
             <style>.edu-timeline-dot:nth-child(n+2)::after{background:var(--cyan);}</style>
           </div>
           <div style="width:36px;flex-shrink:0;">
@@ -360,14 +360,14 @@
                   <span>· Completed 2023</span>
                 </div>
               </div>
-              <span class="edu-badge" style="background:rgba(0,255,255,0.05);border-color:rgba(0,255,255,0.2);color:var(--cyan-dim);">COMPLETED</span>
+              <span class="edu-badge" style="background: rgba(2, 132, 199, 0.05);border-color: var(--text-lo);color:var(--cyan-dim);">COMPLETED</span>
             </div>
           </div>
         </div>
 
         <!-- Secondary -->
         <div class="edu-item">
-          <div class="edu-timeline-dot" style="border-color:rgba(0,255,255,0.25);box-shadow:none;"></div>
+          <div class="edu-timeline-dot" style="border-color: var(--text-lo);box-shadow:none;"></div>
           <div style="width:36px;flex-shrink:0;">
             <div class="edu-index">E·03</div>
           </div>
@@ -381,7 +381,7 @@
                   <span>· Completed 2021</span>
                 </div>
               </div>
-              <span class="edu-badge" style="background:rgba(0,255,255,0.05);border-color:rgba(0,255,255,0.2);color:var(--cyan-dim);">COMPLETED</span>
+              <span class="edu-badge" style="background: rgba(2, 132, 199, 0.05);border-color: var(--text-lo);color:var(--cyan-dim);">COMPLETED</span>
             </div>
           </div>
         </div>
@@ -439,26 +439,26 @@
       <!-- Sub-skills row -->
       <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;padding-top:20px;border-top:1px dotted rgba(0,255,255,0.1);">
         <div style="flex:1;min-width:200px;">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(0,255,255,0.4);margin-bottom:10px;">ADDITIONAL CAPABILITIES</div>
+          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);margin-bottom:10px;">ADDITIONAL CAPABILITIES</div>
           <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">NumPy</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">Matplotlib</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">Seaborn</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">Power Query</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">DAX</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">MySQL</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">Google Sheets</span>
-            <span style="padding:4px 10px;border:1px solid rgba(0,255,255,0.1);background:rgba(0,255,255,0.03);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(224,247,255,0.45);">Jupyter</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">NumPy</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">Matplotlib</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">Seaborn</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">Power Query</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">DAX</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">MySQL</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">Google Sheets</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color: var(--text-lo);">Jupyter</span>
           </div>
         </div>
         <div style="flex:1;min-width:180px;">
           <div style="font-family:'Inter',sans-serif;font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.4);margin-bottom:10px;">ANALYTICS METHODS</div>
           <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Regression</span>
-            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Correlation</span>
-            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Hypothesis Testing</span>
-            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">EDA</span>
-            <span style="padding:4px 10px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.04);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Segmentation</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Regression</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Correlation</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Hypothesis Testing</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">EDA</span>
+            <span style="padding:4px 10px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);font-family:ui-monospace, monospace;font-size: 0.75rem;letter-spacing:0.05em;color:rgba(129,140,248,0.5);">Segmentation</span>
           </div>
         </div>
       </div>
@@ -481,7 +481,7 @@
             <div class="lang-dot" data-type="filled"></div>
             <div class="lang-dot" data-type="filled"></div>
           </div>
-          <div style="font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:rgba(224,247,255,0.3);margin-top:6px;">Reading · Writing · Speaking</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color: var(--text-lo);margin-top:6px;">Reading · Writing · Speaking</div>
         </div>
 
         <div style="height:1px;background:linear-gradient(90deg,rgba(0,255,255,0.12),transparent);margin:4px 0;"></div>
@@ -498,7 +498,7 @@
             <div class="lang-dot" data-type="filled-purple"></div>
             <div class="lang-dot" data-type="filled-purple"></div>
           </div>
-          <div style="font-family:ui-monospace, monospace;font-size: 0.75rem;color:rgba(224,247,255,0.3);margin-top:6px;">Mother Tongue · Fluent</div>
+          <div style="font-family:ui-monospace, monospace;font-size: 0.75rem;color: var(--text-lo);margin-top:6px;">Mother Tongue · Fluent</div>
         </div>
 
       </div>
@@ -549,21 +549,21 @@
           </div>
           <!-- Mini tags -->
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;">
-            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(0,255,255,0.12);background:rgba(0,255,255,0.03);">
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);">
               <span style="color:var(--cyan);font-size:0.75rem;">◈</span>
-              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">DATA-DRIVEN DECISIONS</span>
+              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color: var(--text-lo);">DATA-DRIVEN DECISIONS</span>
             </div>
-            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);">
               <span style="color:var(--purple);font-size:0.75rem;">◈</span>
-              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">VISUAL CLARITY</span>
+              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color: var(--text-lo);">VISUAL CLARITY</span>
             </div>
-            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(0,255,255,0.12);background:rgba(0,255,255,0.03);">
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border: 1px solid rgba(2, 132, 199, 0.2);background: rgba(2, 132, 199, 0.05);">
               <span style="color:var(--cyan);font-size:0.75rem;">◈</span>
-              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">INSIGHT ENGINEERING</span>
+              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color: var(--text-lo);">INSIGHT ENGINEERING</span>
             </div>
-            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border:1px solid rgba(155,92,255,0.15);background:rgba(155,92,255,0.03);">
+            <div style="display:flex;align-items:center;gap:7px;padding:6px 14px;border: 1px solid rgba(51, 65, 85, 0.2);background: rgba(51, 65, 85, 0.05);">
               <span style="color:var(--purple);font-size:0.75rem;">◈</span>
-              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color:rgba(224,247,255,0.5);">STRATEGIC IMPACT</span>
+              <span style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.12em;color: var(--text-lo);">STRATEGIC IMPACT</span>
             </div>
           </div>
         </div>
@@ -571,8 +571,8 @@
           <span class="philo-badge-num" data-count="2">0</span>
           <span class="philo-badge-lbl">YEARS OF</span>
           <span class="philo-badge-lbl">ANALYTICS</span>
-          <div style="width:40px;height:1px;background:rgba(155,92,255,0.3);margin:8px auto;"></div>
-          <span style="font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color:rgba(155,92,255,0.4);">SEM IV</span>
+          <div style="width:40px;height:1px;background: rgba(51, 65, 85, 0.1);margin:8px auto;"></div>
+          <span style="font-family:'Share Tech Mono',monospace;font-size: 0.8rem;color: var(--text-lo);">SEM IV</span>
         </div>
       </div>
     </section>

@@ -22,8 +22,8 @@
     }
     .sql-stat-card {
       padding: 20px 16px;
-      border: 1px solid rgba(0,255,255,0.15);
-      background: rgba(0,255,255,0.03);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      background: rgba(2, 132, 199, 0.05);
       border-radius: 3px;
       text-align: center;
     }
@@ -31,17 +31,17 @@
       font-family: 'Inter', sans-serif;
       font-size: 2rem;
       font-weight: 800;
-      color: #00ffff;
-      text-shadow: 0 0 20px rgba(0,255,255,0.3);
+      color: var(--cyan);
+      text-shadow: none;
       display: block;
     }
-    .sql-stat-num.purple { color: #9b5cff; text-shadow: 0 0 20px rgba(155,92,255,0.3); }
+    .sql-stat-num.purple { color: var(--purple); text-shadow: none; }
     .sql-stat-label {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.75rem;
       letter-spacing: 0.05em;
-      color: rgba(224,247,255,0.4);
+      color: var(--text-lo);
       margin-top: 6px;
     }
 
@@ -58,23 +58,23 @@
       font-size: 0.75rem;
       letter-spacing: 0.05em;
       padding: 8px 16px;
-      border: 1px solid rgba(0,255,255,0.2);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       background: transparent;
-      color: rgba(0,255,255,0.5);
+      color: var(--text-lo);
       cursor: pointer;
       border-radius: 2px;
       transition: all 0.2s;
     }
     .concept-tab:hover, .concept-tab.active {
-      background: rgba(0,255,255,0.08);
-      color: #00ffff;
-      border-color: rgba(0,255,255,0.5);
+      background: rgba(2, 132, 199, 0.05);
+      color: var(--cyan);
+      border-color: var(--text-lo);
     }
-    .concept-tab.purple { border-color: rgba(155,92,255,0.2); color: rgba(155,92,255,0.5); }
+    .concept-tab.purple { border-color: var(--text-lo); color: var(--text-lo); }
     .concept-tab.purple:hover, .concept-tab.purple.active {
-      background: rgba(155,92,255,0.08);
-      color: #9b5cff;
-      border-color: rgba(155,92,255,0.5);
+      background: rgba(51, 65, 85, 0.05);
+      color: var(--purple);
+      border-color: var(--text-lo);
     }
 
     /* Query cards */
@@ -89,54 +89,54 @@
 
     .query-card {
       background: rgba(5,5,20,0.8);
-      border: 1px solid rgba(0,255,255,0.12);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 3px;
       overflow: hidden;
       transition: border-color 0.2s;
     }
-    .query-card:hover { border-color: rgba(0,255,255,0.35); }
-    .query-card.purple { border-color: rgba(155,92,255,0.15); }
-    .query-card.purple:hover { border-color: rgba(155,92,255,0.4); }
+    .query-card:hover { border-color: var(--text-lo); }
+    .query-card.purple { border-color: var(--text-lo); }
+    .query-card.purple:hover { border-color: var(--text-lo); }
 
     .query-card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 14px 18px;
-      background: rgba(0,255,255,0.04);
+      background: rgba(2, 132, 199, 0.05);
       border-bottom: 1px solid rgba(0,255,255,0.1);
     }
     .query-card.purple .query-card-header {
-      background: rgba(155,92,255,0.04);
-      border-bottom-color: rgba(155,92,255,0.1);
+      background: rgba(51, 65, 85, 0.05);
+      border-bottom-color: var(--text-lo);
     }
 
     .query-card-title {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.8rem;
-      color: #00ffff;
+      color: var(--cyan);
       letter-spacing: 0.05em;
     }
-    .query-card.purple .query-card-title { color: #9b5cff; }
+    .query-card.purple .query-card-title { color: var(--purple); }
 
     .query-badge {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
       padding: 3px 10px;
       border-radius: 2px;
-      border: 1px solid rgba(0,255,255,0.2);
-      color: rgba(0,255,255,0.6);
-      background: rgba(0,255,255,0.04);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      color: var(--text-lo);
+      background: rgba(2, 132, 199, 0.05);
     }
     .query-badge.purple {
-      border-color: rgba(155,92,255,0.2);
-      color: rgba(155,92,255,0.6);
-      background: rgba(155,92,255,0.04);
+      border-color: var(--text-lo);
+      color: var(--text-lo);
+      background: rgba(51, 65, 85, 0.05);
     }
     .query-badge.green {
-      border-color: rgba(0,255,136,0.2);
-      color: rgba(0,255,136,0.7);
+      border-color: var(--cyan);
+      color: var(--cyan);
       background: rgba(0,255,136,0.04);
     }
 
@@ -144,7 +144,7 @@
       padding: 12px 18px 6px;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
-      color: rgba(224,247,255,0.5);
+      color: var(--text-lo);
       line-height: 1.5;
     }
 
@@ -167,12 +167,12 @@
     }
     /* Override hljs colors to match cyberpunk palette */
     .hljs { background: transparent !important; }
-    .hljs-keyword { color: #00ffff !important; }
-    .hljs-built_in { color: #9b5cff !important; }
-    .hljs-string { color: #00ff88 !important; }
+    .hljs-keyword { color: var(--cyan) !important; }
+    .hljs-built_in { color: var(--purple) !important; }
+    .hljs-string { color: var(--cyan) !important; }
     .hljs-number { color: #ff9f43 !important; }
-    .hljs-comment { color: rgba(224,247,255,0.3) !important; font-style: italic; }
-    .hljs-operator { color: rgba(0,255,255,0.6) !important; }
+    .hljs-comment { color: var(--text-lo) !important; font-style: italic; }
+    .hljs-operator { color: var(--text-lo) !important; }
 
     /* Concept section */
     .concept-section { display: none; }
@@ -187,33 +187,33 @@
     }
     .schema-table {
       padding: 18px 20px;
-      border: 1px solid rgba(0,255,255,0.12);
-      background: rgba(0,255,255,0.02);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      background: rgba(2, 132, 199, 0.05);
       border-radius: 3px;
     }
     .schema-table.purple {
-      border-color: rgba(155,92,255,0.15);
-      background: rgba(155,92,255,0.02);
+      border-color: var(--text-lo);
+      background: rgba(51, 65, 85, 0.05);
     }
     .schema-table-name {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.75rem;
-      color: #00ffff;
+      color: var(--cyan);
       letter-spacing: 0.05em;
       margin-bottom: 10px;
     }
-    .schema-table.purple .schema-table-name { color: #9b5cff; }
+    .schema-table.purple .schema-table-name { color: var(--purple); }
     .schema-field {
       font-family: ui-monospace, monospace;
       font-size: 0.72rem;
-      color: rgba(224,247,255,0.45);
+      color: var(--text-lo);
       padding: 3px 0;
       border-bottom: 1px solid rgba(255,255,255,0.04);
       display: flex;
       justify-content: space-between;
     }
-    .schema-field .type { color: rgba(155,92,255,0.5); }
+    .schema-field .type { color: var(--text-lo); }
     .schema-field .pk { color: #ff9f43; font-size: 0.8rem; }
 
     /* Copy button */
@@ -223,15 +223,15 @@
       font-size: 0.7rem;
       letter-spacing: 0.05em;
       padding: 4px 10px;
-      border: 1px solid rgba(0,255,255,0.2);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       background: transparent;
-      color: rgba(0,255,255,0.4);
+      color: var(--text-lo);
       cursor: pointer;
       border-radius: 2px;
       transition: all 0.2s;
     }
-    .copy-btn:hover { color: #00ffff; border-color: rgba(0,255,255,0.5); }
-    .copy-btn.copied { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+    .copy-btn:hover { color: var(--cyan); border-color: var(--text-lo); }
+    .copy-btn.copied { color: var(--cyan); border-color: var(--cyan); }
   </style>
 <style id="nav-dropdown-css">
   .nav-dropdown { position: relative; }
@@ -250,8 +250,8 @@
   .nav-dropdown:hover .dropdown-menu,
   .nav-dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu-inner {
-    background: rgba(5,5,16,0.98);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: var(--bg);
+    border: 1px solid rgba(2, 132, 199, 0.2);
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
@@ -265,13 +265,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    color: rgba(224,247,255,0.6);
+    color: var(--text-lo);
     text-decoration: none;
     transition: color 0.1s, background 0.1s;
     white-space: nowrap;
   }
   .dropdown-menu a:hover,
-  .dropdown-menu a.active { color: #00ffff; background: rgba(0,255,255,0.07); }
+  .dropdown-menu a.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); }
   @media (max-width: 768px) {
     .dropdown-menu { position: static; transform: none; padding-top: 0; display: none; }
     .dropdown-menu-inner { background: transparent; border: none; box-shadow: none; padding: 0 0 0 12px; }
@@ -324,7 +324,7 @@
       <div class="section-header" data-reveal>
         <h1>SQL <span class="text-cyan">QUERY LAB</span></h1>
       </div>
-      <p data-reveal data-delay="80" style="max-width:620px;color:rgba(224,247,255,0.55);font-size:1rem;margin-bottom:0;">
+      <p data-reveal data-delay="80" style="max-width:620px;color: var(--text-lo);font-size:1rem;margin-bottom:0;">
         Hands-on SQL written during Semester III — covering DDL, DML, multi-table JOINs, subqueries, window functions, and aggregation across real business datasets.
       </p>
 
@@ -352,7 +352,7 @@
       <div data-reveal data-delay="200" style="margin-bottom:48px;display:flex;flex-wrap:wrap;gap:12px;">
         <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" class="btn-neon btn-neon-solid">↗ Dataset on Kaggle</a>
         <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-purple">↗ Source on GitHub</a>
-        <a href="projects.html" class="btn-neon" style="border-color:rgba(0,255,136,0.4);color:#00ff88;">• See Case Studies</a>
+        <a href="projects.html" class="btn-neon" style="border-color: var(--cyan);color: var(--cyan);">• See Case Studies</a>
       </div>
     </div>
   </section>
@@ -375,7 +375,7 @@
            SECTION 1: JOINs
            ═══════════════════════════════════ -->
       <div id="concept-joins" class="concept-section active">
-        <div class="data-label mb-24" style="color:rgba(0,255,255,0.4);">• JOIN OPERATIONS — Multi-table relationship queries</div>
+        <div class="data-label mb-24" style="color: var(--text-lo);">• JOIN OPERATIONS — Multi-table relationship queries</div>
         <div class="query-grid">
 
           <div class="query-card" data-reveal>
@@ -502,7 +502,7 @@ SELECT email FROM staff;</code></pre>
            SECTION 2: Window Functions
            ═══════════════════════════════════ -->
       <div id="concept-window" class="concept-section">
-        <div class="data-label mb-24" style="color:rgba(155,92,255,0.5);">• WINDOW FUNCTIONS — ROW_NUMBER • RANK • DENSE_RANK • PARTITION BY</div>
+        <div class="data-label mb-24" style="color: var(--text-lo);">• WINDOW FUNCTIONS — ROW_NUMBER • RANK • DENSE_RANK • PARTITION BY</div>
         <div class="query-grid">
 
           <div class="query-card purple" data-reveal>
@@ -641,7 +641,7 @@ FROM staff;</code></pre>
            SECTION 3: Subqueries
            ═══════════════════════════════════ -->
       <div id="concept-subquery" class="concept-section">
-        <div class="data-label mb-24" style="color:rgba(0,255,255,0.4);">• SUBQUERIES — Nested logic for comparative analysis</div>
+        <div class="data-label mb-24" style="color: var(--text-lo);">• SUBQUERIES — Nested logic for comparative analysis</div>
         <div class="query-grid">
 
           <div class="query-card" data-reveal>
@@ -768,7 +768,7 @@ WHERE oi.order_item_id IS NULL;</code></pre>
            SECTION 4: Aggregation
            ═══════════════════════════════════ -->
       <div id="concept-aggregation" class="concept-section">
-        <div class="data-label mb-24" style="color:rgba(155,92,255,0.5);">• AGGREGATION — GROUP BY • HAVING • COUNT • AVG • SUM</div>
+        <div class="data-label mb-24" style="color: var(--text-lo);">• AGGREGATION — GROUP BY • HAVING • COUNT • AVG • SUM</div>
         <div class="query-grid">
 
           <div class="query-card purple" data-reveal>
@@ -884,7 +884,7 @@ FROM university_teacher;</code></pre>
            SECTION 5: Revenue Analytics
            ═══════════════════════════════════ -->
       <div id="concept-revenue" class="concept-section">
-        <div class="data-label mb-24" style="color:rgba(0,255,255,0.4);">• REVENUE ANALYTICS — Business-grade queries from the E-Commerce database</div>
+        <div class="data-label mb-24" style="color: var(--text-lo);">• REVENUE ANALYTICS — Business-grade queries from the E-Commerce database</div>
         <div class="query-grid">
 
           <div class="query-card" data-reveal>
@@ -1008,13 +1008,13 @@ ORDER BY total_orders DESC;</code></pre>
            SECTION 6: Schema Design
            ═══════════════════════════════════ -->
       <div id="concept-schema" class="concept-section">
-        <div class="data-label mb-24" style="color:rgba(155,92,255,0.5);">• SCHEMA DESIGN — Databases designed, built from scratch, and published on <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" style="color:#9b5cff;text-decoration:underline;">Kaggle ↗</a></div>
+        <div class="data-label mb-24" style="color: var(--text-lo);">• SCHEMA DESIGN — Databases designed, built from scratch, and published on <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" style="color: var(--purple);text-decoration:underline;">Kaggle ↗</a></div>
 
         <!-- E-Commerce Schema -->
         <div class="cp-panel cp-corner" style="padding:28px;margin-bottom:24px;" data-reveal>
           <div class="data-label mb-4">DATABASE 01</div>
           <h3 class="text-cyan" style="margin-bottom:6px;">E-Commerce Database — ecommerce_db</h3>
-          <p style="color:rgba(224,247,255,0.45);font-size:0.9rem;margin-bottom:20px;">6-table relational schema with FK constraints: customers → orders → order_items → products, payments</p>
+          <p style="color: var(--text-lo);font-size:0.9rem;margin-bottom:20px;">6-table relational schema with FK constraints: customers → orders → order_items → products, payments</p>
           <div class="schema-grid">
             <div class="schema-table">
               <div class="schema-table-name">📦 orders</div>
@@ -1053,9 +1053,9 @@ ORDER BY total_orders DESC;</code></pre>
 
         <!-- University Schema -->
         <div class="cp-panel cp-panel-purple cp-corner-purple" style="padding:28px;margin-bottom:24px;" data-reveal data-delay="100">
-          <div class="data-label mb-4" style="color:rgba(155,92,255,0.5);">DATABASE 02</div>
+          <div class="data-label mb-4" style="color: var(--text-lo);">DATABASE 02</div>
           <h3 class="text-purple" style="margin-bottom:6px;">University Database — devbhoomi_uttarakhand_university</h3>
-          <p style="color:rgba(224,247,255,0.45);font-size:0.9rem;margin-bottom:20px;">20-field tables modelling real university operations — students, teachers, staff with 20 queries each</p>
+          <p style="color: var(--text-lo);font-size:0.9rem;margin-bottom:20px;">20-field tables modelling real university operations — students, teachers, staff with 20 queries each</p>
           <div class="schema-grid">
             <div class="schema-table purple">
               <div class="schema-table-name">🎓 university_student</div>
@@ -1089,24 +1089,24 @@ ORDER BY total_orders DESC;</code></pre>
           <div class="data-label mb-16">• ALL DATABASES BUILT</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
             <div class="cp-panel" style="padding:16px 18px;">
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#00ffff;">ecommerce_db</div>
-              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">6 tables · 30 queries</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color: var(--cyan);">ecommerce_db</div>
+              <div style="font-size:0.8rem;color: var(--text-lo);margin-top:4px;">6 tables · 30 queries</div>
             </div>
             <div class="cp-panel cp-panel-purple" style="padding:16px 18px;">
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#9b5cff;">devbhoomi_university</div>
-              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">3 tables · 20 queries</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color: var(--purple);">devbhoomi_university</div>
+              <div style="font-size:0.8rem;color: var(--text-lo);margin-top:4px;">3 tables · 20 queries</div>
             </div>
             <div class="cp-panel" style="padding:16px 18px;">
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#00ffff;">SkyMartDB</div>
-              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">2 tables · 27 queries</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color: var(--cyan);">SkyMartDB</div>
+              <div style="font-size:0.8rem;color: var(--text-lo);margin-top:4px;">2 tables · 27 queries</div>
             </div>
             <div class="cp-panel cp-panel-purple" style="padding:16px 18px;">
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#9b5cff;">salariesdb</div>
-              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">1 table · Window Fns</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color: var(--purple);">salariesdb</div>
+              <div style="font-size:0.8rem;color: var(--text-lo);margin-top:4px;">1 table · Window Fns</div>
             </div>
             <div class="cp-panel" style="padding:16px 18px;">
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#00ffff;">SalesDB</div>
-              <div style="font-size:0.8rem;color:rgba(224,247,255,0.4);margin-top:4px;">1 table · RANK focus</div>
+              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color: var(--cyan);">SalesDB</div>
+              <div style="font-size:0.8rem;color: var(--text-lo);margin-top:4px;">1 table · RANK focus</div>
             </div>
           </div>
         </div>
@@ -1121,7 +1121,7 @@ ORDER BY total_orders DESC;</code></pre>
       <div class="cp-panel" style="padding:48px 40px;max-width:700px;margin:0 auto;text-align:center;">
         <div class="data-label mb-16">• FULL SOURCE CODE & DATASET</div>
         <h2 style="margin-bottom:12px;">All <span class="text-cyan">SQL Files</span> — Open & Verified</h2>
-        <p style="margin-bottom:28px;color:rgba(224,247,255,0.5);">Complete .sql files published on Kaggle and GitHub — DDL, DML, all queries, and schema scripts available to view, download, and run.</p>
+        <p style="margin-bottom:28px;color: var(--text-lo);">Complete .sql files published on Kaggle and GitHub — DDL, DML, all queries, and schema scripts available to view, download, and run.</p>
         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
           <a href="https://www.kaggle.com/datasets/sujitmurari/sql-html" target="_blank" class="btn-neon btn-neon-solid">↗ Open on Kaggle</a>
           <a href="https://github.com/sujitmurari/Sujit-Murari-Business-Analytics-Portfolio" target="_blank" class="btn-neon btn-neon-purple">↗ View on GitHub</a>
@@ -1130,18 +1130,18 @@ ORDER BY total_orders DESC;</code></pre>
         <!-- Kaggle badge strip -->
         <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(0,255,255,0.1);display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;">
           <div style="text-align:center;">
-            <div style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.7rem;color:rgba(0,255,255,0.35);letter-spacing:0.05em;margin-bottom:4px;">PUBLISHED ON</div>
-            <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color:#00ffff;">KAGGLE</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.7rem;color: var(--text-lo);letter-spacing:0.05em;margin-bottom:4px;">PUBLISHED ON</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color: var(--cyan);">KAGGLE</div>
           </div>
-          <div style="width:1px;height:32px;background:rgba(0,255,255,0.1);"></div>
+          <div style="width:1px;height:32px;background: rgba(2, 132, 199, 0.1);"></div>
           <div style="text-align:center;">
-            <div style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.7rem;color:rgba(0,255,255,0.35);letter-spacing:0.05em;margin-bottom:4px;">AUTHOR</div>
-            <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color:#00ffff;">SUJIT MURARI</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.7rem;color: var(--text-lo);letter-spacing:0.05em;margin-bottom:4px;">AUTHOR</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color: var(--cyan);">SUJIT MURARI</div>
           </div>
-          <div style="width:1px;height:32px;background:rgba(0,255,255,0.1);"></div>
+          <div style="width:1px;height:32px;background: rgba(2, 132, 199, 0.1);"></div>
           <div style="text-align:center;">
-            <div style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.7rem;color:rgba(0,255,255,0.35);letter-spacing:0.05em;margin-bottom:4px;">FORMAT</div>
-            <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color:#9b5cff;">SQL FILES</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.7rem;color: var(--text-lo);letter-spacing:0.05em;margin-bottom:4px;">FORMAT</div>
+            <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color: var(--purple);">SQL FILES</div>
           </div>
         </div>
       </div>
@@ -1152,7 +1152,7 @@ ORDER BY total_orders DESC;</code></pre>
 
   <footer id="footer">
   <div class="container">
-    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color:rgba(224,247,255,0.3);">
+    <p style="font-family:'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing:0.05em; color: var(--text-lo);">
       SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
     </p>
   </div>

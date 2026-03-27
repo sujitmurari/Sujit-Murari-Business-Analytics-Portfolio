@@ -15,7 +15,7 @@
 
     body {
       background: var(--bg);
-      color: rgba(224,247,255,0.85);
+      color: var(--text-hi);
       font-family: 'Share Tech Mono', monospace;
       min-height: 100vh;
       display: flex;
@@ -50,7 +50,7 @@
       font-weight: 900;
       color: var(--cyan);
       line-height: 1;
-      text-shadow: 0 0 40px rgba(0,255,255,0.4);
+      text-shadow: none;
       margin-bottom: 8px;
       animation: glitch 4s infinite;
     }
@@ -67,13 +67,13 @@
       font-family: 'Orbitron', monospace;
       font-size: 0.7rem;
       letter-spacing: 0.3em;
-      color: rgba(0,255,255,0.5);
+      color: var(--text-lo);
       margin-bottom: 32px;
     }
 
     .panel {
       background: rgba(0,10,20,0.7);
-      border: 1px solid rgba(0,255,255,0.15);
+      border: 1px solid rgba(2, 132, 199, 0.2);
       border-radius: 8px;
       padding: 28px 32px;
       position: relative;
@@ -92,22 +92,22 @@
       text-align: left;
       font-size: 0.82rem;
       line-height: 2;
-      color: rgba(224,247,255,0.6);
+      color: var(--text-lo);
     }
     .terminal-line .prompt { color: var(--cyan); }
     .terminal-line .error  { color: var(--pink); }
-    .terminal-line .ok     { color: #00ff88; }
+    .terminal-line .ok     { color: var(--cyan); }
 
     h2 {
       font-family: 'Orbitron', monospace;
       font-size: 1rem;
       letter-spacing: 0.15em;
-      color: rgba(224,247,255,0.9);
+      color: var(--text-hi);
       margin-bottom: 12px;
     }
     p {
       font-size: 0.82rem;
-      color: rgba(224,247,255,0.5);
+      color: var(--text-lo);
       line-height: 1.8;
       margin-bottom: 0;
     }
@@ -131,7 +131,7 @@
     }
     .btn:hover {
       background: #33ffff;
-      box-shadow: 0 0 24px rgba(0,255,255,0.4);
+      box-shadow: none;
       transform: translateY(-2px);
     }
 
