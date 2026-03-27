@@ -130,23 +130,64 @@
     .open-to-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
     .open-to-item { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.8rem; color: rgba(224,247,255,0.55); }
 
-    /* ── 3-column layout ── */
+    /* ── 2-column layout ── */
     .contact-grid {
       display: grid !important;
-      grid-template-columns: 1fr 1.5fr 240px !important;
-      gap: 24px !important;
+      grid-template-columns: 1.1fr 0.9fr !important;
+      gap: 80px !important;
       align-items: start !important;
+      max-width: 900px;
+      margin: 0 auto;
     }
-    @media (max-width: 1024px) {
-      .contact-grid { grid-template-columns: 1fr 1fr !important; }
-      .contact-right-sidebar { display: none !important; }
-    }
-    @media (max-width: 700px) {
-      .contact-grid { grid-template-columns: 1fr !important; }
+    @media (max-width: 800px) {
+      .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+      .contact-right { padding-top: 20px !important; }
     }
 
-    /* ── Right sidebar ── */
-    .contact-right-sidebar { display: flex; flex-direction: column; gap: 14px; }
+    /* ── White inputs ── */
+    .contact-input-white {
+      width: 100%;
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .contact-input-white::placeholder {
+      color: #94a3b8;
+    }
+    .contact-input-white:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+    }
+
+    /* ── White button ── */
+    .contact-btn-white {
+      width: 100%;
+      background: #f1f5f9;
+      color: #0f172a;
+      border: none;
+      padding: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.2s, transform 0.1s;
+      border-radius: 2px;
+    }
+    .contact-btn-white:hover {
+      background: #e2e8f0;
+    }
+    .contact-btn-white:active {
+      transform: scale(0.98);
+    }
 
     /* ── Cat card — constrained height ── */
     .cat-card {
@@ -276,148 +317,93 @@
     <div class="container">
       <div class="contact-grid">
 
-        <!-- ── LEFT: Terminal + Socials + Status ── -->
-        <div>
+        <!-- ── LEFT: Contact Form ── -->
+        <div data-reveal data-delay="150" class="contact-left" style="max-width: 500px;">
+          <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:0.95rem;color:#f8fafc;margin-bottom:32px;">• SEND A MESSAGE</div>
 
-          <!-- Terminal -->
-          <div class="terminal-window" data-reveal data-delay="100">
-            <div class="terminal-titlebar">
-              <div class="terminal-dot" style="background:#ff5f57;"></div>
-              <div class="terminal-dot" style="background:#febc2e;"></div>
-              <div class="terminal-dot" style="background:#28c840;"></div>
-              <span style="font-family:'Inter', sans-serif;font-weight:600;font-size:0.75rem;color:rgba(224,247,255,0.4);margin-left:12px;">Analytical Inquiry Terminal</span>
+          <form id="contact-form" style="display:flex;flex-direction:column;gap:24px;">
+            <input type="hidden" name="access_key" value="0b97fb04-ebea-495a-a158-6543910fc60a">
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div>
+                <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">YOUR NAME</label>
+                <input type="text" name="name" class="contact-input-white" placeholder="Full name" required/>
+              </div>
+              <div>
+                <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">EMAIL</label>
+                <input type="email" name="email" class="contact-input-white" placeholder="you@email.com" required/>
+              </div>
             </div>
-            <div class="terminal-body" id="terminal-output"></div>
-          </div>
 
-          <!-- Social Links -->
-          <div style="margin-top:32px;" data-reveal data-delay="200">
-            <div class="data-label mb-16">• COMMUNICATION CHANNELS</div>
-            <div class="social-links">
-              <a href="/cdn-cgi/l/email-protection#c8bbbda2a1bca5bdbaa9baa1f8fe88afa5a9a1a4e6aba7a5" class="social-link">
-                <div class="icon">✉️</div>
-                <div class="info">
-                  <span class="name">EMAIL</span>
-                  <span class="handle"><span class="__cf_email__" data-cfemail="4e3d3b24273a233b3c2f3c277e780e29232f2722602d2123">[email&#160;protected]</span></span>
-                </div>
-              </a>
-              <a href="https://www.linkedin.com/in/sujitmurari06/" target="_blank" class="social-link">
-                <div class="icon">💼</div>
-                <div class="info">
-                  <span class="name">LINKEDIN</span>
-                  <span class="handle">linkedin.com/in/sujitmurari06</span>
-                </div>
-              </a>
-              <a href="https://github.com/sujitmurari" target="_blank" class="social-link">
-                <div class="icon">⚙️</div>
-                <div class="info">
-                  <span class="name">GITHUB</span>
-                  <span class="handle">github.com/sujitmurari</span>
-                </div>
-              </a>
-              <a href="https://public.tableau.com/app/profile/sujit.murari" target="_blank" class="social-link">
-                <div class="icon">📊</div>
-                <div class="info">
-                  <span class="name">TABLEAU PUBLIC</span>
-                  <span class="handle">public.tableau.com/app/profile/sujit.murari</span>
-                </div>
-              </a>
+            <div>
+              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">SUBJECT</label>
+              <select name="subject" class="cyber-select" required>
+                <option value="" disabled selected>Select a subject...</option>
+                <option value="Internship Opportunity">Internship Opportunity</option>
+                <option value="Project Collaboration">Project Collaboration</option>
+                <option value="Freelance Analytics Work">Freelance Analytics Work</option>
+                <option value="Portfolio Feedback">Portfolio Feedback</option>
+                <option value="Other Inquiry">Other Inquiry</option>
+              </select>
             </div>
-          </div>
 
+            <div>
+              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;font-weight:400;">(optional)</span></label>
+              <input type="text" name="organization" class="contact-input-white" placeholder="Company or university"/>
+            </div>
+
+            <div>
+              <label style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#0ea5e9;display:block;margin-bottom:8px;">MESSAGE</label>
+              <textarea name="message" class="contact-input-white" rows="4" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="contact-btn-white">Send Message →</button>
+            <div id="form-status" style="font-family:'Inter', sans-serif;font-weight:600;font-size:0.8rem;text-align:center;display:none;"></div>
+          </form>
         </div>
 
-        <!-- ── MIDDLE: Contact Form ── -->
-        <div data-reveal data-delay="150">
-          <div class="cp-panel cp-corner" style="padding:36px;">
-            <div class="data-label mb-24">• SEND A MESSAGE</div>
-
-            <form id="contact-form" style="display:flex;flex-direction:column;gap:18px;">
-              <input type="hidden" name="access_key" value="0b97fb04-ebea-495a-a158-6543910fc60a">
-
-              <!-- Name + Email row -->
-              <div class="cyber-form-row">
-                <div>
-                  <label style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">YOUR NAME</label>
-                  <input type="text" name="name" class="cyber-input" placeholder="Full name" required/>
-                </div>
-                <div>
-                  <label style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">EMAIL</label>
-                  <input type="email" name="email" class="cyber-input" placeholder="you@email.com" required/>
-                </div>
-              </div>
-
-              <!-- Subject dropdown -->
-              <div>
-                <label style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">SUBJECT</label>
-                <select name="subject" class="cyber-select" required>
-                  <option value="" disabled selected>Select a subject...</option>
-                  <option value="Internship Opportunity">Internship Opportunity</option>
-                  <option value="Project Collaboration">Project Collaboration</option>
-                  <option value="Freelance Analytics Work">Freelance Analytics Work</option>
-                  <option value="Portfolio Feedback">Portfolio Feedback</option>
-                  <option value="Other Inquiry">Other Inquiry</option>
-                </select>
-              </div>
-
-              <!-- Organization -->
-              <div>
-                <label style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">ORGANIZATION <span style="opacity:0.4;">(optional)</span></label>
-                <input type="text" name="organization" class="cyber-input" placeholder="Company or university"/>
-              </div>
-
-              <!-- Message -->
-              <div>
-                <label style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.05em;color:rgba(0,255,255,0.5);display:block;margin-bottom:8px;">MESSAGE</label>
-                <textarea name="message" class="cyber-input" rows="5" placeholder="Describe your project, opportunity, or question..." required style="resize:vertical;"></textarea>
-              </div>
-
-              <!-- Removed Cloudflare Turnstile CAPTCHA -->
-
-
-              <button type="submit" id="submit-btn" class="btn-neon btn-neon-solid" style="width:100%;justify-content:center;padding:16px;">Send Message →</button>
-              <div id="form-status" style="font-family:'Inter', sans-serif;font-weight:600;font-size:0.8rem;text-align:center;display:none;"></div>
-
-            </form>
-          </div>
- 
-        </div><!-- end middle form -->
-
         <!-- ── RIGHT SIDEBAR ── -->
-        <div class="contact-right-sidebar" data-reveal data-delay="200">
-
-          <!-- Status Cards -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="cp-panel" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size: 0.8rem;">AVAILABILITY</div>
-              <div class="status-badge" style="font-size: 0.8rem;"><div class="dot"></div>INTERN</div>
+        <div class="contact-right" data-reveal data-delay="200" style="padding-top: 52px;">
+          <!-- Using a grid for the 4 stats -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px 16px; margin-bottom: 48px;">
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#f8fafc;margin-bottom:6px;">AVAILABILITY</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.95rem;color:#f8fafc;">INTERN</div>
             </div>
-            <div class="cp-panel cp-panel-purple" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size: 0.8rem;color:rgba(155,92,255,0.5);">RESPONSE</div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size:0.75rem;color:#818cf8;">~24 HRS</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#7e22ce;margin-bottom:6px;">RESPONSE</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.95rem;color:#818cf8;">~24 HRS</div>
             </div>
-            <div class="cp-panel" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size: 0.8rem;">LOCATION</div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#38bdf8;">UTTARAKHAND</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#f8fafc;margin-bottom:6px;">LOCATION</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.95rem;color:#38bdf8;">UTTARAKHAND</div>
             </div>
-            <div class="cp-panel cp-panel-purple" style="padding:14px;">
-              <div class="data-label mb-6" style="font-size: 0.8rem;color:rgba(155,92,255,0.5);">MODE</div>
-              <div style="font-family:'Inter', sans-serif;font-weight:700;font-size: 0.8rem;color:#818cf8;">REMOTE</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.05em;color:#7e22ce;margin-bottom:6px;">MODE</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.95rem;color:#818cf8;">REMOTE</div>
             </div>
           </div>
 
           <!-- Open To -->
-          <div class="cp-panel" style="padding:16px;">
-            <div class="data-label mb-8">• OPEN TO</div>
-            <div class="open-to-list">
-              <div class="open-to-item"><span style="color:#00ffff;">•</span> Analytics internships</div>
-              <div class="open-to-item"><span style="color:#00ff88;">•</span> Tableau / BI freelance</div>
-              <div class="open-to-item"><span style="color:#818cf8;">•</span> Data collaborations</div>
-              <div class="open-to-item"><span style="color:#ff9f40;">•</span> Project feedback</div>
+          <div>
+            <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:1rem;color:#f8fafc;margin-bottom:16px;">• OPEN TO</div>
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.9rem;color:rgba(224,247,255,0.7);display:flex;align-items:center;gap:10px;">
+                <span style="color:#00ffff;font-size:1.2rem;line-height:0;">•</span> Analytics internships
+              </div>
+              <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.9rem;color:rgba(224,247,255,0.7);display:flex;align-items:center;gap:10px;">
+                <span style="color:#00ff88;font-size:1.2rem;line-height:0;">•</span> Tableau / BI freelance
+              </div>
+              <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.9rem;color:rgba(224,247,255,0.7);display:flex;align-items:center;gap:10px;">
+                <span style="color:#818cf8;font-size:1.2rem;line-height:0;">•</span> Data collaborations
+              </div>
+              <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.9rem;color:rgba(224,247,255,0.7);display:flex;align-items:center;gap:10px;">
+                <span style="color:#ff9f40;font-size:1.2rem;line-height:0;">•</span> Project feedback
+              </div>
             </div>
           </div>
 
-          </div><!-- end right sidebar -->
+        </div><!-- end right sidebar -->
     </div>
   </section>
 </main>
@@ -484,22 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── Terminal ──
- initTerminal('terminal-output', [
-  { type: 'prompt', text: '> sujit --profile',                           delay: 400 },
-  { type: 'output', text: 'Retrieving professional summary...',          delay: 200 },
-  { type: 'output', text: '',                                            delay: 100 },
-  { type: 'prompt', text: '> analyst status',                            delay: 300 },
-  { type: 'output', text: 'Name: Sujit Murari',                          delay: 150 },
-  { type: 'output', text: 'Status: Seeking Analytics Opportunities',     delay: 80  },
-  { type: 'output', text: 'Focus: Business Intelligence & Visualization', delay: 80 },
-  { type: 'output', text: '',                                            delay: 100 },
-  { type: 'prompt', text: '> contact --init',                            delay: 500 },
-  { type: 'output', text: 'Communication channels initialized.',         delay: 200 },
-  { type: 'output', text: 'Please use the form or links below.',         delay: 100 },
-  { type: 'output', text: '',                                            delay: 100 },
-  { type: 'prompt', text: '> await notification',                       delay: 400 },
-  { type: 'output', text: 'Ready for professional inquiry...',           delay: 150 },
-]);
+  // Terminal init removed for minimalist contact layout
 
 });       // ← this was missing — closes DOMContentLoaded
 </script>
