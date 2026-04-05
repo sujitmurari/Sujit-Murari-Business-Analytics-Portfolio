@@ -62,13 +62,13 @@ function showUpdateToast(newWorker) {
     alignItems:     'center',
     gap:            '12px',
     background:     'rgba(0,10,20,0.97)',
-    border:         '1px solid #00ffff',
+    border:         '1px solid #0F766E',
     borderRadius:   '6px',
     padding:        '12px 20px',
     fontFamily:     "'Share Tech Mono', monospace",
     fontSize:       '0.78rem',
-    color:          '#00ffff',
-    boxShadow:      '0 0 24px rgba(0,255,255,0.2)',
+    color:          '#0F766E',
+    boxShadow:      '0 0 24px rgba(15, 118, 110,0.2)',
     zIndex:         '99999',
     whiteSpace:     'nowrap',
     animation:      'swToastIn 0.3s ease both',
@@ -85,18 +85,18 @@ function showUpdateToast(newWorker) {
       }
       #sw-update-btn {
         font-family:'Orbitron',monospace; font-size:0.6rem; font-weight:700;
-        letter-spacing:0.1em; color:#050510; background:#00ffff;
+        letter-spacing:0.1em; color:#FAF9F6; background:#0F766E;
         border:none; border-radius:3px; padding:6px 14px; cursor:pointer;
         transition:background .2s;
       }
       #sw-update-btn:hover { background:#33ffff; }
       #sw-dismiss-btn {
         font-family:'Share Tech Mono',monospace; font-size:0.85rem;
-        color:rgba(0,255,255,0.5); background:transparent;
+        color:rgba(15, 118, 110,0.5); background:transparent;
         border:none; cursor:pointer; padding:4px 6px;
         transition:color .2s;
       }
-      #sw-dismiss-btn:hover { color:#ff2d78; }
+      #sw-dismiss-btn:hover { color:#F97316; }
     `;
     document.head.appendChild(style);
   }

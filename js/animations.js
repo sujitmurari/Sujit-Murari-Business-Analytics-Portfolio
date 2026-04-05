@@ -158,7 +158,7 @@ function initParticles() {
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 140) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(0,255,255,${0.06 * (1 - dist / 140)})`;
+          ctx.strokeStyle = `rgba(15, 118, 110,${0.06 * (1 - dist / 140)})`;
           ctx.lineWidth = 0.5;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);

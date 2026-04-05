@@ -21,8 +21,8 @@
   <link rel="manifest" href="site.webmanifest"/>
 
   <!-- Theme color (browser chrome on mobile) -->
-  <meta name="theme-color" content="#050510"/>
-  <meta name="msapplication-TileColor" content="#050510"/>
+  <meta name="theme-color" content="#FAF9F6"/>
+  <meta name="msapplication-TileColor" content="#FAF9F6"/>
   <meta name="msapplication-TileImage" content="android-chrome-192x192.png"/>
 
   <!-- Open Graph preview image -->
@@ -36,9 +36,9 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     :root {
-      --cyan:#00ffff; --purple:#9b5cff; --pink:#ff2d78; --green:#00ff88; --amber:#ffb400;
+      --cyan:#0F766E; --purple:#D97706; --pink:#F97316; --green:#00ff88; --amber:#ffb400;
       --teal:#00c8a0;
-      --bg:#050510; --border:rgba(0,255,255,0.15); --border-p:rgba(155,92,255,0.18);
+      --bg:#FAF9F6; --border:rgba(15, 118, 110,0.15); --border-p:rgba(217, 119, 6,0.18);
       --text:rgba(224,247,255,0.85); --dim:rgba(224,247,255,0.45);
       --mono:ui-monospace, monospace; --orb:'Inter', sans-serif;
     }
@@ -59,7 +59,7 @@
     }
     .meta-item{
       display:flex;flex-direction:column;gap:4px;
-      padding:14px 20px;border-right:1px solid rgba(0,255,255,0.07);
+      padding:14px 20px;border-right:1px solid rgba(15, 118, 110,0.07);
       flex:1;min-width:110px;
     }
     .meta-item:last-child{border-right:none}
@@ -89,8 +89,8 @@
     .tc-cols{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
     .col-tag-n{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background: rgba(2, 132, 199, 0.05);color:var(--cyan);border: 1px solid rgba(2, 132, 199, 0.2)}
     .col-tag-t{font-family:var(--orb);font-weight:700;font-size: 0.72rem;letter-spacing:0.04em;padding:2px 7px;border-radius:2px;background: rgba(51, 65, 85, 0.05);color:var(--purple);border: 1px solid rgba(51, 65, 85, 0.2)}
-    .tc-remove{background:none;border:none;color:rgba(255,45,120,0.4);cursor:pointer;font-size:1rem;padding:4px 8px;border-radius:3px;transition:all .15s;font-family:var(--mono);margin-left:auto}
-    .tc-remove:hover{color:var(--pink);background:rgba(255,45,120,0.08)}
+    .tc-remove{background:none;border:none;color:rgba(249, 115, 22,0.4);cursor:pointer;font-size:1rem;padding:4px 8px;border-radius:3px;transition:all .15s;font-family:var(--mono);margin-left:auto}
+    .tc-remove:hover{color:var(--pink);background:rgba(249, 115, 22,0.08)}
 
     /* ── Relationship Explorer ── */
     .rel-explorer{
@@ -115,15 +115,15 @@
       transition:box-shadow .25s,transform .2s;cursor:default;
     }
     .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent 80%)}
-    .kpi-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(0,255,255,0.04),transparent 65%);pointer-events:none}
+    .kpi-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(15, 118, 110,0.04),transparent 65%);pointer-events:none}
     .kpi-card:hover{box-shadow: none;transform:translateY(-2px)}
     .kpi-card.p::before{background:linear-gradient(90deg,var(--purple),transparent 80%)}
-    .kpi-card.p::after{background:radial-gradient(ellipse at top left,rgba(155,92,255,0.05),transparent 65%)}
-    .kpi-card.p:hover{box-shadow:0 0 22px rgba(155,92,255,0.12)}
+    .kpi-card.p::after{background:radial-gradient(ellipse at top left,rgba(217, 119, 6,0.05),transparent 65%)}
+    .kpi-card.p:hover{box-shadow:0 0 22px rgba(217, 119, 6,0.12)}
     .kpi-card.g::before{background:linear-gradient(90deg,var(--green),transparent 80%)}
     .kpi-card.g:hover{box-shadow:0 0 22px rgba(0,255,136,0.1)}
     .kpi-card.pk::before{background:linear-gradient(90deg,var(--pink),transparent 80%)}
-    .kpi-card.pk:hover{box-shadow:0 0 22px rgba(255,45,120,0.1)}
+    .kpi-card.pk:hover{box-shadow:0 0 22px rgba(249, 115, 22,0.1)}
     .kpi-card.a::before{background:linear-gradient(90deg,var(--amber),transparent 80%)}
     .kpi-icon{font-size:1.2rem;margin-bottom:9px;opacity:0.55}
     .kpi-label{font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;color:var(--dim);margin-bottom:5px}
@@ -137,11 +137,11 @@
     .profile-tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.76rem}
     .profile-tbl thead th{
       background: rgba(2, 132, 199, 0.05);color:var(--cyan);padding:10px 15px;
-      text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
+      text-align:left;border-bottom:1px solid rgba(15, 118, 110,0.14);
       font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;
       white-space:nowrap;position:sticky;top:0;
     }
-    .profile-tbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
+    .profile-tbl tbody tr{border-bottom:1px solid rgba(15, 118, 110,0.05);transition:background .1s}
     .profile-tbl tbody tr:hover{background: rgba(2, 132, 199, 0.05)}
     .profile-tbl td{padding:8px 15px;color:var(--text);white-space:nowrap}
     .profile-tbl td:first-child{color:var(--cyan);font-weight:600}
@@ -158,7 +158,7 @@
     .sql-editor-wrap{position:relative}
     .sql-gutter{
       position:absolute;left:0;top:0;bottom:0;width:44px;
-      background: rgba(2, 132, 199, 0.05);border-right:1px solid rgba(0,255,255,0.08);
+      background: rgba(2, 132, 199, 0.05);border-right:1px solid rgba(15, 118, 110,0.08);
       display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:20px;
       font-family:var(--mono);font-size:0.65rem;color: var(--text-lo);
       pointer-events:none;border-radius:4px 0 0 4px;user-select:none;
@@ -170,7 +170,7 @@
       padding:14px 16px 14px 52px;resize:vertical;outline:none;
       caret-color:var(--cyan);transition:border-color .2s,box-shadow .2s;box-sizing:border-box;
     }
-    #sql-input:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,255,255,0.1),0 0 16px rgba(0,255,255,0.05)}
+    #sql-input:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(15, 118, 110,0.1),0 0 16px rgba(15, 118, 110,0.05)}
     #sql-input::placeholder{color: var(--text-lo)}
 
     .sql-kw-row{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
@@ -197,7 +197,7 @@
       padding:4px 10px;cursor:pointer;transition:all .14s;
       white-space:nowrap;max-width:420px;overflow:hidden;text-overflow:ellipsis;
     }
-    .sugg-chip:hover{background: rgba(51, 65, 85, 0.1);color:var(--purple);border-color:var(--purple);box-shadow:0 0 8px rgba(155,92,255,0.14)}
+    .sugg-chip:hover{background: rgba(51, 65, 85, 0.1);color:var(--purple);border-color:var(--purple);box-shadow:0 0 8px rgba(217, 119, 6,0.14)}
     .sugg-chip.join-q{color:rgba(0,200,160,0.8);background:rgba(0,200,160,0.04);border-color:rgba(0,200,160,0.15)}
     .sugg-chip.join-q:hover{background:rgba(0,200,160,0.12);color:var(--teal);border-color:var(--teal)}
 
@@ -212,13 +212,13 @@
     }
     .ct-btn:hover{border-color:var(--cyan);color:var(--cyan);background: rgba(2, 132, 199, 0.05)}
     .ct-btn.act{border-color:var(--cyan);color:var(--cyan);background: rgba(2, 132, 199, 0.1);box-shadow: none}
-    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background: rgba(51, 65, 85, 0.05);box-shadow:0 0 9px rgba(155,92,255,0.13)}
+    .ct-btn.act-p{border-color:var(--purple);color:var(--purple);background: rgba(51, 65, 85, 0.05);box-shadow:0 0 9px rgba(217, 119, 6,0.13)}
 
     /* Buttons */
     .btn-run{
       display:inline-flex;align-items:center;gap:8px;
       font-family:var(--orb);font-size:0.7rem;letter-spacing:0.05em;font-weight:700;
-      color:#050510;background:var(--cyan);border:none;border-radius:3px;
+      color:#FAF9F6;background:var(--cyan);border:none;border-radius:3px;
       padding:11px 26px;cursor:pointer;transition:all .2s;
     }
     .btn-run:hover{background:#33ffff;box-shadow: none;transform:translateY(-1px)}
@@ -245,12 +245,12 @@
     .cx-badge{display:inline-block;font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;padding:1px 7px;border-radius:2px}
     .cx-low{color:var(--green);background:rgba(0,255,136,0.09);border:1px solid rgba(0,255,136,0.22)}
     .cx-med{color:var(--amber);background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.22)}
-    .cx-high{color:var(--pink);background:rgba(255,45,120,0.07);border:1px solid rgba(255,45,120,0.18)}
+    .cx-high{color:var(--pink);background:rgba(249, 115, 22,0.07);border:1px solid rgba(249, 115, 22,0.18)}
     .join-badge{background:rgba(0,200,160,0.08);color:var(--teal);border:1px solid rgba(0,200,160,0.2);font-family:var(--orb);font-weight:800;font-size: 0.7rem;letter-spacing:0.05em;padding:1px 7px;border-radius:2px}
 
     .sql-err{
       font-family:var(--mono);font-size:0.8rem;color:var(--pink);
-      background:rgba(255,45,120,0.06);border:1px solid rgba(255,45,120,0.2);
+      background:rgba(249, 115, 22,0.06);border:1px solid rgba(249, 115, 22,0.2);
       border-radius:4px;padding:12px 16px;margin-top:14px;display:none;
     }
     .sql-status-row{font-family:var(--mono);font-size:0.7rem;color:var(--dim);display:flex;align-items:center;gap:6px}
@@ -274,7 +274,7 @@
     }
     .exp-btn:hover{background:rgba(0,255,136,0.1);border-color:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.16);transform:translateY(-1px)}
     .exp-btn.xl{color:var(--purple);background: rgba(51, 65, 85, 0.05);border-color: var(--text-lo)}
-    .exp-btn.xl:hover{background: rgba(51, 65, 85, 0.1);border-color:var(--purple);box-shadow:0 0 12px rgba(155,92,255,0.16)}
+    .exp-btn.xl:hover{background: rgba(51, 65, 85, 0.1);border-color:var(--purple);box-shadow:0 0 12px rgba(217, 119, 6,0.16)}
 
     .rtbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:6px;max-height:320px}
     .rtbl-wrap::-webkit-scrollbar{width:5px;height:5px}
@@ -282,11 +282,11 @@
     .rtbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.77rem}
     .rtbl thead th{
       background: rgba(2, 132, 199, 0.05);color:var(--cyan);padding:10px 14px;
-      text-align:left;border-bottom:1px solid rgba(0,255,255,0.14);
+      text-align:left;border-bottom:1px solid rgba(15, 118, 110,0.14);
       font-family:var(--orb);font-weight:700;font-size: 0.75rem;letter-spacing:0.05em;
       white-space:nowrap;position:sticky;top:0;
     }
-    .rtbl tbody tr{border-bottom:1px solid rgba(0,255,255,0.05);transition:background .1s}
+    .rtbl tbody tr{border-bottom:1px solid rgba(15, 118, 110,0.05);transition:background .1s}
     .rtbl tbody tr:hover{background: rgba(2, 132, 199, 0.05)}
     .rtbl tbody td{padding:8px 14px;color:var(--text);white-space:nowrap}
     .rtbl tbody td:first-child{color: var(--text-lo)}
@@ -298,7 +298,7 @@
       #lab-charts-row{grid-template-columns:1fr !important}
       .ct-bar{gap:4px}.ct-btn{padding:5px 9px;font-size: 0.8rem;}
       .sql-panel{padding:16px}.kpi-grid{grid-template-columns:repeat(2,1fr);gap:9px}
-      .meta-bar{flex-direction:column}.meta-item{border-right:none;border-bottom:1px solid rgba(0,255,255,0.07)}
+      .meta-bar{flex-direction:column}.meta-item{border-right:none;border-bottom:1px solid rgba(15, 118, 110,0.07)}
     }
   </style>
 <style id="nav-dropdown-css">
@@ -323,7 +323,7 @@
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 20px rgba(0,255,255,0.05);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 20px rgba(15, 118, 110,0.05);
   }
   .dropdown-menu li { list-style: none; }
   .dropdown-menu a {
@@ -573,7 +573,7 @@
         </div>
 
         <!-- Auto-analysis -->
-        <div style="margin:44px 0 28px;padding-top:36px;border-top:1px solid rgba(0,255,255,0.08);">
+        <div style="margin:44px 0 28px;padding-top:36px;border-top:1px solid rgba(15, 118, 110,0.08);">
           <div class="data-label mb-16">• AUTO ANALYSIS — PRIMARY TABLE</div>
         </div>
         <div style="margin-bottom:40px;">
@@ -659,7 +659,7 @@ let _selChart   = 'auto', _chartInst = null;
 let _suggTab    = 'single';
 let _allSuggs   = { single: [], join: [] };
 
-const CC = ['rgba(0,255,255,0.75)','rgba(155,92,255,0.75)','rgba(255,45,120,0.65)',
+const CC = ['rgba(15, 118, 110,0.75)','rgba(217, 119, 6,0.75)','rgba(249, 115, 22,0.65)',
   'rgba(58,123,213,0.75)','rgba(0,200,150,0.65)','rgba(255,180,0,0.7)',
   'rgba(255,100,50,0.7)','rgba(100,200,255,0.7)','rgba(200,100,255,0.7)'];
 
@@ -976,7 +976,7 @@ function renderStats(tname){
   const sg=document.getElementById('lab-stats');
   if(sg)sg.innerHTML=stats.map(({k,v})=>`
     <div style="background:rgba(0,8,18,0.75);border: 1px solid rgba(2, 132, 199, 0.2);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00ffff,transparent 80%);"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#0F766E,transparent 80%);"></div>
       <div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color: var(--cyan);line-height:1;margin-bottom:8px;">${v}</div>
       <div style="font-family:'Orbitron',monospace;font-size: 0.8rem;letter-spacing:0.18em;color: var(--text-lo);">${k} · ${col}</div>
     </div>`).join('');
@@ -1460,23 +1460,23 @@ function renderChart(cols,rows,type){
   wrap.style.display='block';
   if(lbl)lbl.textContent=`◈ ${type.toUpperCase()} — ${xCol} vs ${yCol}`;
   const ctx=canvas.getContext('2d');
-  const TIP={backgroundColor:'rgba(5,5,16,0.94)',borderColor:'#00ffff',borderWidth:1,titleColor:'#00ffff',bodyColor:'#e0f7ff',padding:12};
+  const TIP={backgroundColor:'rgba(5,5,16,0.94)',borderColor:'#0F766E',borderWidth:1,titleColor:'#0F766E',bodyColor:'#e0f7ff',padding:12};
   let cfg;
   if(type==='scatter'){
     const xC=nc[0]||cols[0],yC=nc[1]||cols[1]||cols[0];
-    cfg={type:'scatter',data:{datasets:[{label:`${xC} vs ${yC}`,data:rows.map(r=>({x:parseFloat(r[xC])||0,y:parseFloat(r[yC])||0})),backgroundColor:'rgba(155,92,255,0.6)',borderColor:'#9b5cff',pointRadius:5,pointHoverRadius:8}]},
-      options:{responsive:true,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{title:{display:true,text:xC,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}},y:{title:{display:true,text:yC,color:'rgba(0,255,255,0.6)'},grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},animation:{duration:900}}};
+    cfg={type:'scatter',data:{datasets:[{label:`${xC} vs ${yC}`,data:rows.map(r=>({x:parseFloat(r[xC])||0,y:parseFloat(r[yC])||0})),backgroundColor:'rgba(217, 119, 6,0.6)',borderColor:'#D97706',pointRadius:5,pointHoverRadius:8}]},
+      options:{responsive:true,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{title:{display:true,text:xC,color:'rgba(15, 118, 110,0.6)'},grid:{color:'rgba(15, 118, 110,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(15, 118, 110,0.15)'}},y:{title:{display:true,text:yC,color:'rgba(15, 118, 110,0.6)'},grid:{color:'rgba(15, 118, 110,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(15, 118, 110,0.15)'}}},animation:{duration:900}}};
   } else if(['pie','doughnut','polarArea'].includes(type)){
-    cfg={type,data:{labels,datasets:[{data:values,backgroundColor:CC,borderColor:'#050510',borderWidth:2,hoverOffset:6}]},
+    cfg={type,data:{labels,datasets:[{data:values,backgroundColor:CC,borderColor:'#FAF9F6',borderWidth:2,hoverOffset:6}]},
       options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'rgba(224,247,255,0.7)',padding:14,usePointStyle:true}},tooltip:TIP},...(type==='doughnut'?{cutout:'60%'}:{}),animation:{duration:900,easing:'easeInOutQuart'}}};
   } else if(type==='radar'){
-    cfg={type:'radar',data:{labels,datasets:[{label:yCol,data:values,fill:true,backgroundColor:'rgba(0,255,255,0.12)',borderColor:'#00ffff',borderWidth:2,pointBackgroundColor:'#00ffff',pointRadius:4}]},
-      options:{responsive:true,scales:{r:{ticks:{color:'rgba(0,255,255,0.28)',backdropColor:'transparent'},grid:{color:'rgba(0,255,255,0.1)'},angleLines:{color:'rgba(0,255,255,0.1)'},pointLabels:{color:'rgba(224,247,255,0.8)',font:{size:10}}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900}}};
+    cfg={type:'radar',data:{labels,datasets:[{label:yCol,data:values,fill:true,backgroundColor:'rgba(15, 118, 110,0.12)',borderColor:'#0F766E',borderWidth:2,pointBackgroundColor:'#0F766E',pointRadius:4}]},
+      options:{responsive:true,scales:{r:{ticks:{color:'rgba(15, 118, 110,0.28)',backdropColor:'transparent'},grid:{color:'rgba(15, 118, 110,0.1)'},angleLines:{color:'rgba(15, 118, 110,0.1)'},pointLabels:{color:'rgba(224,247,255,0.8)',font:{size:10}}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900}}};
   } else {
     const g=ctx.createLinearGradient(0,0,0,260);
-    g.addColorStop(0,'rgba(0,255,255,0.75)');g.addColorStop(1,'rgba(0,255,255,0.04)');
-    cfg={type,data:{labels,datasets:[{label:yCol,data:values,backgroundColor:type==='line'?'rgba(0,255,255,0.08)':g,borderColor:'#00ffff',borderWidth:2,fill:type==='line',tension:0.4,pointBackgroundColor:'#00ffff',pointRadius:type==='line'?4:0,borderRadius:type==='bar'?4:0}]},
-      options:{responsive:true,scales:{x:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)',maxTicksLimit:16},border:{color:'rgba(0,255,255,0.15)'}},y:{grid:{color:'rgba(0,255,255,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(0,255,255,0.15)'}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900,easing:'easeInOutQuart'}}};
+    g.addColorStop(0,'rgba(15, 118, 110,0.75)');g.addColorStop(1,'rgba(15, 118, 110,0.04)');
+    cfg={type,data:{labels,datasets:[{label:yCol,data:values,backgroundColor:type==='line'?'rgba(15, 118, 110,0.08)':g,borderColor:'#0F766E',borderWidth:2,fill:type==='line',tension:0.4,pointBackgroundColor:'#0F766E',pointRadius:type==='line'?4:0,borderRadius:type==='bar'?4:0}]},
+      options:{responsive:true,scales:{x:{grid:{color:'rgba(15, 118, 110,0.06)'},ticks:{color:'rgba(224,247,255,0.6)',maxTicksLimit:16},border:{color:'rgba(15, 118, 110,0.15)'}},y:{grid:{color:'rgba(15, 118, 110,0.06)'},ticks:{color:'rgba(224,247,255,0.6)'},border:{color:'rgba(15, 118, 110,0.15)'}}},plugins:{legend:{display:false},tooltip:TIP},animation:{duration:900,easing:'easeInOutQuart'}}};
   }
   _chartInst=new Chart(ctx,cfg);
   _canvasCharts['q-chart']=_chartInst;

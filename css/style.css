@@ -335,9 +335,9 @@
    
    /* ── Stats bar ── */
    .stats-bar {
-     background: rgba(0,255,255,0.04);
-     border-top: 1px solid rgba(0,255,255,0.1);
-     border-bottom: 1px solid rgba(0,255,255,0.1);
+     background: rgba(15, 118, 110,0.04);
+     border-top: 1px solid rgba(15, 118, 110,0.1);
+     border-bottom: 1px solid rgba(15, 118, 110,0.1);
      padding: 12px 0;
      overflow: hidden;
    }
@@ -432,7 +432,7 @@
    .insight-box {
      margin-top: 20px;
      padding: 14px 16px;
-     background: rgba(0,255,255,0.04);
+     background: rgba(15, 118, 110,0.04);
      border-left: 3px solid var(--cyan);
      border-radius: 0 2px 2px 0;
    }
@@ -446,8 +446,8 @@
    
    /* ── Dashboards ── */
    .dashboard-embed {
-     background: rgba(0,255,255,0.02);
-     border: 1px solid rgba(0,255,255,0.12);
+     background: rgba(15, 118, 110,0.02);
+     border: 1px solid rgba(15, 118, 110,0.12);
      border-radius: 4px;
      overflow: hidden;
      position: relative;
@@ -480,13 +480,13 @@
    }
    .terminal-window {
      background: rgba(0,0,0,0.5);
-     border: 1px solid rgba(0,255,255,0.2);
+     border: 1px solid rgba(15, 118, 110,0.2);
      border-radius: 6px 6px 4px 4px;
      overflow: hidden;
    }
    .terminal-titlebar {
-     background: rgba(0,255,255,0.06);
-     border-bottom: 1px solid rgba(0,255,255,0.15);
+     background: rgba(15, 118, 110,0.06);
+     border-bottom: 1px solid rgba(15, 118, 110,0.15);
      padding: 10px 16px;
      display: flex;
      align-items: center;
@@ -528,20 +528,20 @@
      align-items: center;
      gap: 14px;
      padding: 16px 20px;
-     border: 1px solid rgba(0,255,255,0.15);
+     border: 1px solid rgba(15, 118, 110,0.15);
      text-decoration: none;
      transition: all 0.3s;
-     background: rgba(0,255,255,0.02);
+     background: rgba(15, 118, 110,0.02);
      border-radius: 2px;
    }
    .social-link:hover {
-     border-color: rgba(0,255,255,0.5);
-     background: rgba(0,255,255,0.06);
+     border-color: rgba(15, 118, 110,0.5);
+     background: rgba(15, 118, 110,0.06);
      transform: translateX(4px);
    }
    .social-link .icon {
      width: 36px; height: 36px;
-     border: 1px solid rgba(0,255,255,0.3);
+     border: 1px solid rgba(15, 118, 110,0.3);
      display: flex;
      align-items: center;
      justify-content: center;
@@ -564,24 +564,24 @@
    
    /* ── Lab Upload ── */
    .lab-drop-zone {
-     border: 2px dashed rgba(0,255,255,0.25);
+     border: 2px dashed rgba(15, 118, 110,0.25);
      border-radius: 6px;
      padding: 60px 40px;
      text-align: center;
      cursor: pointer;
      transition: all 0.3s;
-     background: rgba(0,255,255,0.02);
+     background: rgba(15, 118, 110,0.02);
    }
    .lab-drop-zone:hover, .lab-drop-zone.drag-over {
-     border-color: rgba(0,255,255,0.6);
-     background: rgba(0,255,255,0.05);
-     box-shadow: 0 0 30px rgba(0,255,255,0.1);
+     border-color: rgba(15, 118, 110,0.6);
+     background: rgba(15, 118, 110,0.05);
+     box-shadow: 0 0 30px rgba(15, 118, 110,0.1);
    }
    .lab-results { margin-top: 40px; }
    .stat-box {
      padding: 20px;
-     background: rgba(0,255,255,0.03);
-     border: 1px solid rgba(0,255,255,0.12);
+     background: rgba(15, 118, 110,0.03);
+     border: 1px solid rgba(15, 118, 110,0.12);
      border-radius: 4px;
    }
     .stat-box .stat-value {
@@ -746,9 +746,9 @@
      :root { --nav-h: 56px; }
      .nav-links { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
        background: rgba(255, 255, 255, 0.97); flex-direction: column; padding: 24px 32px;
-       border-bottom: 1px solid rgba(0,255,255,0.15); gap: 0; }
+       border-bottom: 1px solid rgba(15, 118, 110,0.15); gap: 0; }
      .nav-links.open { display: flex; }
-     .nav-links a { padding: 14px 0; border-bottom: 1px solid rgba(0,255,255,0.06); width: 100%; }
+     .nav-links a { padding: 14px 0; border-bottom: 1px solid rgba(15, 118, 110,0.06); width: 100%; }
      .nav-hamburger { display: flex; }
      .nav-status { display: none; }
      .container { padding: 0 20px; }

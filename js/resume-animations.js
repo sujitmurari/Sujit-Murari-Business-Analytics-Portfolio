@@ -44,7 +44,7 @@ function startParticles() {
         const d=Math.sqrt(dx*dx+dy*dy);
         if(d<130){
           ctx.beginPath();
-          ctx.strokeStyle=`rgba(0,255,255,${.045*(1-d/130)})`;
+          ctx.strokeStyle=`rgba(15, 118, 110,${.045*(1-d/130)})`;
           ctx.lineWidth=.5;
           ctx.moveTo(pts[i].x,pts[i].y);
           ctx.lineTo(pts[j].x,pts[j].y);

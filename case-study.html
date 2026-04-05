@@ -8,7 +8,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
   <link rel="manifest" href="site.webmanifest"/>
-  <meta name="theme-color" content="#050510"/>
+  <meta name="theme-color" content="#FAF9F6"/>
   <meta property="og:image" content="android-chrome-512x512.png"/>
   <title>Case Study — Airline Pricing Analytics | Sujit Murari</title>
   <link rel="stylesheet" href="css/style.css?v=3.0"/>
@@ -42,7 +42,7 @@
       display: inline-block;
       width: 3px;
       height: 22px;
-      background: linear-gradient(180deg, #00ffff, #9b5cff);
+      background: linear-gradient(180deg, #0F766E, #D97706);
       border-radius: 2px;
       flex-shrink: 0;
     }
@@ -80,7 +80,7 @@
     .rh-badge-dot {
       width: 5px; height: 5px;
       border-radius: 50%;
-      background: #00ffff;
+      background: #0F766E;
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
@@ -103,7 +103,7 @@
       gap: 28px;
       flex-wrap: wrap;
       padding-top: 20px;
-      border-top: 1px solid rgba(0,255,255,0.08);
+      border-top: 1px solid rgba(15, 118, 110,0.08);
     }
     .rh-meta-item { display: flex; flex-direction: column; gap: 3px; }
     .rh-meta-label {
@@ -242,7 +242,7 @@
       color: var(--text-lo);
       font-size: 0.8rem;
       letter-spacing: 0.1em;
-      border-bottom: 1px solid rgba(0,255,255,0.08);
+      border-bottom: 1px solid rgba(15, 118, 110,0.08);
     }
     .schema-table td {
       padding: 8px 14px;
@@ -318,7 +318,7 @@
 
     /* Insight cards */
     .insight-card {
-      border-left: 3px solid #00ffff;
+      border-left: 3px solid #0F766E;
       border-radius: 0 6px 6px 0;
       padding: 16px 18px;
       background: rgba(2, 132, 199, 0.05);
@@ -381,7 +381,7 @@
     .rec-header {
       padding: 10px 16px;
       background: rgba(2, 132, 199, 0.05);
-      border-bottom: 1px solid rgba(0,255,255,0.08);
+      border-bottom: 1px solid rgba(15, 118, 110,0.08);
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.75rem;
@@ -442,7 +442,7 @@
     .rts-header {
       padding: 10px 14px;
       background: rgba(2, 132, 199, 0.05);
-      border-bottom: 1px solid rgba(0,255,255,0.08);
+      border-bottom: 1px solid rgba(15, 118, 110,0.08);
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 0.75rem;
@@ -460,7 +460,7 @@
       transition: all 0.2s;
     }
     .rts-item:hover { color: var(--cyan); padding-left: 18px; background: rgba(2, 132, 199, 0.05); }
-    .rts-item.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); border-left: 2px solid #00ffff; }
+    .rts-item.active { color: var(--cyan); background: rgba(2, 132, 199, 0.05); border-left: 2px solid #0F766E; }
     .rts-item:last-child { border-bottom: none; }
     .rts-num {
       font-family: 'Inter', sans-serif;
@@ -474,7 +474,7 @@
     /* Divider */
     .report-divider {
       height: 1px;
-      background: linear-gradient(90deg, rgba(0,255,255,0.15), transparent);
+      background: linear-gradient(90deg, rgba(15, 118, 110,0.15), transparent);
       margin: 48px 0;
     }
   </style>
@@ -500,7 +500,7 @@
     border-radius: 6px;
     min-width: 160px;
     padding: 6px 0;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 20px rgba(0,255,255,0.05);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 20px rgba(15, 118, 110,0.05);
   }
   .dropdown-menu li { list-style: none; }
   .dropdown-menu a {
@@ -677,8 +677,8 @@
 <script>
 // Charts — only init when visible
 document.addEventListener('DOMContentLoaded', () => {
-  const CYAN  = 'rgba(0,255,255,';
-  const PURP  = 'rgba(155,92,255,';
+  const CYAN  = 'rgba(15, 118, 110,';
+  const PURP  = 'rgba(217, 119, 6,';
   const GREEN = 'rgba(0,255,136,';
   const grid  = 'rgba(224,247,255,0.05)';
   const tick  = 'rgba(224,247,255,0.3)';

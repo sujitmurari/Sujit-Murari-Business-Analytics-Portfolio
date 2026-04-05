@@ -8,13 +8,13 @@
    ═══════════════════════════════════════════════════ */
 
 const COLORS = {
-  cyan:        '#00ffff',
-  purple:      '#9b5cff',
-  pink:        '#ff2d78',
+  cyan:        '#0F766E',
+  purple:      '#D97706',
+  pink:        '#F97316',
   blue:        '#3a7bd5',
   green:       '#00ff88',
-  cyanAlpha:   'rgba(0,255,255,',
-  purpleAlpha: 'rgba(155,92,255,',
+  cyanAlpha:   'rgba(15, 118, 110,',
+  purpleAlpha: 'rgba(217, 119, 6,',
 };
 
 // ── Shared Chart Defaults ──────────────────────────
@@ -43,13 +43,13 @@ function registerChart(canvasId, instance) {
 // ── Shared tooltip config ──────────────────────────
 const TOOLTIP = {
   backgroundColor: 'rgba(5,5,16,0.92)',
-  borderColor:     '#00ffff',
+  borderColor:     '#0F766E',
   borderWidth:     1,
-  titleColor:      '#00ffff',
+  titleColor:      '#0F766E',
   bodyColor:       '#e0f7ff',
   padding:         12,
 };
-const TOOLTIP_P = { ...TOOLTIP, borderColor: '#9b5cff', titleColor: '#9b5cff' };
+const TOOLTIP_P = { ...TOOLTIP, borderColor: '#D97706', titleColor: '#D97706' };
 
 // ── Radar Chart (Skills) ───────────────────────────
 // Updated: added R Programming (66%)
@@ -62,8 +62,8 @@ function initRadarChart(canvasId) {
     canvas.width / 2, canvas.height / 2, 0,
     canvas.width / 2, canvas.height / 2, canvas.width / 2
   );
-  gradientFill.addColorStop(0, 'rgba(0,255,255,0.25)');
-  gradientFill.addColorStop(1, 'rgba(155,92,255,0.08)');
+  gradientFill.addColorStop(0, 'rgba(15, 118, 110,0.25)');
+  gradientFill.addColorStop(1, 'rgba(217, 119, 6,0.08)');
 
   return registerChart(canvasId, new Chart(ctx, {
     type: 'radar',
@@ -77,7 +77,7 @@ function initRadarChart(canvasId) {
         borderColor:             COLORS.cyan,
         borderWidth:             2,
         pointBackgroundColor:    COLORS.cyan,
-        pointBorderColor:        '#050510',
+        pointBorderColor:        '#FAF9F6',
         pointBorderWidth:        2,
         pointRadius:             5,
         pointHoverRadius:        8,
@@ -93,12 +93,12 @@ function initRadarChart(canvasId) {
           min: 0, max: 100,
           ticks: {
             stepSize: 20,
-            color:          'rgba(0,255,255,0.3)',
+            color:          'rgba(15, 118, 110,0.3)',
             backdropColor:  'transparent',
             font:           { size: 9 }
           },
-          grid:        { color: 'rgba(0,255,255,0.1)' },
-          angleLines:  { color: 'rgba(0,255,255,0.1)' },
+          grid:        { color: 'rgba(15, 118, 110,0.1)' },
+          angleLines:  { color: 'rgba(15, 118, 110,0.1)' },
           pointLabels: {
             color: 'rgba(224,247,255,0.8)',
             font:  { size: 10, family: "'Orbitron', monospace", weight: '600' }
@@ -121,11 +121,11 @@ function initBarChart(canvasId) {
   destroyIfExists(canvasId);
   const ctx = canvas.getContext('2d');
   const g1 = ctx.createLinearGradient(0, 0, 0, 300);
-  g1.addColorStop(0, 'rgba(0,255,255,0.8)');
-  g1.addColorStop(1, 'rgba(0,255,255,0.1)');
+  g1.addColorStop(0, 'rgba(15, 118, 110,0.8)');
+  g1.addColorStop(1, 'rgba(15, 118, 110,0.1)');
   const g2 = ctx.createLinearGradient(0, 0, 0, 300);
-  g2.addColorStop(0, 'rgba(155,92,255,0.8)');
-  g2.addColorStop(1, 'rgba(155,92,255,0.1)');
+  g2.addColorStop(0, 'rgba(217, 119, 6,0.8)');
+  g2.addColorStop(1, 'rgba(217, 119, 6,0.1)');
 
   return registerChart(canvasId, new Chart(ctx, {
     type: 'bar',
@@ -152,8 +152,8 @@ function initBarChart(canvasId) {
       responsive: true,
       maintainAspectRatio: true,
       scales: {
-        x: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.2)' } },
-        y: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.2)' } }
+        x: { grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(15, 118, 110,0.2)' } },
+        y: { grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(15, 118, 110,0.2)' } }
       },
       plugins: {
         legend:  { labels: { color: 'rgba(224,247,255,0.7)' } },
@@ -171,8 +171,8 @@ function initLineChart(canvasId) {
   destroyIfExists(canvasId);
   const ctx = canvas.getContext('2d');
   const g = ctx.createLinearGradient(0, 0, 0, 200);
-  g.addColorStop(0, 'rgba(0,255,255,0.3)');
-  g.addColorStop(1, 'rgba(0,255,255,0)');
+  g.addColorStop(0, 'rgba(15, 118, 110,0.3)');
+  g.addColorStop(1, 'rgba(15, 118, 110,0)');
 
   return registerChart(canvasId, new Chart(ctx, {
     type: 'line',
@@ -207,12 +207,12 @@ function initLineChart(canvasId) {
       responsive: true,
       maintainAspectRatio: true,
       scales: {
-        x: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.2)' } },
+        x: { grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(15, 118, 110,0.2)' } },
         y: {
           min: 0, max: 100,
-          grid:  { color: 'rgba(0,255,255,0.06)' },
+          grid:  { color: 'rgba(15, 118, 110,0.06)' },
           ticks: { color: 'rgba(224,247,255,0.6)', callback: v => v + '%' },
-          border: { color: 'rgba(0,255,255,0.2)' }
+          border: { color: 'rgba(15, 118, 110,0.2)' }
         }
       },
       plugins: {
@@ -239,14 +239,14 @@ function initDoughnutChart(canvasId) {
       datasets: [{
         data: [26, 18, 22, 14, 10, 10],
         backgroundColor: [
-          'rgba(0,255,255,0.7)',
-          'rgba(155,92,255,0.7)',
-          'rgba(255,45,120,0.6)',
+          'rgba(15, 118, 110,0.7)',
+          'rgba(217, 119, 6,0.7)',
+          'rgba(249, 115, 22,0.6)',
           'rgba(58,123,213,0.7)',
           'rgba(0,200,150,0.6)',
           'rgba(255,180,0,0.65)',
         ],
-        borderColor:  '#050510',
+        borderColor:  '#FAF9F6',
         borderWidth:  3,
         hoverOffset:  8,
       }]
@@ -334,8 +334,8 @@ function renderHistogram(canvasId, label, values) {
   }
 
   const g = ctx.createLinearGradient(0, 0, 0, 300);
-  g.addColorStop(0, 'rgba(0,255,255,0.8)');
-  g.addColorStop(1, 'rgba(0,255,255,0.1)');
+  g.addColorStop(0, 'rgba(15, 118, 110,0.8)');
+  g.addColorStop(1, 'rgba(15, 118, 110,0.1)');
 
   registerChart(canvasId, new Chart(ctx, {
     type: 'bar',
@@ -354,8 +354,8 @@ function renderHistogram(canvasId, label, values) {
       responsive: true, maintainAspectRatio: true,
       plugins: { legend: { display: false }, tooltip: TOOLTIP },
       scales: {
-        x: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)', maxTicksLimit: 6 }, border: { color: 'rgba(0,255,255,0.15)' } },
-        y: { grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } }
+        x: { grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)', maxTicksLimit: 6 }, border: { color: 'rgba(15, 118, 110,0.15)' } },
+        y: { grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(15, 118, 110,0.15)' } }
       }
     }
   }));
@@ -374,7 +374,7 @@ function renderScatter(canvasId, xLabel, yLabel, points) {
       datasets: [{
         label:           `${xLabel} vs ${yLabel}`,
         data:            points,
-        backgroundColor: 'rgba(155,92,255,0.6)',
+        backgroundColor: 'rgba(217, 119, 6,0.6)',
         borderColor:     COLORS.purple,
         borderWidth:     1,
         pointRadius:     4,
@@ -385,8 +385,8 @@ function renderScatter(canvasId, xLabel, yLabel, points) {
       responsive: true, maintainAspectRatio: true,
       plugins: { legend: { display: false }, tooltip: TOOLTIP_P },
       scales: {
-        x: { title: { display: true, text: xLabel, color: 'rgba(0,255,255,0.6)' }, grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } },
-        y: { title: { display: true, text: yLabel, color: 'rgba(0,255,255,0.6)' }, grid: { color: 'rgba(0,255,255,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(0,255,255,0.15)' } }
+        x: { title: { display: true, text: xLabel, color: 'rgba(15, 118, 110,0.6)' }, grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(15, 118, 110,0.15)' } },
+        y: { title: { display: true, text: yLabel, color: 'rgba(15, 118, 110,0.6)' }, grid: { color: 'rgba(15, 118, 110,0.06)' }, ticks: { color: 'rgba(224,247,255,0.6)' }, border: { color: 'rgba(15, 118, 110,0.15)' } }
       }
     }
   }));
@@ -421,14 +421,14 @@ function showStats(col1, v1, col2, v2) {
   box.innerHTML = stats.map(({ key, val }) => `
     <div style="
       background:rgba(0,8,18,0.75);
-      border:1px solid rgba(0,255,255,0.15);
+      border:1px solid rgba(15, 118, 110,0.15);
       border-radius:6px;
       padding:16px 18px;
       position:relative;
       overflow:hidden;
     ">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00ffff,transparent 80%);"></div>
-      <div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:#00ffff;line-height:1;margin-bottom:8px;">${val}</div>
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#0F766E,transparent 80%);"></div>
+      <div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:#0F766E;line-height:1;margin-bottom:8px;">${val}</div>
       <div style="font-family:'Orbitron',monospace;font-size:0.52rem;letter-spacing:0.18em;color:rgba(224,247,255,0.4);">${key} · ${col1}</div>
     </div>`).join('');
 }
