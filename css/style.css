@@ -715,6 +715,24 @@
       background: var(--bg2);
       color: var(--cyan);
     }
+    .btn-tertiary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      transition: all 0.3s ease;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
+    }
+    .btn-tertiary:hover {
+      color: var(--text-hi);
+      background: rgba(0,0,0,0.03);
+    }
 
     .badge-premium {
       display: inline-flex;
@@ -798,6 +816,25 @@
       border-radius: 8px;
     }
     .md-kpi-val { font-size: 1.5rem; font-weight: 800; color: var(--cyan); display: block; margin-bottom: 4px; }
+    .md-bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      transition: height 1s ease-out, background 0.3s;
+    }
+    .md-bar:hover {
+      background: var(--cyan) !important;
+    }
+    .hero-dashboard-preview {
+      perspective: 1000px;
+    }
+    .hero-dashboard-preview .mini-dashboard {
+      transform: rotateY(-5deg) rotateX(5deg) translateY(0);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s;
+    }
+    .hero-dashboard-preview:hover .mini-dashboard {
+      transform: rotateY(0deg) rotateX(0deg) translateY(-5px);
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+    }
     .md-kpi-lbl { font-size: 0.75rem; text-transform: uppercase; color: var(--text-lo); letter-spacing: 0.05em; font-weight: 600; }
     .md-chart {
       height: 120px;
