@@ -15,23 +15,23 @@
    }
    
    :root {
-     --bg:         #f8fafc; /* Clean slate 50 */
-     --bg2:        #f1f5f9; /* Slate 100 */
-     --bg3:        #e2e8f0; /* Slate 200 */
-     --cyan:       #0284c7; /* Corporate Blue (Sky 600) */
-     --cyan-dim:   rgba(2, 132, 199, 0.5);
-     --purple:     #334155; /* Dark Slate 700 */
-     --purple-dim: rgba(51, 65, 85, 0.5);
-     --accent:     #0284c7; 
-     --text-hi:    #0f172a; /* Slate 900 for high contrast text */
-     --text-mid:   #475569; /* Slate 600 */
-     --text-lo:    #64748b; /* Slate 500 */
+     --bg:         #0f172a; /* Slate 900 */
+     --bg2:        #1e293b; /* Slate 800 */
+     --bg3:        #334155; /* Slate 700 */
+     --cyan:       #38bdf8; /* Sky 400 */
+     --cyan-dim:   rgba(56, 189, 248, 0.5);
+     --purple:     #94a3b8; /* Slate 400 */
+     --purple-dim: rgba(148, 163, 184, 0.5);
+     --accent:     #38bdf8; 
+     --text-hi:    #f8fafc; /* Slate 50 */
+     --text-mid:   #cbd5e1; /* Slate 300 */
+     --text-lo:    #94a3b8; /* Slate 400 */
      --nav-h:      72px;    /* Slightly taller for premium feel */
      --sidebar-w:  0px;
      --max-w:      1280px;
      --section-pad: 120px 0; /* More breathing room */
-     --glass:      #ffffff;
-     --glass-border: rgba(0, 0, 0, 0.08);
+     --glass:      rgba(30, 41, 59, 0.7);
+     --glass-border: rgba(255, 255, 255, 0.1);
    }
    
    html { scroll-behavior: smooth; }
@@ -85,10 +85,10 @@
      top: 0; left: 0; right: 0;
      height: var(--nav-h);
      z-index: 100;
-     background: rgba(255, 255, 255, 0.95);
+     background: rgba(15, 23, 42, 0.85); /* Dark bg */
      backdrop-filter: blur(20px);
      -webkit-backdrop-filter: blur(20px);
-     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
      display: flex;
      align-items: center;
    }
@@ -97,7 +97,7 @@
      position: absolute;
      bottom: 0; left: 0; right: 0;
      height: 1px;
-     background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.2), rgba(2, 132, 199, 0.2), transparent);
+     background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.2), transparent);
    }
    .nav-inner {
      display: flex;
@@ -657,9 +657,9 @@
    
     /* ── Premium Components ── */
     .card-premium {
-      background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.025);
+      background: var(--bg2);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.25);
       border-radius: 12px;
       padding: 32px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -667,10 +667,10 @@
       overflow: hidden;
     }
     .card-premium:hover {
-      border-color: rgba(0, 0, 0, 0.1);
-      background: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+      background: var(--bg3);
       transform: translateY(-4px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
     }
     
     .btn-premium {
@@ -680,21 +680,21 @@
       gap: 10px;
       padding: 14px 28px;
       background: var(--cyan);
-      color: #ffffff;
+      color: #0f172a;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       font-size: 0.9rem;
       border-radius: 6px;
       transition: all 0.3s ease;
       border: 1px solid var(--cyan);
-      box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
+      box-shadow: 0 2px 4px rgba(56, 189, 248, 0.2);
     }
     .btn-premium:hover {
-      background: #0369a1;
-      border-color: #0369a1;
-      color: #ffffff;
+      background: #7dd3fc;
+      border-color: #7dd3fc;
+      color: #0f172a;
       transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.3);
+      box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.3);
     }
     .btn-premium.outline {
       background: transparent;
