@@ -7,27 +7,27 @@
 
    /* ── CSS Variables ── */
    :root {
-     --bg:          #0f172a;
-     --bg2:         #1e293b;
-     --bg3:         #334155;
-     --panel:       rgba(30, 41, 59, 0.7);
-     --panel-hi:    rgba(30, 41, 59, 0.9);
-     --cyan:        #38bdf8;
-     --cyan2:       #0ea5e9;
-     --cyan-dim:    rgba(56, 189, 248, 0.45);
-     --cyan-faint:  rgba(56, 189, 248, 0.12);
-     --purple:      #94a3b8;
-     --purple2:     #64748b;
-     --purple-dim:  rgba(148, 163, 184, 0.45);
-     --purple-faint:rgba(148, 163, 184, 0.1);
-     --pink:        #f43f5e;
-     --text-hi:     #f8fafc;
-     --text-mid:    #cbd5e1;
-     --text-lo:     #94a3b8;
-     --border:      rgba(255, 255, 255, 0.1);
-     --border-mid:  rgba(255, 255, 255, 0.15);
-     --border-hi:   rgba(255, 255, 255, 0.3);
-     --dot-col:     rgba(255, 255, 255, 0.05);
+     --bg:          #FAF9F6;
+     --bg2:         #FFFFFF;
+     --bg3:         #F3F4F6;
+     --panel:       rgba(255, 255, 255, 0.8);
+     --panel-hi:    rgba(255, 255, 255, 0.95);
+     --cyan:        #0F766E;
+     --cyan2:       #0D635D;
+     --cyan-dim:    rgba(15, 118, 110, 0.45);
+     --cyan-faint:  rgba(15, 118, 110, 0.12);
+     --purple:      #D97706;
+     --purple2:     #B45309;
+     --purple-dim:  rgba(217, 119, 6, 0.45);
+     --purple-faint:rgba(217, 119, 6, 0.1);
+     --pink:        #F97316;
+     --text-hi:     #111827;
+     --text-mid:    #4B5563;
+     --text-lo:     #6B7280;
+     --border:      rgba(0, 0, 0, 0.08); /* Soft dark border */
+     --border-mid:  rgba(0, 0, 0, 0.12);
+     --border-hi:   rgba(0, 0, 0, 0.2);
+     --dot-col:     rgba(0, 0, 0, 0.05);
    }
    
    /* ── Reset ── */
