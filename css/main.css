@@ -1,0 +1,40 @@
+:root {
+  --navy-bg: #0F172A;
+  --white-text: #FFFFFF;
+  --prof-blue: #2563EB;
+  --muted-grey: #94A3B8;
+  
+  --font-main: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--navy-bg);
+  color: var(--white-text);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--white-text);
+}

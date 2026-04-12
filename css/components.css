@@ -1,0 +1,119 @@
+/* Typography utilities */
+.text-blue { color: var(--prof-blue); }
+.text-grey { color: var(--muted-grey); }
+.text-small { font-size: 0.85rem; }
+
+/* Buttons */
+.btn-primary {
+  display: inline-block;
+  background: var(--prof-blue);
+  color: var(--white-text);
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--white-text);
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--muted-grey);
+  font-weight: 600;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--white-text);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Insight Cards */
+.insight-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.insight-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+/* Tabs */
+.tabs-header {
+  display: flex;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  background: none;
+  color: var(--muted-grey);
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn:hover {
+  color: var(--white-text);
+}
+
+.tab-btn.active {
+  color: var(--white-text);
+  border-bottom-color: var(--prof-blue);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard Switcher */
+.dashboard-switcher {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.dash-btn {
+  background: rgba(255,255,255,0.05);
+  color: var(--muted-grey);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+}
+
+.dash-btn.active {
+  background: var(--prof-blue);
+  color: var(--white-text);
+  border-color: var(--prof-blue);
+}
+
+iframe.dashboard-frame {
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}

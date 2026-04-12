@@ -1,370 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="qeIMuF4gVJevD8eRqrflDUhsVexAJHcaQvnSKFsqKyQ" />
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="google-site-verification" content="44tjBEMk739FBWKaSV65wHnllPRaCu5s9x8wffFD53A" />
-  <!-- Standard favicons -->
-  <link rel="icon" type="image/x-icon"          href="favicon.ico"/>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="icon" type="image/png" sizes="16x16"  href="favicon-16x16.png"/>
-  <link rel="icon" type="image/png" sizes="32x32"  href="favicon-32x32.png"/>
-
-  <!-- Apple Touch Icon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-
-  <!-- Android / PWA -->
-  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png"/>
-  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png"/>
-
-  <!-- Web App Manifest -->
-  <link rel="manifest" href="site.webmanifest"/>
-
-  <!-- Theme color (browser chrome on mobile) -->
-  <meta name="theme-color" content="#FAF9F6"/>
-  <meta name="msapplication-TileColor" content="#FAF9F6"/>
-  <meta name="msapplication-TileImage" content="android-chrome-192x192.png"/>
-
-  <!-- Open Graph preview image -->
-  <meta property="og:image"        content="android-chrome-512x512.png"/>
-  <meta property="og:image:width"  content="512"/>
-  <meta property="og:image:height" content="512"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sujit Murari | Business Analytics Portfolio</title>
-
-  <!-- ── LCP Fix: preconnect to font origins ── -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-
-  <!-- ── LCP Fix: preload critical CSS so render isn't blocked ── -->
-  <!-- Standard fonts imported via style.css -->
-
-  <link rel="stylesheet" href="css/style.css?v=3.0"/>
   
-  <!-- ── Defer Chart.js — not needed for LCP ── -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div id="loader" style="position:fixed;inset:0;z-index:999;background:#111827;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
-  <div style="font-family:'Inter', sans-serif;font-weight:600;font-size:0.7rem;letter-spacing:0.2em;color:#475569;">BUSINESS ANALYTICS PORTFOLIO</div>
-  <div style="font-family:'Inter', sans-serif;font-size:2rem;font-weight:800;color:#FAF9F6;">SUJIT MURARI</div>
-  <div style="width:300px;height:3px;background:rgba(2,132,199,0.1);border-radius:2px;overflow:hidden;">
-    <div class="loader-bar-fill" style="height:100%;width:0%;background:#0284c7;transition:width 0.1s;"></div>
-  </div>
-</div>
+  <header>
+    <div class="container nav-inner">
+      <div class="logo">
+        <a href="#hero" style="font-weight: 700; font-size: 1.2rem; letter-spacing: 0.1em;">SUJIT<span class="text-grey">:</span>MURARI</a>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="active">Overview</a></li>
+          <li><a href="#projects">Case Summaries</a></li>
+          <li><a href="#dashboards">Dashboards</a></li>
+          <li><a href="#tools">Toolkit</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<!-- Background -->
-
-
-<!-- Navigation -->
-<nav id="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-mark">SM</div>
-      <span class="nav-logo-text">SUJIT<span>:</span>MURARI</span>
-    </a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="dashboards.html">Dashboards</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-
-    <!-- Removed Specialty Bar -->
-    <div style="height:20px;"></div>
-
-<!-- Main Content -->
-<main class="page-content">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content" data-reveal>
-          <div class="hero-eyebrow">STRATEGIC BUSINESS INTELLIGENCE</div>
-          <h1 class="hero-name" style="margin-bottom:12px;">SUJIT <span class="text-gradient">MURARI</span></h1>
-          <div class="hero-title" style="font-size:1.3rem;font-weight:500;margin-bottom:24px;">
-            Business Data Analyst <span style="color:var(--text-lo); margin:0 8px;">|</span> Data Visualization <span style="color:var(--text-lo); margin:0 8px;">|</span> Predictive Analytics
-          </div>
-          <p class="hero-subtitle" style="font-size:1.15rem;max-width:600px;margin-bottom:48px;">Bridging the gap between raw data and executive decisions. Identifying key business trends, driving strategy, and specializing in high-impact insights for modern enterprises.</p>
+  <main>
+    <!-- HERO SECTION -->
+    <section id="hero" style="padding-top: 10rem;">
+      <div class="container grid-2">
+        <div class="hero-left">
+          <h1 class="mb-2" style="font-size: 3rem;">Driving Revenue & Decisions Through <span class="text-blue">Data Analytics</span></h1>
+          <p class="text-grey mb-4" style="font-size: 1.2rem;">Specializing in Time-Series Forecasting, Pricing Optimization, and Interactive Dashboards for high-growth enterprises.</p>
           
-          <div class="hero-btns" style="display:flex;gap:16px;">
-            <a href="projects.html" class="btn-premium">Explore Portfolio →</a>
-            <a href="dashboards.html" class="btn-premium outline">View Dashboards</a>
-            <a href="resume.html" class="btn-tertiary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              Download Resume
-            </a>
+          <div class="kpi-row mb-4" style="display: flex; gap: 2rem;">
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 700;">2.4M+</div>
+              <div class="text-small text-grey">Records Analyzed</div>
+            </div>
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 700;">10+</div>
+              <div class="text-small text-grey">Dashboards Built</div>
+            </div>
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 700;">3</div>
+              <div class="text-small text-grey">Business Domains</div>
+            </div>
           </div>
 
-          <div class="hero-tags" style="margin-top:60px;opacity:0.8;">
-            <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;color:var(--text-lo);margin-right:16px;text-transform:uppercase;">TECH STACK</span>
-            <span class="hero-tag">Tableau</span>
-            <span class="hero-tag">SQL</span>
-            <span class="hero-tag">Python</span>
-            <span class="hero-tag">Power BI</span>
-            <span class="hero-tag">Statistics</span>
+          <div>
+            <a href="#projects" class="btn-primary" style="margin-right: 1rem;">View Case Studies</a>
+            <a href="#dashboards" class="btn-secondary">Explore Dashboards</a>
           </div>
         </div>
 
-        <div class="hero-dashboard-preview" data-reveal data-delay="200">
-          <div class="mini-dashboard">
-            <div class="md-header">
-              <div class="md-title">Executive Performance KPI</div>
-              <div class="md-dot-group" style="display:flex; gap:6px;">
-                <div style="width:8px; height:8px; border-radius:50%; background:#ef4444;"></div>
-                <div style="width:8px; height:8px; border-radius:50%; background:#f59e0b;"></div>
-                <div style="width:8px; height:8px; border-radius:50%; background:#10b981;"></div>
-              </div>
-            </div>
-            <div class="md-kpi-row">
-              <div class="md-kpi">
-                <span style="font-size:0.75rem; color:var(--text-lo); text-transform:uppercase; letter-spacing:0.05em;">Revenue Growth</span>
-                <span class="md-kpi-val">+24.8%</span>
-                <div class="md-kpi-bar-bg" style="width:100%; height:4px; background:rgba(0,0,0,0.05); margin-top:8px; border-radius:2px; overflow:hidden;">
-                  <div class="md-kpi-bar-fill" style="width:75%; height:100%; background:var(--cyan);"></div>
-                </div>
-              </div>
-              <div class="md-kpi">
-                <span style="font-size:0.75rem; color:var(--text-lo); text-transform:uppercase; letter-spacing:0.05em;">Avg. Conversion</span>
-                <span class="md-kpi-val">12.4%</span>
-                <div class="md-kpi-bar-bg" style="width:100%; height:4px; background:rgba(0,0,0,0.05); margin-top:8px; border-radius:2px; overflow:hidden;">
-                  <div class="md-kpi-bar-fill" style="width:60%; height:100%; background:var(--purple);"></div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="md-chart-section">
-              <span style="font-size:0.75rem; color:var(--text-lo); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:block;">Q3 Trend Overview</span>
-              <div style="height:120px; display:flex; align-items:flex-end; gap:8px; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05);">
-                <div class="md-bar" style="height:40%; background:rgba(31, 122, 99, 0.4);"></div>
-                <div class="md-bar" style="height:55%; background:rgba(31, 122, 99, 0.5);"></div>
-                <div class="md-bar" style="height:45%; background:rgba(31, 122, 99, 0.6);"></div>
-                <div class="md-bar" style="height:70%; background:rgba(31, 122, 99, 0.7);"></div>
-                <div class="md-bar" style="height:60%; background:rgba(31, 122, 99, 0.8);"></div>
-                <div class="md-bar" style="height:85%; background:rgba(31, 122, 99, 0.9);"></div>
-                <div class="md-bar" style="height:100%; background:var(--text-hi);"></div>
+        <div class="hero-right">
+          <div class="insight-card">
+            <div class="text-small text-grey mb-1">FEATURED INSIGHT</div>
+            <h3 class="mb-2">Operational Analytics</h3>
+            <p class="mb-3 text-grey">Identified operational friction points in logistics data causing early vendor churn.</p>
+            <ul class="mb-4" style="list-style: none;">
+              <li class="mb-1">🔹 <strong>Correlation:</strong> 42% lower churn for tracked orders</li>
+              <li>🔹 <strong>Recommendation:</strong> Mandate real-time tracking</li>
+            </ul>
+            <a href="#projects" class="text-blue" style="font-weight: 600;">View Case Study →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" style="background: rgba(255,255,255,0.01);">
+      <div class="container">
+        <h2 class="mb-4" style="font-size: 2.5rem;">Executive Case Summaries</h2>
+        <div class="grid-2">
+          <div id="projects-container">
+            <!-- Dynamic project list -->
+          </div>
+          <div id="casestudy-section" style="position: sticky; top: 100px; height: fit-content;">
+            <div class="insight-card">
+              <h3 class="mb-3">Interactive Case Study</h3>
+              <p class="text-grey mb-3">Select a case study from the left to view detailed problem, data, and recommendations.</p>
+              <div id="casestudy-container">
+                <!-- Dynamic tabs -->
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- IMPACT & KPIS -->
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="section-header-premium" data-reveal>
-        <div class="badge-premium mb-16">Analytical Impact</div>
-        <h2>Quantifying <span class="text-gradient">Results</span></h2>
-        <p>A snapshot of my commitment to data excellence and continuous learning in the field of Business Analytics.</p>
-      </div>
-      
-      <div class="kpi-grid" data-reveal>
-        <div class="kpi-card">
-          <span class="kpi-value" data-count="8">0</span>
-          <div class="kpi-label">Projects</div>
-          <div class="kpi-sublabel">Analytical Case Studies</div>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value" data-count="15">0</span>
-          <div class="kpi-label">Datasets</div>
-          <div class="kpi-sublabel">Business Data Sources</div>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value" data-count="6">0</span>
-          <div class="kpi-label">Dashboards</div>
-          <div class="kpi-sublabel">Interactive BI Solutions</div>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value" data-count="7">0</span>
-          <div class="kpi-label">Core Tools</div>
-          <div class="kpi-sublabel">Analytics Ecosystem</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DOMAINS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header-premium" data-reveal>
-        <div class="badge-premium mb-16">Areas of Expertise</div>
-        <h2>Specialization <span class="text-gradient">Domains</span></h2>
-        <p>Combining technical proficiency with business acumen to deliver actionable intelligence.</p>
-      </div>
-      
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
-        <div class="card-premium" data-reveal>
-          <div style="font-size:2rem;margin-bottom:20px;">📊</div>
-          <h3 class="mb-12">Data Visualization</h3>
-          <p class="mb-24">Building executive-grade BI solutions that transform complex data into clear, actionable visual narratives for decision-makers.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;">
-            <span class="hero-tag">Tableau</span>
-            <span class="hero-tag">Power BI</span>
-            <span class="hero-tag">D3.js</span>
-          </div>
+    <!-- DASHBOARDS SECTION -->
+    <section id="dashboards">
+      <div class="container">
+        <h2 class="mb-4" style="font-size: 2.5rem;">Interactive Business Dashboards</h2>
+        <div id="dashboard-switcher" class="dashboard-switcher">
+          <!-- Dynamic Buttons -->
         </div>
         
-        <div class="card-premium" data-reveal data-delay="100">
-          <div style="font-size:2rem;margin-bottom:20px;">🧪</div>
-          <h3 class="mb-12">Statistical Analysis</h3>
-          <p class="mb-24">Leveraging rigorous statistical methods—regression, hypothesis testing, and forecasting—to validate business assumptions with data.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;">
-            <span class="hero-tag">Python</span>
-            <span class="hero-tag">R</span>
-            <span class="hero-tag">SciPy</span>
+        <div class="grid-2" style="align-items: start;">
+          <div id="dashboard-context" class="insight-card">
+            <!-- Dynamic context -->
           </div>
-        </div>
-
-        <div class="card-premium" data-reveal data-delay="200">
-          <div style="font-size:2rem;margin-bottom:20px;">🛡️</div>
-          <h3 class="mb-12">Business Strategy</h3>
-          <p class="mb-24">Interpreting analytical outputs through a strategic lens to solve real-world problems in operations, finance, and marketing.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;">
-            <span class="hero-tag">SQL</span>
-            <span class="hero-tag">Excel</span>
-            <span class="hero-tag">Analytics</span>
+          <div>
+            <iframe id="dashboard-frame" class="dashboard-frame"></iframe>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ANALYTICS SKILLS -->
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="section-header-premium" data-reveal>
-        <div class="badge-premium mb-16">Technical Stack</div>
-        <h2>Professional <span class="text-gradient">Capabilities</span></h2>
-        <p>A comprehensive toolkit for full-cycle data analysis, from extraction to executive insight.</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;" data-reveal>
-        <!-- Data Analysis -->
-        <div class="card-premium">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-            <span style="font-size:1.8rem;">🐍</span>
-            <h4 style="margin:0;">Data Analysis</h4>
+    <!-- TOOLS SECTION -->
+    <section id="tools" style="background: rgba(255,255,255,0.01);">
+      <div class="container">
+        <h2 class="mb-4" style="font-size: 2.5rem;">Tools for Business Decision Support</h2>
+        <div class="grid-3">
+          <div class="insight-card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🗄️</div>
+            <h3 class="mb-2">Data Processing</h3>
+            <p class="text-grey mb-2">Extraction, transformation, and load for massive datasets.</p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">SQL</span>
+              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Excel / VBA</span>
+            </div>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-            <span class="hero-tag">Python</span><span class="hero-tag">Pandas</span><span class="hero-tag">NumPy</span><span class="hero-tag">EDA</span>
+          <div class="insight-card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🐍</div>
+            <h3 class="mb-2">Analysis</h3>
+            <p class="text-grey mb-2">Statistical testing, predictive modeling, and EDA.</p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Python</span>
+              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Pandas / NumPy</span>
+            </div>
           </div>
-          <p style="font-size:0.9rem;color:var(--text-lo);">Specializing in missing value treatment, outlier detection, and feature engineering for predictive modeling.</p>
-        </div>
-
-        <!-- Visualization -->
-        <div class="card-premium">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-            <span style="font-size:1.8rem;">📊</span>
-            <h4 style="margin:0;">BI & Visualization</h4>
+          <div class="insight-card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">📊</div>
+            <h3 class="mb-2">Visualization</h3>
+            <p class="text-grey mb-2">Executive KPI reporting and story-driven views.</p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Tableau</span>
+              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Power BI</span>
+            </div>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-            <span class="hero-tag">Tableau</span><span class="hero-tag">Power BI</span><span class="hero-tag">KPI Charts</span><span class="hero-tag">LODs</span>
-          </div>
-          <p style="font-size:0.9rem;color:var(--text-lo);">Creating interactive executive dashboards that highlight key performance indicators and trends.</p>
-        </div>
-
-        <!-- Database -->
-        <div class="card-premium">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-            <span style="font-size:1.8rem;">🗄️</span>
-            <h4 style="margin:0;">Database & SQL</h4>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-            <span class="hero-tag">MySQL</span><span class="hero-tag">CTEs</span><span class="hero-tag">Joins</span><span class="hero-tag">Windows</span>
-          </div>
-          <p style="font-size:0.9rem;color:var(--text-lo);">Efficient data extraction and transformation using advanced SQL techniques for large-scale datasets.</p>
         </div>
       </div>
+    </section>
+  </main>
 
-      <!-- Analytical workflow strip -->
-      <div class="card-premium" style="margin-top:24px;padding:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;" data-reveal>
-        <div style="font-size:0.75rem;font-weight:800;color:var(--cyan);letter-spacing:0.1em;text-transform:uppercase;">Workflow</div>
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:600;font-size:0.85rem;color:var(--text-mid);">
-          <span>Problem Discovery</span> <span style="color:var(--text-lo);">→</span>
-          <span>Data Ingestion</span> <span style="color:var(--text-lo);">→</span>
-          <span>Exploratory Analysis</span> <span style="color:var(--text-lo);">→</span>
-          <span style="color:var(--cyan);">Informed Recommendations</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <footer style="text-align: center; padding: 2rem; border-top: 1px solid rgba(148,163,184,0.1);">
+    <p class="text-small text-grey">© 2026 Sujit Murari | Decision Support Interface</p>
+  </footer>
 
-  <!-- FEATURED WORK -->
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="section-header-premium" data-reveal>
-        <div class="badge-premium mb-16">Case Study Highlight</div>
-        <h2>Enterprise <span class="text-gradient">Solutions</span></h2>
-      </div>
-      
-      <div class="card-premium" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:64px;" data-reveal>
-        <div class="case-study-visual" style="aspect-ratio:4/3;background:var(--bg2);border-radius:16px;border:1px solid var(--glass-border);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-          <div style="text-align:center;z-index:2;">
-            <div style="font-size:4rem;margin-bottom:16px;">📈</div>
-            <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--cyan);letter-spacing:0.2em;font-weight:700;">ZOMATO GROWTH ANALYSIS</div>
-          </div>
-        </div>
-        <div>
-          <h3 style="font-size:2.4rem;margin-bottom:24px;line-height:1.2;">Zomato Insights & Growth Recommendation</h3>
-          <p class="mb-40" style="font-size:1.15rem;color:var(--text-mid);">A deep dive into restaurant marketplace dynamics, identifying core growth pillars and predictive churn factors using statistical regression and comprehensive EDA.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:48px;">
-            <span class="hero-tag">SQL</span><span class="hero-tag">Python</span><span class="hero-tag">EDA</span><span class="hero-tag">Statistical Modeling</span>
-          </div>
-          <a href="case-study.html" class="btn-premium">Read Full Case Study →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section">
-    <div class="container" style="text-align:center;" data-reveal>
-      <div class="card-premium" style="padding:100px 48px;max-width:900px;margin:0 auto;">
-        <div class="badge-premium mb-24">Contact & Collaboration</div>
-        <h2 style="font-size:3.5rem;margin-bottom:24px;line-height:1.1;">Translating Data into <span class="text-gradient">Action</span></h2>
-        <p style="font-size:1.25rem;max-width:600px;margin:0 auto 48px;color:var(--text-mid);">Ready to bring analytical precision to your next business challenge. Open to internships, collaborative projects, and data consulting opportunities.</p>
-        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
-          <a href="contact.html" class="btn-premium">Get In Touch →</a>
-          <a href="about.html" class="btn-premium outline">Learn More About Sujit</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- Footer -->
-<footer id="footer">
-  <div class="container">
-    <p style="font-family:'Inter', sans-serif;font-weight:600;font-size: 0.8rem;letter-spacing:0.1em;color:var(--text-lo);">
-      SUJIT MURARI | BUSINESS ANALYTICS PORTFOLIO &nbsp;•&nbsp; 2026 &nbsp;•&nbsp; All rights reserved © Sujit Murari
-    </p>
-  </div>
-</footer>
-
-<script src="js/animations.js"></script>
-<script src="js/charts.js"></script>
-<script src="js/script.js"></script>
-<style>
-  @media (max-width: 768px) {
-    .hero-grid { grid-template-columns: 1fr !important; }
-  }
-</style>
-<script src="js/register-sw.js"></script>
-  </body>
+  <script type="module" src="js/main.js"></script>
+</body>
 </html>
