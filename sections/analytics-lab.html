@@ -1,43 +1,84 @@
 <section class="page-section fade-in">
-  <div class="container grid grid-cols-3">
+  <div class="container">
+    <div style="margin-bottom: 3rem; text-align: left; border-bottom: 1px solid var(--prof-blue); padding-bottom: 1rem; display: inline-block;">
+      <h2 style="font-size: 2.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: monospace; display: flex; align-items: center; gap: 1rem;">
+        <span style="color: var(--prof-blue);">&gt;_</span> DATASET DIRECTORY
+      </h2>
+      <p class="text-grey" style="font-family: monospace; max-width: 600px; margin-top: 1rem;">
+        [ SECURE STORAGE // RAW CSV FILES USED FOR ANALYSIS ]
+      </p>
+    </div>
     
-    <!-- Sidebar -->
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Analytics Lab</h2>
-      <p class="text-grey text-small mb-2">Raw dataset previews used in the portfolio case studies.</p>
+    <div class="grid grid-cols-2 gap-4">
       
-      <div id="lab-nav" style="display: flex; flex-direction: column; gap: 0.5rem;">
-        <button class="btn btn-secondary dataset-btn active" data-file="flights.csv" style="justify-content: flex-start; text-align: left; border-color: var(--prof-blue);">Aviation Pricing</button>
-        <button class="btn btn-secondary dataset-btn" data-file="ecommerce.csv" style="justify-content: flex-start; text-align: left;">E-Commerce Sales</button>
-        <button class="btn btn-secondary dataset-btn" data-file="gym-performance.csv" style="justify-content: flex-start; text-align: left;">Gym Performance</button>
-        <button class="btn btn-secondary dataset-btn" data-file="ai-productivity.csv" style="justify-content: flex-start; text-align: left;">AI Productivity</button>
+      <!-- Dataset 1 -->
+      <div class="card" style="font-family: monospace;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+          <h3 style="color: var(--prof-blue); font-size: 1rem; margin: 0;">flights.csv</h3>
+          <span style="color: var(--muted-grey); font-size: 0.8rem;">300K+ rows</span>
+        </div>
+        <p class="text-grey text-small mb-3">Historical pricing data, passenger volumes, routes, and segment duration.</p>
+        <div class="data-table-wrapper" style="max-height: 150px; overflow-y: auto;">
+          <table class="data-table" style="font-size: 0.75rem;">
+            <tr><th>DEST</th><th>DUR</th><th>STOPS</th><th>PRICE</th></tr>
+            <tr><td>NYC</td><td>180</td><td>0</td><td>$250</td></tr>
+            <tr><td>LAX</td><td>320</td><td>1</td><td>$320</td></tr>
+            <tr><td>ORD</td><td>120</td><td>0</td><td>$180</td></tr>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <!-- Main Content -->
-    <div style="grid-column: span 2;" class="card">
-      <div class="flex justify-between items-center mb-3">
-        <h3 id="dataset-title">Dataset Preview</h3>
-        <div class="badge">Top 20 Rows</div>
+      <!-- Dataset 2 -->
+      <div class="card" style="font-family: monospace;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+          <h3 style="color: var(--prof-blue); font-size: 1rem; margin: 0;">ecommerce.csv</h3>
+          <span style="color: var(--muted-grey); font-size: 0.8rem;">100K+ rows</span>
+        </div>
+        <p class="text-grey text-small mb-3">Transactional data, discount elasticity, cart sizes, and categorical margins.</p>
+        <div class="data-table-wrapper" style="max-height: 150px; overflow-y: auto;">
+          <table class="data-table" style="font-size: 0.75rem;">
+            <tr><th>SKU</th><th>CAT</th><th>DISCOUNT</th><th>MARGIN</th></tr>
+            <tr><td>E-01</td><td>Elec</td><td>15%</td><td>-2%</td></tr>
+            <tr><td>F-44</td><td>Fash</td><td>25%</td><td>18%</td></tr>
+            <tr><td>A-12</td><td>Acc</td><td>0%</td><td>45%</td></tr>
+          </table>
+        </div>
       </div>
-      
-      <div class="form-group mb-3" style="max-width: 300px;">
-        <input type="text" id="dataset-filter" class="form-control" placeholder="Filter rows...">
-      </div>
-      
-      <div class="data-table-wrapper">
-        <table class="data-table" id="dataset-table">
-          <thead>
-            <tr id="table-head">
-              <!-- Injected by JS -->
-            </tr>
-          </thead>
-          <tbody id="table-body">
-            <!-- Injected by JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
 
+      <!-- Dataset 3 -->
+      <div class="card" style="font-family: monospace;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+          <h3 style="color: var(--prof-blue); font-size: 1rem; margin: 0;">gym-performance.csv</h3>
+          <span style="color: var(--muted-grey); font-size: 0.8rem;">50K+ rows</span>
+        </div>
+        <p class="text-grey text-small mb-3">Member attendance logs, retention scores, and facility utilization by hour.</p>
+        <div class="data-table-wrapper" style="max-height: 150px; overflow-y: auto;">
+          <table class="data-table" style="font-size: 0.75rem;">
+            <tr><th>TIME</th><th>TRAFFIC</th><th>CHURN_RISK</th></tr>
+            <tr><td>17:00</td><td>High</td><td>0.85</td></tr>
+            <tr><td>12:00</td><td>Low</td><td>0.15</td></tr>
+            <tr><td>06:00</td><td>Med</td><td>0.20</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dataset 4 -->
+      <div class="card" style="font-family: monospace;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+          <h3 style="color: var(--prof-blue); font-size: 1rem; margin: 0;">ai-productivity.csv</h3>
+          <span style="color: var(--muted-grey); font-size: 0.8rem;">10K+ rows</span>
+        </div>
+        <p class="text-grey text-small mb-3">Employee cohort analysis matching AI tool usage against output KPIs.</p>
+        <div class="data-table-wrapper" style="max-height: 150px; overflow-y: auto;">
+          <table class="data-table" style="font-size: 0.75rem;">
+            <tr><th>DEP</th><th>AI_USAGE</th><th>KPI_LIFT</th></tr>
+            <tr><td>ENG</td><td>Freq</td><td>+22%</td></tr>
+            <tr><td>MKT</td><td>Rare</td><td>+4%</td></tr>
+            <tr><td>OPS</td><td>Med</td><td>+12%</td></tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>

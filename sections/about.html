@@ -1,68 +1,78 @@
-<section class="page-section fade-in" style="padding-top: 8rem;">
-  <div class="container grid grid-cols-2 items-center">
+<section class="page-section fade-in" style="padding-top: 6rem;">
+  <div class="container grid grid-cols-2 items-center gap-4">
     
-    <!-- LEFT SIDE: Hero Copy and KPIs -->
+    <!-- LEFT SIDE: Hero Copy -->
     <div class="hero-content">
-      <div class="badge mb-3"># BUSINESS ANALYTICS & STRATEGY</div>
-      <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem;">
-        Driving Revenue and Business Decisions Through Data Analytics
+      <div class="badge mb-3" style="font-family: monospace; border-color: var(--prof-blue); color: var(--prof-blue);">[STATUS: ONLINE]</div>
+      <h1 style="font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; color: #FFFFFF; letter-spacing: -0.02em;">
+        SUJIT MURARI
       </h1>
       
-      <p class="text-grey mb-4" style="font-size: 1.25rem;">
-        Pricing Strategy | Customer Analytics | Data Visualization
+      <p style="font-size: 1rem; font-family: monospace; color: var(--prof-blue); margin-bottom: 2rem; text-transform: uppercase;">
+        &gt; ANALYTICS / DATA INTELLIGENCE / BUSINESS DECISION SYSTEMS <span class="cursor-blink" style="animation: blink 1s step-end infinite;">_</span>
+      </p>
+      
+      <p class="text-grey mb-4" style="font-size: 1.1rem; max-width: 90%;">
+        Transforming raw data into actionable business intelligence using Tableau dashboards, Python analytics, SQL queries, and statistical modeling. Focused on Regression, Correlation, KPI systems, and decision-driven insights.
       </p>
 
-      <!-- KPI Row -->
-      <div class="kpi-row">
-        <div class="kpi-item">
-          <span class="kpi-value">10K+</span>
-          <span class="kpi-label">Records Analyzed</span>
-        </div>
-        <div class="kpi-item">
-          <span class="kpi-value">4</span>
-          <span class="kpi-label">Real Projects</span>
-        </div>
-        <div class="kpi-item">
-          <span class="kpi-value">4</span>
-          <span class="kpi-label">Interactive Dashboards</span>
-        </div>
-      </div>
-
       <!-- CTAs -->
-      <div class="flex flex-wrap gap-2">
-        <a href="#case-studies" class="btn btn-primary" style="flex: 1; min-width: 200px;">View Case Studies</a>
-        <a href="#dashboards" class="btn btn-secondary" style="flex: 1; min-width: 200px;">Explore Dashboards</a>
+      <div class="flex flex-wrap gap-2 mt-4" style="font-family: monospace;">
+        <a href="#projects" class="btn btn-primary" style="min-width: 160px;">[ View Projects ]</a>
+        <a href="#dashboards" class="btn btn-secondary" style="min-width: 160px;">[ View Dashboards ]</a>
+        <a href="#" class="btn btn-secondary" style="min-width: 140px;">LinkedIn</a>
+        <a href="#" class="btn btn-secondary" style="min-width: 140px;">Resume</a>
       </div>
     </div>
 
     <!-- RIGHT SIDE: Project Insight Card -->
-    <div class="hero-visual" style="display: flex; justify-content: center;">
-      <div class="card" style="width: 100%; max-width: 450px; position: relative;">
-        <!-- Decoration -->
-        <div style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; background-color: var(--prof-blue); opacity: 0.2; border-radius: 50%; filter: blur(20px);"></div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-          <div class="text-small text-blue" style="font-weight: 600; text-transform: uppercase;">Executive Insight</div>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted-grey)" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M12 16v-4"></path>
-            <path d="M12 8h.01"></path>
-          </svg>
+    <div class="hero-visual" style="display: flex; justify-content: center; position: relative;">
+      <div class="card" style="width: 100%; max-width: 480px; position: relative; border-color: var(--border-subtle); background: var(--card-bg);">
+        <!-- Terminal Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+          <div style="font-family: monospace; color: var(--prof-blue); font-size: 0.8rem; text-transform: uppercase;">sys.insight.req</div>
+          <div style="display: flex; gap: 0.25rem;">
+            <div style="width: 8px; height: 8px; background: var(--border-subtle);"></div>
+            <div style="width: 8px; height: 8px; background: var(--border-subtle);"></div>
+            <div style="width: 8px; height: 8px; background: var(--prof-blue);"></div>
+          </div>
         </div>
         
-        <h3>Airline Pricing Analysis</h3>
+        <h3 style="font-family: 'Inter', monospace; margin-bottom: 1.5rem; text-transform: uppercase;">Airline Pricing Analysis</h3>
         
-        <ul style="margin: 1.5rem 0; padding-left: 1.25rem; color: var(--muted-grey);" class="grid gap-1 text-small flex-col">
-          <li style="list-style-type: disc;">Price increases ~20% with stops</li>
-          <li style="list-style-type: disc;">Duration correlation (r &approx; 0.65)</li>
+        <ul style="margin: 1.5rem 0; padding-left: 1.5rem; color: var(--white-text);" class="grid gap-1 flex-col font-mono text-small">
+          <li style="list-style-type: square; color: var(--muted-grey);"><span style="color: var(--white-text);">Price increases ~20% with stops</span></li>
+          <li style="list-style-type: square; color: var(--muted-grey);"><span style="color: var(--white-text);">Duration correlates with price (r &approx; 0.65)</span></li>
         </ul>
         
-        <div style="background-color: var(--navy-bg); border: 1px solid var(--border-subtle); padding: 1rem; border-radius: 4px;">
-          <div class="text-small" style="color: var(--success-green); font-weight: 600; margin-bottom: 0.25rem;">Recommendation</div>
-          <p style="font-size: 0.875rem;">Implement dynamic pricing models based on duration/stop thresholds to capture 15% missed revenue.</p>
+        <div style="background-color: transparent; border-left: 2px solid var(--prof-blue); padding: 1rem 1.5rem; margin-top: 2rem;">
+          <div class="text-small" style="color: var(--prof-blue); font-family: monospace; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">&gt; Recommendation</div>
+          <p style="font-size: 0.9rem; font-family: monospace; color: #E5E7EB; line-height: 1.5;">Dynamic pricing strategy based on stop-penalties and duration clustering to recapture 15% missed revenue.</p>
+        </div>
+
+        <div style="margin-top: 2rem; text-align: right;">
+          <a href="#case-studies" style="font-family: monospace; color: var(--prof-blue); font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid var(--prof-blue); padding-bottom: 2px;">[View Case Study &rarr;]</a>
         </div>
       </div>
     </div>
 
   </div>
+  
+  <!-- Data Strip Metrics Bar Below Hero -->
+  <div class="container" style="margin-top: 4rem;">
+    <div style="background: rgba(163, 255, 18, 0.03); border: 1px solid var(--prof-blue); padding: 1rem; text-align: center; font-family: monospace; color: var(--prof-blue); font-size: 0.9rem; letter-spacing: 0.1em; display: flex; justify-content: space-around; flex-wrap: wrap; box-shadow: 0 0 10px rgba(163, 255, 18, 0.1) inset;">
+      <span>PROJECTS: 04</span>
+      <span style="opacity: 0.5;">|</span>
+      <span>SKILLS: 12+</span>
+      <span style="opacity: 0.5;">|</span>
+      <span>DASHBOARDS: 04</span>
+      <span style="opacity: 0.5;">|</span>
+      <span>STATUS: <span style="animation: blink 2s step-end infinite;">OPEN</span></span>
+    </div>
+  </div>
 </section>
+
+<style>
+  @keyframes blink { 50% { opacity: 0; } }
+  .font-mono { font-family: monospace; }
+</style>

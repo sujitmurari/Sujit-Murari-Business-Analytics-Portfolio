@@ -1,9 +1,11 @@
 <section class="page-section fade-in">
   <div class="container dashboard-container">
     
-    <div class="dashboard-header">
-      <h2 style="font-size: 2.5rem;">Interactive Business Dashboards</h2>
-      <p class="text-grey mb-3">Live decision-support interfaces built in Tableau. Select a dashboard below to interact.</p>
+    <div class="dashboard-header" style="border-bottom: 2px solid var(--border-subtle); padding-bottom: 1rem;">
+      <h2 style="font-size: 2.5rem; font-family: monospace; text-transform: uppercase;">
+        <span style="color: var(--prof-blue);">&gt;_</span> Interactive Dashboards
+      </h2>
+      <p class="text-grey mb-3" style="font-family: monospace;">[ LIVE DECISION-SUPPORT INTERFACES // SELECT A NODE TO INTERACT ]</p>
       
       <!-- Dashboard Selector Buttons -->
       <div id="dashboard-nav" class="dashboard-selector">
@@ -12,28 +14,29 @@
     </div>
     
     <!-- Meta Info Ribbon -->
-    <div id="dashboard-metadata" class="dashboard-meta">
+    <div id="dashboard-metadata" class="dashboard-meta" style="font-family: monospace;">
       <div class="meta-item">
-        <h4>Key Insight</h4>
+        <h4>&gt; KEY INSIGHT</h4>
         <p id="meta-insight" class="text-white">Loading...</p>
       </div>
       <div class="meta-item">
-        <h4>Business Use Case</h4>
+        <h4>&gt; USE CASE</h4>
         <p id="meta-usecase" class="text-white">Loading...</p>
       </div>
       <div class="meta-item decision">
-        <h4>Executive Decision</h4>
+        <h4>&gt; EXECUTIVE DECISION</h4>
         <p id="meta-decision">Loading...</p>
       </div>
     </div>
 
     <!-- The actual iframe -->
-    <div class="iframe-container" style="position: relative;">
+    <div class="iframe-container" style="position: relative; border-color: var(--prof-blue); box-shadow: 0 0 20px rgba(163, 255, 18, 0.05);">
       <!-- Subtle internal loader -->
       <div id="iframe-loader" style="position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index: 1;">
          <div class="spinner"></div>
+         <div style="font-family: monospace; color: var(--prof-blue); margin-top: 1rem; text-align: center; font-size: 0.8rem; letter-spacing: 0.05em;">ESTABLISHING CONNECTION...</div>
       </div>
-      <iframe id="tableau-frame" src="" style="position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s ease;"></iframe>
+      <iframe id="tableau-frame" src="" style="position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s ease; background-color: var(--card-bg);"></iframe>
     </div>
 
   </div>

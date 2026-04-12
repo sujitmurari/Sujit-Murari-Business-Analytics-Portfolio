@@ -65,20 +65,26 @@ function renderProjects() {
   
   container.innerHTML = projects.map(p => `
     <div class="card fade-in">
-      <div class="text-small text-blue mb-1" style="font-weight: 600;">${p.domain}</div>
-      <h3 class="mb-2 flex items-center gap-1">${p.title} <span class="badge">Business Logic</span></h3>
-      <p class="mb-2"><strong class="text-white">Business Problem:</strong> <span class="text-grey">${p.problem}</span></p>
-      <p class="mb-2"><strong class="text-white">Data Asset:</strong> <span class="text-grey">${p.data}</span></p>
-      <p class="mb-2"><strong class="text-white">Analytical Method:</strong> <span class="text-grey">${p.method}</span></p>
+      <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+        <div class="text-small text-blue" style="font-weight: 600; font-family: monospace; text-transform: uppercase; letter-spacing: 0.05em;">[${p.domain}]</div>
+        <span class="badge" style="border-color: var(--prof-blue); color: var(--prof-blue);">&lt;sys.obj /&gt;</span>
+      </div>
+      <h3 class="mb-3" style="font-family: monospace; text-transform: uppercase;">${p.title}</h3>
       
-      <div class="insight-highlight mb-3">
-        <strong>Key Insight:</strong> ${p.insight}
+      <div style="font-family: monospace; font-size: 0.9rem; margin-bottom: 1.5rem;">
+        <p class="mb-1"><span class="text-blue">&gt; Problem:</span> <span class="text-white">${p.problem}</span></p>
+        <p class="mb-1"><span class="text-blue">&gt; Method:</span> <span class="text-grey">${p.method}</span></p>
       </div>
       
-      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-        <h4 style="font-size: 0.875rem; text-transform: uppercase; color: var(--muted-grey);">Decision & Expected Impact</h4>
-        <p class="mt-2 text-grey"><strong>Decision:</strong> ${p.decision}</p>
-        <p class="text-grey" style="color: var(--success-green); font-weight: 500;"><strong>Impact:</strong> ${p.impact}</p>
+      <div class="insight-highlight mb-3">
+        <span style="color: var(--prof-blue); text-transform: uppercase; font-weight: 700;">INSIGHT:</span> ${p.insight}
+      </div>
+      
+      <div style="border-top: 1px dotted var(--border-subtle); padding-top: 1rem; font-family: monospace; font-size: 0.9rem;">
+        <p class="mb-1"><span class="text-blue" style="text-transform: uppercase;">&gt; Recommendation:</span> <span class="text-grey">${p.decision}</span></p>
+        <div style="background-color: rgba(163, 255, 18, 0.1); padding: 0.5rem; margin-top: 0.5rem; border: 1px solid var(--prof-blue); color: var(--prof-blue);">
+          <strong>EXPECTED IMPACT:</strong> ${p.impact}
+        </div>
       </div>
     </div>
   `).join('');
