@@ -15,7 +15,8 @@ export function initRouter() {
 
     const app = document.getElementById('app');
     
-    // Show Loader
+    // Show Loader and explicitly clear old content
+    app.innerHTML = '';
     try {
       const loaderRes = await fetch('components/loader.html');
       app.innerHTML = await loaderRes.text();
@@ -65,7 +66,7 @@ function renderProjects() {
   container.innerHTML = projects.map(p => `
     <div class="card fade-in">
       <div class="text-small text-blue mb-1" style="font-weight: 600;">${p.domain}</div>
-      <h3 class="mb-2">${p.title}</h3>
+      <h3 class="mb-2 flex items-center gap-1">${p.title} <span class="badge">Business Logic</span></h3>
       <p class="mb-2"><strong class="text-white">Business Problem:</strong> <span class="text-grey">${p.problem}</span></p>
       <p class="mb-2"><strong class="text-white">Data Asset:</strong> <span class="text-grey">${p.data}</span></p>
       <p class="mb-2"><strong class="text-white">Analytical Method:</strong> <span class="text-grey">${p.method}</span></p>

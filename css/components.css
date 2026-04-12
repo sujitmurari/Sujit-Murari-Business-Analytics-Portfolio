@@ -201,3 +201,33 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: var(--navy-bg);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 0;
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+  
+  .nav-menu.nav-open {
+    transform: translateY(0);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .mobile-toggle {
+    display: block !important;
+  }
+}

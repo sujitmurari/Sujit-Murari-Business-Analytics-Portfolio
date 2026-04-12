@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center" style="height: 60px;">
       
       <!-- Brand -->
-      <a href="#about" class="text-white" style="font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+      <a href="#about" class="text-white" style="font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; z-index: 101;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--prof-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
           <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -12,25 +12,45 @@
       </a>
 
       <!-- Desktop Nav -->
-      <nav style="display: none; @media(min-width: 768px) { display: block; }">
-        <ul class="flex gap-2">
-          <li><a href="#about" style="font-weight: 500; font-size: 0.875rem;">Executive Overview</a></li>
-          <li><a href="#projects" style="font-weight: 500; font-size: 0.875rem;">Projects</a></li>
-          <li><a href="#case-studies" style="font-weight: 500; font-size: 0.875rem;">Case Studies</a></li>
-          <li><a href="#dashboards" style="font-weight: 500; font-size: 0.875rem;">Dashboards</a></li>
-          <li><a href="#analytics-lab" style="font-weight: 500; font-size: 0.875rem;">Analytics Lab</a></li>
-          <li><a href="#contact" style="font-weight: 500; font-size: 0.875rem; border: 1px solid var(--border-subtle); padding: 0.25rem 0.75rem; border-radius: 4px;">Contact</a></li>
+      <nav id="main-nav" class="nav-menu">
+        <ul class="flex gap-2 nav-list">
+          <li><a href="#about" class="nav-link" style="font-weight: 500; font-size: 0.875rem;">Executive Overview</a></li>
+          <li><a href="#projects" class="nav-link" style="font-weight: 500; font-size: 0.875rem;">Projects</a></li>
+          <li><a href="#case-studies" class="nav-link" style="font-weight: 500; font-size: 0.875rem;">Case Studies</a></li>
+          <li><a href="#dashboards" class="nav-link" style="font-weight: 500; font-size: 0.875rem;">Dashboards</a></li>
+          <li><a href="#analytics-lab" class="nav-link" style="font-weight: 500; font-size: 0.875rem;">Analytics Lab</a></li>
+          <li><a href="#contact" class="nav-link cta" style="font-weight: 500; font-size: 0.875rem; border: 1px solid var(--border-subtle); padding: 0.25rem 0.75rem; border-radius: 4px;">Contact</a></li>
         </ul>
       </nav>
       
-      <!-- Mobile Menu Button (Functionality omitted for brevity, fallback visible) -->
-      <a href="#dashboards" class="btn btn-primary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">View Dashboards</a>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Toggle Menu" style="background: none; border: none; color: var(--white-text); cursor: pointer; z-index: 101; display: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
 
     </div>
   </div>
 </header>
 
-<style>
-  /* Quick inline patch for mobile nav layout since we removed custom classes */
-  @media(min-width: 768px) { nav { display: block !important; } .btn-primary { display: none !important; } }
-</style>
+<script>
+  // Simple script for mobile nav toggle
+  (function() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const nav = document.getElementById('main-nav');
+    if(btn && nav) {
+      btn.addEventListener('click', () => {
+        nav.classList.toggle('nav-open');
+      });
+      // Close nav when clicking a link
+      nav.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('nav-open');
+        });
+      });
+    }
+  })();
+</script>
