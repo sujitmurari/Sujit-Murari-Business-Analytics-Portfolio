@@ -12,150 +12,21 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 
-  <header>
-    <div class="container nav-inner">
-      <div class="logo">
-        <a href="#hero" style="font-weight: 700; font-size: 1.2rem; letter-spacing: 0.1em;">SUJIT<span class="text-grey">:</span>MURARI</a>
-      </div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#hero" class="active">Overview</a></li>
-          <li><a href="#projects">Case Summaries</a></li>
-          <li><a href="#dashboards">Dashboards</a></li>
-          <li><a href="#tools">Toolkit</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Injected Navbar -->
+  <div id="navbar-container"></div>
 
-  <main>
-    <!-- HERO SECTION -->
-    <section id="hero" style="padding-top: 10rem;">
-      <div class="container grid-2">
-        <div class="hero-left">
-          <h1 class="mb-2" style="font-size: 3rem;">Driving Revenue & Decisions Through <span class="text-blue">Data Analytics</span></h1>
-          <p class="text-grey mb-4" style="font-size: 1.2rem;">Specializing in Time-Series Forecasting, Pricing Optimization, and Interactive Dashboards for high-growth enterprises.</p>
-          
-          <div class="kpi-row mb-4" style="display: flex; gap: 2rem;">
-            <div>
-              <div style="font-size: 1.5rem; font-weight: 700;">2.4M+</div>
-              <div class="text-small text-grey">Records Analyzed</div>
-            </div>
-            <div>
-              <div style="font-size: 1.5rem; font-weight: 700;">10+</div>
-              <div class="text-small text-grey">Dashboards Built</div>
-            </div>
-            <div>
-              <div style="font-size: 1.5rem; font-weight: 700;">3</div>
-              <div class="text-small text-grey">Business Domains</div>
-            </div>
-          </div>
-
-          <div>
-            <a href="#projects" class="btn-primary" style="margin-right: 1rem;">View Case Studies</a>
-            <a href="#dashboards" class="btn-secondary">Explore Dashboards</a>
-          </div>
-        </div>
-
-        <div class="hero-right">
-          <div class="insight-card">
-            <div class="text-small text-grey mb-1">FEATURED INSIGHT</div>
-            <h3 class="mb-2">Operational Analytics</h3>
-            <p class="mb-3 text-grey">Identified operational friction points in logistics data causing early vendor churn.</p>
-            <ul class="mb-4" style="list-style: none;">
-              <li class="mb-1">🔹 <strong>Correlation:</strong> 42% lower churn for tracked orders</li>
-              <li>🔹 <strong>Recommendation:</strong> Mandate real-time tracking</li>
-            </ul>
-            <a href="#projects" class="text-blue" style="font-weight: 600;">View Case Study →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS SECTION -->
-    <section id="projects" style="background: rgba(255,255,255,0.01);">
-      <div class="container">
-        <h2 class="mb-4" style="font-size: 2.5rem;">Executive Case Summaries</h2>
-        <div class="grid-2">
-          <div id="projects-container">
-            <!-- Dynamic project list -->
-          </div>
-          <div id="casestudy-section" style="position: sticky; top: 100px; height: fit-content;">
-            <div class="insight-card">
-              <h3 class="mb-3">Interactive Case Study</h3>
-              <p class="text-grey mb-3">Select a case study from the left to view detailed problem, data, and recommendations.</p>
-              <div id="casestudy-container">
-                <!-- Dynamic tabs -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- DASHBOARDS SECTION -->
-    <section id="dashboards">
-      <div class="container">
-        <h2 class="mb-4" style="font-size: 2.5rem;">Interactive Business Dashboards</h2>
-        <div id="dashboard-switcher" class="dashboard-switcher">
-          <!-- Dynamic Buttons -->
-        </div>
-        
-        <div class="grid-2" style="align-items: start;">
-          <div id="dashboard-context" class="insight-card">
-            <!-- Dynamic context -->
-          </div>
-          <div>
-            <iframe id="dashboard-frame" class="dashboard-frame"></iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOOLS SECTION -->
-    <section id="tools" style="background: rgba(255,255,255,0.01);">
-      <div class="container">
-        <h2 class="mb-4" style="font-size: 2.5rem;">Tools for Business Decision Support</h2>
-        <div class="grid-3">
-          <div class="insight-card">
-            <div style="font-size: 2rem; margin-bottom: 1rem;">🗄️</div>
-            <h3 class="mb-2">Data Processing</h3>
-            <p class="text-grey mb-2">Extraction, transformation, and load for massive datasets.</p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">SQL</span>
-              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Excel / VBA</span>
-            </div>
-          </div>
-          <div class="insight-card">
-            <div style="font-size: 2rem; margin-bottom: 1rem;">🐍</div>
-            <h3 class="mb-2">Analysis</h3>
-            <p class="text-grey mb-2">Statistical testing, predictive modeling, and EDA.</p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Python</span>
-              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Pandas / NumPy</span>
-            </div>
-          </div>
-          <div class="insight-card">
-            <div style="font-size: 2rem; margin-bottom: 1rem;">📊</div>
-            <h3 class="mb-2">Visualization</h3>
-            <p class="text-grey mb-2">Executive KPI reporting and story-driven views.</p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Tableau</span>
-              <span class="btn-secondary" style="padding: 0.3rem 0.6rem;">Power BI</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- SPA Router Outlet -->
+  <main id="app">
+    <!-- Fragments loaded here -->
   </main>
 
-  <footer style="text-align: center; padding: 2rem; border-top: 1px solid rgba(148,163,184,0.1);">
-    <p class="text-small text-grey">© 2026 Sujit Murari | Decision Support Interface</p>
-  </footer>
+  <!-- Injected Footer -->
+  <div id="footer-container"></div>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

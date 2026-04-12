@@ -1,30 +1,26 @@
-// data/caseStudies.js
-export const caseStudiesData = {
-  "zomato": {
+export const caseStudies = [
+  {
+    id: "airline-pricing",
+    title: "Aviation Dynamic Pricing Model",
     tabs: {
-      problem: "Zomato was losing mid-tier restaurant partners within their first 6 months. We needed to understand what behaviors or operational friction points drove this churn.",
-      data: "The dataset consisted of 2.4M order records from 1.2K partners over a two-year period, covering delivery times, defect rates, customer ratings, and platform login frequency.",
-      analysis: "Applied Logistic Regression to model churn likelihood. Used Feature Importance to rank variables. High variability in order preparation time emerged as a significant predictor.",
-      insights: "Partners with an average prep-time variance > 12 minutes had a 3x higher probability of leaving the platform. Additionally, enabling real-time GPS tracking reduced order cancellations, improving partner retention by 42%.",
-      recommendation: "Introduce an automated alert system for highly variable prep times to offer operational coaching, and mandate GPS tracking features to boost confidence and reduce cancellations."
+      problem: "The airline was suffering from diluted margins due to aggressive, static discounting rules applied blanketly across all routes during peak seasons. They needed a more dynamic approach that segmented customers by price elasticity.",
+      data: "Utilized a 3-year historical dataset comprising 2.4 million PNR (Passenger Name Record) entries, merged with competitor API pricing and macro-economic factors.",
+      analysis: "Developed a Price Elasticity Model using Python (Pandas/Scikit-Learn). Applied ARIMA for time-series forecasting to predict peak demand windows.",
+      insights: "The segmentation model revealed a critical anomaly: corporate travelers booking within 48 hours of flight departure were receiving an automatic 15% system discount despite exhibiting near-zero price sensitivity.",
+      recommendation: "Implement dynamic pricing floors for short-window bookings on designated corporate routes. Remove standard discount codes within the 48-hour window.",
+      impact: "Decision: Rolled out dynamic floor pricing.\nImpact: Improved margins by 8% on business routes, directly recapturing $1.2M in annual revenue."
     }
   },
-  "airline": {
+  {
+    id: "vendor-logistics",
+    title: "Vendor Onboarding & Logistics",
     tabs: {
-      problem: "The carrier experienced significant revenue leakage during off-peak scheduling, failing to dynamically match competitor discounting.",
-      data: "450K historical flight booking records, blended with API competitor pricing metrics over an 18-month period.",
-      analysis: "Developed a Time Series Forecasting model integrated with a Price Elasticity matrix to understand demand thresholds at T-14 and T-7 days to departure.",
-      insights: "Booking volume proved extremely elastic at the 14-day mark, dropping by 18% when fare premiums went above 5% compared to the daily median.",
-      recommendation: "Deploy an algorithmic pacing cap at 4.5% maximum premium 14 days prior to departure, ensuring competitive parity and avoiding immediate volume drop-off."
-    }
-  },
-  "retail": {
-    tabs: {
-      problem: "Marketing spend was misaligned, applying uniform 10% discount campaigns to the entire loyalty base regardless of historical value.",
-      data: "85,000 distinct customer profiles containing 3 years of transaction history, mapped to demographic clusters and seasonal purchasing habits.",
-      analysis: "Conducted RFM (Recency, Frequency, Monetary) analysis followed by K-Means Clustering to identify distinct behavioral segments.",
-      insights: "The top 15% of frequent buyers ('Champions') commanded 65% of total revenue. However, 'At-Risk' mid-tier buyers showed the highest ROI when stimulated with targeted discounting.",
-      recommendation: "Reallocate blanket promotional budgets: remove discounts for 'Champions' (who purchase regardless of price) and hyper-target the 'At-Risk' segment with aggressive limited-time offers."
+      problem: "The platform experienced high early vendor churn. Anecdotal feedback suggested operational friction, but management lacked quantitative evidence to prioritize technical fixes.",
+      data: "Analyzed 500,000 delivery logs, vendor onboarding timestamps, and compliance event streams over a 12-month period.",
+      analysis: "Used SQL for data extraction and transformation. Conducted cohort analysis to map vendor lifecycle and identified drop-off points.",
+      insights: "Correlation analysis showed that vendors utilizing untracked/manual delivery ledgers experienced a 42% higher churn rate within their first 30 days compared to API-integrated vendors.",
+      recommendation: "Stop allowing manual ledger entries for high-volume vendors. Overhaul the onboarding flow to mandate real-time tracking API integration.",
+      impact: "Decision: Mandated tracking API integration for new vendors and built an automated support flow.\nImpact: Reduced 30-day vendor churn by 25%."
     }
   }
-};
+];

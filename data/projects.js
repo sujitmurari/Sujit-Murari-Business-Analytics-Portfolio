@@ -1,33 +1,24 @@
-// data/projects.js
-export const projectsData = [
-  {
-    id: "zomato-growth",
-    title: "Zomato Growth Analysis",
-    businessProblem: "Identifying core drivers for restaurant retention and predicting churn factors.",
-    datasetContext: "2.4M transactions across 1.2K restaurant partners.",
-    analyticalMethod: "Logistic Regression & Market Basket Analysis",
-    keyInsight: "Restaurants enabling order tracking experienced 42% lower churn.",
-    businessRecommendation: "Mandate real-time tracking integration for premium positioning to reduce 3-month churn.",
-    caseStudyId: "zomato"
-  },
+export const projects = [
   {
     id: "airline-pricing",
     title: "Dynamic Pricing Optimization",
-    businessProblem: "Revenue leakage during off-peak flight bookings.",
-    datasetContext: "450K historical flight booking records and competitive pricing data.",
-    analyticalMethod: "Time Series Forecasting and Elasticity Modeling",
-    keyInsight: "Booking volumes were highly elastic at the 14-day mark, dropping significantly when prices increased > 5%.",
-    businessRecommendation: "Implement an algorithmic pacing model capped at 4.5% premium 14 days out.",
-    caseStudyId: "airline"
+    domain: "Aviation & Airline",
+    problem: "Excessive discounting during peak seasons leading to diluted margins.",
+    data: "3 Years of booking data, 2.4M records, competitor pricing APIs.",
+    method: "Price Elasticity Modeling & Time-Series Forecasting (ARIMA).",
+    insight: "Found that last-minute corporate travelers had near-zero price sensitivity, but were given 15% discounts.",
+    decision: "Eliminated automatic discounts for bookings within 48 hours of departure.",
+    impact: "Recaptured $1.2M in annual revenue margin."
   },
   {
-    id: "customer-segmentation",
-    title: "Retail Customer Segmentation",
-    businessProblem: "Inefficient ad-spend on generic retention campaigns.",
-    datasetContext: "Purchase history of 85,000 loyalty program members.",
-    analyticalMethod: "K-Means Clustering & RFM Analysis",
-    keyInsight: "Top 15% of customers drive 65% of revenue but receive the same automated discounting as low-value shoppers.",
-    businessRecommendation: "Shift promotional budget exclusively to at-risk 'Champions' to maximize ROI.",
-    caseStudyId: "retail"
+    id: "vendor-logistics",
+    title: "Logistics Optimization",
+    domain: "Supply Chain",
+    problem: "High early vendor churn due to operational bottlenecks.",
+    data: "Vendor performance logs, 500K deliveries, compliance reports.",
+    method: "Correlation Analysis & Process Mining.",
+    insight: "Vendors with untracked deliveries experienced 42% higher churn within the first 30 days.",
+    decision: "Mandate real-time tracking integration for all new vendors.",
+    impact: "Reduced early vendor churn by 25% over 6 months."
   }
 ];

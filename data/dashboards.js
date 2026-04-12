@@ -1,24 +1,16 @@
-// data/dashboards.js
-export const dashboardsData = [
+export const dashboards = [
   {
-    id: "sales-executive",
-    title: "Executive Revenue KPI Dashboard",
-    businessUseCase: "Daily monitoring of regional sales performance and variance analysis.",
-    keyInsightSummary: "Highlighted a consistent Q3 dip in the EMEA region due to localized currency fluctuations.",
-    iframeUrl: "about:blank" // Replace with real Tableau URL
+    id: "revenue-kpi",
+    title: "Executive Revenue KPI",
+    useCase: "Daily tracking of top-line metrics for the C-Suite.",
+    insight: "Identifies margin leakage in real-time across 5 core regions.",
+    embedUrl: "https://public.tableau.com/views/SuperstoreSales_16886985012580/Overview?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true"
   },
   {
-    id: "customer-health",
-    title: "Customer Health Scoring",
-    businessUseCase: "Identify accounts at risk of churn before the renewal phase.",
-    keyInsightSummary: "Usage drops exceeding 20% week-over-week correlate strongly with 60-day churn.",
-    iframeUrl: "about:blank"
-  },
-  {
-    id: "supply-chain",
-    title: "Supply Chain Logistics",
-    businessUseCase: "Track vendor fulfillment delays across major transit hubs.",
-    keyInsightSummary: "Vendor delays increase by 15% during port congestion in Q4, enabling early stock orders.",
-    iframeUrl: "about:blank"
+    id: "churn-monitor",
+    title: "Vendor Churn Monitor",
+    useCase: "Operational tracking for Partner Success Managers.",
+    insight: "Flags high-risk vendors 14 days prior to expected churn window.",
+    embedUrl: "https://public.tableau.com/views/HRAnalyticsDashboard_16886985012580/HRDashboard?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true"
   }
 ];

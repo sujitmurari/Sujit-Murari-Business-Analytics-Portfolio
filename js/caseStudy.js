@@ -1,75 +1,74 @@
-import { projectsData } from '../data/projects.js';
-import { caseStudiesData } from '../data/caseStudies.js';
-
-export function renderProjects() {
-  const container = document.getElementById('projects-container');
-  if (!container) return;
-
-  projectsData.forEach(project => {
-    const card = document.createElement('div');
-    card.className = 'insight-card mb-4';
-    card.innerHTML = `
-      <h3 class="mb-2">${project.title}</h3>
-      <div class="mb-2"><strong class="text-blue">Problem:</strong> ${project.businessProblem}</div>
-      <div class="mb-2"><strong class="text-grey">Context:</strong> ${project.datasetContext}</div>
-      <div class="mb-2"><strong class="text-grey">Method:</strong> ${project.analyticalMethod}</div>
-      <div class="mb-2"><strong>Key Insight:</strong> ${project.keyInsight}</div>
-      <div class="mb-3"><strong>Recommendation:</strong> ${project.businessRecommendation}</div>
-      <button class="btn-primary view-case" data-id="${project.caseStudyId}">View Interactive Case Study →</button>
-    `;
-    container.appendChild(card);
-  });
-}
+import { caseStudies } from '../data/caseStudies.js';
 
 export function initCaseStudies() {
-  const container = document.getElementById('casestudy-container');
-  if (!container) return;
-
-  // Listen for clicks on "View Interactive Case Study"
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('view-case')) {
-      const id = e.target.getAttribute('data-id');
-      renderCaseStudyView(id);
-      
-      // Scroll to case study container
-      window.scrollTo({
-        top: document.getElementById('casestudy-section').offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  });
-}
-
-function renderCaseStudyView(id) {
-  const container = document.getElementById('casestudy-container');
-  const data = caseStudiesData[id];
-  if (!data) return;
-
-  const tabs = data.tabs;
+  const switcher = document.getElementById('casestudy-switcher');
+  const viewTitle = document.getElementById('cs-title');
+  const contentArea = document.getElementById('cs-content-area');
+  const tabsNav = document.getElementById('cs-tabs-nav');
   
-  let headerHtml = `<div class="tabs-header">`;
-  let contentHtml = `<div class="tabs-body">`;
+  if (!switcher || !caseStudies.length) return;
 
-  Object.keys(tabs).forEach((key, index) => {
-    headerHtml += `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-target="tab-${key}">${key.charAt(0).toUpperCase() + key.slice(1)}</button>`;
-    contentHtml += `<div class="tab-content ${index === 0 ? 'active' : ''}" id="tab-${key}">
-      <p>${tabs[key]}</p>
-    </div>`;
-  });
+  let activeCS = caseStudies[0];
+  let activeTab = 'problem';
 
-  headerHtml += `</div>`;
-  contentHtml += `</div>`;
+  const renderContent = () => {
+    let contentHtml = '';
+    const val = activeCS.tabs[activeTab];
+    
+    if (activeTab === 'impact') {
+      contentHtml = `
+        <div class="impact-box" style="margin-top:0;">
+          <h4>Business Decision & Expected Impact</h4>
+          <p class="text-grey" style="white-space: pre-line;">${val}</p>
+        </div>
+      `;
+    } else {
+      contentHtml = `<p class="text-grey" style="white-space: pre-line;">${val}</p>`;
+    }
+    contentArea.innerHTML = contentHtml;
+  };
 
-  container.innerHTML = headerHtml + contentHtml;
+  const selectCS = (id) => {
+    activeCS = caseStudies.find(c => c.id === id);
+    viewTitle.textContent = activeCS.title;
+    
+    Array.from(switcher.children).forEach(btn => {
+      if (btn.dataset.id === id) {
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-secondary');
+      } else {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-secondary');
+      }
+    });
 
-  // Add listeners
-  container.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      container.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.target).classList.add('active');
+    renderContent();
+  };
+
+  // Build switcher buttons
+  switcher.innerHTML = caseStudies.map(cs => `
+    <button class="btn-secondary" style="text-align: left;" data-id="${cs.id}">${cs.title}</button>
+  `).join('');
+
+  // Init switcher listeners
+  Array.from(switcher.children).forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      selectCS(e.target.dataset.id);
     });
   });
+
+  // Init Tab Listeners
+  tabsNav.addEventListener('click', (e) => {
+    if(e.target.tagName !== 'BUTTON') return;
+    
+    // Reset active
+    Array.from(tabsNav.children).forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    
+    activeTab = e.target.dataset.tab;
+    renderContent();
+  });
+
+  // Initial select
+  selectCS(activeCS.id);
 }
