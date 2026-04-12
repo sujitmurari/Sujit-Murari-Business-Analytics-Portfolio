@@ -1,34 +1,28 @@
-<section id="case-studies">
-  <div class="container grid-2">
-    <div>
-      <h2 class="mb-3" style="font-size: 2.5rem;">Interactive Case Studies</h2>
-      <p class="text-grey mb-4">Select a case study to evaluate the approach from data ingestion to actual business impact.</p>
-      
-      <div id="casestudy-switcher" style="display: flex; flex-direction: column; gap: 1rem;">
-        <!-- Switcher buttons loaded by JS -->
+<section class="page-section fade-in">
+  <div class="container grid grid-cols-3">
+    
+    <!-- Left Navigation Sidebar -->
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Deep Dives</h2>
+      <div id="cs-nav" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <!-- Injected by caseStudy.js -->
       </div>
     </div>
 
-    <div>
-      <div class="insight-card" id="casestudy-view">
-        <h3 id="cs-title" class="mb-3">Select a Case Study</h3>
-        
-        <div class="tabs-container">
-          <div class="tabs-nav" id="cs-tabs-nav">
-            <button class="tab-btn active" data-tab="problem">Problem</button>
-            <button class="tab-btn" data-tab="data">Data</button>
-            <button class="tab-btn" data-tab="analysis">Analysis</button>
-            <button class="tab-btn" data-tab="insights">Insights</button>
-            <button class="tab-btn" data-tab="recommendation">Recs</button>
-            <button class="tab-btn" data-tab="impact">Impact</button>
-          </div>
-          
-          <div id="cs-content-area" class="text-grey" style="min-height: 150px;">
-            <!-- Content loaded here -->
-            <p>Please select a case study from the left menu.</p>
-          </div>
-        </div>
+    <!-- Right Content Area -->
+    <div style="grid-column: span 2;" class="card">
+      <h2 id="cs-title">Select a Case Study</h2>
+      
+      <!-- Tab Buttons -->
+      <div class="tabs-header" id="cs-tabs-header" style="margin-top: 1.5rem;">
+        <!-- Injected by caseStudy.js -->
+      </div>
+      
+      <!-- Tab Content Area -->
+      <div id="cs-content-area" style="min-height: 300px;">
+        <p class="text-grey">Please select a case study from the left to view the analysis process and business impact.</p>
       </div>
     </div>
+
   </div>
 </section>

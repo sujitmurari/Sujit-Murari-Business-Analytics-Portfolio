@@ -1,0 +1,16 @@
+member_id,age,gender,membership_type,visit_time,duration_mins,zone,churn_risk
+M-001,28,M,Premium,18:30,65,Weights,Low
+M-002,34,F,Standard,17:45,45,Cardio,High
+M-003,45,M,Standard,06:00,50,Mixed,Low
+M-004,22,M,Student,19:15,90,Weights,Medium
+M-005,52,F,Premium,08:30,60,Classes,Low
+M-006,29,F,Standard,18:00,40,Cardio,High
+M-007,31,M,Premium,17:30,75,Weights,Medium
+M-008,38,F,Standard,07:15,55,Pool,Low
+M-009,41,M,Standard,18:45,35,Cardio,High
+M-010,25,F,Student,16:00,80,Classes,Low
+M-011,36,M,Premium,05:30,65,Weights,Low
+M-012,27,F,Standard,17:15,45,Cardio,High
+M-013,44,M,Standard,19:00,50,Mixed,Medium
+M-014,33,F,Premium,12:30,60,Weights,Low
+M-015,24,M,Student,18:15,55,Cardio,High

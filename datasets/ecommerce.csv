@@ -1,0 +1,16 @@
+order_id,user_id,category,original_price,discount_pct,final_price,margin_pct,status
+ORD-101,U-5432,Electronics,899,15,764,8,Completed
+ORD-102,U-1123,Fashion,120,25,90,30,Completed
+ORD-103,U-8874,Home Goods,340,10,306,22,Refunded
+ORD-104,U-2231,Electronics,1200,20,960,3,Completed
+ORD-105,U-9908,Fashion,85,30,59,25,Completed
+ORD-106,U-4456,Beauty,45,5,42,40,Completed
+ORD-107,U-7765,Electronics,450,12,396,12,Completed
+ORD-108,U-3412,Fashion,150,15,127,33,Completed
+ORD-109,U-6654,Sports,210,20,168,18,Completed
+ORD-110,U-1198,Electronics,1800,25,1350,-2,Refunded
+ORD-111,U-5543,Beauty,65,10,58,35,Completed
+ORD-112,U-8821,Home Goods,480,15,408,19,Completed
+ORD-113,U-2290,Fashion,220,40,132,15,Completed
+ORD-114,U-4411,Electronics,320,5,304,18,Completed
+ORD-115,U-9933,Sports,110,10,99,25,Completed

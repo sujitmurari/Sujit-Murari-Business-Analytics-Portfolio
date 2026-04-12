@@ -1,22 +1,40 @@
-<section id="dashboards-view">
-  <div class="container">
-    <h2 class="mb-4" style="font-size: 2.5rem;">Interactive Business Dashboards</h2>
+<section class="page-section fade-in">
+  <div class="container dashboard-container">
     
-    <div class="dashboard-switcher" id="dash-switcher">
-      <!-- Buttons populated here -->
-    </div>
-    
-    <div class="grid-2" style="align-items: start;">
-      <div class="dashboard-context insight-card">
-        <h3 id="dash-title" class="mb-2">Select a Dashboard</h3>
-        <p class="text-grey mb-1"><strong>Use Case:</strong> <span id="dash-usecase">...</span></p>
-        <p class="text-grey"><strong>Key Insight:</strong> <span id="dash-insight">...</span></p>
-      </div>
-      <div>
-        <div class="dashboard-frame-container" id="dash-frame-container">
-          <iframe id="dash-iframe" class="dashboard-frame" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
+    <div class="dashboard-header">
+      <h2 style="font-size: 2.5rem;">Interactive Business Dashboards</h2>
+      <p class="text-grey mb-3">Live decision-support interfaces built in Tableau. Select a dashboard below to interact.</p>
+      
+      <!-- Dashboard Selector Buttons -->
+      <div id="dashboard-nav" class="dashboard-selector">
+        <!-- Injected via JS -->
       </div>
     </div>
+    
+    <!-- Meta Info Ribbon -->
+    <div id="dashboard-metadata" class="dashboard-meta">
+      <div class="meta-item">
+        <h4>Key Insight</h4>
+        <p id="meta-insight" class="text-white">Loading...</p>
+      </div>
+      <div class="meta-item">
+        <h4>Business Use Case</h4>
+        <p id="meta-usecase" class="text-white">Loading...</p>
+      </div>
+      <div class="meta-item decision">
+        <h4>Executive Decision</h4>
+        <p id="meta-decision">Loading...</p>
+      </div>
+    </div>
+
+    <!-- The actual iframe -->
+    <div class="iframe-container" style="position: relative;">
+      <!-- Subtle internal loader -->
+      <div id="iframe-loader" style="position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index: 1;">
+         <div class="spinner"></div>
+      </div>
+      <iframe id="tableau-frame" src="" style="position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s ease;"></iframe>
+    </div>
+
   </div>
 </section>

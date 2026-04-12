@@ -1,30 +1,43 @@
-<section id="analytics-lab">
-  <div class="container">
-    <h2 class="mb-2" style="font-size: 2.5rem;">Analytics Lab</h2>
-    <p class="text-grey mb-4">A simplified view into the dataset exploration phase. Filter the dummy logistics dataset below.</p>
+<section class="page-section fade-in">
+  <div class="container grid grid-cols-3">
     
-    <div class="insight-card">
-      <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-        <input type="text" id="lab-search" placeholder="Search Status..." style="padding: 0.5rem; border-radius: 4px; border: 1px solid rgba(148,163,184,0.3); background: rgba(255,255,255,0.05); color: white; width: 250px;">
-        <button id="lab-filter-btn" class="btn-primary" style="padding: 0.5rem 1rem;">Filter</button>
+    <!-- Sidebar -->
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Analytics Lab</h2>
+      <p class="text-grey text-small mb-2">Raw dataset previews used in the portfolio case studies.</p>
+      
+      <div id="lab-nav" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <button class="btn btn-secondary dataset-btn active" data-file="flights.csv" style="justify-content: flex-start; text-align: left; border-color: var(--prof-blue);">Aviation Pricing</button>
+        <button class="btn btn-secondary dataset-btn" data-file="ecommerce.csv" style="justify-content: flex-start; text-align: left;">E-Commerce Sales</button>
+        <button class="btn btn-secondary dataset-btn" data-file="gym-performance.csv" style="justify-content: flex-start; text-align: left;">Gym Performance</button>
+        <button class="btn btn-secondary dataset-btn" data-file="ai-productivity.csv" style="justify-content: flex-start; text-align: left;">AI Productivity</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div style="grid-column: span 2;" class="card">
+      <div class="flex justify-between items-center mb-3">
+        <h3 id="dataset-title">Dataset Preview</h3>
+        <div class="badge">Top 20 Rows</div>
       </div>
       
-      <div style="overflow-x: auto;">
-        <table class="data-table" id="lab-table">
+      <div class="form-group mb-3" style="max-width: 300px;">
+        <input type="text" id="dataset-filter" class="form-control" placeholder="Filter rows...">
+      </div>
+      
+      <div class="data-table-wrapper">
+        <table class="data-table" id="dataset-table">
           <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Vendor Type</th>
-              <th>Delivery Time (mins)</th>
-              <th>Status</th>
-              <th>Is Tracked</th>
+            <tr id="table-head">
+              <!-- Injected by JS -->
             </tr>
           </thead>
-          <tbody id="lab-table-body">
-            <!-- Simulated rows via JS -->
+          <tbody id="table-body">
+            <!-- Injected by JS -->
           </tbody>
         </table>
       </div>
     </div>
+
   </div>
 </section>

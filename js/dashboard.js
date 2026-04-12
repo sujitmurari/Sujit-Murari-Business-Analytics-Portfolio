@@ -1,47 +1,51 @@
 import { dashboards } from '../data/dashboards.js';
 
 export function initDashboards() {
-  const switcher = document.getElementById('dash-switcher');
-  const dashTitle = document.getElementById('dash-title');
-  const dashUsecase = document.getElementById('dash-usecase');
-  const dashInsight = document.getElementById('dash-insight');
-  const iframe = document.getElementById('dash-iframe');
-
-  if (!switcher || !dashboards.length) return;
-
-  const selectDash = (id) => {
-    const dash = dashboards.find(d => d.id === id);
-    dashTitle.textContent = dash.title;
-    dashUsecase.textContent = dash.useCase;
-    dashInsight.textContent = dash.insight;
-    
-    // Prevent reloading if same
-    if (iframe.src !== dash.embedUrl) {
-      iframe.src = dash.embedUrl;
-    }
-
-    // Toggle active state
-    Array.from(switcher.children).forEach(btn => {
-      if (btn.dataset.id === id) {
-        btn.classList.add('btn-primary');
-        btn.classList.remove('btn-secondary');
-      } else {
-        btn.classList.remove('btn-primary');
-        btn.classList.add('btn-secondary');
-      }
-    });
-  };
-
-  // Build Switcher
-  switcher.innerHTML = dashboards.map(d => `
-    <button class="btn-secondary" data-id="${d.id}">${d.title}</button>
+  const navContainer = document.getElementById('dashboard-nav');
+  if (!navContainer) return;
+  
+  // Render Links
+  navContainer.innerHTML = dashboards.map(db => `
+    <button class="dashboard-btn ${db.id === dashboards[0].id ? 'active' : ''}" data-id="${db.id}">
+      ${db.title}
+    </button>
   `).join('');
 
-  // Switcher listeners
-  Array.from(switcher.children).forEach(btn => {
-    btn.addEventListener('click', (e) => selectDash(e.target.dataset.id));
+  // Attach Event Listeners
+  document.querySelectorAll('.dashboard-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.dashboard-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      loadDashboard(e.target.getAttribute('data-id'));
+    });
   });
 
-  // Initial load
-  selectDash(dashboards[0].id);
+  // Load Initial
+  if (dashboards.length > 0) {
+    loadDashboard(dashboards[0].id);
+  }
+}
+
+function loadDashboard(id) {
+  const db = dashboards.find(d => d.id === id);
+  if (!db) return;
+
+  // Update Metadata
+  document.getElementById('meta-insight').innerText = db.insight;
+  document.getElementById('meta-usecase').innerText = db.useCase;
+  document.getElementById('meta-decision').innerText = db.decision;
+
+  // Update iFrame
+  const iframe = document.getElementById('tableau-frame');
+  const loader = document.getElementById('iframe-loader');
+  
+  iframe.style.opacity = '0';
+  loader.style.display = 'block';
+
+  iframe.onload = () => {
+    iframe.style.opacity = '1';
+    loader.style.display = 'none';
+  };
+  
+  iframe.src = db.url;
 }

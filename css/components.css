@@ -1,70 +1,139 @@
 /* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
 .btn-primary {
   background-color: var(--prof-blue);
   color: var(--white-text);
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  display: inline-block;
-  transition: opacity 0.2s;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  background-color: var(--prof-blue-hover);
+  color: var(--white-text);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
-  background-color: rgba(148, 163, 184, 0.1);
+  background-color: transparent;
   color: var(--white-text);
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  display: inline-block;
-  transition: background-color 0.2s;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--border-subtle);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(148, 163, 184, 0.2);
+  background-color: var(--card-bg);
+  border-color: var(--muted-grey);
 }
 
-/* Insight Cards (Replacing generic UI/glass) */
-.insight-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  padding: 2rem;
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  height: 100%;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease;
 }
 
-.insight-card h3 {
-  font-size: 1.25rem;
+.card:hover {
+  border-color: var(--prof-blue);
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
   margin-bottom: 0.5rem;
+  color: var(--muted-grey);
+  font-size: 0.875rem;
 }
 
-/* Tabs */
-.tabs-container {
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--navy-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--white-text);
+  font-family: var(--font-main);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--prof-blue);
+}
+
+/* KPI Box */
+.kpi-row {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.5rem 0;
+}
+
+.kpi-item {
   display: flex;
   flex-direction: column;
 }
 
-.tabs-nav {
+.kpi-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--prof-blue);
+}
+
+.kpi-label {
+  font-size: 0.875rem;
+  color: var(--muted-grey);
+}
+
+/* Project Insight Target */
+.insight-highlight {
+  background-color: rgba(37, 99, 235, 0.1);
+  border-left: 4px solid var(--prof-blue);
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--border-subtle);
+  color: var(--white-text);
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Tabs UI for Case Studies */
+.tabs-header {
   display: flex;
   gap: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 2rem;
   overflow-x: auto;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-  padding-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 .tab-btn {
-  background: transparent;
+  background: none;
   color: var(--muted-grey);
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  white-space: nowrap;
-  font-size: 1rem;
+  padding: 1rem 0;
   border-bottom: 2px solid transparent;
+  font-weight: 600;
 }
 
 .tab-btn:hover {
@@ -76,42 +145,59 @@
   border-bottom-color: var(--prof-blue);
 }
 
-.tab-content {
+.tab-pane {
   display: none;
 }
 
-.tab-content.active {
+.tab-pane.active {
   display: block;
+  animation: fadeIn 0.3s ease;
 }
 
-/* Case Study Specific Components */
-.impact-box {
-  background: rgba(37, 99, 235, 0.1);
-  border-left: 4px solid var(--prof-blue);
-  padding: 1rem;
-  margin-top: 1.5rem;
+/* Data Tables */
+.data-table-wrapper {
+  overflow-x: auto;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
 }
 
-.impact-box h4 {
-  color: var(--prof-blue);
-  margin-bottom: 0.5rem;
-}
-
-/* Data Table (Analytics Lab) */
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  text-align: left;
 }
 
 .data-table th, .data-table td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .data-table th {
+  background-color: rgba(0,0,0,0.2);
   color: var(--muted-grey);
   font-weight: 600;
-  font-size: 0.875rem;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover td {
+  background-color: rgba(255,255,255,0.02);
+}
+
+/* Loader */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--prof-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

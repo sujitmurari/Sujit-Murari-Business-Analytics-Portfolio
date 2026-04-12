@@ -1,74 +1,69 @@
 import { caseStudies } from '../data/caseStudies.js';
 
+let activeCsId = null;
+
 export function initCaseStudies() {
-  const switcher = document.getElementById('casestudy-switcher');
-  const viewTitle = document.getElementById('cs-title');
-  const contentArea = document.getElementById('cs-content-area');
-  const tabsNav = document.getElementById('cs-tabs-nav');
+  const navContainer = document.getElementById('cs-nav');
+  if (!navContainer) return;
   
-  if (!switcher || !caseStudies.length) return;
-
-  let activeCS = caseStudies[0];
-  let activeTab = 'problem';
-
-  const renderContent = () => {
-    let contentHtml = '';
-    const val = activeCS.tabs[activeTab];
-    
-    if (activeTab === 'impact') {
-      contentHtml = `
-        <div class="impact-box" style="margin-top:0;">
-          <h4>Business Decision & Expected Impact</h4>
-          <p class="text-grey" style="white-space: pre-line;">${val}</p>
-        </div>
-      `;
-    } else {
-      contentHtml = `<p class="text-grey" style="white-space: pre-line;">${val}</p>`;
-    }
-    contentArea.innerHTML = contentHtml;
-  };
-
-  const selectCS = (id) => {
-    activeCS = caseStudies.find(c => c.id === id);
-    viewTitle.textContent = activeCS.title;
-    
-    Array.from(switcher.children).forEach(btn => {
-      if (btn.dataset.id === id) {
-        btn.classList.add('btn-primary');
-        btn.classList.remove('btn-secondary');
-      } else {
-        btn.classList.remove('btn-primary');
-        btn.classList.add('btn-secondary');
-      }
-    });
-
-    renderContent();
-  };
-
-  // Build switcher buttons
-  switcher.innerHTML = caseStudies.map(cs => `
-    <button class="btn-secondary" style="text-align: left;" data-id="${cs.id}">${cs.title}</button>
+  // Render Left Navigation
+  navContainer.innerHTML = caseStudies.map(cs => `
+    <button class="btn btn-secondary cs-selector ${cs.id === caseStudies[0].id ? 'active-cs' : ''}" 
+            style="justify-content: flex-start; text-align: left; border-color: ${cs.id === caseStudies[0].id ? 'var(--prof-blue)' : 'var(--border-subtle)'};" 
+            data-id="${cs.id}">
+      ${cs.title}
+    </button>
   `).join('');
 
-  // Init switcher listeners
-  Array.from(switcher.children).forEach(btn => {
+  // Attach Event Listeners
+  document.querySelectorAll('.cs-selector').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      selectCS(e.target.dataset.id);
+      // Highlight nav button
+      document.querySelectorAll('.cs-selector').forEach(b => b.style.borderColor = 'var(--border-subtle)');
+      e.target.style.borderColor = 'var(--prof-blue)';
+      loadCaseStudy(e.target.getAttribute('data-id'));
     });
   });
 
-  // Init Tab Listeners
-  tabsNav.addEventListener('click', (e) => {
-    if(e.target.tagName !== 'BUTTON') return;
-    
-    // Reset active
-    Array.from(tabsNav.children).forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
-    
-    activeTab = e.target.dataset.tab;
-    renderContent();
+  // Load initial
+  if (caseStudies.length > 0) {
+    loadCaseStudy(caseStudies[0].id);
+  }
+}
+
+function loadCaseStudy(id) {
+  activeCsId = id;
+  const cs = caseStudies.find(c => c.id === id);
+  if (!cs) return;
+
+  document.getElementById('cs-title').innerText = cs.title;
+  
+  const tabsHeader = document.getElementById('cs-tabs-header');
+  const contentArea = document.getElementById('cs-content-area');
+
+  // Render Tabs
+  tabsHeader.innerHTML = cs.tabs.map((t, index) => `
+    <button class="tab-btn ${index === 0 ? 'active' : ''}" data-index="${index}">${t.name}</button>
+  `).join('');
+
+  // Handle Tab Clicks
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const idx = e.target.getAttribute('data-index');
+      renderContent(cs.tabs[idx].content);
+    });
   });
 
-  // Initial select
-  selectCS(activeCS.id);
+  // Load initial tab content
+  renderContent(cs.tabs[0].content);
+}
+
+function renderContent(html) {
+  const contentArea = document.getElementById('cs-content-area');
+  contentArea.innerHTML = html;
+  // Small animation trigger
+  contentArea.style.opacity = '0';
+  setTimeout(() => contentArea.style.opacity = '1', 50);
 }

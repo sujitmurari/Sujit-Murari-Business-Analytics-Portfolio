@@ -1,0 +1,16 @@
+employee_id,department,tools_used,hours_saved_weekly,quality_score_diff,sentiment
+E-101,Engineering,Copilot,6.5,+12%,Positive
+E-102,Marketing,ChatGPT,8.0,+5%,Neutral
+E-103,Sales,Gong,4.5,+15%,Positive
+E-104,HR,None,0.0,0%,Neutral
+E-105,Engineering,Copilot,7.2,+18%,Positive
+E-106,Finance,Excel AI,3.5,+2%,Neutral
+E-107,Marketing,Midjourney,12.0,+8%,Positive
+E-108,Support,Zendesk AI,9.5,+22%,Positive
+E-109,Engineering,None,0.0,-5%,Negative
+E-110,Sales,Gong,5.0,+10%,Positive
+E-111,Support,Zendesk AI,8.0,+18%,Neutral
+E-112,HR,ChatGPT,4.0,+5%,Positive
+E-113,Finance,None,0.0,0%,Neutral
+E-114,Marketing,ChatGPT,7.5,+10%,Positive
+E-115,Engineering,Copilot,5.5,+8%,Neutral
